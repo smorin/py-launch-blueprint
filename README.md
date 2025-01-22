@@ -1,4 +1,4 @@
-# Py Project Search CLI Tool
+# Py Launch Blueprint Pythong Project Starter
 
 A python project template with a skeleton command-line interface used to be a starter python template. Looking to integrate with 
 
@@ -23,14 +23,14 @@ OR
 ### From PyPI
 
 ```bash
-pip install py-utils
+pip install py-launch-blueprint
 ```
 
 ### From Source
 
 ```bash
-git clone https://github.com/smorin/py-utils.git
-cd py-utils
+git clone https://github.com/smorin/py-launch-blueprint.git
+cd py-launch-blueprint
 pip install -e ".[dev]"  # Install with development dependencies
 ```
 
@@ -48,23 +48,23 @@ The tool supports multiple ways to provide your Py Personal Access Token (PAT), 
 
 1. Command-line argument: `--token`
 2. Environment variable: `PY_TOKEN`
-3. Configuration file: `~/.config/py-cli/.env`
+3. Configuration file: `~/.config/py-launch-blueprint/.env`
 
 ### Setting Up Configuration File
 
 1. Create the config directory:
 ```bash
-mkdir -p ~/.config/py-cli
+mkdir -p ~/.config/py-launch-blueprint
 ```
 
 2. Create `.env` file:
 ```bash
-echo "PY_TOKEN=your_token_here" > ~/.config/py-cli/.env
+echo "PY_TOKEN=your_token_here" > ~/.config/py-launch-blueprint/.env
 ```
 
 3. Set proper permissions:
 ```bash
-chmod 600 ~/.config/py-cli/.env
+chmod 600 ~/.config/py-launch-blueprint/.env
 ```
 
 ## Usage
