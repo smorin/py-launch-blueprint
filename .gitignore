@@ -7,6 +7,7 @@ wheels/
 *.egg-info
 .ropeproject
 uv.lock # remove if you want to pin versions.
+.coverage
 
 # Caches
 .mypy_cache
