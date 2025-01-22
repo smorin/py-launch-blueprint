@@ -2,6 +2,12 @@
 
 A python project template with a skeleton command-line interface used to be a starter python template. Looking to integrate with 
 
+Will use either
+- https://copier.readthedocs.io/en/latest/
+OR
+- https://github.com/cruft/cruft
+- https://github.com/cookiecutter/cookiecutter
+
 ## Features
 
 - 🔍 Fuzzy search for project names
