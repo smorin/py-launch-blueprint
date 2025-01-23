@@ -9,7 +9,7 @@
 
 ## Security Controls
 
-- Automated scanning with GitHub CodeQL 
+- Automated scanning with GitHub CodeQL
 - Dependabot alerts and updates
 - Protected main branch
 - Required code reviews

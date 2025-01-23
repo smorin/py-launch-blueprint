@@ -255,7 +255,7 @@ Python line length standards:
 - 120: Maximum reasonable length. Works on wide screens but can hurt readability.
 - Recommendation: Use 88 characters (Black's default) unless your team/project has an existing standard. It offers the best balance of readability and practicality while following modern community practices.
 
-## Ruff 
+## Ruff
 Ruff is a high-performance linter and code formatter for Python. It combines multiple tools into one, offering faster performance and comprehensive functionality compared to traditional Python tools.
 
 Pros:
@@ -275,7 +275,7 @@ Most teams today actually run both mypy and pyright/Pylance:
 - mypy in CI/pre-commit hooks for strict checking
 - Pylance in VS Code for real-time development feedback
 
-This combination provides comprehensive type checking coverage while maintaining a smooth development experience. 
+This combination provides comprehensive type checking coverage while maintaining a smooth development experience.
 
 Let me explain the difference between `disallow_untyped_defs = false` vs `true`:
 
@@ -347,10 +347,10 @@ T = TypeVar('T')
 class Stack(Generic[T]):
     def __init__(self) -> None:
         self.items: List[T] = []
-    
+
     def push(self, item: T) -> None:
         self.items.append(item)
-    
+
     def pop(self) -> T:
         return self.items.pop()
 

@@ -35,10 +35,10 @@ jobs:
 # Format code
     - name: Format code
       run: uvx black py_launch_blueprint/ --check
-    
+
     - name: Sort imports
       run: uvx isort py_launch_blueprint/ --check
-    
+
     - name: Run type checker
       run: uvx mypy py_launch_blueprint/
 
@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Run Safety CLI to check for vulnerabilities
       uses: pyupio/safety-action@v1
       with:
@@ -69,7 +69,7 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #   - uses: actions/checkout@v4
-    
+
   #   - name: Build and publish to PyPI
   #     env:
   #       TWINE_USERNAME: __token__
