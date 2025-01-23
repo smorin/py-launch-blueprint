@@ -37,7 +37,7 @@ py-utils/
 ```
 
 # Example CLI Tool Usage
-(Example CLI:`py-projects`)[EXAMPLECLI.md]
+[Example CLI: py-projects](EXAMPLECLI.md)
 
 ## Development
 
