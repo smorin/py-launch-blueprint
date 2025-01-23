@@ -52,10 +52,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Safety Check
-      uses: pyupio/safety-db@master
+    - name: Run Safety CLI to check for vulnerabilities
+      uses: pyupio/safety-action@v1
       with:
-        args: --full-report
+        api-key: ${{ secrets.SAFETY_API_KEY }}
+        args: --detailed-output # To always see detailed output from this action
 
     - name: CodeQL Analysis
       uses: github/codeql-action/analyze@v3
