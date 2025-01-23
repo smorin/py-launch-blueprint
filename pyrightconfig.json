@@ -5,13 +5,13 @@
     "defineConstant": {
       "DEBUG": true
     },
-  
+
     // Type checking mode
     "typeCheckingMode": "strict",
-  
+
     // Python version
     "pythonVersion": "3.10",
-  
+
     // Analysis settings
     "useLibraryCodeForTypes": true,
     "reportMissingImports": true,
