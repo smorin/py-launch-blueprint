@@ -46,7 +46,7 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Safety Check
-      uses: pyupio/safety@master
+      uses: pyupio/safety-db@master
       with:
         args: --full-report
 
