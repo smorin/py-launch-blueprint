@@ -118,6 +118,8 @@ py-projects --version
 
 ### Setup Development Environment
 
+Project requires Python 3.13+ (which is also specified inside [.python-version](.python-version) file) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed.
+
 ```bash
 
 # Create and activate a virtual environment if needed
@@ -127,10 +129,11 @@ source .venv/bin/activate  # On Unix/macOS
 # Install the package in editable mode with development dependencies
 uv pip install --editable ".[dev]"
 
-py-projects
+# Check the installed package
+py-projects --version
 
 # (Optional) Setup Pre-Commit Hook
-uvx --with-editable .pre-commit install
+uvx --with-editable . pre-commit install
 
 # Run development tools directly (no need for 'uv pip run')
 pytest
@@ -248,6 +251,20 @@ Python line length standards:
 - 100: Google's choice. Popular in enterprise. Good for complex expressions.
 - 120: Maximum reasonable length. Works on wide screens but can hurt readability.
 - Recommendation: Use 88 characters (Black's default) unless your team/project has an existing standard. It offers the best balance of readability and practicality while following modern community practices.
+
+## Ruff 
+Ruff is a high-performance linter and code formatter for Python. It combines multiple tools into one, offering faster performance and comprehensive functionality compared to traditional Python tools.
+
+Pros:
+
+- Very Fast: Written in Rust, Ruff is significantly faster than traditional linters, allowing it to process large codebases quickly.
+- All-in-One Solution: Ruff incorporates checks and fixes from a variety of popular linters like Flake8, Black, isort, pydocstyle, pyupgrade, autoflake. This means less maintenance of multiple separate tools.
+- Customizable: Allows users to select and ignore specific checks or enforce particular rules according to the project needs.
+- Easy Integration: Works well with CI/CD pipelines, IDEs, and modern developer workflows.
+Automated Fixes: Ruff can automatically correct a wide range of issues in your code.
+
+Cons:
+- Relatively New: As a newer tool, it might not yet be as widely adopted or supported in some edge cases.
 
 ## mypy
 Most teams today actually run both mypy and pyright/Pylance:
