@@ -36,6 +36,9 @@ py-utils/
 └── README.md      # Documentation
 ```
 
+# Example CLI Tool Usage
+(Example CLI:`py-projects`)[EXAMPLECLI.md]
+
 ## Development
 
 ### Setup Development Environment
