@@ -160,7 +160,7 @@ uvx black py_launch_blueprint/
 uvx isort py_launch_blueprint/
 
 # Run type checker
-uvx mypy py_launch_blueprint/
+uvx  --with-editable . mypy py_launch_blueprint/
 
 # Run linter
 uvx ruff check py_launch_blueprint/
