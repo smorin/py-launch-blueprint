@@ -8,117 +8,42 @@ OR
 - https://github.com/cruft/cruft
 - https://github.com/cookiecutter/cookiecutter
 
-## Features
+## Contributing
 
-- 🔍 Fuzzy search for project names
-- 🏢 Filter by workspace
-- 📋 Multiple output formats (text, JSON, CSV)
-- 📎 Clipboard integration
-- 🎨 Rich terminal UI with color support
-- 🔐 Secure token handling
-- ⚡ Fast and efficient pagination
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## Installation
+## License
 
-### From PyPI
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-```bash
-pip install py-launch-blueprint
+# Project Structure
+
+The project uses a simple, maintainable structure:
+
+```
+py-utils/
+├── projects.py      # Main script with all functionality
+├── tests/          # Test files
+│   ├── __init__.py
+│   ├── test_api.py
+│   ├── test_config.py
+│   └── test_cli.py
+├── pyproject.toml  # Project and tool configuration
+└── README.md      # Documentation
 ```
 
-### From Source
-
-```bash
-git clone https://github.com/smorin/py-launch-blueprint.git
-cd py-launch-blueprint
-pip install -e ".[dev]"  # Install with development dependencies
-```
-
-### Direct Usage
-
-You can also run the script directly:
-
-```bash
-python projects.py --help
-```
-
-## Configuration
-
-The tool supports multiple ways to provide your Py Personal Access Token (PAT), in order of precedence:
-
-1. Command-line argument: `--token`
-2. Environment variable: `PY_TOKEN`
-3. Configuration file: `~/.config/py-launch-blueprint/.env`
-
-### Setting Up Configuration File
-
-1. Create the config directory:
-```bash
-mkdir -p ~/.config/py-launch-blueprint
-```
-
-2. Create `.env` file:
-```bash
-echo "PY_TOKEN=your_token_here" > ~/.config/py-launch-blueprint/.env
-```
-
-3. Set proper permissions:
-```bash
-chmod 600 ~/.config/py-launch-blueprint/.env
-```
-
-## Usage
-
-### Basic Usage
-
-```bash
-# Search for projects
-py-projects
-
-# Filter by workspace
-py-projects --workspace "My Workspace"
-
-# Limit results
-py-projects --limit 50
-```
-
-### Output Formats
-
-```bash
-# JSON output
-py-projects --format json
-
-# CSV output
-py-projects --format csv
-
-# Copy to clipboard
-py-projects --copy
-
-# Save to file
-py-projects --output projects.txt
-```
-
-### Additional Options
-
-```bash
-# Show verbose output
-py-projects --verbose
-
-# Disable colors
-py-projects --no-color
-
-# Show help
-py-projects --help
-
-# Show version
-py-projects --version
-```
+# Example CLI Tool Usage
+[Example CLI: py-projects](EXAMPLECLI.md)
 
 ## Development
 
 ### Setup Development Environment
 
-Project requires Python 3.13+ (which is also specified inside [.python-version](.python-version) file) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed.
+Project requires Python 3.10+ (which is also specified inside [.python-version](.python-version) file) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed.
 
 ```bash
 
@@ -168,44 +93,6 @@ uvx ruff check py_launch_blueprint/
 # Run command
 uvx --with-editable .  --from py_launch_blueprint py-projects
 ```
-
-### Project Structure
-
-The project uses a simple, maintainable structure:
-
-```
-py-utils/
-├── projects.py      # Main script with all functionality
-├── tests/          # Test files
-│   ├── __init__.py
-│   ├── test_api.py
-│   ├── test_config.py
-│   └── test_cli.py
-├── pyproject.toml  # Project and tool configuration
-└── README.md      # Documentation
-```
-
-## Error Codes
-
-- 0: Successful execution
-- 1: Configuration error
-- 2: Authentication error
-- 3: API error
-- 4: Input/Output error
-- 5: User interrupt
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 
 # Notes on tool choices
 
@@ -448,3 +335,19 @@ def process_data(data):
 def process_data(data: int) -> int:
     return data + 1
 ```
+
+# Recommended Extensions
+
+This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
+
+- **Python** (`ms-python.python`): Essential Python language support
+- **Pylance** (`ms-python.vscode-pylance`): Fast, feature-rich language support for Python
+- **Black Formatter** (`ms-python.black-formatter`): Official Black formatter integration
+- **Ruff** (`charliermarsh.ruff`): Fast Python linter and formatter
+- **MyPy** (`matangover.mypy`): Static type checking for Python
+- **Even Better TOML** (`tamasfe.even-better-toml`): Improved TOML file support
+- **YAML** (`redhat.vscode-yaml`): YAML language support
+- **GitLens** (`eamodio.gitlens`): Enhanced Git integration
+- **Code Spell Checker** (`streetsidesoftware.code-spell-checker`): Catch common spelling mistakes
+
+These extensions are configured to work seamlessly with the project's setup and will help maintain code quality standards. VS Code will automatically suggest installing these extensions when you open the project.
