@@ -45,10 +45,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Security scan
-      uses: python-security/safety-db@main
+    - name: Safety Check
+      uses: pyupio/safety@master
       with:
-        scan-path: .
+        args: --full-report
 
     - name: CodeQL Analysis
       uses: github/codeql-action/analyze@v3
