@@ -1,0 +1,70 @@
+# .github/workflows/ci.yml
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - uses: astral-sh/setup-uv@v1
+
+    - name: Install dependencies
+      run: |
+        uv pip install ".[dev]"
+
+    - name: Run linters
+      run: |
+        uv pip install ruff black mypy isort
+        ruff check .
+        black . --check
+        isort . --check
+        mypy .
+
+    - name: Run tests
+      run: |
+        pytest --cov=./ --cov-report=xml
+
+    - name: Upload coverage
+      uses: codecov/codecov-action@v4
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Security scan
+      uses: python-security/safety-db@main
+      with:
+        scan-path: .
+
+    - name: CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
+  # publish:
+  #   needs: [test, security]
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
+    
+  #   - name: Build and publish to PyPI
+  #     env:
+  #       TWINE_USERNAME: __token__
+  #       TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+  #     run: |
+  #       uv pip install build twine
+  #       python -m build
+  #       twine upload dist/*
