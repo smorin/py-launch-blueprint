@@ -11,7 +11,7 @@ import os
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import click
 import pyperclip
@@ -21,7 +21,6 @@ from dotenv import load_dotenv
 from rich.console import Console
 from rich.progress import Progress
 from rich.table import Table
-from thefuzz import fuzz, process
 
 # Initialize Rich console for pretty output
 console = Console()
@@ -46,10 +45,10 @@ class ConfigError(Exception):
 class Config:
     """Configuration container."""
 
-    token: Optional[str] = None
+    token: str | None = None
 
     @classmethod
-    def from_env(cls, env_path: Optional[str] = None) -> "Config":
+    def from_env(cls, env_path: str | None = None) -> "Config":
         """
         Create Config from environment variables or .env file.
 
@@ -71,13 +70,16 @@ class Config:
             error_console.print("To set your Py token, you have three options:")
             error_console.print("1. Set the PY_TOKEN environment variable:")
             error_console.print("   export PY_TOKEN=your_token_here")
-            error_console.print("\n2. Create a .env file in ~/.config/py-cli/.env with:")
+            error_console.print(
+                "\n2. Create a .env file in ~/.config/py-cli/.env with:"
+            )
             error_console.print("   PY_TOKEN=your_token_here")
             error_console.print("\n3. Use the --token option when running the command:")
             error_console.print("   py-cli --token your_token_here")
             error_console.print(
                 "\nYou can get your token from: https://app.py.com/settings/tokens\n"
             )
+            raise ConfigError("No PY_TOKEN found in environment or config file")
 
         return cls(token=token)
 
@@ -92,7 +94,7 @@ def get_config_path() -> Path:
     return base_path / ".config" / "py-cli"
 
 
-def get_config(config_path: Optional[str] = None) -> Config:
+def get_config(config_path: str | None = None) -> Config:
     """
     Get configuration from various sources.
 
@@ -143,7 +145,7 @@ class PyClient:
             }
         )
 
-    def _request(self, method: str, path: str, **kwargs) -> Dict[str, Any]:
+    def _request(self, method: str, path: str, **kwargs: Any) -> dict[str, Any]:
         """
         Make a request to the Py API.
 
@@ -162,30 +164,35 @@ class PyClient:
         try:
             response = self.session.request(method, url, **kwargs)
             response.raise_for_status()
-            return response.json()["data"]
+            return dict(response.json()["data"])
         except requests.exceptions.RequestException as e:
             if hasattr(e.response, "json"):
                 try:
-                    error_data = e.response.json()
-                    error_msg = error_data.get("errors", [{}])[0].get("message", str(e))
+                    if e.response is not None:  # Check if response is not None
+                        error_data = e.response.json()
+                        error_msg = error_data.get("errors", [{}])[0].get(
+                            "message", str(e)
+                        )
+                    else:
+                        error_msg = str(e)
                 except ValueError:
                     error_msg = str(e)
             else:
                 error_msg = str(e)
-            raise PyError(f"API request failed: {error_msg}")
+            raise PyError(f"API request failed: {error_msg}") from e
 
-    def get_workspaces(self) -> List[Dict[str, Any]]:
+    def get_workspaces(self) -> list[dict[str, Any]]:
         """
         Get all accessible workspaces.
 
         Returns:
             List of workspace dictionaries
         """
-        return self._request("GET", "/workspaces")
+        return list(self._request("GET", "/workspaces").values())
 
     def get_projects(
-        self, workspace_name: Optional[str] = None, limit: int = 200
-    ) -> List[Dict[str, Any]]:
+        self, workspace_name: str | None = None, limit: int = 200
+    ) -> list[dict[str, Any]]:
         """
         Get projects, optionally filtered by workspace.
 
@@ -205,18 +212,19 @@ class PyClient:
             # First get workspaces and find the matching one
             workspaces = self.get_workspaces()
             workspace = next(
-                (w for w in workspaces if w["name"].lower() == workspace_name.lower()), None
+                (w for w in workspaces if w["name"].lower() == workspace_name.lower()),
+                None,
             )
             if not workspace:
                 raise PyError(f"Workspace not found: {workspace_name}")
 
             params["workspace"] = workspace["gid"]
 
-        return self._request("GET", "/projects", params=params)
+        return list(self._request("GET", "/projects", params=params).values())
 
 
 # CLI Functions
-def setup_config(config_path: Optional[str] = None) -> Config:
+def setup_config(config_path: str | None = None) -> Config:
     """
     Set up configuration from various sources.
 
@@ -238,7 +246,7 @@ def setup_config(config_path: Optional[str] = None) -> Config:
         sys.exit(1)
 
 
-def format_output(projects: List[Dict[str, Any]], format: str) -> str:
+def format_output(projects: list[dict[str, Any]], format: str) -> str:
     """
     Format projects list according to specified format.
 
@@ -259,7 +267,7 @@ def format_output(projects: List[Dict[str, Any]], format: str) -> str:
         return "\n".join(p["id"] for p in projects)
 
 
-def display_projects(projects: List[Dict[str, Any]], verbose: bool = False) -> None:
+def display_projects(projects: list[dict[str, Any]], verbose: bool = False) -> None:
     """
     Display projects in a rich table format.
 
@@ -288,7 +296,10 @@ def display_projects(projects: List[Dict[str, Any]], verbose: bool = False) -> N
 @click.option("--workspace", help="Filter projects by workspace name")
 @click.option("--limit", default=200, help="Maximum number of projects to retrieve")
 @click.option(
-    "--format", type=click.Choice(["text", "json", "csv"]), default="text", help="Output format"
+    "--format",
+    type=click.Choice(["text", "json", "csv"]),
+    default="text",
+    help="Output format",
 )
 @click.option("--copy", is_flag=True, help="Copy results to clipboard")
 @click.option("--output", type=click.Path(), help="Write results to file")
@@ -296,13 +307,13 @@ def display_projects(projects: List[Dict[str, Any]], verbose: bool = False) -> N
 @click.option("--verbose", is_flag=True, help="Enable verbose output")
 @click.version_option(version="0.1.0")
 def main(
-    token: Optional[str],
-    config: Optional[str],
-    workspace: Optional[str],
+    token: str | None,
+    config: str | None,
+    workspace: str | None,
     limit: int,
     format: str,
     copy: bool,
-    output: Optional[str],
+    output: str | None,
     no_color: bool,
     verbose: bool,
 ) -> None:
