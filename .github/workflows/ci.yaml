@@ -32,13 +32,18 @@ jobs:
 #      # For example, using `pytest`
 #      run: uv run pytest tests
 
-    - name: Run linters
-      run: |
-        uv pip install ruff black mypy isort
-        ruff check .
-        black . --check
-        isort . --check
-        mypy .
+# Format code
+    - name: Format code
+      run: uvx black py_launch_blueprint/ --check
+    
+    - name: Sort imports
+      run: uvx isort py_launch_blueprint/ --check
+    
+    - name: Run type checker
+      run: uvx mypy py_launch_blueprint/
+
+    - name: Check linters
+      run: uvx ruff check py_launch_blueprint/
 
 #    - name: Run tests with coverage
 #      run: |
