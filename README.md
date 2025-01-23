@@ -144,6 +144,9 @@ ruff check py_launch_blueprint/
 
 # Or run with our the virtual environment
 
+# (Optional) Setup Pre-Commit Hook
+uvx --with-editable . pre-commit install
+
 # Run tests
 uvx --with-editable . pytest
 

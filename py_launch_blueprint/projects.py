@@ -71,7 +71,9 @@ class Config:
             error_console.print("To set your Py token, you have three options:")
             error_console.print("1. Set the PY_TOKEN environment variable:")
             error_console.print("   export PY_TOKEN=your_token_here")
-            error_console.print("\n2. Create a .env file in ~/.config/py-cli/.env with:")
+            error_console.print(
+                "\n2. Create a .env file in ~/.config/py-cli/.env with:"
+            )
             error_console.print("   PY_TOKEN=your_token_here")
             error_console.print("\n3. Use the --token option when running the command:")
             error_console.print("   py-cli --token your_token_here")
@@ -205,7 +207,8 @@ class PyClient:
             # First get workspaces and find the matching one
             workspaces = self.get_workspaces()
             workspace = next(
-                (w for w in workspaces if w["name"].lower() == workspace_name.lower()), None
+                (w for w in workspaces if w["name"].lower() == workspace_name.lower()),
+                None,
             )
             if not workspace:
                 raise PyError(f"Workspace not found: {workspace_name}")
@@ -288,7 +291,10 @@ def display_projects(projects: List[Dict[str, Any]], verbose: bool = False) -> N
 @click.option("--workspace", help="Filter projects by workspace name")
 @click.option("--limit", default=200, help="Maximum number of projects to retrieve")
 @click.option(
-    "--format", type=click.Choice(["text", "json", "csv"]), default="text", help="Output format"
+    "--format",
+    type=click.Choice(["text", "json", "csv"]),
+    default="text",
+    help="Output format",
 )
 @click.option("--copy", is_flag=True, help="Copy results to clipboard")
 @click.option("--output", type=click.Path(), help="Write results to file")
