@@ -28,6 +28,8 @@ dev = [
     "mypy>=1.0.0",
     "ruff>=0.1.0",
     "pre-commit>=4.1.0",
+    "types-requests",
+    "types-Pygments",
 ]
 
 [project.scripts]
@@ -51,7 +53,7 @@ target-version = "py310"
 
 # Line length
 line-length = 88  # Match Black's default
-select = [
+lint.select = [
     "E",   # pycodestyle errors
     "F",   # pyflakes
     "I",   # isort
@@ -66,13 +68,13 @@ select = [
 ]
 
 # Ignore specific rules
-ignore = [
+lint.ignore = [
     # "E501",  # line length violations
 ]
 
 # Allow autofix behavior for specific rules
 fix = true
-unfixable = []  # Rules that should not be fixed automatically
+lint.unfixable = []  # Rules that should not be fixed automatically
 
 # Exclude files/folders
 exclude = [
@@ -84,7 +86,7 @@ exclude = [
 ]
 
 # Per-file-ignores
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore unused imports in __init__.py files
 "tests/*" = ["S101"]      # Ignore assert statements in tests
 
