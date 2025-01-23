@@ -203,7 +203,74 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 # Notes on tool choices
 
-## Black
+### Install Pre-commit
+
+To use the pre-commit hooks in this repository, you need to install the `pre-commit` package. Follow these steps:
+
+1. Install `pre-commit` via pip:
+
+    ```bash
+    pip install pre-commit
+    ```
+
+2. Install the Git hooks defined in the `.pre-commit-config.yaml`:
+
+    ```bash
+    pre-commit install
+    ```
+
+This command sets up the necessary hooks in your Git configuration so they run automatically before each commit.
+
+### Available Hooks
+
+This project is configured with the following pre-commit hooks:
+
+1. **isort**: Automatically sorts your import statements to follow the `black` code style.
+2. **pytest**: Runs the test suite with `pytest` to ensure that tests are passing before committing.
+3. **mypy**: Type checking with `mypy` to catch type errors.
+4. **ruff**: Runs `ruff` for linting and code formatting fixes.
+
+### Running Pre-commit Hooks Manually
+
+You can run the pre-commit hooks manually if you want to check everything before committing, or if you want to run them without making a commit:
+
+```bash
+pre-commit run --all-files
+```
+
+This will run all hooks on all the files in the repository.
+
+### Updating Pre-commit Hooks
+
+To update the pre-commit hooks to their latest versions, you can run:
+
+```bash
+pre-commit autoupdate
+```
+
+This will update the hook versions defined in the `.pre-commit-config.yaml` file.
+
+---
+
+By using these pre-commit hooks, you ensure your code stays clean, properly formatted, and well-tested, helping maintain a high code quality standard.
+### How to Use
+
+Once the hooks are installed, they will run automatically when you make a commit. Here’s what each hook does:
+
+#### pytest
+
+The `pytest` hook runs the entire test suite to ensure that your code is working as expected before committing. It will run on every commit to catch any test failures early.
+
+- It runs all tests in your project.
+- If any tests fail, the commit will be blocked.
+
+To run tests manually, you can also use `pytest` directly:
+
+```bash
+pytest
+```
+
+#### Black
 - Known as "The uncompromising code formatter"
 
 Pros:
@@ -218,7 +285,7 @@ Cons:
 - Some developers find its formatting choices too opinionated
 - Line length fixed at 88 characters (though this can be changed)
 
-## isort
+#### isort
 - Specifically for sorting imports. Often used in combination with other formatters
 
 Pros:
@@ -249,7 +316,7 @@ Python line length standards:
 - 120: Maximum reasonable length. Works on wide screens but can hurt readability.
 - Recommendation: Use 88 characters (Black's default) unless your team/project has an existing standard. It offers the best balance of readability and practicality while following modern community practices.
 
-## mypy
+#### mypy
 Most teams today actually run both mypy and pyright/Pylance:
 
 - mypy in CI/pre-commit hooks for strict checking

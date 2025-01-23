@@ -23,3 +23,19 @@ repos:
     rev: 23.12.1
     hooks:
       - id: black
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: [--profile=black]  # Match Black's formatting
+
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: Run pytest
+        entry: pytest
+        language: system
+        types: [python]
+        pass_filenames: false  # Run full test suite
+        stages: [pre-commit]  # Only run on commit
