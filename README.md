@@ -463,3 +463,18 @@ def process_data(data):
 def process_data(data: int) -> int:
     return data + 1
 ```
+# Recommended Extensions
+
+This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
+
+- **Python** (`ms-python.python`): Essential Python language support
+- **Pylance** (`ms-python.vscode-pylance`): Fast, feature-rich language support for Python
+- **Black Formatter** (`ms-python.black-formatter`): Official Black formatter integration
+- **Ruff** (`charliermarsh.ruff`): Fast Python linter and formatter
+- **MyPy** (`matangover.mypy`): Static type checking for Python
+- **Even Better TOML** (`tamasfe.even-better-toml`): Improved TOML file support
+- **YAML** (`redhat.vscode-yaml`): YAML language support
+- **GitLens** (`eamodio.gitlens`): Enhanced Git integration
+- **Code Spell Checker** (`streetsidesoftware.code-spell-checker`): Catch common spelling mistakes
+
+These extensions are configured to work seamlessly with the project's setup and will help maintain code quality standards. VS Code will automatically suggest installing these extensions when you open the project.

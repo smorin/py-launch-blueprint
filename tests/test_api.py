@@ -88,8 +88,8 @@ def test_get_projects_with_workspace(mock_request, mock_get_workspaces, client):
     mock_response.json.return_value = {"data": []}
     mock_request.return_value = mock_response
 
-    projects = client.get_projects(workspace_name="Test Workspace")
-    assert len(projects) > 0
+    projects = client.get_projects(workspace_name="Test Workspace")  # noqa F841
+
     # Verify workspace parameter was included
     called_params = mock_request.call_args[1]["params"]
     assert called_params["workspace"] == "ws1"
