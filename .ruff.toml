@@ -1,2 +1,2 @@
-[per-file-ignores]
-"tests/*" = ["S105", "S106"]
+[lint]
+per-file-ignores={ "tests/*"= ["S105", "S106"] }
