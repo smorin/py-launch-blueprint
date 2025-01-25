@@ -17,7 +17,7 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
   - 📝 Type checking with MyPy and Pylance
 
 ### 💪 Production Ready
-- **Python 3.10+ Support**: Leverages modern Python features
+- **Python 3.10+ Support**: Leverages modern Python features<
 - **Dependency Management**: Uses `uv` for fast, reliable package management
 - **CI/CD Ready**: Includes GitHub Actions workflows
 - **Comprehensive Testing**: Pre-configured test setup with best practices
@@ -36,115 +36,42 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 
 Start your next Python project with confidence, knowing you're building on a foundation of best practices and modern development tools.
 
-## Features
+## Contributing
 
-- 🔍 Fuzzy search for project names
-- 🏢 Filter by workspace
-- 📋 Multiple output formats (text, JSON, CSV)
-- 📎 Clipboard integration
-- 🎨 Rich terminal UI with color support
-- 🔐 Secure token handling
-- ⚡ Fast and efficient pagination
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## Installation
+## License
 
-### From PyPI
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-```bash
-pip install py-launch-blueprint
+# Project Structure
+
+The project uses a simple, maintainable structure:
+
+```
+py-utils/
+├── projects.py      # Main script with all functionality
+├── tests/          # Test files
+│   ├── __init__.py
+│   ├── test_api.py
+│   ├── test_config.py
+│   └── test_cli.py
+├── pyproject.toml  # Project and tool configuration
+└── README.md      # Documentation
 ```
 
-### From Source
-
-```bash
-git clone https://github.com/smorin/py-launch-blueprint.git
-cd py-launch-blueprint
-pip install -e ".[dev]"  # Install with development dependencies
-```
-
-### Direct Usage
-
-You can also run the script directly:
-
-```bash
-python projects.py --help
-```
-
-## Configuration
-
-The tool supports multiple ways to provide your Py Personal Access Token (PAT), in order of precedence:
-
-1. Command-line argument: `--token`
-2. Environment variable: `PY_TOKEN`
-3. Configuration file: `~/.config/py-launch-blueprint/.env`
-
-### Setting Up Configuration File
-
-1. Create the config directory:
-```bash
-mkdir -p ~/.config/py-launch-blueprint
-```
-
-2. Create `.env` file:
-```bash
-echo "PY_TOKEN=your_token_here" > ~/.config/py-launch-blueprint/.env
-```
-
-3. Set proper permissions:
-```bash
-chmod 600 ~/.config/py-launch-blueprint/.env
-```
-
-## Usage
-
-### Basic Usage
-
-```bash
-# Search for projects
-py-projects
-
-# Filter by workspace
-py-projects --workspace "My Workspace"
-
-# Limit results
-py-projects --limit 50
-```
-
-### Output Formats
-
-```bash
-# JSON output
-py-projects --format json
-
-# CSV output
-py-projects --format csv
-
-# Copy to clipboard
-py-projects --copy
-
-# Save to file
-py-projects --output projects.txt
-```
-
-### Additional Options
-
-```bash
-# Show verbose output
-py-projects --verbose
-
-# Disable colors
-py-projects --no-color
-
-# Show help
-py-projects --help
-
-# Show version
-py-projects --version
-```
+# Example CLI Tool Usage
+[Example CLI: py-projects](EXAMPLECLI.md)
 
 ## Development
 
 ### Setup Development Environment
+
+Project requires Python 3.10+ (which is also specified inside [.python-version](.python-version) file) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed.
 
 ```bash
 
@@ -169,6 +96,9 @@ ruff check py_launch_blueprint/
 
 # Or run with our the virtual environment
 
+# (Optional) Setup Pre-Commit Hook
+uvx --with-editable . pre-commit install
+
 # Run tests
 uvx --with-editable . pytest
 
@@ -182,7 +112,10 @@ uvx black py_launch_blueprint/
 uvx isort py_launch_blueprint/
 
 # Run type checker
-uvx mypy py_launch_blueprint/
+uvx  --with-editable . mypy py_launch_blueprint/
+
+#Run all pre-Commit Hooks
+uvx pre-commit run --all-files
 
 # Run linter
 uvx ruff check py_launch_blueprint/
@@ -191,114 +124,9 @@ uvx ruff check py_launch_blueprint/
 uvx --with-editable .  --from py_launch_blueprint py-projects
 ```
 
-### Project Structure
-
-The project uses a simple, maintainable structure:
-
-```
-py-utils/
-├── projects.py      # Main script with all functionality
-├── tests/          # Test files
-│   ├── __init__.py
-│   ├── test_api.py
-│   ├── test_config.py
-│   └── test_cli.py
-├── pyproject.toml  # Project and tool configuration
-└── README.md      # Documentation
-```
-
-## Error Codes
-
-- 0: Successful execution
-- 1: Configuration error
-- 2: Authentication error
-- 3: API error
-- 4: Input/Output error
-- 5: User interrupt
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-
 # Notes on tool choices
 
-### Install Pre-commit
-
-To use the pre-commit hooks in this repository, you need to install the `pre-commit` package. Follow these steps:
-
-1. Install `pre-commit` via pip:
-
-    ```bash
-    pip install pre-commit
-    ```
-
-2. Install the Git hooks defined in the `.pre-commit-config.yaml`:
-
-    ```bash
-    pre-commit install
-    ```
-
-This command sets up the necessary hooks in your Git configuration so they run automatically before each commit.
-
-### Available Hooks
-
-This project is configured with the following pre-commit hooks:
-
-1. **isort**: Automatically sorts your import statements to follow the `black` code style.
-2. **pytest**: Runs the test suite with `pytest` to ensure that tests are passing before committing.
-3. **mypy**: Type checking with `mypy` to catch type errors.
-4. **ruff**: Runs `ruff` for linting and code formatting fixes.
-
-### Running Pre-commit Hooks Manually
-
-You can run the pre-commit hooks manually if you want to check everything before committing, or if you want to run them without making a commit:
-
-```bash
-pre-commit run --all-files
-```
-
-This will run all hooks on all the files in the repository.
-
-### Updating Pre-commit Hooks
-
-To update the pre-commit hooks to their latest versions, you can run:
-
-```bash
-pre-commit autoupdate
-```
-
-This will update the hook versions defined in the `.pre-commit-config.yaml` file.
-
----
-
-By using these pre-commit hooks, you ensure your code stays clean, properly formatted, and well-tested, helping maintain a high code quality standard.
-### How to Use
-
-Once the hooks are installed, they will run automatically when you make a commit. Here’s what each hook does:
-
-#### pytest
-
-The `pytest` hook runs the entire test suite to ensure that your code is working as expected before committing. It will run on every commit to catch any test failures early.
-
-- It runs all tests in your project.
-- If any tests fail, the commit will be blocked.
-
-To run tests manually, you can also use `pytest` directly:
-
-```bash
-pytest
-```
-
-#### Black
+## Black
 - Known as "The uncompromising code formatter"
 
 Pros:
@@ -313,7 +141,7 @@ Cons:
 - Some developers find its formatting choices too opinionated
 - Line length fixed at 88 characters (though this can be changed)
 
-#### isort
+## isort
 - Specifically for sorting imports. Often used in combination with other formatters
 
 Pros:
@@ -344,13 +172,27 @@ Python line length standards:
 - 120: Maximum reasonable length. Works on wide screens but can hurt readability.
 - Recommendation: Use 88 characters (Black's default) unless your team/project has an existing standard. It offers the best balance of readability and practicality while following modern community practices.
 
-#### mypy
+## Ruff
+Ruff is a high-performance linter and code formatter for Python. It combines multiple tools into one, offering faster performance and comprehensive functionality compared to traditional Python tools.
+
+Pros:
+
+- Very Fast: Written in Rust, Ruff is significantly faster than traditional linters, allowing it to process large codebases quickly.
+- All-in-One Solution: Ruff incorporates checks and fixes from a variety of popular linters like Flake8, Black, isort, pydocstyle, pyupgrade, autoflake. This means less maintenance of multiple separate tools.
+- Customizable: Allows users to select and ignore specific checks or enforce particular rules according to the project needs.
+- Easy Integration: Works well with CI/CD pipelines, IDEs, and modern developer workflows.
+Automated Fixes: Ruff can automatically correct a wide range of issues in your code.
+
+Cons:
+- Relatively New: As a newer tool, it might not yet be as widely adopted or supported in some edge cases.
+
+## mypy
 Most teams today actually run both mypy and pyright/Pylance:
 
 - mypy in CI/pre-commit hooks for strict checking
 - Pylance in VS Code for real-time development feedback
 
-This combination provides comprehensive type checking coverage while maintaining a smooth development experience. 
+This combination provides comprehensive type checking coverage while maintaining a smooth development experience.
 
 Let me explain the difference between `disallow_untyped_defs = false` vs `true`:
 
@@ -422,10 +264,10 @@ T = TypeVar('T')
 class Stack(Generic[T]):
     def __init__(self) -> None:
         self.items: List[T] = []
-    
+
     def push(self, item: T) -> None:
         self.items.append(item)
-    
+
     def pop(self) -> T:
         return self.items.pop()
 
@@ -440,6 +282,38 @@ Handler = Callable[[str, int], bool]
 def process(handler: Handler) -> None:
     ...
 ```
+
+## Recommended Extensions
+
+This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
+
+- **Python** (`ms-python.python`): Essential Python language support
+- **Pylance** (`ms-python.vscode-pylance`): Fast, feature-rich language support for Python
+- **Black Formatter** (`ms-python.black-formatter`): Official Black formatter integration
+- **Ruff** (`charliermarsh.ruff`): Fast Python linter and formatter
+- **MyPy** (`matangover.mypy`): Static type checking for Python
+- **Even Better TOML** (`tamasfe.even-better-toml`): Improved TOML file support
+- **YAML** (`redhat.vscode-yaml`): YAML language support
+- **GitLens** (`eamodio.gitlens`): Enhanced Git integration
+- **Code Spell Checker** (`streetsidesoftware.code-spell-checker`): Catch common spelling mistakes
+
+These extensions are configured to work seamlessly with the project's setup and will help maintain code quality standards. VS Code will automatically suggest installing these extensions when you open the project.
+
+## Precommit hooks
+
+Hooks are designed to maintain clean, consistent, and error-free code and configuration files. They save time by catching issues before they make it into your repository.
+
+Following pre-commit hooks are used in this repo
+
+
+- `check-yaml` checks if all YAML files in your repository are valid,
+- `end-of-file-fixer` ensures every file in your repository ends with a single newline character,
+- `trailing-whitespace` removes trailing spaces at the end of lines in your files,
+- `check-toml` checks if all TOML files in your repository are valid,
+- `check-added-large-files` warns when you try to add large files to the repository,
+- `mypy` checks your Python code for type errors based on type annotations,
+- `ruff` acts as a fast linter and formatter for Python, ensuring clean code,
+- `black`formats Python code to enforce consistent and opinionated style rules across your codebase.
 
 ## Python Types Common Issues and Solutions
 1. Third-party library types:
@@ -491,6 +365,7 @@ def process_data(data):
 def process_data(data: int) -> int:
     return data + 1
 ```
+
 # Recommended Extensions
 
 This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
