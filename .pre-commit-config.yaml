@@ -23,10 +23,11 @@ repos:
     rev: v0.1.9
     hooks:
       - id: ruff
+        entry: ruff check --force-exclude --no-cache
         args: [--fix]
+        language: python
+        types_or: [cython, pyi, python]
       - id: ruff-format
-
--   repo: https://github.com/psf/black
-    rev: 23.12.1
-    hooks:
-      - id: black
+        entry: ruff format --force-exclude --no-cache
+        language: python
+        types_or: [cython, pyi, python]

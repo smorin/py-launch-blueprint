@@ -12,7 +12,6 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 - **Type Safety First**: Built-in MyPy configuration and VS Code integration for robust type checking
 - **Modern Development Tools**:
   - ⚡ Ruff for lightning-fast linting and formatting
-  - 🎨 Black for consistent code styling
   - 🔍 Pre-commit hooks for code quality enforcement
   - 📝 Type checking with MyPy and Pylance
 
@@ -90,8 +89,6 @@ uvx --with-editable . pre-commit install
 
 # Run development tools directly (no need for 'uv pip run')
 pytest
-black py_launch_blueprint/
-isort py_launch_blueprint/
 mypy py_launch_blueprint/
 ruff check py_launch_blueprint/
 
@@ -106,14 +103,11 @@ uvx --with-editable . pytest
 # Run tests with coverage
 uvx --with pytest-cov --with-editable . pytest --cov=py_launch_blueprint.projects --cov-report=term-missing
 
-# Format code
-uvx black py_launch_blueprint/
-
-# Sort imports
-uvx isort py_launch_blueprint/
-
 # Run type checker
 uvx  --with-editable . mypy py_launch_blueprint/
+
+# Format the code
+uvx ruff format py_launch_blueprint/
 
 # Run linter
 uvx ruff check py_launch_blueprint/
@@ -123,52 +117,6 @@ uvx --with-editable .  --from py_launch_blueprint py-projects
 ```
 
 # Notes on tool choices
-
-## Black
-- Known as "The uncompromising code formatter"
-
-Pros:
-- Zero configuration needed - enforces a consistent style with minimal choices
-- Very fast performance
-- Used by many major projects like Django and pytest
-- Maintains compatibility with modern Python features
-- Excellent integration with popular editors and CI tools
-
-Cons:
-- Limited customization options by design
-- Some developers find its formatting choices too opinionated
-- Line length fixed at 88 characters (though this can be changed)
-
-## isort
-- Specifically for sorting imports. Often used in combination with other formatters
-
-Pros:
-- Best-in-class for import organization
-- Highly configurable
-- Works well with Black and other formatters
-
-Cons:
-- Single-purpose tool (imports only)
-- Can sometimes conflict with other formatters
-
-```python
-
-# pyproject.toml
-[tool.black]
-line-length = 88
-target-version = ['py38']
-
-[tool.isort]
-profile = "black"  # Makes isort compatible with Black
-multi_line_output = 3
-```
-
-Python line length standards:
-- 79/80: Traditional PEP 8 standard. Good for side-by-side editing but can feel restrictive.
-- 88: Black's default. Modern sweet spot between readability and expressiveness. Becoming the community standard.
-- 100: Google's choice. Popular in enterprise. Good for complex expressions.
-- 120: Maximum reasonable length. Works on wide screens but can hurt readability.
-- Recommendation: Use 88 characters (Black's default) unless your team/project has an existing standard. It offers the best balance of readability and practicality while following modern community practices.
 
 ## Ruff
 Ruff is a high-performance linter and code formatter for Python. It combines multiple tools into one, offering faster performance and comprehensive functionality compared to traditional Python tools.
@@ -183,6 +131,22 @@ Automated Fixes: Ruff can automatically correct a wide range of issues in your c
 
 Cons:
 - Relatively New: As a newer tool, it might not yet be as widely adopted or supported in some edge cases.
+
+Python line length standards:
+- 79/80: Traditional PEP 8 standard. Good for side-by-side editing but can feel restrictive.
+- 88: Black's default. Modern sweet spot between readability and expressiveness. Becoming the community standard.
+- 100: Google's choice. Popular in enterprise. Good for complex expressions.
+- 120: Maximum reasonable length. Works on wide screens but can hurt readability.
+- Recommendation: Use 88 characters (Black's default) unless your team/project has an existing standard. It offers the best balance of readability and practicality while following modern community practices.
+
+```pyproject.toml
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.pycodestyle]
+max-line-length = 88
+```
 
 ## mypy
 Most teams today actually run both mypy and pyright/Pylance:
@@ -286,8 +250,6 @@ def process(handler: Handler) -> None:
 This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
 
 - **Python** (`ms-python.python`): Essential Python language support
-- **Pylance** (`ms-python.vscode-pylance`): Fast, feature-rich language support for Python
-- **Black Formatter** (`ms-python.black-formatter`): Official Black formatter integration
 - **Ruff** (`charliermarsh.ruff`): Fast Python linter and formatter
 - **MyPy** (`matangover.mypy`): Static type checking for Python
 - **Even Better TOML** (`tamasfe.even-better-toml`): Improved TOML file support
@@ -311,7 +273,6 @@ Following pre-commit hooks are used in this repo
 - `check-added-large-files` warns when you try to add large files to the repository,
 - `mypy` checks your Python code for type errors based on type annotations,
 - `ruff` acts as a fast linter and formatter for Python, ensuring clean code,
-- `black`formats Python code to enforce consistent and opinionated style rules across your codebase.
 
 ## Python Types Common Issues and Solutions
 1. Third-party library types:
@@ -369,8 +330,6 @@ def process_data(data: int) -> int:
 This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
 
 - **Python** (`ms-python.python`): Essential Python language support
-- **Pylance** (`ms-python.vscode-pylance`): Fast, feature-rich language support for Python
-- **Black Formatter** (`ms-python.black-formatter`): Official Black formatter integration
 - **Ruff** (`charliermarsh.ruff`): Fast Python linter and formatter
 - **MyPy** (`matangover.mypy`): Static type checking for Python
 - **Even Better TOML** (`tamasfe.even-better-toml`): Improved TOML file support
