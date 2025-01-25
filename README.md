@@ -17,7 +17,7 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
   - 📝 Type checking with MyPy and Pylance
 
 ### 💪 Production Ready
-- **Python 3.10+ Support**: Leverages modern Python features<
+- **Python 3.10+ Support**: Leverages modern Python features
 - **Dependency Management**: Uses `uv` for fast, reliable package management
 - **CI/CD Ready**: Includes GitHub Actions workflows
 - **Comprehensive Testing**: Pre-configured test setup with best practices
@@ -82,10 +82,11 @@ source .venv/bin/activate  # On Unix/macOS
 # Install the package in editable mode with development dependencies
 uv pip install --editable ".[dev]"
 
-py-projects
+# Check the installed package
+py-projects --version
 
 # (Optional) Setup Pre-Commit Hook
-uvx --with-editable .pre-commit install
+uvx --with-editable . pre-commit install
 
 # Run development tools directly (no need for 'uv pip run')
 pytest
