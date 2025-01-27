@@ -115,6 +115,9 @@ uvx isort py_launch_blueprint/
 # Run type checker
 uvx  --with-editable . mypy py_launch_blueprint/
 
+#Run all pre-Commit Hooks
+uvx pre-commit run --all-files
+
 # Run linter
 uvx ruff check py_launch_blueprint/
 

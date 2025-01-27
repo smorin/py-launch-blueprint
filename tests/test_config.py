@@ -12,7 +12,7 @@ def test_config_from_env():
     """Test creating config from environment variables."""
     with patch.dict(os.environ, {"PY_TOKEN": "test_token"}):
         config = Config.from_env()
-        assert config.token == "test_token"  # noqa S106
+        assert config.token == "test_token"
 
 
 def test_config_from_env_file(tmp_path):
@@ -21,7 +21,7 @@ def test_config_from_env_file(tmp_path):
     env_file.write_text("PY_TOKEN=file_token")
 
     config = Config.from_env(str(env_file))
-    assert config.token == "file_token"  # noqa S106
+    assert config.token == "file_token"
 
 
 def test_config_precedence(tmp_path):
@@ -32,7 +32,7 @@ def test_config_precedence(tmp_path):
     # Environment variable should take precedence
     with patch.dict(os.environ, {"PY_TOKEN": "env_token"}):
         config = get_config(str(env_file))
-        assert config.token == "env_token"  # noqa S106
+        assert config.token == "env_token"
 
 
 def test_invalid_config_file():
