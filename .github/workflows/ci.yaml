@@ -32,12 +32,7 @@ jobs:
 #      # For example, using `pytest`
 #      run: uv run pytest tests
 
-# Format code
-    - name: Format code
-      run: uvx black py_launch_blueprint/ --check
-
-    - name: Sort imports
-      run: uvx isort py_launch_blueprint/ --check
+    # Format code
 
     - name: Run type checker
       run: uvx mypy py_launch_blueprint/

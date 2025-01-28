@@ -23,19 +23,14 @@ repos:
     rev: v0.1.9
     hooks:
       - id: ruff
+        entry: ruff check --force-exclude --no-cache
         args: [--fix]
+        language: python
+        types_or: [cython, pyi, python]
       - id: ruff-format
-
-  - repo: https://github.com/psf/black
-    rev: 23.12.1
-    hooks:
-      - id: black
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
-        args: [--profile=black] # Match Black's formatting
-
+        entry: ruff format --force-exclude --no-cache
+        language: python
+        types_or: [cython, pyi, python]
   - repo: local
     hooks:
       - id: pytest
