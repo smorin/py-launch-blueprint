@@ -32,6 +32,14 @@ dev = [
     "types-Pygments",
 ]
 
+docs = [
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme>=2.0.0",
+    "myst-parser>=2.0.0",  # For Markdown support
+    "sphinx-autodoc-typehints>=1.25.2",
+    "sphinx-copybutton>=0.5.0",
+]
+
 [project.scripts]
 py-projects = "py_launch_blueprint.projects:main"
 
@@ -136,3 +144,7 @@ show_column_numbers = true
 [[tool.mypy.overrides]]
 module = ["tests.*"]
 disallow_untyped_defs = false
+
+exclude = [
+    'template_docs/.*'  # Exclude all files in template_docs directory
+]

@@ -1,32 +1,31 @@
 # .pre-commit-config.yaml
 repos:
--   repo: https://github.com/pre-commit/mirrors-mypy
+  - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.8.0
     hooks:
-    -   id: mypy
-        additional_dependencies: [
-            'types-requests',
-            'types-PyYAML',
-            'types-python-dateutil'
-        ]
+      - id: mypy
+        exclude: ^template_docs/
+        additional_dependencies:
+          - types-docutils
+          - types-setuptools
 
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
     hooks:
-    -   id: check-yaml
-    -   id: end-of-file-fixer
-    -   id: trailing-whitespace
-    -   id: check-toml
-    -   id: check-added-large-files
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-toml
+      - id: check-added-large-files
 
--   repo: https://github.com/astral-sh/ruff-pre-commit
+  - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.1.9
     hooks:
       - id: ruff
         args: [--fix]
       - id: ruff-format
 
--   repo: https://github.com/psf/black
+  - repo: https://github.com/psf/black
     rev: 23.12.1
     hooks:
       - id: black

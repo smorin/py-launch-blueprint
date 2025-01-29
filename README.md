@@ -1,6 +1,6 @@
 # Py Launch Blueprint: A Production-Ready Python Project Template with Integrated Best Practices
 
- Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
+Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
 
 ## Why Choose Py Launch Blueprint?
 
@@ -17,18 +17,21 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
   - 📝 Type checking with MyPy and Pylance
 
 ### 💪 Production Ready
+
 - **Python 3.10+ Support**: Leverages modern Python features
 - **Dependency Management**: Uses `uv` for fast, reliable package management
 - **CI/CD Ready**: Includes GitHub Actions workflows
 - **Comprehensive Testing**: Pre-configured test setup with best practices
 
 ### 🛠️ Developer Experience
+
 - **VS Code Integration**: Curated set of recommended extensions
 - **Intelligent Defaults**: Optimized settings for common development tasks
 - **Clear Documentation**: Detailed explanations for all tool choices and configurations
 - **Git Hooks**: Automated code quality checks before commits
 
 ### 🎯 Perfect For
+
 - Teams wanting a standardized Python development environment
 - Projects requiring maintainable, type-safe code
 - Developers who value clean, consistent code style
@@ -65,6 +68,7 @@ py-utils/
 ```
 
 # Example CLI Tool Usage
+
 [Example CLI: py-projects](EXAMPLECLI.md)
 
 ## Development
@@ -74,60 +78,32 @@ py-utils/
 Project requires Python 3.10+ (which is also specified inside [.python-version](.python-version) file) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed.
 
 ```bash
-
-# Create and activate a virtual environment if needed
-uv venv
-source .venv/bin/activate  # On Unix/macOS
-
 # Install the package in editable mode with development dependencies
-uv pip install --editable ".[dev]"
+make install-dev
 
-# Check the installed package
-py-projects --version
+# Install documentation dependencies (if working on docs)
+make install-docs
 
-# (Optional) Setup Pre-Commit Hook
-uvx --with-editable . pre-commit install
+# Run development tools
+make test          # Run tests with coverage
+make format        # Format code using Black and isort
+make lint          # Lint code with Ruff
+make type-check    # Type check with mypy
+make check         # Run all checks (format, lint, type-check, test)
 
-# Run development tools directly (no need for 'uv pip run')
-pytest
-black py_launch_blueprint/
-isort py_launch_blueprint/
-mypy py_launch_blueprint/
-ruff check py_launch_blueprint/
-
-# Or run with our the virtual environment
-
-# (Optional) Setup Pre-Commit Hook
-uvx --with-editable . pre-commit install
-
-# Run tests
-uvx --with-editable . pytest
-
-# Run tests with coverage
-uvx --with pytest-cov --with-editable . pytest --cov=py_launch_blueprint.projects --cov-report=term-missing
-
-# Format code
-uvx black py_launch_blueprint/
-
-# Sort imports
-uvx isort py_launch_blueprint/
-
-# Run type checker
-uvx  --with-editable . mypy py_launch_blueprint/
-
-# Run linter
-uvx ruff check py_launch_blueprint/
-
-# Run command
-uvx --with-editable .  --from py_launch_blueprint py-projects
+# Build documentation
+make template-docs      # Build template documentation
+make template-docs-live # Start documentation preview server
 ```
 
 # Notes on tool choices
 
 ## Black
+
 - Known as "The uncompromising code formatter"
 
 Pros:
+
 - Zero configuration needed - enforces a consistent style with minimal choices
 - Very fast performance
 - Used by many major projects like Django and pytest
@@ -135,19 +111,23 @@ Pros:
 - Excellent integration with popular editors and CI tools
 
 Cons:
+
 - Limited customization options by design
 - Some developers find its formatting choices too opinionated
 - Line length fixed at 88 characters (though this can be changed)
 
 ## isort
+
 - Specifically for sorting imports. Often used in combination with other formatters
 
 Pros:
+
 - Best-in-class for import organization
 - Highly configurable
 - Works well with Black and other formatters
 
 Cons:
+
 - Single-purpose tool (imports only)
 - Can sometimes conflict with other formatters
 
@@ -164,6 +144,7 @@ multi_line_output = 3
 ```
 
 Python line length standards:
+
 - 79/80: Traditional PEP 8 standard. Good for side-by-side editing but can feel restrictive.
 - 88: Black's default. Modern sweet spot between readability and expressiveness. Becoming the community standard.
 - 100: Google's choice. Popular in enterprise. Good for complex expressions.
@@ -171,6 +152,7 @@ Python line length standards:
 - Recommendation: Use 88 characters (Black's default) unless your team/project has an existing standard. It offers the best balance of readability and practicality while following modern community practices.
 
 ## Ruff
+
 Ruff is a high-performance linter and code formatter for Python. It combines multiple tools into one, offering faster performance and comprehensive functionality compared to traditional Python tools.
 
 Pros:
@@ -179,12 +161,14 @@ Pros:
 - All-in-One Solution: Ruff incorporates checks and fixes from a variety of popular linters like Flake8, Black, isort, pydocstyle, pyupgrade, autoflake. This means less maintenance of multiple separate tools.
 - Customizable: Allows users to select and ignore specific checks or enforce particular rules according to the project needs.
 - Easy Integration: Works well with CI/CD pipelines, IDEs, and modern developer workflows.
-Automated Fixes: Ruff can automatically correct a wide range of issues in your code.
+  Automated Fixes: Ruff can automatically correct a wide range of issues in your code.
 
 Cons:
+
 - Relatively New: As a newer tool, it might not yet be as widely adopted or supported in some edge cases.
 
 ## mypy
+
 Most teams today actually run both mypy and pyright/Pylance:
 
 - mypy in CI/pre-commit hooks for strict checking
@@ -195,6 +179,7 @@ This combination provides comprehensive type checking coverage while maintaining
 Let me explain the difference between `disallow_untyped_defs = false` vs `true`:
 
 **disallow_untyped_defs = true**
+
 ```python
 # This will raise an error
 def process_data(data):  # Error: Function is missing type annotations
@@ -206,6 +191,7 @@ def process_data(data: int) -> int:
 ```
 
 **disallow_untyped_defs = false**
+
 ```python
 # This is allowed
 def process_data(data):
@@ -219,12 +205,14 @@ def process_data(data: int) -> int:
 **When to use each:**
 
 Use `true` when:
+
 - Starting a new project
 - Working on a codebase that's fully committed to type hints
 - Want to ensure complete type coverage
 - Have a team that's comfortable with Python type hints
 
 Use `false` when:
+
 - Gradually adding types to a legacy codebase
 - Working with test files (common to disable for tests)
 - Training team members who are new to type hints
@@ -234,18 +222,20 @@ Use `false` when:
 Start new projects with `true` for maximum type safety. For existing projects, use `false` initially and gradually enable it as you add type hints to the codebase. Many teams set it to `false` for test files but `true` for production code.
 
 VS Code Settings for pyright/Pylance
+
 ```json
 {
-    "python.analysis.typeCheckingMode": "strict",
-    "python.analysis.diagnosticMode": "workspace",
-    "python.analysis.autoImportCompletions": true,
-    "python.analysis.importFormat": "relative",
-    "python.analysis.inlayHints.functionReturnTypes": true,
-    "python.analysis.inlayHints.variableTypes": true
+  "python.analysis.typeCheckingMode": "strict",
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.importFormat": "relative",
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true
 }
 ```
 
 Common Type Annotation Examples
+
 ```python
 from typing import Dict, List, Optional, Tuple, Union, TypeVar, Generic
 
@@ -303,7 +293,6 @@ Hooks are designed to maintain clean, consistent, and error-free code and config
 
 Following pre-commit hooks are used in this repo
 
-
 - `check-yaml` checks if all YAML files in your repository are valid,
 - `end-of-file-fixer` ensures every file in your repository ends with a single newline character,
 - `trailing-whitespace` removes trailing spaces at the end of lines in your files,
@@ -314,13 +303,16 @@ Following pre-commit hooks are used in this repo
 - `black`formats Python code to enforce consistent and opinionated style rules across your codebase.
 
 ## Python Types Common Issues and Solutions
+
 1. Third-party library types:
+
 ```bash
 # Install type stubs for common libraries
 pip install types-requests types-PyYAML types-python-dateutil
 ```
 
 2. Ignoring specific lines:
+
 ```python
 # mypy
 reveal_type(x)  # type: ignore
@@ -330,6 +322,7 @@ x = something()  # pyright: ignore
 ```
 
 3. Type checking only specific files:
+
 ```bash
 # mypy
 mypy src/main.py src/utils.py
@@ -339,10 +332,12 @@ pyright src/main.py src/utils.py
 ```
 
 disallow_untyped_defs = true vs false
+
 - Use `true` when starting new projects or working with teams experienced in type hints who want complete type coverage.
 - Use `false` when adding types to legacy code, working with test files, or training developers new to type hints.
 
 disallow_untyped_defs = true
+
 ```python
 # This will raise an error
 def process_data(data):  # Error: Function is missing type annotations
@@ -354,6 +349,7 @@ def process_data(data: int) -> int:
 ```
 
 disallow_untyped_defs = false
+
 ```python
 # This is allowed
 def process_data(data):
@@ -379,3 +375,48 @@ This project comes with recommended VS Code extensions to enhance your developme
 - **Code Spell Checker** (`streetsidesoftware.code-spell-checker`): Catch common spelling mistakes
 
 These extensions are configured to work seamlessly with the project's setup and will help maintain code quality standards. VS Code will automatically suggest installing these extensions when you open the project.
+
+## Documentation Structure
+
+This project contains two documentation directories:
+
+### `template_docs/`
+
+Documentation for the Py Launch Blueprint template itself, built with Sphinx and Read the Docs theme.
+
+```bash
+# Install documentation dependencies
+make install-docs
+
+# Build the template documentation
+make template-docs
+
+# Start live preview server (auto-rebuilds on changes)
+make template-docs-live
+
+# View the documentation
+open template_docs/build/html/index.html  # On macOS
+# or
+xdg-open template_docs/build/html/index.html  # On Linux
+```
+
+### `docs/`
+
+An empty documentation shell for projects created using this template. This directory contains templates and examples that will be used as a starting point for new projects.
+
+Do not build this directory directly - it serves as a template that will be initialized when creating new projects from this blueprint.
+
+## Documentation Technology
+
+- **Generator**: [Sphinx](https://www.sphinx-doc.org/)
+- **Theme**: [Read the Docs Theme](https://sphinx-rtd-theme.readthedocs.io/)
+- **Markdown Support**: [MyST Parser](https://myst-parser.readthedocs.io/)
+- **Auto-API**: sphinx-autodoc
+- **Code Highlighting**: sphinx-copybutton
+
+The template documentation (`template_docs/`) explains:
+
+- How to use this project template
+- Available features and configurations
+- Best practices and conventions
+- Tool choices and rationale
