@@ -81,6 +81,7 @@ class Config:
             error_console.print(
                 "\nYou can get your token from: https://app.py.com/settings/tokens\n"
             )
+            raise ConfigError("No PY_TOKEN found in environment or config file")
 
         return cls(token=token)
 
@@ -146,7 +147,7 @@ class PyClient:
             }
         )
 
-    def _request(self, method: str, path: str, **kwargs) -> dict[str, Any]:
+    def _request(self, method: str, path: str, **kwargs: Any) -> dict[str, Any]:
         """
         Make a request to the Py API.
 
@@ -165,12 +166,17 @@ class PyClient:
         try:
             response = self.session.request(method, url, **kwargs)
             response.raise_for_status()
-            return response.json()["data"]
+            return dict(response.json()["data"])
         except requests.exceptions.RequestException as e:
             if hasattr(e.response, "json"):
                 try:
-                    error_data = e.response.json()
-                    error_msg = error_data.get("errors", [{}])[0].get("message", str(e))
+                    if e.response is not None:  # Check if response is not None
+                        error_data = e.response.json()
+                        error_msg = error_data.get("errors", [{}])[0].get(
+                            "message", str(e)
+                        )
+                    else:
+                        error_msg = str(e)
                 except ValueError:
                     error_msg = str(e)
             else:
@@ -184,7 +190,7 @@ class PyClient:
         Returns:
             List of workspace dictionaries
         """
-        return self._request("GET", "/workspaces")
+        return list(self._request("GET", "/workspaces").values())
 
     def get_projects(
         self, workspace_name: str | None = None, limit: int = 200
@@ -216,7 +222,7 @@ class PyClient:
 
             params["workspace"] = workspace["gid"]
 
-        return self._request("GET", "/projects", params=params)
+        return list(self._request("GET", "/projects", params=params).values())
 
 
 # CLI Functions
