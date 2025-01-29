@@ -32,6 +32,7 @@ jobs:
       #      # For example, using `pytest`
       #      run: uv run pytest tests
 
+
       # Format code
       - name: Format code
         run: uvx black py_launch_blueprint/ --check

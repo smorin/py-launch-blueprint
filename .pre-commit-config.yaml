@@ -11,6 +11,7 @@ repos:
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
+
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer
@@ -22,10 +23,20 @@ repos:
     rev: v0.1.9
     hooks:
       - id: ruff
+        entry: ruff check --force-exclude --no-cache
         args: [--fix]
+        language: python
+        types_or: [cython, pyi, python]
       - id: ruff-format
+
 
   - repo: https://github.com/psf/black
     rev: 23.12.1
     hooks:
-      - id: black
+      - id: pytest
+        name: Run pytest
+        entry: pytest
+        language: system
+        types: [python]
+        pass_filenames: false # Run full test suite
+        stages: [pre-commit] # Only run on commit
