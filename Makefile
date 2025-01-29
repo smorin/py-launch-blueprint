@@ -4,7 +4,7 @@ ifdef VIRTUAL_ENV
 else
     PYTHON = python
 endif
-PIP = $(PYTHON) -m pip
+UV = uv
 PYTEST = $(PYTHON) -m pytest
 BLACK = black
 RUFF = ruff
@@ -18,11 +18,11 @@ all: help
 
 # Install dependencies
 install:
-	$(PIP) install .
+	$(UV) pip install .
 
 # Install development dependencies
 install-dev:
-	$(PIP) install -e ".[dev]"
+	$(UV) pip install -e ".[dev]"
 
 # Run tests with coverage
 test:
