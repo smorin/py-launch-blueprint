@@ -77,24 +77,63 @@ py-utils/
 
 Project requires Python 3.10+ (which is also specified inside [.python-version](.python-version) file) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed.
 
+This project uses [Just](https://github.com/casey/just) as a modern command runner. Here's how to get started:
+
+1. **Install Just**:
+
 ```bash
-# Install the package in editable mode with development dependencies
-make install-dev
+# macOS
+brew install just
 
-# Install documentation dependencies (if working on docs)
-make install-docs
+# Linux
+apt install just  # or use cargo install just
 
-# Run development tools
-make test          # Run tests with coverage
-make format        # Format code using Black and isort
-make lint          # Lint code with Ruff
-make type-check    # Type check with mypy
-make check         # Run all checks (format, lint, type-check, test)
-
-# Build documentation
-make template-docs      # Build template documentation
-make template-docs-live # Start documentation preview server
+# Windows
+choco install just  # or scoop install just
 ```
+
+2. **Common Commands**:
+
+```bash
+# Show all available commands
+just --list
+
+# Development setup
+just setup           # Install all dependencies
+just setup-dev       # Install development dependencies
+just setup-docs      # Install documentation dependencies
+
+# Development workflow
+just format          # Format code with Black and isort
+just lint            # Run Ruff linter
+just typecheck       # Run MyPy type checker
+just test           # Run tests with pytest
+just check-all      # Run all checks
+
+# Documentation
+just docs-build     # Build documentation
+just docs-serve     # Start documentation preview server
+```
+
+### Why Just?
+
+Just is chosen as the command runner for several reasons:
+
+- Simple, intuitive syntax (compared to Make's complexity)
+- Clear error messages
+- Cross-platform compatibility
+- Built-in command documentation
+- No tab-sensitivity issues
+
+For those familiar with Make, here's a quick comparison:
+
+| Feature        | Just                     | Make                    |
+| -------------- | ------------------------ | ----------------------- |
+| Syntax         | Simple, YAML-like        | Complex, tab-sensitive  |
+| Error Messages | Clear, helpful           | Often cryptic           |
+| Cross-Platform | Native support           | Requires workarounds    |
+| Dependencies   | Explicit, clear          | Complex timestamp-based |
+| Documentation  | Built-in command listing | Manual maintenance      |
 
 # Notes on tool choices
 
