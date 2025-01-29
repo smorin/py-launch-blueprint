@@ -55,8 +55,7 @@ def test_cli_with_token(runner, mock_client):
 
     # Run with token
     with patch(
-        "py_launch_blueprint.projects.get_config",
-        return_value=Config(token="test"),  # noqa S106
+        "py_launch_blueprint.projects.get_config", return_value=Config(token="test")
     ):
         with patch("questionary.checkbox") as mock_checkbox:
             mock_checkbox.ask.return_value = []  # No selection
@@ -67,8 +66,7 @@ def test_cli_with_token(runner, mock_client):
 def test_cli_workspace_filter(runner, mock_client):
     """Test CLI with workspace filter."""
     with patch(
-        "py_launch_blueprint.projects.get_config",
-        return_value=Config(token="test"),  # noqa S106
+        "py_launch_blueprint.projects.get_config", return_value=Config(token="test")
     ):
         with patch("questionary.checkbox") as mock_checkbox:
             mock_checkbox.ask.return_value = []
@@ -89,8 +87,7 @@ def test_cli_output_formats(runner, mock_client):
     mock_client.get_projects.return_value = [project_data]
 
     with patch(
-        "py_launch_blueprint.projects.get_config",
-        return_value=Config(token="test"),  # noqa S106
+        "py_launch_blueprint.projects.get_config", return_value=Config(token="test")
     ):
         with patch("questionary.checkbox") as mock_checkbox:
             mock_checkbox.ask.return_value = [project_data]
@@ -123,8 +120,7 @@ def test_cli_output_file(runner, mock_client, tmp_path):
     output_file = tmp_path / "output.txt"
 
     with patch(
-        "py_launch_blueprint.projects.get_config",
-        return_value=Config(token="test"),  # noqa S106
+        "py_launch_blueprint.projects.get_config", return_value=Config(token="test")
     ):
         with patch("questionary.checkbox") as mock_checkbox:
             mock_checkbox.ask.return_value = [project_data]
@@ -145,8 +141,7 @@ def test_cli_copy_to_clipboard(mock_copy, runner, mock_client):
     mock_client.get_projects.return_value = [project_data]
 
     with patch(
-        "py_launch_blueprint.projects.get_config",
-        return_value=Config(token="test"),  # noqa S106
+        "py_launch_blueprint.projects.get_config", return_value=Config(token="test")
     ):
         with patch("questionary.checkbox") as mock_checkbox:
             mock_checkbox.ask.return_value = [project_data]

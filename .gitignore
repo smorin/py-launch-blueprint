@@ -15,5 +15,4 @@ uv.lock # remove if you want to pin versions.
 .ruff_cache
 
 # Virtual environments
-.venv
-venv/
+
