@@ -12,7 +12,6 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 - **Type Safety First**: Built-in MyPy configuration and VS Code integration for robust type checking
 - **Modern Development Tools**:
   - ⚡ Ruff for lightning-fast linting and formatting
-  - 🎨 Black for consistent code styling
   - 🔍 Pre-commit hooks for code quality enforcement
   - 📝 Type checking with MyPy and Pylance
 
@@ -85,6 +84,15 @@ This project uses [Just](https://github.com/casey/just) as a modern command runn
 # macOS
 brew install just
 
+# (Optional) Setup Pre-Commit Hook
+uvx --with-editable . pre-commit install
+
+# Run development tools directly (no need for 'uv pip run')
+pytest
+mypy py_launch_blueprint/
+ruff check py_launch_blueprint/
+
+
 # Linux
 apt install just  # or use cargo install just
 
@@ -136,6 +144,22 @@ For those familiar with Make, here's a quick comparison:
 | Documentation  | Built-in command listing | Manual maintenance      |
 
 # Notes on tool choices
+
+## Ruff
+
+Ruff is a high-performance linter and code formatter for Python. It combines multiple tools into one, offering faster performance and comprehensive functionality compared to traditional Python tools.
+
+Pros:
+
+- Very Fast: Written in Rust, Ruff is significantly faster than traditional linters, allowing it to process large codebases quickly.
+- All-in-One Solution: Ruff incorporates checks and fixes from a variety of popular linters like Flake8, Black, isort, pydocstyle, pyupgrade, autoflake. This means less maintenance of multiple separate tools.
+- Customizable: Allows users to select and ignore specific checks or enforce particular rules according to the project needs.
+- Easy Integration: Works well with CI/CD pipelines, IDEs, and modern developer workflows.
+- Automated Fixes: Ruff can automatically correct a wide range of issues in your code.
+
+Cons:
+
+- Relatively New: As a newer tool, it might not yet be as widely adopted or supported in some edge cases.
 
 ## Black
 
@@ -189,22 +213,6 @@ Python line length standards:
 - 100: Google's choice. Popular in enterprise. Good for complex expressions.
 - 120: Maximum reasonable length. Works on wide screens but can hurt readability.
 - Recommendation: Use 88 characters (Black's default) unless your team/project has an existing standard. It offers the best balance of readability and practicality while following modern community practices.
-
-## Ruff
-
-Ruff is a high-performance linter and code formatter for Python. It combines multiple tools into one, offering faster performance and comprehensive functionality compared to traditional Python tools.
-
-Pros:
-
-- Very Fast: Written in Rust, Ruff is significantly faster than traditional linters, allowing it to process large codebases quickly.
-- All-in-One Solution: Ruff incorporates checks and fixes from a variety of popular linters like Flake8, Black, isort, pydocstyle, pyupgrade, autoflake. This means less maintenance of multiple separate tools.
-- Customizable: Allows users to select and ignore specific checks or enforce particular rules according to the project needs.
-- Easy Integration: Works well with CI/CD pipelines, IDEs, and modern developer workflows.
-  Automated Fixes: Ruff can automatically correct a wide range of issues in your code.
-
-Cons:
-
-- Relatively New: As a newer tool, it might not yet be as widely adopted or supported in some edge cases.
 
 ## mypy
 
@@ -315,8 +323,6 @@ def process(handler: Handler) -> None:
 This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
 
 - **Python** (`ms-python.python`): Essential Python language support
-- **Pylance** (`ms-python.vscode-pylance`): Fast, feature-rich language support for Python
-- **Black Formatter** (`ms-python.black-formatter`): Official Black formatter integration
 - **Ruff** (`charliermarsh.ruff`): Fast Python linter and formatter
 - **MyPy** (`matangover.mypy`): Static type checking for Python
 - **Even Better TOML** (`tamasfe.even-better-toml`): Improved TOML file support
@@ -339,7 +345,6 @@ Following pre-commit hooks are used in this repo
 - `check-added-large-files` warns when you try to add large files to the repository,
 - `mypy` checks your Python code for type errors based on type annotations,
 - `ruff` acts as a fast linter and formatter for Python, ensuring clean code,
-- `black`formats Python code to enforce consistent and opinionated style rules across your codebase.
 
 ## Python Types Common Issues and Solutions
 
@@ -404,8 +409,6 @@ def process_data(data: int) -> int:
 This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
 
 - **Python** (`ms-python.python`): Essential Python language support
-- **Pylance** (`ms-python.vscode-pylance`): Fast, feature-rich language support for Python
-- **Black Formatter** (`ms-python.black-formatter`): Official Black formatter integration
 - **Ruff** (`charliermarsh.ruff`): Fast Python linter and formatter
 - **MyPy** (`matangover.mypy`): Static type checking for Python
 - **Even Better TOML** (`tamasfe.even-better-toml`): Improved TOML file support

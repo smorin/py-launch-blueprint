@@ -47,20 +47,12 @@ py-projects = "py_launch_blueprint.projects:main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.black]
-line-length = 88
-target-version = ['py310']
-
-[tool.isort]
-profile = "black"
-line_length = 88
-
 [tool.ruff]
 # Target Python Version
 target-version = "py310"
 
 # Line length
-line-length = 88  # Match Black's default
+line-length = 88
 lint.select = [
     "E",   # pycodestyle errors
     "F",   # pyflakes
@@ -92,6 +84,9 @@ exclude = [
     "build",
     "dist",
 ]
+
+[tool.ruff.pycodestyle]
+max-line-length = 88
 
 # Per-file-ignores
 [tool.ruff.lint.per-file-ignores]
