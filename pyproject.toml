@@ -1,6 +1,6 @@
 [project]
 name = "py_launch_blueprint"
-version = "0.1.0"
+version = "0.0.0"  # Will be overridden by setuptools_scm
 description = "CLI tools for interacting with Py, including project search functionality"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -137,7 +137,7 @@ module = ["tests.*"]
 disallow_untyped_defs = false
 [tool.setuptools_scm]
 # Generate version file in your package
-write_to = "src/py_launch_blueprint/_version.py"
+write_to = "py_launch_blueprint/_version.py"
 
 # Version format configuration
 version_scheme = "python-simplified-semver"
