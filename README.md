@@ -62,7 +62,46 @@ py-utils/
 ├── pyproject.toml  # Project and tool configuration
 └── README.md      # Documentation
 ```
+# Versioning and Release Management
 
+This project uses automatic version management powered by Git tags and `setuptools_scm`. The version is dynamically generated during installation and build processes.
+
+## Key Features
+- **Automatic Versioning**: Version derived from Git tags (e.g., `v1.2.3` → `1.2.3`)
+- **Development Versions**: Unreleased commits show as `1.2.4.dev1`
+- **CI/CD Integration**: GitHub Actions validate version-tag alignment
+- **Semantic Versioning**: Enforces proper version format in tags
+
+## Workflow
+
+### Creating Releases
+```bash
+# Create annotated tag
+git tag -a v1.2.3 -m "Release version 1.2.3"
+git push --tags
+
+# Verify version
+uv run python -c "import py_launch_blueprint; print(py_launch_blueprint.__version__)"
+```
+
+### Daily Development
+```bash
+# Install with development dependencies
+uv pip install --editable ".[dev]"
+
+# Check current version
+uv run python -c "import py_launch_blueprint; print(py_launch_blueprint.__version__)"
+
+# Build package
+hatch build
+```
+
+### CI/CD Automation
+The pre-configured GitHub Actions workflow:
+1. Validates version matches Git tag
+2. Runs tests across Python versions
+3. Builds production artifacts
+4. Enforces version-tag consistency
 # Example CLI Tool Usage
 [Example CLI: py-projects](EXAMPLECLI.md)
 
@@ -120,7 +159,21 @@ uvx ruff check py_launch_blueprint/
 # Run command
 uvx --with-editable .  --from py_launch_blueprint py-projects
 ```
+### Version Management
+The version is automatically derived from Git tags using `setuptools_scm`. Key behaviors:
 
+- **Tagged Releases**: `v1.2.3` → `1.2.3`
+- **Development Versions**: `1.2.4.dev13` (after commits since last tag)
+- **Fallback Version**: `0.0.0` (if no tags exist)
+
+Validation commands:
+```bash
+# Check installed version
+uv run python -c "import py_launch_blueprint; print(py_launch_blueprint.__version__)"
+
+# Verify build version
+hatch version
+```
 # Notes on tool choices
 
 ## Ruff
@@ -250,20 +303,6 @@ def process(handler: Handler) -> None:
     ...
 ```
 
-## Recommended Extensions
-
-This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
-
-- **Python** (`ms-python.python`): Essential Python language support
-- **Ruff** (`charliermarsh.ruff`): Fast Python linter and formatter
-- **MyPy** (`matangover.mypy`): Static type checking for Python
-- **Even Better TOML** (`tamasfe.even-better-toml`): Improved TOML file support
-- **YAML** (`redhat.vscode-yaml`): YAML language support
-- **GitLens** (`eamodio.gitlens`): Enhanced Git integration
-- **Code Spell Checker** (`streetsidesoftware.code-spell-checker`): Catch common spelling mistakes
-
-These extensions are configured to work seamlessly with the project's setup and will help maintain code quality standards. VS Code will automatically suggest installing these extensions when you open the project.
-
 ## Precommit hooks
 
 Hooks are designed to maintain clean, consistent, and error-free code and configuration files. They save time by catching issues before they make it into your repository.
@@ -280,6 +319,7 @@ Following pre-commit hooks are used in this repo
 - `ruff` acts as a fast linter and formatter for Python, ensuring clean code,
 
 ## Python Types Common Issues and Solutions
+
 1. Third-party library types:
 ```bash
 # Install type stubs for common libraries
@@ -330,6 +370,10 @@ def process_data(data: int) -> int:
     return data + 1
 ```
 
+### Version Issues
+- **Version shows 0.0.0**: Create initial Git tag (`v0.1.0`)
+- **Version mismatch in CI**: Ensure GitHub Actions uses `fetch-depth: 0`
+- **Dirty version suffix**: Commit all changes before tagging
 # Recommended Extensions
 
 This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
