@@ -21,6 +21,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Create virtual environment
+        run: uv venv
+
       - name: Install build tools
         run: uv pip install hatch build
 
