@@ -36,7 +36,11 @@ dev = [
 py-projects = "py_launch_blueprint.projects:main"
 
 [build-system]
-requires = ["hatchling"]
+requires = [
+    "hatchling",
+    "setuptools_scm>=8.0",
+    "setuptools>=45"
+]
 build-backend = "hatchling.build"
 
 [tool.ruff]
@@ -131,3 +135,13 @@ show_column_numbers = true
 [[tool.mypy.overrides]]
 module = ["tests.*"]
 disallow_untyped_defs = false
+[tool.setuptools_scm]
+# Generate version file in your package
+write_to = "src/py_launch_blueprint/_version.py"
+
+# Version format configuration
+version_scheme = "python-simplified-semver"
+local_scheme = "no-local-version"
+
+# Where to find the Python package
+root = "."
