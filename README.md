@@ -28,12 +28,23 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 - **Git Hooks**: Automated code quality checks before commits
 
 ### 🎯 Perfect For
+- Professionals looking for a production-ready Python project
 - Teams wanting a standardized Python development environment
 - Projects requiring maintainable, type-safe code
 - Developers who value clean, consistent code style
 - Anyone looking to adopt Python best practices from day one
 
 Start your next Python project with confidence, knowing you're building on a foundation of best practices and modern development tools.
+
+## Philosophy
+- **Heavily Documented**: Every detail is explained, making it easy to understand, even for folks new to the project, tools, or new to Python.
+- **Pragmatic**: Focuses on practical best practices instead of strict rules
+- **Modular**: Designed to be easy to remove features, replace with alternatives or add new ones
+
+## Why Open Source?
+
+- **Transparent**: Every detail is documented, making it easy to understand and contribute
+- **Collaborative**: A community of developers is formed, fostering a shared learning environment
 
 ## Contributing
 
@@ -66,36 +77,34 @@ py-utils/
 # Example CLI Tool Usage
 [Example CLI: py-projects](EXAMPLECLI.md)
 
-## Development
+# Development
 
-### Setup Development Environment
+## Dependencies
 
 Project requires Python 3.10+ (which is also specified inside [.python-version](.python-version) file) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed.
 
+### Setup Development Environment
+
+There are two options for setting up the development environment:
+- Using [uv](https://docs.astral.sh/uv/getting-started/installation/):
+- Using [pip](https://pip.pypa.io/en/stable/installation/):
+
+It depends on the tool you choose, but both offer a convenient way to install the package in editable mode with development dependencies. UV is recommended as it offers much greater speed and a lot of features and tools out of the box.
+
+#### Using uv:
+
 ```bash
-
-# Create and activate a virtual environment if needed
-uv venv
-source .venv/bin/activate  # On Unix/macOS
-
-# Install the package in editable mode with development dependencies
+# This command creates a live development installation that allows you to modify the code without reinstalling while also installing additional development tools (like pytest, mypy, etc.) specified in your project's dev dependencies.
 uv pip install --editable ".[dev]"
 
-# Check the installed package
-py-projects --version
+# Format the code
+uvx ruff format py_launch_blueprint/
 
-# (Optional) Setup Pre-Commit Hook
-uvx --with-editable . pre-commit install
+# Run linter
+uvx ruff check py_launch_blueprint/
 
-# Run development tools directly (no need for 'uv pip run')
-pytest
-mypy py_launch_blueprint/
-ruff check py_launch_blueprint/
-
-# Or run with our the virtual environment
-
-# (Optional) Setup Pre-Commit Hook
-uvx --with-editable . pre-commit install
+# Run type checker
+uvx  --with-editable . mypy py_launch_blueprint/
 
 # Run tests
 uvx --with-editable . pytest
@@ -103,25 +112,114 @@ uvx --with-editable . pytest
 # Run tests with coverage
 uvx --with pytest-cov --with-editable . pytest --cov=py_launch_blueprint.projects --cov-report=term-missing
 
-# Run type checker
-uvx  --with-editable . mypy py_launch_blueprint/
-
-
-# Format the code
-uvx ruff format py_launch_blueprint/
-
-#Run all pre-Commit Hooks
-uvx pre-commit run --all-files
-
-
-# Run linter
-uvx ruff check py_launch_blueprint/
-
 # Run command
 uvx --with-editable .  --from py_launch_blueprint py-projects
 ```
 
-# Notes on tool choices
+
+##### (Optional) Pre-Commit Hooks with uv
+
+```bash
+# Setup Pre-Commit Hook
+uvx --with-editable . pre-commit install
+
+#Run all pre-Commit Hooks
+uvx pre-commit run --all-files
+```
+
+
+#### Using pip:
+
+```bash
+
+# Create and activate a virtual environment if needed
+python3 -m venv .venv
+source .venv/bin/activate  # On Unix/macOS
+.venv\Scripts\activate  # On Windows
+
+# Install the package in editable mode with development dependencies
+pip install --editable ".[dev]"
+
+# Run development tools directly (no need for 'uv pip run')
+ruff format py_launch_blueprint/
+ruff check py_launch_blueprint/
+mypy py_launch_blueprint/
+pytest --cov=py_launch_blueprint.projects --cov-report=term-missing
+
+# Check the installed package cli tool version
+py-projects --version
+```
+
+##### (Optional) Pre-Commit Hooks with pip
+
+```bash
+# Setup Pre-Commit Hook
+pre-commit install
+
+#Run all pre-Commit Hooks
+pre-commit run --all-files
+```
+
+
+### Using the Justfile
+
+This project includes a `Justfile` that provides convenient commands for common development tasks. [Just](https://github.com/casey/just) is a handy command runner that helps standardize commands across your project.
+
+To use these commands, first [install Just](https://github.com/casey/just#installation). You can see all available commands by running:
+
+```bash
+just --list
+```
+
+Here are some commonly used commands (this is just a subset of all available commands):
+
+```bash
+# Setup your development environment
+just setup
+
+# Format code (includes ruff format and import sorting)
+just format
+
+# Run linter (code style and quality checks)
+just lint
+
+# Run type checker
+just typecheck
+
+# Run tests
+just test
+
+# Run all checks (tests, linting, and type checking)
+just check
+
+# Check installed package version
+just version
+
+# Clean up temporary files and caches
+just clean
+
+# Set up pre-commit hooks
+just pre-commit-setup
+
+# Build the package
+just build
+
+# Install in development mode
+just install-dev
+```
+
+When your virtual environment is activated, you can also use direct commands without uvx:
+
+```bash
+just format-pip   # Run formatter directly
+just lint-pip     # Run linter directly
+just typecheck-pip # Run type checker directly
+just test-pip     # Run tests directly with pytest
+```
+
+The Justfile standardizes common development tasks and provides a consistent interface for both uvx and direct command execution.
+
+## Notes on tool choices
 
 ## Ruff
 Ruff is a high-performance linter and code formatter for Python. It combines multiple tools into one, offering faster performance and comprehensive functionality compared to traditional Python tools.
@@ -250,26 +348,11 @@ def process(handler: Handler) -> None:
     ...
 ```
 
-## Recommended Extensions
-
-This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
-
-- **Python** (`ms-python.python`): Essential Python language support
-- **Ruff** (`charliermarsh.ruff`): Fast Python linter and formatter
-- **MyPy** (`matangover.mypy`): Static type checking for Python
-- **Even Better TOML** (`tamasfe.even-better-toml`): Improved TOML file support
-- **YAML** (`redhat.vscode-yaml`): YAML language support
-- **GitLens** (`eamodio.gitlens`): Enhanced Git integration
-- **Code Spell Checker** (`streetsidesoftware.code-spell-checker`): Catch common spelling mistakes
-
-These extensions are configured to work seamlessly with the project's setup and will help maintain code quality standards. VS Code will automatically suggest installing these extensions when you open the project.
-
 ## Precommit hooks
 
 Hooks are designed to maintain clean, consistent, and error-free code and configuration files. They save time by catching issues before they make it into your repository.
 
 Following pre-commit hooks are used in this repo
-
 
 - `check-yaml` checks if all YAML files in your repository are valid,
 - `end-of-file-fixer` ensures every file in your repository ends with a single newline character,
@@ -337,6 +420,7 @@ This project comes with recommended VS Code extensions to enhance your developme
 - **Python** (`ms-python.python`): Essential Python language support
 - **Ruff** (`charliermarsh.ruff`): Fast Python linter and formatter
 - **MyPy** (`matangover.mypy`): Static type checking for Python
+- **Pylance** (`ms-python.vscode-pylance`): Intelligent Python language support
 - **Even Better TOML** (`tamasfe.even-better-toml`): Improved TOML file support
 - **YAML** (`redhat.vscode-yaml`): YAML language support
 - **GitLens** (`eamodio.gitlens`): Enhanced Git integration
