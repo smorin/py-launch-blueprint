@@ -141,4 +141,4 @@ version.source = "vcs"
 build.hooks.vcs.version-file = "py_launch_blueprint/_version.py"
 
 [tool.hatch.version.raw-options]
-local_scheme = "no-local-version"
+local_scheme = "no-local-version" # No commit ID or dirty flag
