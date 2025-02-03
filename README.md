@@ -169,6 +169,10 @@ uv run python -c "import py_launch_blueprint; print(py_launch_blueprint.__versio
 # Verify build version
 hatch version
 ```
+#### Version Issues
+- **Version shows 0.0.0**: Create initial Git tag (`v0.1.0`)
+- **Version mismatch in CI**: Ensure GitHub Actions uses `fetch-depth: 0`
+- **Dirty version suffix**: Commit all changes before tagging
 # Notes on tool choices
 
 ##### (Optional) Pre-Commit Hooks with uv
@@ -468,10 +472,6 @@ def process_data(data: int) -> int:
     return data + 1
 ```
 
-### Version Issues
-- **Version shows 0.0.0**: Create initial Git tag (`v0.1.0`)
-- **Version mismatch in CI**: Ensure GitHub Actions uses `fetch-depth: 0`
-- **Dirty version suffix**: Commit all changes before tagging
 # Recommended Extensions
 
 This project comes with recommended VS Code extensions to enhance your development experience. When you open this project in VS Code, you'll be prompted to install these extensions:
