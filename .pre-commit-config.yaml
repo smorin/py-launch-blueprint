@@ -12,7 +12,7 @@ repos:
             "types-click>=1.1.0",
           ]
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v5.0.0
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer

@@ -1,0 +1,20 @@
+{
+  "cSpell.words": [
+    "autoflake",
+    "docstrings",
+    "extrahead",
+    "fontawesome",
+    "inlinehilite",
+    "isort",
+    "Justfile",
+    "mypy",
+    "pydocstyle",
+    "Pylance",
+    "PYPI",
+    "pyproject",
+    "pytest",
+    "pyupgrade",
+    "pyupio",
+    "venv"
+  ]
+}
