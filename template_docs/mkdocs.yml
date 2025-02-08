@@ -1,18 +1,20 @@
 site_name: Py-Launch-Blueprint
 site_description: A Production-Ready Python Project Template
 site_author: Your Name
-repo_url: https://github.com/yourusername/py-launch-blueprint
+repo_url: https://github.com/smorin/py-launch-blueprint
 repo_name: py-launch-blueprint
 
 theme:
   name: material
   features:
-    - navigation.tabs
-    - navigation.sections
-    - navigation.left
-    - search.highlight
-    - content.code.copy
-    - toc.integrate
+    - navigation.sections      # Sections in left sidebar
+    - navigation.expand       # Expand navigation by default
+    - navigation.indexes      # Section index pages
+    - navigation.top          # Back to top button
+    - toc.follow             # TOC follows while scrolling
+    - navigation.instant     # Instant loading
+    - navigation.tracking    # URL tracking
+    - navigation.path
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -28,6 +30,9 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+
+extra_css:
+  - stylesheets/extra.css
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -70,5 +75,5 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/yourusername/py-launch-blueprint
+      link: https://github.com/smorin/py-launch-blueprint
   generator: false

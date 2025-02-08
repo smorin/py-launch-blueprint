@@ -1,3 +1,8 @@
+---
+title: Changelog
+description: Version history and changes for Py-Launch-Blueprint
+---
+
 # Changelog
 
 ## [0.1.0] - 2024-03-XX

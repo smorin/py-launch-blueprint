@@ -1,4 +1,11 @@
+---
+title: Contributing Guidelines
+description: How to contribute to Py-Launch-Blueprint
+---
+
 # Contributing Guidelines
+
+!!! info "Quick Links" - [Code Standards](standards.md) - [Development Setup](development.md) - [Feature Overview](../features/overview.md)
 
 ## Getting Started
 

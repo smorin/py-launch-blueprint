@@ -1,3 +1,8 @@
+---
+title: Py-Launch-Blueprint
+description: A production-ready Python project template with integrated best practices
+---
+
 # Py-Launch-Blueprint
 
 A production-ready Python project template with integrated best practices.
@@ -9,11 +14,13 @@ Py-Launch-Blueprint is a comprehensive Python project template that eliminates s
 ## ✨ Key Features
 
 - **Zero Configuration Setup**
+
   - Pre-configured development tools
   - Ready-to-use project structure
   - Automated workflows
 
 - **Type Safety First**
+
   - MyPy configuration
   - VS Code integration
   - Comprehensive type checking
