@@ -7,13 +7,13 @@ repo_name: py-launch-blueprint
 theme:
   name: material
   features:
-    - navigation.sections      # Sections in left sidebar
-    - navigation.expand       # Expand navigation by default
-    - navigation.indexes      # Section index pages
-    - navigation.top          # Back to top button
-    - toc.follow             # TOC follows while scrolling
-    - navigation.instant     # Instant loading
-    - navigation.tracking    # URL tracking
+    - navigation.sections # Sections in left sidebar
+    - navigation.expand # Expand navigation by default
+    - navigation.indexes # Section index pages
+    - navigation.top # Back to top button
+    - toc.follow # TOC follows while scrolling
+    - navigation.instant # Instant loading
+    - navigation.tracking # URL tracking
     - navigation.path
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -60,6 +60,7 @@ nav:
       - Type Safety: features/type-safety.md
       - Code Quality: features/code-quality.md
       - VS Code Integration: features/vscode.md
+  - Usage Guide: usage.md
   - Contributing:
       - Guidelines: contributing/guidelines.md
       - Development: contributing/development.md
