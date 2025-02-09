@@ -38,7 +38,6 @@ class PyError(Exception):
 
 class ConfigError(Exception):
     """Configuration-related errors."""
-
     pass
 
 
@@ -307,7 +306,6 @@ def display_projects(projects: list[dict[str, Any]], verbose: bool = False) -> N
 @click.option("--output", type=click.Path(), help="Write results to file")
 @click.option("--no-color", is_flag=True, help="Disable colored output")
 @click.option("--verbose", is_flag=True, help="Enable verbose output")
-@click.version_option(version="0.1.0")
 def main(
     token: str | None,
     config: str | None,
@@ -340,7 +338,7 @@ def main(
             progress.update(task, completed=True)
 
         if not projects:
-            console.print("[yellow]No projects found[/yellow]")
+            console.print("[yellow]No projects found.[/yellow]")
             return
 
         # Display projects and get selection
