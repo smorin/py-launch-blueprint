@@ -84,13 +84,17 @@ This project uses automatic version management powered by Git tags and `setuptoo
 - **Semantic Versioning**: Enforces proper version format in tags
 - **Customizable Local Scheme**: Control how development versions are formatted (e.g., include/exclude commit ID)
 
+## Setup & Dependency Check
+```bash
+make check
+```
 
 ## Workflow
 
 ### Creating Releases
 ```bash
 # Create annotated tag
-git tag -a v1.2.3 -m "Release version 1.2.3"
+git tag -a v0.0.2 -m "Release version 0.0.2"
 git push --tags
 
 # Verify version
