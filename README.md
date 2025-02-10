@@ -263,18 +263,12 @@ pip install mkdocs-material
 pip install mkdocstrings[python]
 ```
 
-Or use the Makefile command:
-
-```bash
-make install-docs
-```
-
 ### Local Development
 
 To serve the main documentation locally:
 
 ```bash
-make docs-serve
+just docs-serve  # or just ds
 ```
 
 This will start a development server at `http://127.0.0.1:8000`. The documentation will automatically reload when you make changes.
@@ -282,15 +276,22 @@ This will start a development server at `http://127.0.0.1:8000`. The documentati
 To build the main documentation:
 
 ```bash
-make docs-build
+just docs-build  # or just db
 ```
 
 For template documentation, use:
 
 ```bash
-make template-docs-serve  # Serve locally
-make template-docs-build  # Build static site
+just template-docs-serve  # or just tds  # Serve locally
+just template-docs-build  # or just tdb  # Build static site
 ```
+
+The documentation commands have convenient aliases:
+
+- `just ds` - Serve main docs
+- `just db` - Build main docs
+- `just tds` - Serve template docs
+- `just tdb` - Build template docs
 
 ## Notes on tool choices
 
