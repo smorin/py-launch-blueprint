@@ -91,13 +91,13 @@ install-just: ## Print install just command and where to find install options
 	@echo -e "${CYAN}curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin${NC}"
 	@echo "NOTE:change ~/bin to the desired installation directory"
 	@echo "Find other install options here: https://github.com/casey/just"
-	@echo "To setup just PATH, run: SET_PATH=$(HOME)/bin make set-path"
+	@echo -e "To setup just PATH, run: ${YELLOW}SET_PATH=$(HOME)/bin make set-path${NC}"
 
 install-uv: ## Print install uv command and where to find install options
 	@echo "uv installation command:"
 	@echo -e "${CYAN}curl -LsSf https://astral.sh/uv/install.sh | sh${NC}"
 	@echo "Find other install options here: https://docs.astral.sh/uv/getting-started/installation/"
-	@echo "To setup uv PATH, run: SET_PATH=$(HOME)/.local/binmake set-path"
+	@echo -e "To setup uv PATH, run: ${YELLOW}SET_PATH=$(HOME)/.local/bin make set-path${NC}"
 
 set-path: ## Add SET_PATH to PATH in .zshenv if not already present
 	@if [ -z "$(SET_PATH)" ]; then \
