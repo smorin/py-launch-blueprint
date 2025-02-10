@@ -1,4 +1,4 @@
-SHELL := /bin/zsh
+SHELL := /bin/bash
 
 # Text colors
 BLACK := \033[30m
@@ -34,7 +34,7 @@ CHECK := $(GREEN)✓$(NC)
 CROSS := $(RED)✗$(NC)
 DASH := $(GRAY)-$(NC)
 
-.PHONY: all check install-uv install-just set-path help
+.PHONY: all check install-uv install-just set-path help docs-serve docs-build template-docs-serve template-docs-build
 
 all: help
 
@@ -78,6 +78,15 @@ check: ## Check system requirements
 		ERROR_COUNT=$$((ERROR_COUNT + 1)); \
 		MISSING_DEPS="$${CHECK_CMD_NAME}$${MISSING_DEPS:+,} $${MISSING_DEPS}"; \
 	fi; \
+	CHECK_CMD_NAME="mkdocs"; \
+	CHECK_CMD_INSTALL="install-mkdocs"; \
+	if [ $(shell command -v mkdocs >/dev/null 2>&1 && echo "0" || echo "1" ) -eq 0 ] ; then \
+		printf "[$(CHECK)] $${CHECK_CMD_NAME}\n"; \
+	else \
+		printf "[$(CROSS)] $${CHECK_CMD_NAME} ($(GREEN)make $${CHECK_CMD_INSTALL}$(NC))\n"; \
+		ERROR_COUNT=$$((ERROR_COUNT + 1)); \
+		MISSING_DEPS="$${CHECK_CMD_NAME}$${MISSING_DEPS:+,} $${MISSING_DEPS}"; \
+	fi; \
 	if [ "$${ERROR_COUNT}" = "0" ]; then \
 		echo -e "$(GREEN)All dependencies are installed!$(NC)"; \
 	else \
@@ -98,6 +107,11 @@ install-uv: ## Print install uv command and where to find install options
 	@echo -e "${CYAN}curl -LsSf https://astral.sh/uv/install.sh | sh${NC}"
 	@echo "Find other install options here: https://docs.astral.sh/uv/getting-started/installation/"
 	@echo -e "To setup uv PATH, run: ${YELLOW}SET_PATH=$(HOME)/.local/bin make set-path${NC}"
+
+install-mkdocs: ## Print install mkdocs command and where to find install options
+	@echo "mkdocs installation command:"
+	@echo -e "${CYAN}pip install mkdocs${NC}"
+	@echo "Find other install options here: https://www.mkdocs.org/getting-started/"
 
 set-path: ## Add SET_PATH to PATH in .zshenv if not already present
 	@if [ -z "$(SET_PATH)" ]; then \
@@ -132,3 +146,21 @@ help: ## The help command - this command
 	@echo "Targets:"
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-30s$(NC) %s\n", $$1, $$2}'
 	@echo ""
+
+docs-serve: ## Serve the main documentation site
+	@echo "Starting mkdocs server for main docs..."
+	@cd docs && mkdocs serve
+
+docs-build: ## Build the main documentation site
+	@echo "Building main documentation..."
+	@cd docs && mkdocs build
+	@echo -e "$(CHECK) Documentation built in docs/site/"
+
+template-docs-serve: ## Serve the template documentation site
+	@echo "Starting mkdocs server for template docs..."
+	@cd template_docs && mkdocs serve
+
+template-docs-build: ## Build the template documentation site
+	@echo "Building template documentation..."
+	@cd template_docs && mkdocs build
+	@echo -e "$(CHECK) Documentation built in template_docs/site/"
