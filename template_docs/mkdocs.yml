@@ -6,7 +6,7 @@ repo_name: py-launch-blueprint
 
 theme:
   name: material
-  logo: ./template_images/py_launch_blueprint_logo_100x100.png
+  logo: ./template_images/py_launch_blueprint_logo_100x10.png
   features:
     - navigation.sections # Sections in left sidebar
     - navigation.expand # Expand navigation by default
@@ -66,6 +66,9 @@ nav:
       - Guidelines: contributing/guidelines.md
       - Development: contributing/development.md
       - Code Standards: contributing/standards.md
+  - Example:
+      - Example: example/example.md
+      - Example 2: example/example2.md
   - About:
       - Changelog: about/changelog.md
       - License: about/license.md
