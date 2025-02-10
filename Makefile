@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL := /bin/zsh
 
 # Text colors
 BLACK := \033[30m
