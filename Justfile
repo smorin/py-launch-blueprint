@@ -168,7 +168,6 @@ alias pc := pre-commit-run
 # Run tests
 @test-pip *options:
     pytest {{options}}
-
 # Documentation commands
 
 # Serve the main documentation site
