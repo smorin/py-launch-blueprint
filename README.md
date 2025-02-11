@@ -57,6 +57,19 @@ Start your next Python project with confidence, knowing you're building on a fou
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+## Contributor License Agreement (CLA)
+
+Before we can accept your contributions, you will need to sign a Contributor License Agreement (CLA). This is a legal document in which you state that you are entitled to contribute the code you are submitting and that you grant us the rights to use that contribution.
+
+### How to Sign the CLA
+
+1. **Individual Contributors**: If you are contributing as an individual, please sign the [Individual CLA](docs/cla/individual_cla.md).
+2. **Corporate Contributors**: If you are contributing on behalf of a company, please sign the [Corporate CLA](docs/cla/corporate_cla.md).
+
+### CLA Assistant Bot
+
+We have integrated the CLA Assistant bot to streamline the CLA signing process. When you open a pull request, the bot will check if you have signed the CLA. If you have not, it will provide a link to sign it.
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
