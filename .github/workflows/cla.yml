@@ -19,13 +19,3 @@ jobs:
         cla-url: https://cla-assistant.io/py_launch_blueprint
         name: CLA Check
 
-
-
-  check-cla:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check if CLA is signed
-        uses: cla-assistant/github-action@v1
-        with:
-          path-to-signatures: ".github/cla-signatures.json"
-          path-to-document: "cla/cla-individual.md"
