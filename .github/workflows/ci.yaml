@@ -72,8 +72,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv pip install mkdocs-material
-        uv pip install mkdocstrings[python]
+        uv sync --all-extras --dev
+        uv pip install mkdocs-material mkdocstrings[python]
 
     - name: Build and deploy template documentation
       run: mkdocs gh-deploy --force
