@@ -16,4 +16,4 @@ jobs:
       uses: cla-assistant/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        cla-url: https://cla-assistant.io/<your-repo>
+        cla-url: https://cla-assistant.io/py_launch_blueprint

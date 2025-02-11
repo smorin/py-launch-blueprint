@@ -14,11 +14,11 @@ We have integrated the CLA Assistant bot to streamline the CLA signing process. 
 
 ### Individual Contributors
 
-If you are contributing as an individual, please sign the [Individual CLA](docs/cla/individual_cla.md).
+If you are contributing as an individual, please sign the [Individual CLA](cla/individual_cla.md).
 
 ### Corporate Contributors
 
-If you are contributing on behalf of a company, please sign the [Corporate CLA](docs/cla/corporate_cla.md).
+If you are contributing on behalf of a company, please sign the [Corporate CLA](cla/corporate_cla.md).
 
 ## What happens if I don't sign the CLA?
 
