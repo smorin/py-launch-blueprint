@@ -41,23 +41,3 @@ If Corporation wishes to submit work that is not its original creation, Corporat
 ## 8. Signatures
 
 By signing below, the Corporation accepts and agrees to the terms of this Agreement.
-
-Corporation Name: ___________________________
-
-Authorized Signature: ________________________
-
-Name: ______________________________________
-
-Title: _______________________________________
-
-Date: _______________________________________
-
-Maintainers:
-
-Authorized Signature: ________________________
-
-Name: ______________________________________
-
-Title: _______________________________________
-
-Date: _______________________________________

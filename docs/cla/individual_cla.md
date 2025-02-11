@@ -39,9 +39,3 @@ You agree to notify us of any facts or circumstances of which You become aware t
 ## 9. Signatures
 
 Please sign this Agreement by providing the following information:
-
-- Full Name:
-- Email:
-- GitHub Username:
-- Date:
-- Signature:
