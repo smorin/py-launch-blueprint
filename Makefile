@@ -132,4 +132,3 @@ help: ## The help command - this command
 	@echo "Targets:"
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-30s$(NC) %s\n", $$1, $$2}' 
 	@echo ""
--
