@@ -168,33 +168,3 @@ alias pc := pre-commit-run
 # Run tests
 @test-pip *options:
     pytest {{options}}
-
-# Documentation commands
-
-# Serve the main documentation site
-@docs-serve:
-    echo "Starting mkdocs server for main docs..."
-    cd docs && mkdocs serve
-
-# Build the main documentation site
-@docs-build:
-    echo "Building main documentation..."
-    cd docs && mkdocs build
-    echo "{{CHECK}} Documentation built in docs/site/"
-
-# Serve the template documentation site
-@template-docs-serve:
-    echo "Starting mkdocs server for template docs..."
-    cd template_docs && mkdocs serve
-
-# Build the template documentation site
-@template-docs-build:
-    echo "Building template documentation..."
-    cd template_docs && mkdocs build
-    echo "{{CHECK}} Documentation built in template_docs/site/"
-
-# Add aliases for documentation commands
-alias ds := docs-serve
-alias db := docs-build
-alias tds := template-docs-serve
-alias tdb := template-docs-build
