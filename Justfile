@@ -165,10 +165,6 @@ alias pc := pre-commit-run
     echo "  mypy"
     mypy {{py_package_name}}/
 
-# Run tests
-@test-pip *options:
-    pytest {{options}}
-
 # Documentation commands
 
 # Serve the main documentation site
@@ -198,3 +194,7 @@ alias ds := docs-serve
 alias db := docs-build
 alias tds := template-docs-serve
 alias tdb := template-docs-build
+
+# Run tests
+@test-pip *options:
+    pytest {{options}}
