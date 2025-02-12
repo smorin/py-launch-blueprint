@@ -56,7 +56,7 @@ jobs:
       uses: pyupio/safety-action@v1
       with:
         api-key: ${{ secrets.SAFETY_API_KEY }}
-        args: --detailed-output
+        args: --detailed-output # To always see detailed output from this action
 
   docs:
     needs: [ test, security ]  # Wait for test & security jobs to pass
@@ -78,7 +78,7 @@ jobs:
         uv pip install mkdocs-material mkdocstrings[python]
 
     - name: Build and deploy template documentation
-      run: mkdocs gh-deploy --force
+      run: mkdocs gh-deploy --forcez
       working-directory: ./template_docs  # Double-check this path matches your docs folder
 
 # publish:
