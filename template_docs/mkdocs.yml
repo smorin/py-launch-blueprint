@@ -1,0 +1,84 @@
+site_name: Py-Launch-Blueprint
+site_description: A Production-Ready Python Project Template
+site_author: Your Name
+repo_url: https://github.com/smorin/py-launch-blueprint
+repo_name: py-launch-blueprint
+
+theme:
+  name: material
+  logo: ./template_images/py_launch_blueprint_logo_100x10.png
+  features:
+    - navigation.sections # Sections in left sidebar
+    - navigation.expand # Expand navigation by default
+    - navigation.indexes # Section index pages
+    - navigation.top # Back to top button
+    - toc.follow # TOC follows while scrolling
+    - navigation.instant # Instant loading
+    - navigation.tracking # URL tracking
+    - navigation.path
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+  - def_list
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quick Start: getting-started/quickstart.md
+      - Installation: getting-started/installation.md
+  - Features:
+      - Overview: features/overview.md
+      - Development Tools: features/dev-tools.md
+      - Type Safety: features/type-safety.md
+      - Code Quality: features/code-quality.md
+      - VS Code Integration: features/vscode.md
+  - Usage Guide: usage.md
+  - Contributing:
+      - Guidelines: contributing/guidelines.md
+      - Development: contributing/development.md
+      - Code Standards: contributing/standards.md
+  - Example:
+      - Example: example/example.md
+      - Example 2: example/example2.md
+  - About:
+      - Changelog: about/changelog.md
+      - License: about/license.md
+
+plugins:
+  - search
+  - tags
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/smorin/py-launch-blueprint
+  generator: false
