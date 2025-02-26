@@ -8,6 +8,9 @@ wheels/
 .ropeproject
 uv.lock # remove if you want to pin versions.
 .coverage
+docs/build/
+.DS_Store
+uv.lock # remove if you want to pin versions.
 
 # Caches
 .mypy_cache
