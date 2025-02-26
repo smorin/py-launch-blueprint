@@ -23,14 +23,26 @@ dependencies = [
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.1.0",
-    "black>=23.0.0",
-    "isort>=5.12.0",
     "mypy>=1.0.0",
     "ruff>=0.1.0",
     "pre-commit>=4.1.0",
     "types-requests",
     "types-Pygments",
+    "cogapp"
 ]
+
+docs = [
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme",
+    "furo",
+    "myst-parser",
+    "sphinx-autodoc-typehints",
+    "cogapp",
+    "sphinx-copybutton",
+    "sphinx-autobuild",
+    "sphinxext-opengraph", # https://github.com/wpilibsuite/sphinxext-opengraph
+]
+
 
 [project.scripts]
 py-projects = "py_launch_blueprint.projects:main"
@@ -49,6 +61,7 @@ target-version = "py310"
 
 # Line length
 line-length = 88
+
 lint.select = [
     "E",   # pycodestyle errors
     "F",   # pyflakes
@@ -79,6 +92,7 @@ exclude = [
     "__pycache__",
     "build",
     "dist",
+    "docs/source/conf.py"
 ]
 
 [tool.ruff.pycodestyle]
@@ -87,8 +101,10 @@ max-line-length = 88
 # Per-file-ignores
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore unused imports in __init__.py files
-"tests/*" = ["S101"]      # Ignore assert statements in tests
-
+"tests/*" = ["S101", "S105", "S106"]      # Ignore assert statements in tests
+# S101: This check flags the use of assert statements. The reason is that assert statements are removed when Python code is optimized (run with the -O flag), which can lead to security vulnerabilities if assert is used for security checks.
+# S105: This generally flags hardcoded password strings in code.
+# S106: This generally flags hardcoded password variables in code.
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -142,3 +158,14 @@ build.hooks.vcs.version-file = "py_launch_blueprint/_version.py"
 
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version" # No commit ID or dirty flag
+
+[tool.hatch.build.targets.wheel]
+packages = ["py_launch_blueprint"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "py_launch_blueprint",
+    "docs",
+    "pyproject.toml",
+    "README.md",
+]

@@ -134,6 +134,27 @@ alias pc := pre-commit-run
     rm -rf .venv
     rm -rf {{py_package_name}}/__pycache__/
 
+# Not usually needed, Initialize docs only if you are starting a new project
+@init-docs:
+    uv run --extra docs  --directory=docs sphinx-quickstart
+# recommend you separate "source" and "build" directories within the root path (docs/source and docs/build)
+
+# Show help for documentation sphinx
+@docs-help:
+    cd docs && make
+
+# Build documentation (default html format) change the target if needed e.g. just docs latexpdf
+@docs target="html":
+    cd docs && make {{target}}
+
+# Run documentation server with hot reloading
+@docs-dev:
+    cd docs && make hotreloadhtml
+
+# Clean documentation build files
+@docs-clean:
+    cd docs && make clean
+
 # Alternative commands when virtual environment is activated:
 # These commands can be used after running 'source .venv/bin/activate'
 
