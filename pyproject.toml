@@ -17,6 +17,7 @@ dependencies = [
     "pyperclip>=1.8.0",
     "requests>=2.31.0",
     "rich>=13.0.0",
+    "mkdocs-material>=9.5.0",
 ]
 
 [project.optional-dependencies]
