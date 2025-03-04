@@ -1,4 +1,3 @@
-
 ```{figure} _static/py_launch_blueprint_logo_100x100.png
 :alt: py-launch-blueprint
 :width: 100px
@@ -6,9 +5,6 @@
 ```
 
 # py-launch-blueprint
-
-
-
 
 ![GitHub repo](https://img.shields.io/badge/github-repo-green)
 ![Changelog](https://img.shields.io/github/v/release/smorin/py-launch-blueprint?include_prereleases&label=changelog)
@@ -32,3 +28,10 @@ maxdepth: 3
 ---
 docs
 ```
+
+## Documentation
+
+- [Getting Started](docs/source/tasks/setting_up_project.md)
+- [Contributing Guidelines](docs/source/contributing/index.md)
+- [Tools Reference](docs/source/tools/index.md)
+- [Tutorials](docs/source/tutorials/index.md)

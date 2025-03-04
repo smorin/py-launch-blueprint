@@ -83,3 +83,47 @@ html_theme_options = {
 
 # The logo configuration
 html_logo = "_static/py_launch_blueprint_logo_100x100.png"
+
+# -- Options for TOC Tree ----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-toc-tree
+
+# Add the new structure to the TOC tree
+toc_tree = [
+    'index',
+    'about/index',
+    'about/philosophy',
+    'about/features',
+    'about/comparison',
+    'tasks/index',
+    'tasks/setting_up_project',
+    'tasks/setting_up_development',
+    'tasks/writing_clean_code',
+    'tasks/type_checking_code',
+    'tasks/managing_dependencies',
+    'tasks/testing_code',
+    'tasks/running_locally',
+    'tasks/using_ci_cd',
+    'tasks/releasing_code',
+    'tasks/contributing_code',
+    'tools/index',
+    'tools/ruff',
+    'tools/mypy',
+    'tools/pytest',
+    'tools/uv',
+    'tools/github_actions',
+    'tools/vs_code',
+    'tools/makefiles',
+    'tutorials/index',
+    'tutorials/full_project_setup',
+    'tutorials/extending_template',
+    'tutorials/cli_example',
+    'reference/index',
+    'reference/project_structure',
+    'reference/configuration_files',
+    'reference/cli_reference',
+    'reference/api_reference',
+    'contributing/index',
+    'contributing/code_of_conduct',
+    'contributing/development_workflow',
+    'contributing/cla',
+]
