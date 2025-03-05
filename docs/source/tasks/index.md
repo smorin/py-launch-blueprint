@@ -2,7 +2,7 @@
 
 Welcome to the Tasks section of the Py Launch Blueprint documentation. This section provides step-by-step workflows for common tasks you may need to perform while working with this project.
 
-## Table of Contents
+<!-- ## Table of Contents -->
 
 - [Setting Up a New Project](setting_up_project.md)
 - [Setting Up a Development Environment](setting_up_development.md)
