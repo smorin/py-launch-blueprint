@@ -83,3 +83,13 @@ html_theme_options = {
 
 # The logo configuration
 html_logo = "_static/py_launch_blueprint_logo_100x100.png"
+
+# Add the new structure to the toctree
+toctree = {
+    'about/index',
+    'tasks/index',
+    'tools/index',
+    'tutorials/index',
+    'reference/index',
+    'contributing/index',
+}
