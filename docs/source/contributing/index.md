@@ -8,8 +8,8 @@ Before we can accept your contributions, you will need to sign a Contributor Lic
 
 ### How to Sign the CLA
 
-1. **Individual Contributors**: If you are contributing as an individual, please sign the [Individual CLA](../cla/individual_cla.md).
-2. **Corporate Contributors**: If you are contributing on behalf of a company, please sign the [Corporate CLA](../cla/corporate_cla.md).
+1. **Individual Contributors**: If you are contributing as an individual, please sign the [Individual CLA](./cla/individual_cla.md).
+2. **Corporate Contributors**: If you are contributing on behalf of a company, please sign the [Corporate CLA](./cla/corporate_cla.md).
 
 ### CLA Assistant Bot
 
@@ -48,9 +48,11 @@ Please ensure that your pull request adheres to the following guidelines:
 - Ensure that all tests pass
 - Update the documentation as needed
 
+## frequently asked questions
+- [Contributor License Agreement (CLA) FAQ](cla_faq.md)
 ## Code of Conduct
 
-We are committed to fostering a welcoming and inclusive community. Please read and adhere to our [Code of Conduct](../CODE_OF_CONDUCT.md) when participating in the project.
+We are committed to fostering a welcoming and inclusive community. Please read and adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) when participating in the project.
 
 ## Getting Help
 

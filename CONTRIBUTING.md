@@ -8,8 +8,8 @@ Before we can accept your contributions, you will need to sign a Contributor Lic
 
 ### How to Sign the CLA
 
-1. **Individual Contributors**: If you are contributing as an individual, please sign the [Individual CLA](./docs/cla/individual_cla.md).
-2. **Corporate Contributors**: If you are contributing on behalf of a company, please sign the [Corporate CLA](./docs/cla/corporate_cla.md).
+1. **Individual Contributors**: If you are contributing as an individual, please sign the [Individual CLA](./docs/source/contributing/cla/individual_cla.md).
+2. **Corporate Contributors**: If you are contributing on behalf of a company, please sign the [Corporate CLA](./docs/source/contributing/cla/corporate_cla.md).
 
 ### CLA Assistant Bot
 
