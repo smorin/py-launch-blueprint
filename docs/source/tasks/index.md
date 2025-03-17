@@ -16,3 +16,19 @@ Welcome to the Tasks section of the Py Launch Blueprint documentation. This sect
 - [Contributing Code](contributing_code.md)
 
 Each of these sections contains detailed instructions and best practices to help you accomplish your tasks efficiently and effectively.
+
+```{toctree}
+---
+maxdepth: 2
+---
+writing_clean_code
+running_locally
+setting_up_development
+setting_up_project
+testing_code
+type_checking_code
+using_ci_cd
+managing_dependencies
+releasing_code
+contributing_code
+```
