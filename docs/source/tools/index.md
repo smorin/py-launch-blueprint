@@ -13,3 +13,17 @@ Welcome to the Tools section of the Py Launch Blueprint documentation. This sect
 - [Makefiles](makefiles.md)
 
 Each of these sections contains detailed instructions and best practices to help you effectively use the tools in your development workflow.
+
+```{toctree}
+---
+maxdepth: 2
+---
+ruff
+mypy
+pytest
+uv
+github_actions
+vs_code
+makefiles
+
+```
