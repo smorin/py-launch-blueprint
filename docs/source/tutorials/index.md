@@ -9,3 +9,12 @@ Welcome to the Tutorials section of the Py Launch Blueprint documentation. This 
 - [CLI Tool Development Example](cli_example.md)
 
 Each of these tutorials contains detailed instructions and best practices to help you accomplish your tasks efficiently and effectively.
+
+```{toctree}
+---
+maxdepth: 2
+---
+full_project_setup
+extending_template
+cli_example
+```

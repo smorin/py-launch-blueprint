@@ -7,3 +7,12 @@ Welcome to the "About" section of the Py Launch Blueprint documentation. Here, y
 - [Philosophy](philosophy.md)
 - [Features](features.md)
 - [Comparison](comparison.md)
+
+```{toctree}
+---
+maxdepth: 2
+---
+philosophy
+features
+comparison
+```

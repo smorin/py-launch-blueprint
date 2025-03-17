@@ -63,3 +63,13 @@ If you need help or have any questions, feel free to open an issue on GitHub or 
 - All documentation resides in `docs/source/`.
 - Follow the directory structure for consistency.
 - Use Sphinx syntax for cross-referencing (e.g., `:doc:` or `:ref:`).
+
+```{toctree}
+---
+maxdepth: 2
+---
+cla_faq
+CODE_OF_CONDUCT
+cla/individual_cla
+cla/corporate_cla
+```
