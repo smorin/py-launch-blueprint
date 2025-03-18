@@ -164,6 +164,7 @@ packages = ["py_launch_blueprint"]
 include = ["py_launch_blueprint", "docs", "pyproject.toml", "README.md"]
 
 [tool.taplo]
+# Test comment for pre-commit hook verification
 include = ["*.toml"]
 respect-ignores = true
 line-width = 80
