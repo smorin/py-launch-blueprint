@@ -35,10 +35,9 @@ repos:
     hooks:
       - id: taplo-format
         name: Format TOML files
-        entry: taplo format
+        entry: taplo format --config pyproject.toml
         language: system
         files: \.toml$
-        args: ["--config", "pyproject.toml"]
       - id: pytest
         name: Run pytest
         entry: pytest
