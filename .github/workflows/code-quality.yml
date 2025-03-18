@@ -32,4 +32,4 @@ jobs:
         run: pre-commit run --all-files
 
       - name: Verify TOML formatting
-        run: taplo format --check
+        run: taplo format --check --config pyproject.toml
