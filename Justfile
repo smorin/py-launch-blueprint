@@ -97,9 +97,20 @@ alias t := test
 
 alias ca := check
 
+# Format TOML files
+@format-toml:
+    echo "Formatting TOML files..."
+    taplo format
+
+# Check TOML formatting
+@check-toml:
+    echo "Checking TOML formatting..."
+    taplo format --check
+
 # Run package command.
 @run cmd=command_name *args=args:
     uvx --with-editable . {{cmd}} {{args}}
+
 
 # Build package
 @build: check
