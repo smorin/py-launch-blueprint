@@ -31,5 +31,6 @@ jobs:
       - name: Run pre-commit checks
         run: pre-commit run --all-files
 
-      - name: Verify TOML formatting
-        run: taplo format --check --config pyproject.toml
+      - name: Check TOML formatting
+        run: |
+          taplo check pyproject.toml
