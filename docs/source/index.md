@@ -15,6 +15,8 @@
 A Production-Ready Python Project Template with Integrated Best Practices
 
 
+{ref}`Run prompts from the command-line <usage-executing-prompts>`, {ref}`store the results in SQLite <logging>`, {ref}`generate embeddings <embeddings>` and more.
+
 ## Project Overview
 
 Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
@@ -29,6 +31,7 @@ First, install dependencies using `make`
 ---
 maxdepth: 3
 ---
+docs
 about/index
 tasks/index
 tools/index
