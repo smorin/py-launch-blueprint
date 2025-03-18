@@ -50,7 +50,7 @@ DASH := "$(GRAY)-$(NC)"
     if ! command -v uv >/dev/null 2>&1; then echo "uv is not installed"; exit 1; fi
     if ! command -v python3 >/dev/null 2>&1; then echo "python3 is not installed"; exit 1; fi
     if ! command -v just >/dev/null 2>&1; then echo "just is not installed"; exit 1; fi
-    if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}"; fi
+    if ! command -v pre-commit >/dev/null 2>&1; then echo "$(YELLOW)WARNING: pre-commit is not installed$(NC)"; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -99,13 +99,14 @@ alias ca := check
 
 # Format TOML files
 @format-toml:
-    echo "Formatting TOML files..."
-    taplo format
+    taplo format pyproject.toml
 
-# Check TOML formatting
+# Check TOML files formatting
 @check-toml:
-    echo "Checking TOML formatting..."
-    taplo format --check
+    taplo check pyproject.toml
+
+alias ft := format-toml
+alias ct := check-toml
 
 # Run package command.
 @run cmd=command_name *args=args:
