@@ -17,6 +17,7 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
   - ⚡ Ruff for lightning-fast linting and formatting
   - 🔍 Pre-commit hooks for code quality enforcement
   - 📝 Type checking with MyPy and Pylance
+  - 📋 Taplo for TOML file formatting and validation
 
 ### 💪 Production Ready
 - **Python 3.10+ Support**: Leverages modern Python features
@@ -391,6 +392,63 @@ Following pre-commit hooks are used in this repo
 - `check-added-large-files` warns when you try to add large files to the repository,
 - `mypy` checks your Python code for type errors based on type annotations,
 - `ruff` acts as a fast linter and formatter for Python, ensuring clean code,
+
+## Development Tools
+
+### Ruff
+Ruff is a high-performance linter and code formatter for Python. It combines multiple tools into one, offering faster performance and comprehensive functionality compared to traditional Python tools.
+
+Pros:
+
+- Very Fast: Written in Rust, Ruff is significantly faster than traditional linters, allowing it to process large codebases quickly.
+- All-in-One Solution: Ruff incorporates checks and fixes from a variety of popular linters like Flake8, Black, isort, pydocstyle, pyupgrade, autoflake. This means less maintenance of multiple separate tools.
+- Customizable: Allows users to select and ignore specific checks or enforce particular rules according to the project needs.
+- Easy Integration: Works well with CI/CD pipelines, IDEs, and modern developer workflows.
+Automated Fixes: Ruff can automatically correct a wide range of issues in your code.
+
+Cons:
+- Relatively New: As a newer tool, it might not yet be as widely adopted or supported in some edge cases.
+
+Python line length standards:
+- 79/80: Traditional PEP 8 standard. Good for side-by-side editing but can feel restrictive.
+- 88: Black's default. Modern sweet spot between readability and expressiveness. Becoming the community standard.
+- 100: Google's choice. Popular in enterprise. Good for complex expressions.
+- 120: Maximum reasonable length. Works on wide screens but can hurt readability.
+- Recommendation: Use 88 characters (Black's default) unless your team/project has an existing standard. It offers the best balance of readability and practicality while following modern community practices.
+
+```pyproject.toml
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.pycodestyle]
+max-line-length = 88
+```
+
+### Taplo
+
+Taplo is a TOML file formatter and validator integrated into the project's development workflow. It ensures consistent formatting of all TOML files (like `pyproject.toml`) across the project.
+
+Key Features:
+- **Automatic Formatting**: Formats TOML files on commit using pre-commit hooks
+- **Configurable**: Custom formatting rules defined in `pyproject.toml`
+- **VS Code Integration**: Works seamlessly with the VS Code TOML extension
+- **Consistent Style**:
+  - 80 character line width
+  - 4-space indentation
+  - Aligned entries and comments
+  - Expanded array formatting
+
+Usage:
+```bash
+# Format all TOML files
+taplo format
+
+# Check TOML formatting
+taplo format --check
+```
+
+The pre-commit hook automatically runs on staged TOML files during commits, ensuring consistent formatting across the project.
 
 ## Workflow with Version Management
 
