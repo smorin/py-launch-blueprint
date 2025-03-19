@@ -30,6 +30,11 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 - **Intelligent Defaults**: Optimized settings for common development tasks
 - **Clear Documentation**: Detailed explanations for all tool choices and configurations
 - **Git Hooks**: Automated code quality checks before commits
+- **TOML Formatting**: Automated TOML formatting with Taplo
+  - Format files: `just format-toml`
+  - Check formatting: `just check-toml`
+  - Pre-commit hook for automatic formatting
+  - CI verification in GitHub Actions
 
 ### 🎯 Perfect For
 - Professionals looking for a production-ready Python project
