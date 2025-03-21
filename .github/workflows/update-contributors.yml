@@ -18,6 +18,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
       
       - name: Update CONTRIBUTORS.md
         run: |
@@ -43,11 +49,20 @@ jobs:
           rm temp_contributors
 
       - name: Create Pull Request
+        id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'chore: update contributors list'
+          committer: GitHub <noreply@github.com>
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           title: 'chore: update contributors list'
           body: 'Automatically updated contributors list using git log'
           branch: update-contributors
           delete-branch: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Check outputs
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
