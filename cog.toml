@@ -3,6 +3,30 @@
 repository = "https://github.com/smorin/py-launch-blueprint"
 # The style of the changelog entries (possible values: "angular", "conventional")
 template = "conventional"
+remote = "origin"
+path = "CHANGELOG.md"
+
+[changelog.sections]
+features = ["feat"]
+fixes = ["fix"]
+performance = ["perf"]
+documentation = ["docs"]
+testing = ["test"]
+maintenance = ["chore", "refactor"]
+
+[changelog.git]
+conventional_commits = true
+filter_unconventional = true
+commit_parsers = [
+    { message = "^feat", group = "Features"},
+    { message = "^fix", group = "Bug Fixes"},
+    { message = "^docs", group = "Documentation"},
+    { message = "^perf", group = "Performance"},
+    { message = "^refactor", group = "Refactor"},
+    { message = "^test", group = "Testing"},
+    { message = "^chore\\(release\\): prepare for", skip = true},
+    { message = "^chore", group = "Miscellaneous Tasks"},
+]
 
 [contributors]
 # Format for the contributor list
