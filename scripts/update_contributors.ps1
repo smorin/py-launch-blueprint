@@ -2,7 +2,7 @@
 $contributors = git log --format='%aN <%aE>' | Sort-Object -Unique
 
 # Read the current content of CONTRIBUTORS.md
-$content = Get-Content ..\CONTRIBUTORS.md -Raw
+$content = Get-Content "$PSScriptRoot\..\CONTRIBUTORS.md" -Raw
 
 # Create the new contributors section
 $contributorsSection = "<!-- COG-CONTRIBUTORS-LIST:START -->`n" + ($contributors -join "`n") + "`n<!-- COG-CONTRIBUTORS-LIST:END -->"
@@ -11,4 +11,4 @@ $contributorsSection = "<!-- COG-CONTRIBUTORS-LIST:START -->`n" + ($contributors
 $newContent = $content -replace '(?s)<!-- COG-CONTRIBUTORS-LIST:START -->.*<!-- COG-CONTRIBUTORS-LIST:END -->', $contributorsSection
 
 # Write the updated content back to the file
-Set-Content -Path ..\CONTRIBUTORS.md -Value $newContent
+Set-Content -Path "$PSScriptRoot\..\CONTRIBUTORS.md" -Value $newContent -NoNewline
