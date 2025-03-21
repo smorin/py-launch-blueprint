@@ -54,7 +54,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           commit-message: 'chore: update contributors list'
-          committer: GitHub <noreply@github.com>
+          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
           title: 'chore: update contributors list'
           body: 'Automatically updated contributors list using git log'
