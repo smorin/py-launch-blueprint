@@ -11,4 +11,4 @@ $contributorsSection = "<!-- COG-CONTRIBUTORS-LIST:START -->`n" + ($contributors
 $newContent = $content -replace '(?s)<!-- COG-CONTRIBUTORS-LIST:START -->.*<!-- COG-CONTRIBUTORS-LIST:END -->', $contributorsSection
 
 # Write the updated content back to the file
-Set-Content -Path ..\CONTRIBUTORS.md -Value $newContent
+Set-Content -Path ..\CONTRIBUTORS.md -Value $newContent -NoNewline

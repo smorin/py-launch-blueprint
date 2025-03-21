@@ -15,13 +15,12 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Install Cocogitto
-        run: |
-          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cocogitto/cocogitto/main/install.sh | sh
-
       - name: Update CONTRIBUTORS.md
         run: |
-          cog contributors > temp_contributors
+          # Get list of contributors
+          git log --format='%aN <%aE>' | sort -u > temp_contributors
+          
+          # Update CONTRIBUTORS.md with new list
           sed -i '/<!-- COG-CONTRIBUTORS-LIST:START -->/,/<!-- COG-CONTRIBUTORS-LIST:END -->/c\<!-- COG-CONTRIBUTORS-LIST:START -->\n'"$(cat temp_contributors)"'\n<!-- COG-CONTRIBUTORS-LIST:END -->' CONTRIBUTORS.md
           rm temp_contributors
 
@@ -30,6 +29,6 @@ jobs:
         with:
           commit-message: 'chore: update contributors list'
           title: 'chore: update contributors list'
-          body: 'Automatically updated contributors list using COG'
+          body: 'Automatically updated contributors list using git log'
           branch: update-contributors
           delete-branch: true
