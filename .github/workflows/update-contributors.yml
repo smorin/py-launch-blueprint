@@ -20,13 +20,19 @@ jobs:
           # Get list of contributors
           git log --format='%aN <%aE>' | sort -u > temp_contributors
           
-          # Create new content
-          {
-            sed '/<!-- COG-CONTRIBUTORS-LIST:START -->/q' CONTRIBUTORS.md
-            echo "$(cat temp_contributors)"
-            echo "<!-- COG-CONTRIBUTORS-LIST:END -->"
-            sed -n '/<!-- COG-CONTRIBUTORS-LIST:END -->/,$p' CONTRIBUTORS.md | tail -n +2
-          } > CONTRIBUTORS.md.new
+          # Update CONTRIBUTORS.md
+          awk '
+            BEGIN { p=1 }
+            /<!-- COG-CONTRIBUTORS-LIST:START -->/ {
+              print;
+              system("cat temp_contributors");
+              print "<!-- COG-CONTRIBUTORS-LIST:END -->";
+              p=0;
+              next;
+            }
+            /<!-- COG-CONTRIBUTORS-LIST:END -->/ { p=1; next }
+            p { print }
+          ' CONTRIBUTORS.md > CONTRIBUTORS.md.new
           
           # Replace old file with new one
           mv CONTRIBUTORS.md.new CONTRIBUTORS.md
