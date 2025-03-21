@@ -7,6 +7,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-contributors:
     runs-on: ubuntu-latest
@@ -46,3 +50,4 @@ jobs:
           body: 'Automatically updated contributors list using git log'
           branch: update-contributors
           delete-branch: true
+          token: ${{ secrets.GITHUB_TOKEN }}
