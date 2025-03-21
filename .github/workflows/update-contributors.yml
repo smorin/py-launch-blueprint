@@ -51,7 +51,7 @@ jobs:
           if [[ -n "$(git status --porcelain)" ]]; then
             git add CONTRIBUTORS.md
             git commit -m "chore: update contributors list"
-            git push origin HEAD:update-contributors
+            git push origin HEAD:refs/heads/update-contributors
           fi
 
       - name: Create Pull Request
