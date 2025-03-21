@@ -1,0 +1,15 @@
+[changelog]
+# The remote repository to use for generating links
+repository = "https://github.com/smorin/py-launch-blueprint"
+# The style of the changelog entries (possible values: "angular", "conventional")
+template = "conventional"
+
+[contributors]
+# Format for the contributor list
+format = "markdown"
+# Sort contributors by number of commits
+sort_by = "commits"
+# Show statistics like number of commits and files changed
+show_stats = true
+# Exclude certain email domains (e.g., noreply.github.com)
+excluded_domains = ["noreply.github.com"]
