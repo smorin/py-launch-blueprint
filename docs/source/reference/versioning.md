@@ -1,13 +1,13 @@
-## Version Management
+# Version Management
 The version is automatically derived from Git tags using `setuptools_scm`. Key behaviors:
 - **Tagged Releases**: `v1.2.3` → `1.2.3`
 - **Development Versions**: `1.2.4.dev1+gabcdef12` (after commits since last tag)
 - **Fallback Version**: `0.0.0` (if no tags exist)
 
-### Customizing Development Versions
+## Customizing Development Versions
 The format of development versions can be customized using the `local_scheme` option in `pyproject.toml`. By default, the commit ID is included (e.g., `1.2.4.dev1+gabcdef12`). To change this behavior:
 
-#### Example: Remove Commit ID
+### Example: Remove Commit ID
 ```toml
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version"  # Excludes commit ID
@@ -17,7 +17,7 @@ Output:
 1.2.4.dev1
 ```
 
-#### Example: Include Commit ID and Date
+### Example: Include Commit ID and Date
 ```toml
 [tool.hatch.version.raw-options]
 local_scheme = "node-and-date"  # Includes commit ID and date
@@ -27,7 +27,7 @@ Output:
 1.2.4.dev1+gabcdef12.d20231025
 ```
 
-#### Common `local_scheme` Options
+### Common `local_scheme` Options
 | Scheme                | Example Output                     | Description                                  |
 |-----------------------|------------------------------------|----------------------------------------------|
 | `"no-local-version"`  | `1.2.4.dev1`                       | No commit ID or dirty flag                   |
@@ -38,10 +38,10 @@ Output:
 
 ---
 
-## CI/CD Automation
+# CI/CD Automation
 The pre-configured GitHub Actions workflow (`release.yml`) ensures a robust release process. Here's how it works:
 
-### Workflow Steps
+## Workflow Steps
 1. **Trigger**: Pushing a tag (e.g., `v1.0.0`) triggers the workflow.
 2. **Checkout**: The repository is checked out with full Git history (`fetch-depth: 0`) to enable `setuptools_scm` version detection.
 3. **Setup**:
