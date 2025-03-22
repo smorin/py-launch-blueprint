@@ -11,6 +11,7 @@ Welcome to the Tools section of the Py Launch Blueprint documentation. This sect
 - [GitHub Actions](github_actions.md)
 - [VS Code](vs_code.md)
 - [Makefiles](makefiles.md)
+- [Justfiles](justfiles.md)
 
 Each of these sections contains detailed instructions and best practices to help you effectively use the tools in your development workflow.
 
@@ -25,5 +26,6 @@ uv
 github_actions
 vs_code
 makefiles
+justfiles
 
 ```
