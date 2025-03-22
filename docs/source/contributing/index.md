@@ -1,6 +1,31 @@
 # Contributing to Py Launch Blueprint
 
 Thank you for your interest in contributing to Py Launch Blueprint! We welcome contributions from the community and are excited to see what you can bring to the project.
+## Contributors
+
+This project uses [COG (Cocogitto)](https://github.com/cocogitto/cocogitto) to automatically track and maintain our [CONTRIBUTORS.md](CONTRIBUTORS.md) file. The list of contributors is automatically updated when:
+
+1. A push is made to the main branch
+2. A pull request is merged
+3. Manually using the `just contributors` command
+
+### Manual Update
+
+To manually update the contributors list:
+
+```bash
+just contributors
+```
+
+### How Contributors are Tracked
+
+Contributors are tracked based on git commit history. The system:
+- Counts commits per contributor
+- Shows contribution statistics
+- Excludes certain email domains (e.g., noreply.github.com)
+- Sorts contributors by number of commits
+
+For more details about COG's contributor tracking, see the [official documentation](https://docs.cocogitto.io/).
 
 ## Contributor License Agreement (CLA)
 
