@@ -1,7 +1,7 @@
 ## Pull Request Checklist
 
 - [ ] I have read the [Contributing Guidelines](CONTRIBUTING.md)
-- [ ] I have signed the [Contributor License Agreement (CLA)](docs/cla/individual_cla.md) or [Corporate CLA](docs/cla/corporate_cla.md)
+- [ ] I have signed the [Contributor License Agreement (CLA)](docs/source/contributing/cla/individual_cla.md) or [Corporate CLA](docs/source/contributing/cla/corporate_cla.md)
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] I have added necessary documentation (if appropriate)
 - [ ] Any dependent changes have been merged and published in downstream modules
