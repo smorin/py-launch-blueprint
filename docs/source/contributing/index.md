@@ -3,7 +3,7 @@
 Thank you for your interest in contributing to Py Launch Blueprint! We welcome contributions from the community and are excited to see what you can bring to the project.
 ## Contributors
 
-This project uses [COG (Cocogitto)](https://github.com/cocogitto/cocogitto) to automatically track and maintain our [CONTRIBUTORS.md](CONTRIBUTORS.md) file. The list of contributors is automatically updated when:
+This project uses [COG (Cocogitto)](https://github.com/cocogitto/cocogitto) to automatically track and maintain our [`CONTRIBUTORS.md`](https://github.com/smorin/py-launch-blueprint/blob/main/CONTRIBUTORS.md) file. The list of contributors is automatically updated when:
 
 1. A push is made to the main branch
 2. A pull request is merged
