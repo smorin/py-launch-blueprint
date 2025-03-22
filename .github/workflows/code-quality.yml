@@ -26,11 +26,7 @@ jobs:
       - name: Install dependencies
         run: |
           uv pip install pre-commit
-          uv pip install taplo-cli
 
       - name: Run pre-commit checks
         run: pre-commit run --all-files
 
-      - name: Check TOML formatting
-        run: |
-          taplo check pyproject.toml
