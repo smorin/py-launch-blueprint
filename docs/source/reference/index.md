@@ -7,7 +7,7 @@ Welcome to the Reference section of the Py Launch Blueprint documentation. This 
 - [Project Structure](project_structure.md)
 - [Configuration Files](configuration_files.md)
 - [CLI Reference](cli_reference.md)
-- [API Reference](api_reference.md)
+- [Versioning](versioning.md)
 
 ```{toctree}
 ---
@@ -16,5 +16,5 @@ maxdepth: 2
 project_structure
 configuration_files
 cli_reference
-api_reference
+versioning
 ```

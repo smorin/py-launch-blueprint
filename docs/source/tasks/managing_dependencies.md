@@ -1,94 +1,68 @@
-# Managing Dependencies
+# Managing Dependencies with UV  
 
-This guide will walk you through the steps to manage dependencies for the Py Launch Blueprint project using Poetry or Pipenv.
+**UV** is a fast Python package manager designed for efficient dependency management. This guide covers how to set up and use **UV** in the *Py Launch Blueprint* project.  
 
-## Using Poetry
+## Installing UV  
 
-Poetry is a dependency management and packaging tool for Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
-
-### Installing Poetry
-
-To install Poetry, run the following command:
+To install UV, run:  
 
 ```bash
-curl -sSL https://install.python-poetry.org | python3 -
-```
+pip install uv
+```  
 
-### Adding Dependencies
+## Adding Dependencies  
 
-To add a dependency to your project, use the `poetry add` command:
-
-```bash
-poetry add <package-name>
-```
-
-For example, to add the `requests` library:
+To install a package and add it to your project, use:  
 
 ```bash
-poetry add requests
-```
+uv pip install <package-name>
+```  
 
-### Installing Dependencies
-
-To install all the dependencies listed in the `pyproject.toml` file, run:
+For example, to install the `requests` library:  
 
 ```bash
-poetry install
-```
+uv pip install requests
+```  
 
-### Updating Dependencies
+## Installing All Dependencies  
 
-To update all the dependencies to their latest versions, run:
-
-```bash
-poetry update
-```
-
-## Using Pipenv
-
-Pipenv is another dependency management tool that aims to bring the best of all packaging worlds (bundled, unbundled, and pip) to the Python world.
-
-### Installing Pipenv
-
-To install Pipenv, run the following command:
+To install all dependencies listed in `pyproject.toml`, run:  
 
 ```bash
-pip install pipenv
-```
+uv pip install
+```  
 
-### Adding Dependencies
+## Updating Dependencies  
 
-To add a dependency to your project, use the `pipenv install` command:
-
-```bash
-pipenv install <package-name>
-```
-
-For example, to add the `requests` library:
+To update all installed dependencies to their latest versions:  
 
 ```bash
-pipenv install requests
-```
+uv pip install --upgrade
+```  
 
-### Installing Dependencies
-
-To install all the dependencies listed in the `Pipfile`, run:
+To update a specific package:  
 
 ```bash
-pipenv install
-```
+uv pip install --upgrade <package-name>
+```  
 
-### Updating Dependencies
+## Removing Dependencies  
 
-To update all the dependencies to their latest versions, run:
+To uninstall a package:  
 
 ```bash
-pipenv update
-```
+uv pip uninstall <package-name>
+```  
 
-## Additional Resources
+## Freezing Dependencies  
 
-For more detailed information on managing dependencies with Poetry or Pipenv, refer to their official documentation:
+To generate a `requirements.lock` file with the exact versions of installed dependencies, run:  
 
-- [Poetry Documentation](https://python-poetry.org/docs/)
-- [Pipenv Documentation](https://pipenv.pypa.io/en/latest/)
+```bash
+uv pip freeze > requirements.lock
+```  
+
+## Additional Resources  
+
+For more details, check the [official UV documentation](https://github.com/astral-sh/uv).  
+

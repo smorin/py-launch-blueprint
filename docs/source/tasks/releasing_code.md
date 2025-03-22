@@ -86,4 +86,4 @@ You can customize the release workflow to fit your project's needs. For example,
 
 Releasing code is a critical part of the software development process. By following a consistent versioning strategy and using automated workflows, you can ensure that your releases are reliable, well-documented, and easy to manage.
 
-For more information on releasing code, refer to the [GitHub Actions documentation](https://docs.github.com/en/actions) and the [Semantic Versioning guidelines](https://semver.org/).
+For more information on releasing code, refer to the [Versioning](../reference/versioning.md), [GitHub Actions documentation](https://docs.github.com/en/actions) and the [Semantic Versioning guidelines](https://semver.org/).
