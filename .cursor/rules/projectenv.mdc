@@ -1,0 +1,8 @@
+---
+description: Custom rule cursor
+globs: 
+---
+
+# Your rule content
+
+- read rules @.windsurfrules for base project dependencies
