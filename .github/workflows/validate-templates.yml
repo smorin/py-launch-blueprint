@@ -1,0 +1,23 @@
+name: "Validate Issue and PR Templates"
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+jobs:
+  validate-templates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Templates
+        run: |
+          if ! grep -q "<!-- Please follow the template" .github/PULL_REQUEST_TEMPLATE/*.md; then
+            echo "✅ PR templates validated!"
+          else
+            echo "❌ PR template validation failed!"
+            exit 1
+          fi
