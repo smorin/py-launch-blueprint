@@ -1,0 +1,22 @@
+name: "✨ Feature Request"
+description: "Suggest a new feature for the project."
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "## 🚀 Feature Request\nPlease describe the feature you'd like to see."
+  - type: textarea
+    id: description
+    attributes:
+      label: "Feature Description"
+      description: "Explain the new feature and its benefits."
+      placeholder: "Feature details go here..."
+    validations:
+      required: true
+  - type: textarea
+    id: usecase
+    attributes:
+      label: "Use Case"
+      description: "Explain how this feature will be useful."
+    validations:
+      required: true
