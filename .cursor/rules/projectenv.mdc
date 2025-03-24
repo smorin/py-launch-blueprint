@@ -1,6 +1,7 @@
 ---
 description: Custom rule cursor
 globs: 
+alwaysApply: true
 ---
 
 # Your rule content
