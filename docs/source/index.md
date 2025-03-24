@@ -28,7 +28,6 @@ First, install dependencies using `make`
 ---
 maxdepth: 3
 ---
-docs
 about/index
 tasks/index
 tools/index
