@@ -1,0 +1,10 @@
+blank_issues_enabled: false
+pull_request_templates:
+  - name: "🚀 Feature PR"
+    file: feature_pr.md
+  - name: "🐛 Bug Fix PR"
+    file: bug_fix_pr.md
+  - name: "📖 Documentation PR"
+    file: documentation_pr.md
+  - name: "🔄 Dependency Update PR"
+    file: dependency_update_pr.md
