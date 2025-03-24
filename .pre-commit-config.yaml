@@ -40,3 +40,11 @@ repos:
         types: [python]
         pass_filenames: false # Run full test suite
         stages: [pre-commit] # Only run on commit
+
+  - repo: local
+    hooks:
+      - id: enforce-template
+        name: Enforce GitHub Templates
+        entry: python .github/scripts/check_templates.py
+        language: python
+        pass_filenames: false
