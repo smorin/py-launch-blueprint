@@ -1,4 +1,0 @@
-[test]
-name = "test"
-description = "This is an unformatted test file"
-array = [1, 2, 3, 4, 5]
