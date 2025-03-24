@@ -1,0 +1,55 @@
+name: "🐛 Bug Report"
+description: "Report a reproducible bug in the project."
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "## 🐞 Bug Report\nPlease provide clear and concise details about the issue."
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe the Bug"
+      description: "A clear and concise description of the bug."
+      placeholder: "Bug details go here..."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Provide a step-by-step guide to replicate the issue."
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See the error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected Behavior"
+      description: "What should have happened instead?"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Logs/Console Output (if applicable)"
+      description: "Paste any error messages or logs here."
+  - type: dropdown
+    id: environment
+    attributes:
+      label: "Environment"
+      multiple: true
+      options:
+        - "Windows"
+        - "macOS"
+        - "Linux"
+    validations:
+      required: true
+  - type: input
+    id: python_version
+    attributes:
+      label: "Python Version"
+      description: "Which Python version are you using?"
+      placeholder: "e.g., 3.9.7"
