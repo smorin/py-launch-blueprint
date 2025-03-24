@@ -1,15 +1,70 @@
 name: "📖 Documentation Improvement"
-description: "Suggest improvements or fixes for the documentation."
-labels: ["documentation"]
+description: "Suggest improvements or fixes for the documentation"
+labels: ["documentation", "needs-review"]
 body:
   - type: markdown
     attributes:
-      value: "## 📚 Documentation Improvement\nDescribe the documentation issue or improvement."
-  - type: textarea
-    id: description
+      value: |
+        ## 📚 Documentation Improvement
+        Thank you for helping improve our documentation!
+        Please check our [documentation guide](https://github.com/smorin/py-launch-blueprint/blob/main/docs/template_guide.md) before proceeding.
+
+  - type: dropdown
+    id: doc_type
     attributes:
-      label: "Describe the Improvement"
-      description: "Explain how the documentation can be improved."
-      placeholder: "Improvement details go here..."
+      label: "Documentation Type"
+      description: "What type of documentation needs improvement?"
+      options:
+        - "Installation Guide"
+        - "API Reference"
+        - "Tutorials"
+        - "Examples"
+        - "README"
+        - "Other"
     validations:
       required: true
+
+  - type: textarea
+    id: current_state
+    attributes:
+      label: "Current Documentation State"
+      description: "Describe what's currently in the documentation"
+      placeholder: "The current documentation shows..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested_changes
+    attributes:
+      label: "Suggested Changes"
+      description: "Describe your proposed improvements"
+      placeholder: "The documentation should be updated to..."
+    validations:
+      required: true
+
+  - type: input
+    id: affected_files
+    attributes:
+      label: "Affected Files"
+      description: "Which documentation files need to be updated?"
+      placeholder: "e.g., docs/installation.md, README.md"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have checked the [existing documentation](https://github.com/smorin/py-launch-blueprint/tree/main/docs)"
+          required: true
+        - label: "I have searched for [similar issues](https://github.com/smorin/py-launch-blueprint/issues?q=is%3Aissue+label%3Adocumentation)"
+          required: true
+        - label: "I am willing to help implement these changes"
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/smorin/py-launch-blueprint/blob/main/CODE_OF_CONDUCT.md)

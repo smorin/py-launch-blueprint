@@ -1,14 +1,75 @@
 name: "❓ Question / Support"
-description: "Ask a question or request support."
-labels: ["question"]
+description: "Ask a question or request support"
+labels: ["question", "needs-help"]
 body:
   - type: markdown
     attributes:
-      value: "## ❓ Question / Support\nPlease provide details about your question or issue."
+      value: |
+        ## ❓ Question / Support
+        Before asking your question, please check our:
+        - [📖 Documentation](https://github.com/smorin/py-launch-blueprint/tree/main/docs)
+        - [🔍 Search existing issues](https://github.com/smorin/py-launch-blueprint/issues?q=is%3Aissue+label%3Aquestion)
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: "Question Category"
+      description: "What area is your question about?"
+      options:
+        - "Installation"
+        - "Configuration"
+        - "Usage"
+        - "API"
+        - "Error/Bug"
+        - "Other"
+    validations:
+      required: true
+
   - type: textarea
     id: question
     attributes:
       label: "Your Question"
       description: "What do you need help with?"
+      placeholder: "Please provide as much detail as possible"
     validations:
       required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Additional Context"
+      description: "Environment, version, and any relevant details"
+      placeholder: |
+        - Python version:
+        - OS:
+        - Package version:
+        - Related configuration:
+    validations:
+      required: true
+
+  - type: textarea
+    id: attempted
+    attributes:
+      label: "What You've Tried"
+      description: "Describe what you've already attempted"
+      placeholder: "I've tried the following..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have read the [documentation](https://github.com/smorin/py-launch-blueprint/tree/main/docs)"
+          required: true
+        - label: "I have searched for [similar questions](https://github.com/smorin/py-launch-blueprint/issues?q=is%3Aissue+label%3Aquestion)"
+          required: true
+        - label: "I have included all relevant information"
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        By submitting this question, you agree to follow our [Code of Conduct](https://github.com/smorin/py-launch-blueprint/blob/main/CODE_OF_CONDUCT.md)

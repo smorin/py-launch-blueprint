@@ -17,20 +17,71 @@ We have integrated the CLA Assistant bot to streamline the CLA signing process. 
 
 ## How to Contribute
 
-### Reporting Bugs
+### Using Issue Templates
 
-If you find a bug in the project, please open an issue on GitHub with the following information:
-- A clear and descriptive title
-- A detailed description of the problem
-- Steps to reproduce the issue
-- Any relevant logs or screenshots
+We provide several issue templates to help you submit well-structured issues:
 
-### Suggesting Enhancements
+1. **Question Template**
+   - Use this for general questions about the project
+   - Include any relevant context or code examples
+   - Be specific about what you're trying to achieve
 
-We welcome suggestions for new features or improvements to the project. To suggest an enhancement, please open an issue on GitHub with the following information:
-- A clear and descriptive title
-- A detailed description of the enhancement
-- Any relevant examples or use cases
+2. **Documentation Template**
+   - For documentation-related issues or improvements
+   - Specify which documentation needs updating
+   - Suggest specific changes or additions
+
+### Using Pull Request Templates
+
+When submitting a pull request, choose the appropriate template:
+
+1. **Feature PR Template**
+   - For new features and enhancements
+   - Include a clear feature description
+   - List any breaking changes
+   - Update relevant documentation
+
+2. **Bug Fix PR Template**
+   - Reference the related issue
+   - Describe the fix implementation
+   - Include test cases
+
+3. **Documentation PR Template**
+   - For documentation updates
+   - Preview links if applicable
+   - List affected documentation sections
+
+4. **Dependency Update PR Template**
+   - List updated dependencies
+   - Include changelog/release notes
+   - Note any breaking changes
+
+### Template Enforcement
+
+We use automated checks to ensure proper template usage:
+
+1. **Pre-commit Hook**
+   - Validates template formatting
+   - Ensures required sections are filled
+   - Runs automatically before commits
+
+2. **GitHub Actions**
+   - Validates templates in PRs
+   - Enforces template requirements
+   - Provides feedback on template usage
+
+### Best Practices
+
+1. **Choosing Templates**
+   - Select the most appropriate template
+   - One issue/PR per concern
+   - Follow template structure
+
+2. **Filling Templates**
+   - Complete all required sections
+   - Be clear and concise
+   - Include relevant context
+   - Add labels and assignees
 
 ### Submitting Pull Requests
 

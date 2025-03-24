@@ -1,22 +1,80 @@
 name: "✨ Feature Request"
-description: "Suggest a new feature for the project."
-labels: ["enhancement"]
+description: "Suggest a new feature for the project"
+labels: ["enhancement", "needs-review"]
 body:
   - type: markdown
     attributes:
-      value: "## 🚀 Feature Request\nPlease describe the feature you'd like to see."
+      value: |
+        ## 🚀 Feature Request
+        Thanks for suggesting a new feature! Before proceeding, please:
+        - [🔍 Check existing feature requests](https://github.com/smorin/py-launch-blueprint/issues?q=is%3Aissue+label%3Aenhancement)
+        - [📖 Review our roadmap](https://github.com/smorin/py-launch-blueprint/blob/main/docs/ROADMAP.md)
+
+  - type: dropdown
+    id: feature_type
+    attributes:
+      label: "Feature Type"
+      description: "What type of feature are you suggesting?"
+      options:
+        - "New Functionality"
+        - "Enhancement"
+        - "Performance Improvement"
+        - "User Experience"
+        - "Integration"
+        - "Other"
+    validations:
+      required: true
+
   - type: textarea
     id: description
     attributes:
       label: "Feature Description"
-      description: "Explain the new feature and its benefits."
-      placeholder: "Feature details go here..."
+      description: "Describe the feature you'd like to see"
+      placeholder: "A clear and detailed description of the feature..."
     validations:
       required: true
+
   - type: textarea
     id: usecase
     attributes:
       label: "Use Case"
-      description: "Explain how this feature will be useful."
+      description: "Explain how this feature will be useful"
+      placeholder: "This feature would help users to..."
     validations:
       required: true
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: "Possible Implementation"
+      description: "If you have ideas about how to implement this feature, share them here"
+      placeholder: "The feature could be implemented by..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives Considered"
+      description: "What alternatives have you considered?"
+      placeholder: "Other approaches that could solve this..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have searched for [similar feature requests](https://github.com/smorin/py-launch-blueprint/issues?q=is%3Aissue+label%3Aenhancement)"
+          required: true
+        - label: "I have read the [contribution guidelines](https://github.com/smorin/py-launch-blueprint/blob/main/CONTRIBUTING.md)"
+          required: true
+        - label: "I am willing to help implement this feature"
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        By submitting this feature request, you agree to follow our [Code of Conduct](https://github.com/smorin/py-launch-blueprint/blob/main/CODE_OF_CONDUCT.md)

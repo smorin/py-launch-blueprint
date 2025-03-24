@@ -1,55 +1,104 @@
-name: "🐛 Bug Report"
-description: "Report a reproducible bug in the project."
-labels: ["bug"]
+name: "🐞 Bug Report"
+description: "Report a reproducible bug"
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: []
 body:
   - type: markdown
     attributes:
-      value: "## 🐞 Bug Report\nPlease provide clear and concise details about the issue."
+      value: |
+        ## 🐞 Bug Report
+        Thanks for taking the time to report a bug! Before proceeding, please:
+        - [🔍 Check existing bug reports](https://github.com/smorin/py-launch-blueprint/issues?q=is%3Aissue+label%3Abug)
+        - [📖 Review debugging guide](https://github.com/smorin/py-launch-blueprint/blob/main/docs/debugging.md)
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "Bug Severity"
+      description: "How severe is this bug?"
+      options:
+        - "Critical - System crash, data loss"
+        - "High - Major functionality broken"
+        - "Medium - Feature partially broken"
+        - "Low - Minor issue"
+    validations:
+      required: true
+
   - type: textarea
     id: description
     attributes:
       label: "Describe the Bug"
-      description: "A clear and concise description of the bug."
-      placeholder: "Bug details go here..."
+      description: "A clear and concise description of what the bug is"
+      placeholder: "Explain what happened..."
     validations:
       required: true
+
   - type: textarea
     id: steps
     attributes:
       label: "Steps to Reproduce"
-      description: "Provide a step-by-step guide to replicate the issue."
+      description: "Detailed steps to reproduce the behavior"
       placeholder: |
         1. Go to '...'
         2. Click on '...'
-        3. See the error
+        3. Scroll down to '...'
+        4. See error
     validations:
       required: true
+
   - type: textarea
     id: expected
     attributes:
       label: "Expected Behavior"
-      description: "What should have happened instead?"
+      description: "What did you expect to happen?"
+      placeholder: "The system should..."
     validations:
       required: true
+
   - type: textarea
-    id: logs
-    attributes:
-      label: "Logs/Console Output (if applicable)"
-      description: "Paste any error messages or logs here."
-  - type: dropdown
     id: environment
     attributes:
       label: "Environment"
-      multiple: true
-      options:
-        - "Windows"
-        - "macOS"
-        - "Linux"
+      description: "Please complete the following information"
+      placeholder: |
+        - OS: [e.g. macOS 12.0]
+        - Python Version: [e.g. 3.9.0]
+        - Package Version: [e.g. 1.0.0]
+        - Browser (if applicable): [e.g. chrome 91.0]
     validations:
       required: true
-  - type: input
-    id: python_version
+
+  - type: textarea
+    id: logs
     attributes:
-      label: "Python Version"
-      description: "Which Python version are you using?"
-      placeholder: "e.g., 3.9.7"
+      label: "Relevant Log Output"
+      description: "Please copy and paste any relevant log output. This will be automatically formatted into code."
+      render: shell
+
+  - type: input
+    id: reproduction
+    attributes:
+      label: "Reproduction Repository"
+      description: "If applicable, provide a link to a repository that reproduces the issue"
+      placeholder: "https://github.com/username/reproduction-repo"
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have searched for [existing issues](https://github.com/smorin/py-launch-blueprint/issues?q=is%3Aissue+label%3Abug)"
+          required: true
+        - label: "I have included all relevant information about my environment"
+          required: true
+        - label: "I have included relevant logs/screenshots"
+          required: false
+        - label: "I can reproduce this issue consistently"
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        By submitting this bug report, you agree to follow our [Code of Conduct](https://github.com/smorin/py-launch-blueprint/blob/main/CODE_OF_CONDUCT.md)
