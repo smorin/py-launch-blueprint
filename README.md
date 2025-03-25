@@ -9,6 +9,9 @@
 
 Py Launch Blueprint eliminates the setup friction in Python projects by providing a production-ready template with carefully curated tools and best practices. Here's what makes it special:
 
+## Full documentation on ReadTheDocs
+- [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
+
 ### 🚀 Key Features
 
 - **Zero Configuration Setup**: Get started immediately with pre-configured development tools
@@ -62,6 +65,32 @@ Start your next Python project with confidence, knowing you're building on a fou
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+## Contributors
+
+This project uses [COG (Cocogitto)](https://github.com/cocogitto/cocogitto) to automatically track and maintain our [CONTRIBUTORS.md](CONTRIBUTORS.md) file. The list of contributors is automatically updated when:
+
+1. A push is made to the main branch
+2. A pull request is merged
+3. Manually using the `just contributors` command
+
+### Manual Update
+
+To manually update the contributors list:
+
+```bash
+just contributors
+```
+
+### How Contributors are Tracked
+
+Contributors are tracked based on git commit history. The system:
+- Counts commits per contributor
+- Shows contribution statistics
+- Excludes certain email domains (e.g., noreply.github.com)
+- Sorts contributors by number of commits
+
+For more details about COG's contributor tracking, see the [official documentation](https://docs.cocogitto.io/).
 
 ## Contributor License Agreement (CLA)
 
@@ -272,6 +301,7 @@ hatch build
 | `"node-and-date"`     | `1.2.4.dev1+gabcdef12.d20231025`   | Commit ID and date                           |
 | `"node-and-timestamp"`| `1.2.4.dev1+gabcdef12.1698249600`  | Commit ID and timestamp                      |
 | `"dirty-tag"`         | `1.2.4.dev1+gabcdef12.dirty`       | Commit ID and dirty flag                     |
+| `"local-version"`     | `1.2.4.dev1+gabcdef12`             | Commit ID only                               |
 
 ---
 
