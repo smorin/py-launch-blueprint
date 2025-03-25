@@ -9,6 +9,9 @@
 
 Py Launch Blueprint eliminates the setup friction in Python projects by providing a production-ready template with carefully curated tools and best practices. Here's what makes it special:
 
+## Full documentation on ReadTheDocs
+- [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
+
 ### 🚀 Key Features
 
 - **Zero Configuration Setup**: Get started immediately with pre-configured development tools
