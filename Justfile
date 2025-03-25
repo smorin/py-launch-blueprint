@@ -3,7 +3,6 @@ py_package_name := "py_launch_blueprint"
 command_name := "py-projects"
 args := " "
 
-
 # Text colors
 BLACK := '\033[30m'
 RED := '\033[31m'
@@ -116,6 +115,67 @@ alias b := build
     uvx --with-editable . pre-commit run --all
 
 alias pc := pre-commit-run
+
+# Generate changelog from conventional commits
+changelog:
+    echo "Generating changelog..."
+    command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
+    cog changelog --at=HEAD
+    echo "{{GREEN}}✓{{NC}} Changelog generated"
+
+# Verify commit messages follow conventional commit format
+verify-commits start="HEAD~10" end="HEAD":
+    echo "Verifying commit messages..."
+    command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
+    cog verify --from={{start}} --to={{end}} && echo "{{GREEN}}✓{{NC}} All commits follow conventional format" || echo "{{RED}}✗{{NC}} Some commits do not follow conventional format"
+
+# Bump version based on conventional commits
+bump type="auto":
+    echo "Bumping version..."
+    command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
+    cog bump {{type}}
+    echo "{{GREEN}}✓{{NC}} Version bumped"
+
+# Create a conventional commit (interactive)
+commit:
+    echo "Creating conventional commit..."
+    command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
+    cog commit
+
+# Install COG (Cocogitto) for changelog and commit management
+install-cog:
+    echo "Installing Cocogitto (cog)..."
+    case "$(uname -s)" in \
+    Linux*) \
+        if command -v cargo >/dev/null 2>&1; then \
+            cargo install --force cocogitto; \
+        else \
+            echo "{{YELLOW}}Please install Rust's cargo to install cog{{NC}}"; \
+            echo "Visit https://www.rust-lang.org/tools/install"; \
+        fi \
+        ;; \
+    Darwin*) \
+        if command -v brew >/dev/null 2>&1; then \
+            brew install cocogitto; \
+        else \
+            echo "{{YELLOW}}Please install Homebrew to install cog{{NC}}"; \
+            echo "Visit https://brew.sh/"; \
+        fi \
+        ;; \
+    CYGWIN*|MINGW*|MSYS*|Windows*) \
+        echo "{{YELLOW}}On Windows, please install from https://github.com/cocogitto/cocogitto/releases{{NC}}"; \
+        ;; \
+    *) \
+        echo "{{RED}}Unknown OS, please install manually from https://github.com/cocogitto/cocogitto{{NC}}"; \
+        ;; \
+    esac
+    command -v cog >/dev/null 2>&1 && echo "{{GREEN}}✓{{NC}} Cocogitto installed successfully" || echo "{{RED}}✗{{NC}} Failed to install Cocogitto"
+
+# Check if COG is installed and setup pre-commit hook for commit message verification
+setup-cog-hooks:
+    command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; just install-cog; }
+    cog install-hook commit-msg
+    echo "{{GREEN}}✓{{NC}} Commit message hook installed"
 
 # Check installed package version
 @version cmd=command_name:

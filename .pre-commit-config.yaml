@@ -40,3 +40,9 @@ repos:
         types: [python]
         pass_filenames: false # Run full test suite
         stages: [pre-commit] # Only run on commit
+      - id: conventional-commit-check
+        name: Check Conventional Commits
+        entry: bash -c 'command -v cog >/dev/null 2>&1 && cog verify --from=HEAD~1 --to=HEAD || echo "Cocogitto not installed, skipping conventional commit check"'
+        language: system
+        pass_filenames: false
+        stages: [commit-msg]

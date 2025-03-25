@@ -100,6 +100,60 @@ We have integrated the CLA Assistant bot to streamline the CLA signing process. 
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+# Conventional Commits and Changelog
+
+This project follows the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages, which enables automatic changelog generation and version management using [Cocogitto (cog)](https://github.com/cocogitto/cocogitto).
+
+## Commit Message Format
+
+Commit messages must follow this format:
+```
+<type>(<optional scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+Common types include:
+- `feat`: New features
+- `fix`: Bug fixes
+- `docs`: Documentation changes
+- `style`: Formatting changes (white-space, etc.)
+- `refactor`: Code restructuring without feature changes
+- `perf`: Performance improvements
+- `test`: Test additions or corrections
+- `chore`: Maintenance tasks
+
+## Using the Changelog
+
+The project automatically generates a changelog from conventional commits. To generate or update the changelog manually:
+
+```bash
+just changelog
+```
+
+## Versioning
+
+The project uses semantic versioning based on conventional commits. To bump the version:
+
+```bash
+just bump         # Auto-detects version bump type based on commits
+just bump patch   # For a patch version bump
+just bump minor   # For a minor version bump
+just bump major   # For a major version bump
+```
+
+## Commit Validation
+
+To ensure your commits follow the conventional format, you can:
+
+1. Use the interactive commit tool: `just commit`
+2. Validate recent commits: `just verify-commits`
+3. Install the pre-commit hook: `just setup-cog-hooks`
+
+For more details, see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
 # Project Structure
 
 The project uses a simple, maintainable structure:
