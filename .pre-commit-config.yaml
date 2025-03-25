@@ -40,3 +40,9 @@ repos:
         types: [python]
         pass_filenames: false # Run full test suite
         stages: [pre-commit] # Only run on commit
+      - id: conventional-commit-check
+        name: Check Conventional Commits
+        entry: cog verify --hook
+        language: system
+        pass_filenames: true
+        stages: [commit-msg]
