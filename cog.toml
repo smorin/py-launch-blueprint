@@ -3,6 +3,10 @@
 owner = "smorin"
 repository = "py-launch-blueprint"
 
+# Ignore commits before we started using conventional commits
+from_latest_tag = true
+ignore_merge_commits = true
+
 [commit_types]
 feat = { changelog_title = "Features", semver = "minor" }
 fix = { changelog_title = "Bug Fixes", semver = "patch" }
