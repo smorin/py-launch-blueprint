@@ -105,14 +105,6 @@ alias t := test
 
 alias ca := check
 
-# Format TOML files
-@format-toml:
-    taplo format pyproject.toml
-
-# Check TOML files formatting
-@check-toml:
-    taplo check pyproject.toml
-
 alias ft := format-toml
 alias ct := check-toml
 
