@@ -155,6 +155,15 @@ alias pc := pre-commit-run
 @docs-clean:
     cd docs && make clean
 
+# Update CONTRIBUTORS.md file
+@contributors:
+    echo "Updating CONTRIBUTORS.md..."
+    powershell -Command "$contributors = git log --format='%%aN <%%aE>' | Sort-Object -Unique"
+    powershell -Command "$content = Get-Content CONTRIBUTORS.md -Raw"
+    powershell -Command "$newContent = $content -replace '(?s)<!-- COG-CONTRIBUTORS-LIST:START -->.*<!-- COG-CONTRIBUTORS-LIST:END -->', ('<!-- COG-CONTRIBUTORS-LIST:START -->' + \"`n$contributors`n<!-- COG-CONTRIBUTORS-LIST:END -->')"
+    powershell -Command "Set-Content -Path CONTRIBUTORS.md -Value $newContent"
+    echo "{{CHECK}} Contributors list updated"
+
 # Alternative commands when virtual environment is activated:
 # These commands can be used after running 'source .venv/bin/activate'
 
