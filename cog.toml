@@ -3,8 +3,7 @@
 owner = "smorin"
 repository = "py-launch-blueprint"
 
-# Ignore commits before we started using conventional commits
-from_latest_tag = true
+# Configuration for ignoring merge commits
 ignore_merge_commits = true
 
 [commit_types]
