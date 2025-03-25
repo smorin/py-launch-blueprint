@@ -3,9 +3,6 @@
 owner = "smorin"
 repository = "py-launch-blueprint"
 
-# Configuration for ignoring merge commits
-ignore_merge_commits = true
-
 [commit_types]
 feat = { changelog_title = "Features", semver = "minor" }
 fix = { changelog_title = "Bug Fixes", semver = "patch" }
