@@ -13,6 +13,7 @@ Steve Morin <steve.morin@gmail.com>
 Tatiana Hernandez <tatihe3@gmail.com>
 Tatiana Hernández <tatihe3@gmail.com>
 gdev19 <ashkhen09300@gmail.com>
+github-actions[bot] <github-actions[bot]@users.noreply.github.com>
 vardanaloyan <valoyan2@gmail.com>
 <!-- COG-CONTRIBUTORS-LIST:END -->
 
