@@ -1,93 +1,72 @@
 # Contributing to Py Launch Blueprint
 
-Thank you for your interest in contributing to Py Launch Blueprint! We welcome contributions from the community and are excited to see what you can bring to the project.
-## Contributors
-
-This project uses [COG (Cocogitto)](https://github.com/cocogitto/cocogitto) to automatically track and maintain our [`CONTRIBUTORS.md`](https://github.com/smorin/py-launch-blueprint/blob/main/CONTRIBUTORS.md) file. The list of contributors is automatically updated when:
-
-1. A push is made to the main branch
-2. A pull request is merged
-3. Manually using the `just contributors` command
-
-### Manual Update
-
-To manually update the contributors list:
-
-```bash
-just contributors
-```
-
-### How Contributors are Tracked
-
-Contributors are tracked based on git commit history. The system:
-- Counts commits per contributor
-- Shows contribution statistics
-- Excludes certain email domains (e.g., noreply.github.com)
-- Sorts contributors by number of commits
-
-For more details about COG's contributor tracking, see the [official documentation](https://docs.cocogitto.io/).
-
-## Contributor License Agreement (CLA)
-
-Before we can accept your contributions, you will need to sign a Contributor License Agreement (CLA). This is a legal document in which you state that you are entitled to contribute the code you are submitting and that you grant us the rights to use that contribution.
-
-### How to Sign the CLA
-
-1. **Individual Contributors**: If you are contributing as an individual, please sign the [Individual CLA](./cla/individual_cla.md).
-2. **Corporate Contributors**: If you are contributing on behalf of a company, please sign the [Corporate CLA](./cla/corporate_cla.md).
-
-### CLA Assistant Bot
-
-We have integrated the CLA Assistant bot to streamline the CLA signing process. When you open a pull request, the bot will check if you have signed the CLA. If you have not, it will provide a link to sign it.
+Thank you for your interest in contributing to Py Launch Blueprint! We welcome contributions from the community and appreciate your efforts in improving the project.
 
 ## How to Contribute
 
 ### Reporting Bugs
-
-If you find a bug in the project, please open an issue on GitHub with the following information:
-- A clear and descriptive title
-- A detailed description of the problem
-- Steps to reproduce the issue
-- Any relevant logs or screenshots
+If you find a bug, please open an issue on GitHub with the following details:
+- **Title**: A clear, concise description of the issue.
+- **Description**: A detailed explanation of the problem.
+- **Reproduction Steps**: Steps to replicate the issue.
+- **Additional Information**: Logs, screenshots, or other relevant details.
 
 ### Suggesting Enhancements
-
-We welcome suggestions for new features or improvements to the project. To suggest an enhancement, please open an issue on GitHub with the following information:
-- A clear and descriptive title
-- A detailed description of the enhancement
-- Any relevant examples or use cases
+We welcome feature requests and improvements! To suggest an enhancement, open a GitHub issue with:
+- **Title**: A concise summary of your suggestion.
+- **Description**: A detailed explanation of the feature.
+- **Use Cases**: How it improves the project and potential applications.
 
 ### Submitting Pull Requests
+To contribute code, follow these steps:
+1. **Fork the repository** and clone it locally.
+2. **Create a new branch** for your feature or fix.
+3. **Make your changes** and ensure they follow project guidelines.
+4. **Write tests** to cover your modifications.
+5. **Run all tests** and confirm they pass.
+6. **Commit changes** with a clear message.
+7. **Push your branch** and open a pull request.
 
-To submit a pull request, follow these steps:
-1. Fork the repository
-2. Create a new branch for your feature or bugfix
-3. Make your changes
-4. Commit your changes with a clear and descriptive commit message
-5. Push your changes to your fork
-6. Open a pull request on GitHub
+#### Pull Request Guidelines
+- Follow the project's **coding style**.
+- Ensure **all tests pass**.
+- Update **documentation** where applicable.
+- Provide a **clear description** of the change in the pull request.
 
-Please ensure that your pull request adheres to the following guidelines:
-- Follow the project's coding style and conventions
-- Include tests for your changes
-- Ensure that all tests pass
-- Update the documentation as needed
+## Contributor License Agreement (CLA)
+Before your contributions can be accepted, you must sign a **Contributor License Agreement (CLA)**.
 
-## frequently asked questions
-- [Contributor License Agreement (CLA) FAQ](cla_faq.md)
+### Signing the CLA
+- **Individual Contributors**: Sign the [Individual CLA](./cla/individual_cla.md).
+- **Corporate Contributors**: Sign the [Corporate CLA](./cla/corporate_cla.md).
+
+### CLA Assistant Bot
+When you open a pull request, the **CLA Assistant Bot** will check if you've signed the CLA. If not, it will provide a link to complete the process.
+
+## Tracking Contributors
+This project uses [COG (Cocogitto)](https://github.com/cocogitto/cocogitto) to track contributors automatically in [`CONTRIBUTORS.md`](https://github.com/smorin/py-launch-blueprint/blob/main/CONTRIBUTORS.md). The list updates when:
+1. A push is made to the main branch.
+2. A pull request is merged.
+3. Manually, using the following command:
+   ```bash
+   just contributors
+   ```
+
 ## Code of Conduct
-
-We are committed to fostering a welcoming and inclusive community. Please read and adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) when participating in the project.
-
-## Getting Help
-
-If you need help or have any questions, feel free to open an issue on GitHub or reach out to the maintainers.
+We are committed to fostering a **welcoming and inclusive** community. Please review and adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Documentation Contributions
+- All documentation is located in `docs/source/`.
+- Maintain the existing directory structure.
+- Use **Sphinx syntax** for cross-referencing (e.g., `:doc:` or `:ref:`).
 
-- All documentation resides in `docs/source/`.
-- Follow the directory structure for consistency.
-- Use Sphinx syntax for cross-referencing (e.g., `:doc:` or `:ref:`).
+## Getting Help
+If you have questions, feel free to:
+- Open an issue on GitHub.
+- Reach out to the maintainers.
+
+## Frequently Asked Questions
+- [Contributor License Agreement (CLA) FAQ](cla_faq.md)
 
 ```{toctree}
 ---
@@ -98,3 +77,4 @@ CODE_OF_CONDUCT
 cla/individual_cla
 cla/corporate_cla
 ```
+
