@@ -11,65 +11,108 @@ Before you begin, ensure you have the following installed on your system:
 - `just` task runner
 
 ## Steps
+### From PyPI
 
-### 1. Clone the Repository
+```bash
+pip install py-launch-blueprint
+```
 
-First, clone the Py Launch Blueprint repository to your local machine:
+### From Source
 
 ```bash
 git clone https://github.com/smorin/py-launch-blueprint.git
 cd py-launch-blueprint
+pip install -e ".[dev]"  # Install with development dependencies
 ```
 
-### 2. Install Dependencies
+### Direct Usage
 
-Next, install the project dependencies using `uv`:
+You can also run the script directly:
 
 ```bash
-uv pip install --editable ".[dev]"
+python projects.py --help
 ```
 
-This command installs the project in editable mode along with the development dependencies.
+## Configuration
 
-### 3. Set Up Pre-commit Hooks
+The tool supports multiple ways to provide your Py Personal Access Token (PAT), in order of precedence:
 
-Set up pre-commit hooks to ensure code quality and consistency:
+1. Command-line argument: `--token`
+2. Environment variable: `PY_TOKEN`
+3. Configuration file: `~/.config/py-launch-blueprint/.env`
+
+### Setting Up Configuration File
+
+1. Create the config directory:
+```bash
+mkdir -p ~/.config/py-launch-blueprint
+```
+
+2. Create `.env` file:
+```bash
+echo "PY_TOKEN=your_token_here" > ~/.config/py-launch-blueprint/.env
+```
+
+3. Set proper permissions:
+```bash
+chmod 600 ~/.config/py-launch-blueprint/.env
+```
+
+## Usage
+
+### Basic Usage
 
 ```bash
-uvx --with-editable . pre-commit install
+# Search for projects
+py-projects
+
+# Filter by workspace
+py-projects --workspace "My Workspace"
+
+# Limit results
+py-projects --limit 50
 ```
 
-### 4. Verify Installation
-
-Verify that the installation was successful by running the following commands:
+### Output Formats
 
 ```bash
-just check
+# JSON output
+py-projects --format json
+
+# CSV output
+py-projects --format csv
+
+# Copy to clipboard
+py-projects --copy
+
+# Save to file
+py-projects --output projects.txt
 ```
 
-This command runs all the checks, including linting, type checking, and tests.
-
-### 5. Start Developing
-
-You are now ready to start developing your project. Use the provided `just` commands to manage your development workflow.
-
-For example, to run the tests:
+### Additional Options
 
 ```bash
-just test
+# Show verbose output
+py-projects --verbose
+
+# Disable colors
+py-projects --no-color
+
+# Show help
+py-projects --help
+
+# Show version
+py-projects --version
 ```
 
-To format the code:
+## Error Codes
 
-```bash
-just format
-```
-
-To lint the code:
-
-```bash
-just lint
-```
+- 0: Successful execution
+- 1: Configuration error
+- 2: Authentication error
+- 3: API error
+- 4: Input/Output error
+- 5: User interrupt
 
 ## Additional Resources
 
