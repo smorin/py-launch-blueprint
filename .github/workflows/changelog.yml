@@ -20,7 +20,7 @@ jobs:
         uses: cocogitto/cocogitto-action@v3
         
       - name: Generate Changelog
-        run: cog changelog --at $(git describe --tags --abbrev=0 || echo "v0.0.0") -o CHANGELOG.md
+        run: cog changelog --at "$(git describe --tags --abbrev=0 || echo \"v0.0.0\")" -o CHANGELOG.md
         
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
