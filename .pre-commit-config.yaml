@@ -33,6 +33,14 @@ repos:
         types_or: [cython, pyi, python]
   - repo: local
     hooks:
+      - id: taplo
+        name: Format TOML files
+        entry: taplo format
+        args: [--config, pyproject.toml]
+        language: system
+        types: [toml]
+  - repo: local
+    hooks:
       - id: pytest
         name: Run pytest
         entry: pytest

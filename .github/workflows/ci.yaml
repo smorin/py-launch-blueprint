@@ -40,6 +40,11 @@ jobs:
     - name: Check linters
       run: uvx ruff check py_launch_blueprint/
 
+    - name: Run pre-commit checks
+      run: |
+        uv pip install pre-commit
+        pre-commit run --all-files
+
 #    - name: Run tests with coverage
 #      run: |
 #        pytest --cov=./ --cov-report=xml

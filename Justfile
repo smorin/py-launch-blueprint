@@ -44,13 +44,26 @@ DASH := "$(GRAY)-$(NC)"
 @default:
     just --list --unsorted
 
+# Format TOML files (comments preserved via pyproject.toml config)
+@format-toml:
+    taplo format \
+        --config pyproject.toml \
+        *.toml
+
+# Check TOML formatting without modifying files
+@check-toml:
+    taplo format --check \
+        --config pyproject.toml \
+        *.toml
+
+
 # Check if required tools are installed
 @check-deps:
     @#!/usr/bin/env sh
     if ! command -v uv >/dev/null 2>&1; then echo "uv is not installed"; exit 1; fi
     if ! command -v python3 >/dev/null 2>&1; then echo "python3 is not installed"; exit 1; fi
     if ! command -v just >/dev/null 2>&1; then echo "just is not installed"; exit 1; fi
-    if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}"; fi
+    if ! command -v pre-commit >/dev/null 2>&1; then echo "$(YELLOW)WARNING: pre-commit is not installed$(NC)"; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -97,9 +110,13 @@ alias t := test
 
 alias ca := check
 
+alias ft := format-toml
+alias ct := check-toml
+
 # Run package command.
 @run cmd=command_name *args=args:
     uvx --with-editable . {{cmd}} {{args}}
+
 
 # Build package
 @build: check
