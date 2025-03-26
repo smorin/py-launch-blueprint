@@ -7,6 +7,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-contributors:
     runs-on: ubuntu-latest
@@ -15,21 +19,20 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Install Cocogitto
-        run: |
-          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cocogitto/cocogitto/main/install.sh | sh
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
       - name: Update CONTRIBUTORS.md
         run: |
-          cog contributors > temp_contributors
-          sed -i '/<!-- COG-CONTRIBUTORS-LIST:START -->/,/<!-- COG-CONTRIBUTORS-LIST:END -->/c\<!-- COG-CONTRIBUTORS-LIST:START -->\n'"$(cat temp_contributors)"'\n<!-- COG-CONTRIBUTORS-LIST:END -->' CONTRIBUTORS.md
-          rm temp_contributors
+          python update_contributors.py
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           commit-message: 'chore: update contributors list'
           title: 'chore: update contributors list'
-          body: 'Automatically updated contributors list using COG'
+          body: 'Automatically updated contributors list using Git log'
           branch: update-contributors
           delete-branch: true
