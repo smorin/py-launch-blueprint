@@ -19,46 +19,20 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Configure Git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
       - name: Update CONTRIBUTORS.md
         run: |
-          # Get list of contributors
-          git log --format='%aN <%aE>' | sort -u > temp_contributors
-          
-          # Update CONTRIBUTORS.md
-          awk '
-            BEGIN { p=1 }
-            /<!-- COG-CONTRIBUTORS-LIST:START -->/ {
-              print;
-              system("cat temp_contributors");
-              print "<!-- COG-CONTRIBUTORS-LIST:END -->";
-              p=0;
-              next;
-            }
-            /<!-- COG-CONTRIBUTORS-LIST:END -->/ { p=1; next }
-            p { print }
-          ' CONTRIBUTORS.md > CONTRIBUTORS.md.new
-          
-          # Replace old file with new one
-          mv CONTRIBUTORS.md.new CONTRIBUTORS.md
-          rm temp_contributors
-          
-          # Commit changes if any
-          if [[ -n "$(git status --porcelain)" ]]; then
-            git add CONTRIBUTORS.md
-            git commit -m "chore: update contributors list"
-            git push origin HEAD:refs/heads/update-contributors
-          fi
+          python update_contributors.py
 
       - name: Create Pull Request
-        uses: repo-sync/pull-request@v2
+        uses: peter-evans/create-pull-request@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          source_branch: "update-contributors"
-          destination_branch: "main"
-          pr_title: "chore: update contributors list"
-          pr_body: "Automatically updated contributors list using git log"
+          commit-message: 'chore: update contributors list'
+          title: 'chore: update contributors list'
+          body: 'Automatically updated contributors list using Git log'
+          branch: update-contributors
+          delete-branch: true
