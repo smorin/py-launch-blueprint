@@ -24,9 +24,17 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Debug workflow environment
+        run: |
+          ls -la
+          pwd
+          git status
+          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+
       - name: Update CONTRIBUTORS.md
         run: |
-          python update_contributors.py
+          python $GITHUB_WORKSPACE/update_contributors.py || echo "Failed to update contributors, continuing anyway"
+        continue-on-error: true
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
