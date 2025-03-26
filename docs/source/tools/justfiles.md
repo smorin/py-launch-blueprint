@@ -1,138 +1,57 @@
-# Justfile Usage
+# Using the Justfile
 
-This project includes a **Justfile** to simplify common development tasks. [Just](https://github.com/casey/just) is a command runner that automates workflows and ensures consistency.
+This project includes a `Justfile` that provides convenient commands for common development tasks. [Just](https://github.com/casey/just) is a handy command runner that helps standardize commands across your project.
 
-## Installation
-
-Ensure **Just** is installed before running any commands. Follow the [installation guide](https://github.com/casey/just#installation).
-
-To list available commands:
+To use these commands, first [install Just](https://github.com/casey/just#installation). You can see all available commands by running:
 
 ```bash
 just --list
 ```
 
-## Common Commands
-
-### **Setup and Installation**
+Here are some commonly used commands (this is just a subset of all available commands):
 
 ```bash
-just setup-venv       # Set up a virtual environment
-just install-dev      # Install package in editable mode with dev dependencies
-just pre-commit-setup # Set up pre-commit hooks
+# Setup your development environment
+just setup
+
+# Format code (includes ruff format and import sorting)
+just format
+
+# Run linter (code style and quality checks)
+just lint
+
+# Run type checker
+just typecheck
+
+# Run tests
+just test
+
+# Run all checks (tests, linting, and type checking)
+just check
+
+# Check installed package version
+just version
+
+# Clean up temporary files and caches
+just clean
+
+# Set up pre-commit hooks
+just pre-commit-setup
+
+# Build the package
+just build
+
+# Install in development mode
+just install-dev
 ```
 
-### **Code Quality & Testing**
+When your virtual environment is activated, you can also use direct commands without uvx:
 
 ```bash
-just format        # Format code (includes Ruff and import sorting)
-just lint          # Run linter for code quality checks
-just typecheck     # Run type checker
-just test          # Run tests with pytest
-just check         # Run all checks (tests, linting, and type checking)
+just format-pip   # Run formatter directly
+just lint-pip     # Run linter directly
+just typecheck-pip # Run type checker directly
+just test-pip     # Run tests directly with pytest
 ```
 
-### **Package Management**
-
-```bash
-just version       # Show installed package version
-just build         # Build the package
-just clean         # Remove temporary files and caches
-```
-
-### **Running Commands**
-
-```bash
-just run           # Run the package command
-just check-deps    # Verify required dependencies are installed
-```
-
-### **Documentation**
-
-```bash
-just docs-help     # Show help for Sphinx documentation
-just docs          # Build documentation (default: HTML format)
-just docs-dev      # Run documentation server with hot reloading
-just docs-clean    # Clean documentation build files
-```
-
-### **Contributor Management**
-
-```bash
-just contributors  # Update CONTRIBUTORS.md with the latest commit history
-```
-
-## Alternative Commands (for Activated Virtual Environments)
-
-If the virtual environment is active, you can use the following:
-
-```bash
-just install-dev-pip    # Install package in dev mode using pip
-just format-pip         # Run formatter directly
-just lint-pip           # Run linter directly
-just typecheck-pip      # Run type checker directly
-just test-pip           # Run tests directly with pytest
-```
-
-## Summary
-
-This **Justfile** simplifies development workflows by providing shortcuts for essential tasks like setup, code formatting, testing, and documentation management. Use `just --list` to explore more commands. 🚀
-
-## Using the Justfile  
-
-This project includes a **Justfile** to simplify common development tasks. [Just](https://github.com/casey/just) is a command runner that helps standardize and automate workflows across the project.  
-
-### Installation  
-
-To use **Just**, first [install it](https://github.com/casey/just#installation).  
-
-You can list all available commands by running:  
-
-```bash
-just --list
-```  
-
-### Commonly Used Commands  
-
-Below are some frequently used **Just** commands:  
-
-#### **Environment Setup**  
-
-```bash
-just setup              # Initialize development environment  
-just pre-commit-setup   # Set up pre-commit hooks  
-just install-dev        # Install the package in development mode  
-```  
-
-#### **Code Quality & Testing**  
-
-```bash
-just format       # Format code (includes Ruff formatting and import sorting)  
-just lint         # Run linter for code quality checks  
-just typecheck    # Run type checker  
-just test         # Run tests with pytest  
-just check        # Run all checks (tests, linting, and type checking)  
-```  
-
-#### **Utilities**  
-
-```bash
-just version      # Check installed package version  
-just clean        # Remove temporary files and caches  
-just build        # Build the package  
-```  
-
-### Running Direct Commands  
-
-When your virtual environment is activated, you can run direct commands without `uvx`:  
-
-```bash
-just format-pip      # Run formatter directly  
-just lint-pip        # Run linter directly  
-just typecheck-pip   # Run type checker directly  
-just test-pip        # Run tests directly with pytest  
-```  
-
-### Summary  
-
-The **Justfile** streamlines development tasks, ensuring a consistent and efficient workflow. Whether you're formatting code, running tests, or setting up your environment, **Just** makes it easy to execute commands reliably.  
+The Justfile standardizes common development tasks and provides a consistent interface for both uvx and direct command execution.

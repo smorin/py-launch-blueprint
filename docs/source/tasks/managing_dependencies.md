@@ -1,68 +1,92 @@
-# Managing Dependencies with UV  
+# Managing Dependencies with UV and Pip
 
-**UV** is a fast Python package manager designed for efficient dependency management. This guide covers how to set up and use **UV** in the *Py Launch Blueprint* project.  
+## Using UV
+[UV](https://github.com/astral-sh/uv) is a fast Python package manager for efficient dependency management.
 
-## Installing UV  
+### Installation
+To install UV, run the following command:
 
-To install UV, run:  
-
-```bash
+```sh
 pip install uv
-```  
+```
 
-## Adding Dependencies  
+### Installing Dependencies
+To install project dependencies in editable mode, use:
 
-To install a package and add it to your project, use:  
+```sh
+uv pip install --editable ".[dev]"
+```
 
-```bash
-uv pip install <package-name>
-```  
+### Development Tools
+Use UV to run various development tools:
 
-For example, to install the `requests` library:  
+```sh
+uvx ruff format py_launch_blueprint/       # Format code  
+uvx ruff check py_launch_blueprint/        # Run linter  
+uvx --with-editable . mypy py_launch_blueprint/  # Type check  
+uvx --with-editable . pytest               # Run tests  
+uvx --with pytest-cov --with-editable . pytest --cov=py_launch_blueprint.projects --cov-report=term-missing  # Test coverage  
+```
 
-```bash
-uv pip install requests
-```  
+### Pre-Commit Hooks (Optional)
+Set up and run pre-commit hooks with:
 
-## Installing All Dependencies  
+```sh
+uvx --with-editable . pre-commit install  
+uvx pre-commit run --all-files  
+```
 
-To install all dependencies listed in `pyproject.toml`, run:  
+### Updating & Removing Packages
+To update all dependencies, use:
 
-```bash
-uv pip install
-```  
+```sh
+uv pip install --upgrade                    # Update all dependencies  
+uv pip install --upgrade <package-name>     # Update a specific package  
+uv pip uninstall <package-name>             # Remove a package  
+```
 
-## Updating Dependencies  
+### Freezing Dependencies
+To freeze the dependencies into a `requirements.lock` file:
 
-To update all installed dependencies to their latest versions:  
-
-```bash
-uv pip install --upgrade
-```  
-
-To update a specific package:  
-
-```bash
-uv pip install --upgrade <package-name>
-```  
-
-## Removing Dependencies  
-
-To uninstall a package:  
-
-```bash
-uv pip uninstall <package-name>
-```  
-
-## Freezing Dependencies  
-
-To generate a `requirements.lock` file with the exact versions of installed dependencies, run:  
-
-```bash
+```sh
 uv pip freeze > requirements.lock
-```  
+```
 
-## Additional Resources  
+---
 
-For more details, check the [official UV documentation](https://github.com/astral-sh/uv).  
+## Using Pip
 
+### Virtual Environment Setup
+To create and activate a virtual environment:
+
+```sh
+python3 -m venv .venv  
+source .venv/bin/activate   # Unix/macOS  
+.venv\Scripts\activate      # Windows  
+```
+
+### Installing Dependencies
+Install project dependencies in editable mode:
+
+```sh
+pip install --editable ".[dev]"
+```
+
+### Running Tools
+You can run development tools directly with pip:
+
+```sh
+ruff format py_launch_blueprint/  
+ruff check py_launch_blueprint/  
+mypy py_launch_blueprint/  
+pytest --cov=py_launch_blueprint.projects --cov-report=term-missing  
+```
+
+### Checking CLI Tool Version
+To check the version of the CLI tool:
+
+```sh
+py-projects --version
+```
+
+For more details, refer to the official [UV documentation](https://github.com/astral-sh/uv).

@@ -1,73 +1,97 @@
-# MyPy Type Checking
 
-MyPy is a static type checker for Python that helps you ensure your code adheres to specified type annotations. This guide will walk you through the steps to set up and use MyPy for type checking in the Py Launch Blueprint project.
+## mypy
+Most teams today actually run both mypy and pyright/Pylance:
 
-## Setting Up MyPy
+- mypy in CI/pre-commit hooks for strict checking
+- Pylance in VS Code for real-time development feedback
 
-To set up MyPy for your project, follow these steps:
+This combination provides comprehensive type checking coverage while maintaining a smooth development experience.
 
-1. **Install MyPy**:
-   ```bash
-   uv pip install mypy
-   ```
+Let me explain the difference between `disallow_untyped_defs = false` vs `true`:
 
-2. **Configure MyPy**:
-   Create a `mypy.ini` file in the root of your project with the following content:
-   ```ini
-   [mypy]
-   python_version = 3.10
-   strict = true
-   ignore_missing_imports = false
-   follow_imports = normal
-   follow_imports_for_stubs = true
-   disallow_any_generics = true
-   disallow_subclassing_any = true
-   disallow_untyped_calls = true
-   disallow_untyped_defs = true
-   disallow_incomplete_defs = true
-   disallow_untyped_decorators = true
-   no_implicit_optional = true
-   strict_optional = true
-   warn_redundant_casts = true
-   warn_unused_ignores = true
-   warn_no_return = true
-   warn_return_any = true
-   warn_unreachable = true
-   pretty = true
-   show_error_codes = true
-   show_column_numbers = true
-   ```
+**disallow_untyped_defs = true**
+```python
+# This will raise an error
+def process_data(data):  # Error: Function is missing type annotations
+    return data + 1
 
-3. **Run MyPy**:
-   To check your code with MyPy, run the following command:
-   ```bash
-   uvx --with-editable . mypy py_launch_blueprint/
-   ```
+# This is required instead
+def process_data(data: int) -> int:
+    return data + 1
+```
 
-## Best Practices for Type Checking
+**disallow_untyped_defs = false**
+```python
+# This is allowed
+def process_data(data):
+    return data + 1
 
-- **Annotate All Functions**: Ensure all functions have type annotations for their parameters and return types.
-- **Use Type Hints**: Utilize Python's built-in type hints (e.g., `List`, `Dict`, `Optional`) to specify the expected types.
-- **Avoid `Any`**: Minimize the use of the `Any` type to maintain strict type checking.
-- **Leverage `TypedDict`**: Use `TypedDict` for dictionaries with a fixed set of keys and value types.
-- **Check Third-Party Libraries**: Ensure third-party libraries used in your project have type stubs available.
+# This is also allowed
+def process_data(data: int) -> int:
+    return data + 1
+```
 
-## Common Issues and Solutions
+**When to use each:**
 
-1. **Missing Type Annotations**:
-   - **Issue**: MyPy reports missing type annotations for functions.
-   - **Solution**: Add type annotations to all function parameters and return types.
+Use `true` when:
+- Starting a new project
+- Working on a codebase that's fully committed to type hints
+- Want to ensure complete type coverage
+- Have a team that's comfortable with Python type hints
 
-2. **Incompatible Types**:
-   - **Issue**: MyPy reports incompatible types in assignments or function calls.
-   - **Solution**: Ensure the types of variables and function arguments match the expected types.
+Use `false` when:
+- Gradually adding types to a legacy codebase
+- Working with test files (common to disable for tests)
+- Training team members who are new to type hints
+- Need to temporarily bypass type checking for specific modules
 
-3. **Ignoring Errors**:
-   - **Issue**: MyPy reports errors that you want to ignore.
-   - **Solution**: Use `# type: ignore` comments to suppress specific errors, but use them sparingly.
+**Best Practice Recommendation:**
+Start new projects with `true` for maximum type safety. For existing projects, use `false` initially and gradually enable it as you add type hints to the codebase. Many teams set it to `false` for test files but `true` for production code.
 
-4. **Third-Party Libraries**:
-   - **Issue**: MyPy reports missing type stubs for third-party libraries.
-   - **Solution**: Install type stubs for the libraries using `uv pip install types-<library>`.
+VS Code Settings for pyright/Pylance
+```json
+{
+    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.importFormat": "relative",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true
+}
+```
 
-By following these best practices and addressing common issues, you can effectively use MyPy to maintain a type-safe and reliable codebase.
+Common Type Annotation Examples
+```python
+from typing import Dict, List, Optional, Tuple, Union, TypeVar, Generic
+
+# Basic type annotations
+def greet(name: str) -> str:
+    return f"Hello {name}"
+
+# Optional parameters
+def fetch_user(user_id: Optional[int] = None) -> Dict[str, Union[str, int]]:
+    ...
+
+# Generic types
+T = TypeVar('T')
+class Stack(Generic[T]):
+    def __init__(self) -> None:
+        self.items: List[T] = []
+
+    def push(self, item: T) -> None:
+        self.items.append(item)
+
+    def pop(self) -> T:
+        return self.items.pop()
+
+# Type aliases
+UserId = int
+UserDict = Dict[UserId, Dict[str, Union[str, int]]]
+
+# Callable types
+from typing import Callable
+Handler = Callable[[str, int], bool]
+
+def process(handler: Handler) -> None:
+    ...
+```

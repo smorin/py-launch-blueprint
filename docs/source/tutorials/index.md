@@ -4,10 +4,6 @@ Welcome to the Tutorials section of the Py Launch Blueprint documentation. This 
 
 <!-- ## Table of Contents -->
 
-- [Full Project Setup](full_project_setup.md)
-- [Extending the Template](extending_template.md)
-- [CLI Tool Development Example](cli_example.md)
-
 Each of these tutorials contains detailed instructions and best practices to help you accomplish your tasks efficiently and effectively.
 
 ```{toctree}
@@ -15,6 +11,4 @@ Each of these tutorials contains detailed instructions and best practices to hel
 maxdepth: 2
 ---
 full_project_setup
-extending_template
-cli_example
 ```
