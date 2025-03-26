@@ -127,7 +127,7 @@ changelog:
 verify-commits start="HEAD~10" end="HEAD":
     echo "Verifying commit messages..."
     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
-    cog verify --from={{start}} --to={{end}} && echo "{{GREEN}}✓{{NC}} All commits follow conventional format" || echo "{{RED}}✗{{NC}} Some commits do not follow conventional format"
+    cog verify --from={{start}} --to={{end}} && echo "{{GREEN}}✓{{NC}} All commits follow conventional format" || { echo "{{RED}}✗{{NC}} Some commits do not follow conventional format"; exit 1; }
 
 # Bump version based on conventional commits
 bump type="auto":
