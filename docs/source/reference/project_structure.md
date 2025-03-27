@@ -9,8 +9,7 @@ The project is organized into the following directories:
 ```
 py-launch-blueprint/
 ├── .github/                        # GitHub configuration files
-│   ├── workflows/                  # GitHub Actions workflows
-│   └── ISSUE_TEMPLATE/             # Issue and pull request templates
+│   └── workflows/                  # GitHub Actions workflows
 ├── docs/                           # Documentation files
 │   ├── source/                     # Sphinx source files
 │   │   ├── _static/                # Static assets (CSS, images)
@@ -65,6 +64,8 @@ py-launch-blueprint/
 │   ├── _version.py                 # Version information
 │   └── projects.py                 # Main project module
 ├── pyproject.toml                  # Project configuration file
+├── cog.toml                        # Cog configuration file
+├── CONTRIBUTORS.md                 # Project contributors
 ├── pyrightconfig.json              # Pyright configuration
 ├── README.md                       # Project overview and navigation
 ├── SECURITY.md                     # Security policy
@@ -145,6 +146,12 @@ Template for pull requests to ensure consistency and completeness.
 ### pyproject.toml
 
 Configuration file for the project, including dependencies and build settings.
+
+### cog.toml
+Configuration file for COG (Cocogitto), a tool for generating and updating files based on templates. used for to update contributors list.
+
+### CONTRIBUTORS.md
+Auto-generated file using COG (Cocogitto) that lists the project contributors.
 
 ### pyrightconfig.json
 
