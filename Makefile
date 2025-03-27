@@ -121,17 +121,6 @@ set-path: ## Add SET_PATH to PATH in .zshenv if not already present
 		echo -e "$(CHECK) PATH already contains $(SET_PATH)"; \
 	fi
 
-install-docs: ## Install Sphinx and any necessary extensions
-	@if command -v uv >/dev/null 2>&1; then \
-        echo "Installing Sphinx..."; \
-        uv pip install sphinx; \
-        echo "Installing any specified Sphinx extensions..."; \
-        uv pip install sphinx-rtd-theme;  # Example: Install a common theme\
-    else \
-        echo -e "$(RED)uv is not installed. Please run 'make install-uv' to install it first.$(NC)"; \
-        exit 1; \
-    fi
-
 help: ## The help command - this command
 	@echo ""
 	@echo "Purpose of this Makefile:"

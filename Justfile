@@ -133,6 +133,13 @@ alias pc := pre-commit-run
     rm -rf *.egg-info
     rm -rf .venv
     rm -rf {{py_package_name}}/__pycache__/
+# Install Sphinx and any necessary extensions
+@install-docs:
+    echo "Installing Sphinx..."
+    uv pip install sphinx
+    echo "Installing any specified Sphinx extensions..."
+    uv pip install sphinx-rtd-theme  # Example: Install a common theme
+    
 
 # Not usually needed, Initialize docs only if you are starting a new project
 @init-docs:
