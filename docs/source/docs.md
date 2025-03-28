@@ -9,7 +9,7 @@ To start working on the documentation:
 
 1. Make sure you have the dependencies installed:
    ```bash
-   make install-docs
+   just install-docs
    ```
 
 2. Start the documentation server with hot reloading:
