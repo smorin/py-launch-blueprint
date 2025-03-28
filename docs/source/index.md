@@ -147,4 +147,6 @@ tools/index
 tutorials/index
 reference/index
 contributing/index
+docs
+github-templates
 ```
