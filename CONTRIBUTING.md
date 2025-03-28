@@ -36,7 +36,7 @@ We welcome suggestions for new features or improvements to the project. To sugge
 
 To submit a pull request, follow these steps:
 1. Fork the repository
-2. Create a new branch for your feature or bugfix
+2. Create a new branch for your feature or bugfix 
 3. Make your changes
 4. Commit your changes with a clear and descriptive commit message
 5. Push your changes to your fork

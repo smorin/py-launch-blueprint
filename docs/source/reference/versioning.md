@@ -1,3 +1,26 @@
+# Workflow with Version Management
+
+## Creating Releases
+```bash
+# Create annotated tag
+git tag -a v0.0.2 -m "Release version 0.0.2"
+git push --tags
+
+# Verify version
+uv run python -c "import py_launch_blueprint; print(py_launch_blueprint.__version__)"
+```
+
+## Daily Development with Version Management
+```bash
+# Install with development dependencies
+uv pip install --editable ".[dev]"
+
+# Check current version
+uv run python -c "import py_launch_blueprint; print(py_launch_blueprint.__version__)"
+
+# Build package
+hatch build
+```
 # Version Management
 The version is automatically derived from Git tags using `setuptools_scm`. Key behaviors:
 - **Tagged Releases**: `v1.2.3` → `1.2.3`
@@ -38,10 +61,10 @@ Output:
 
 ---
 
-# CI/CD Automation
+## CI/CD Automation
 The pre-configured GitHub Actions workflow (`release.yml`) ensures a robust release process. Here's how it works:
 
-## Workflow Steps
+### Workflow Steps
 1. **Trigger**: Pushing a tag (e.g., `v1.0.0`) triggers the workflow.
 2. **Checkout**: The repository is checked out with full Git history (`fetch-depth: 0`) to enable `setuptools_scm` version detection.
 3. **Setup**:

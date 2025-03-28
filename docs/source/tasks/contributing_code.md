@@ -1,14 +1,6 @@
 # Contributing Code
 
-Welcome to the Contributing Code section of the Py Launch Blueprint documentation. This section provides guidelines and best practices for contributing code to the project.
-
-## Table of Contents
-
-- [Code Style Guidelines](#code-style-guidelines)
-- [Development Workflow](#development-workflow)
-- [Submitting Pull Requests](#submitting-pull-requests)
-- [Code Review Process](#code-review-process)
-- [Documentation Contributions](#documentation-contributions)
+ This section provides guidelines and best practices for contributing code to the project. By following these guidelines, you can ensure that your contributions are consistent, maintainable, and aligned with the project's goals.
 
 ## Code Style Guidelines
 
@@ -43,7 +35,7 @@ To ensure consistency and maintainability, please follow these code style guidel
    ```bash
    just test
    ```
-7. **Commit Changes**: Commit your changes with a clear and descriptive commit message.
+7. **Commit Changes**: Commit your changes with a clear and descriptive commit message using [Conventional Commits](https://www.conventionalcommits.org/) format.
    ```bash
    git add .
    git commit -m "Add feature X"
@@ -53,14 +45,16 @@ To ensure consistency and maintainability, please follow these code style guidel
    git push origin my-feature-branch
    ```
 
-## Submitting Pull Requests
+## Using the Justfile
 
-To submit a pull request, follow these steps:
+This project includes a `Justfile` that provides convenient commands for common development tasks. [Just](https://github.com/casey/just) is a handy command runner that helps standardize commands across your project.
 
-1. **Open a Pull Request**: Open a pull request on GitHub from your feature branch to the main branch of the original repository.
-2. **Provide a Description**: Provide a clear and descriptive title and description for your pull request.
-3. **Link to Issues**: If your pull request addresses an issue, link to the issue in the description.
-4. **Request Reviews**: Request reviews from the project maintainers.
+To use these commands, first [install Just](https://github.com/casey/just#installation). You can see all available commands by running:
+
+```bash
+just --list
+```
+see the [Justfile](../reference/cli_reference.md) for more details.
 
 ## Code Review Process
 
@@ -75,3 +69,9 @@ The code review process ensures that all contributions meet the project's qualit
 - All documentation resides in `docs/source/`.
 - Follow the directory structure for consistency.
 - Use Sphinx syntax for cross-referencing (e.g., `:doc:` or `:ref:`).
+
+## Contributor License Agreement (CLA)
+
+Before we can accept your contributions, you will need to sign a Contributor License Agreement (CLA). This is a legal document in which you state that you are entitled to contribute the code you are submitting and that you grant us the rights to use that contribution.
+
+for more information, see the [Contributor License Agreement](../contributing/index.md#contributor-license-agreement-cla) page.
