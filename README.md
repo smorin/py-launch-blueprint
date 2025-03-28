@@ -163,18 +163,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 # Project Structure
 
 The project uses a simple, maintainable structure:
+see the [Project Structure](docs/source/reference/project_structure.md) for more details.
 
-```
-py-utils/
-├── projects.py      # Main script with all functionality
-├── tests/          # Test files
-│   ├── __init__.py
-│   ├── test_api.py
-│   ├── test_config.py
-│   └── test_cli.py
-├── pyproject.toml  # Project and tool configuration
-└── README.md      # Documentation
-```
 # Versioning and Release Management
 
 This project uses automatic version management powered by Git tags and `setuptools_scm`. The version is dynamically generated during installation and build processes.
