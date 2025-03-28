@@ -1,10 +1,10 @@
-# Command-Line Interface (CLI) Reference
+# Command-Line Interface (CLI) Commands
 
-This section provides detailed information about the command-line interface (CLI) for the Py Launch Blueprint project. The CLI allows you to interact with the project and perform various tasks directly from the command line.
+This section provides an overview of the available commands in the Py Launch Blueprint CLI. These commands enable you to perform various tasks directly from the command line, such as running the project, managing dependencies, and ensuring code quality.
 
 ## Overview
 
-The CLI is implemented using the `click` library, which provides a simple and intuitive way to create command-line interfaces in Python. The CLI includes commands for common tasks such as running the project, managing dependencies, and performing code quality checks.
+The CLI includes a variety of commands to streamline development and project management. Each command is designed to handle specific tasks efficiently, making it easier to interact with the project.
 
 ---
 
