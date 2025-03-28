@@ -18,14 +18,7 @@ We welcome feature requests and improvements! To suggest an enhancement, open a 
 - **Use Cases**: How it improves the project and potential applications.
 
 ### Submitting Pull Requests
-To contribute code, follow these steps:
-1. **Fork the repository** and clone it locally.
-2. **Create a new branch** for your feature or fix.
-3. **Make your changes** and ensure they follow project guidelines.
-4. **Write tests** to cover your modifications.
-5. **Run all tests** and confirm they pass.
-6. **Commit changes** with a clear message.
-7. **Push your branch** and open a pull request.
+To contribute code, follow the steps in the [Development Workflow](../tasks/contributing_code.md#development-workflow) guide and send a pull request.
 
 #### Pull Request Guidelines
 - Follow the project's **coding style**.
@@ -52,6 +45,15 @@ This project uses [COG (Cocogitto)](https://github.com/cocogitto/cocogitto) to t
    just contributors
    ```
 
+### How Contributors are Tracked
+
+Contributors are tracked based on git commit history. The system:
+- Counts commits per contributor
+- Shows contribution statistics
+- Excludes certain email domains (e.g., noreply.github.com)
+- Sorts contributors by number of commits
+
+For more details about COG's contributor tracking, see the [official documentation](https://docs.cocogitto.io/).
 ## Code of Conduct
 We are committed to fostering a **welcoming and inclusive** community. Please review and adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).
 

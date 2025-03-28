@@ -1,47 +1,46 @@
-# Type Checking with MyPy
+# Type Checking with MyPy and Pyright
 
-Type checking is an essential part of maintaining a robust and error-free codebase. MyPy is a static type checker for Python that helps you ensure your code adheres to specified type annotations.
+Type checking is an essential part of maintaining a robust and error-free codebase. MyPy and Pyright are both static type checkers for Python that help you ensure your code adheres to specified type annotations.
 
 ## Setting Up MyPy
 
 To set up MyPy for your project, follow these steps:
 
 1. **Install MyPy**:
+
    ```bash
    uv pip install mypy
    ```
 
 2. **Configure MyPy**:
-   Create a `mypy.ini` file in the root of your project with the following content:
-   ```ini
-   [mypy]
-   python_version = 3.10
-   strict = true
-   ignore_missing_imports = false
-   follow_imports = normal
-   follow_imports_for_stubs = true
-   disallow_any_generics = true
-   disallow_subclassing_any = true
-   disallow_untyped_calls = true
-   disallow_untyped_defs = true
-   disallow_incomplete_defs = true
-   disallow_untyped_decorators = true
-   no_implicit_optional = true
-   strict_optional = true
-   warn_redundant_casts = true
-   warn_unused_ignores = true
-   warn_no_return = true
-   warn_return_any = true
-   warn_unreachable = true
-   pretty = true
-   show_error_codes = true
-   show_column_numbers = true
-   ```
+   check in the [`myproject.toml`](https://github.com/smorin/py-launch-blueprint/blob/main/pyproject.toml) file the [tool.mypy] section
 
 3. **Run MyPy**:
    To check your code with MyPy, run the following command:
    ```bash
    uvx --with-editable . mypy py_launch_blueprint/
+   ```
+
+## Setting Up Pyright
+
+To set up Pyright for your project, follow these steps:
+
+1. **Install Pyright**:
+
+   ```bash
+   uv pip install pyright
+   ```
+
+2. **Configure Pyright**:
+   check [`pyrightconfig.json`](https://github.com/smorin/py-launch-blueprint/blob/main/pyrightconfig.json) file in the root of the project
+3. **Run Pyright**:
+   To check your code with Pyright, run the following command:
+   ```bash
+   uvx --with-editable . pyright py_launch_blueprint/
+   ```
+   or
+   ```bash
+   just
    ```
 
 ## Best Practices for Type Checking
@@ -55,19 +54,73 @@ To set up MyPy for your project, follow these steps:
 ## Common Issues and Solutions
 
 1. **Missing Type Annotations**:
-   - **Issue**: MyPy reports missing type annotations for functions.
+
+   - **Issue**: MyPy/Pyright reports missing type annotations for functions.
    - **Solution**: Add type annotations to all function parameters and return types.
 
 2. **Incompatible Types**:
-   - **Issue**: MyPy reports incompatible types in assignments or function calls.
+
+   - **Issue**: MyPy/Pyright reports incompatible types in assignments or function calls.
    - **Solution**: Ensure the types of variables and function arguments match the expected types.
 
 3. **Ignoring Errors**:
-   - **Issue**: MyPy reports errors that you want to ignore.
+
+   - **Issue**: MyPy/Pyright reports errors that you want to ignore.
    - **Solution**: Use `# type: ignore` comments to suppress specific errors, but use them sparingly.
 
+   ```python
+      # mypy
+      reveal_type(x)  # type: ignore
+
+      # pyright
+      x = something()  # pyright: ignore
+   ```
+
 4. **Third-Party Libraries**:
-   - **Issue**: MyPy reports missing type stubs for third-party libraries.
+
+   - **Issue**: MyPy/Pyright reports missing type stubs for third-party libraries.
    - **Solution**: Install type stubs for the libraries using `uv pip install types-<library>`.
 
-By following these best practices and addressing common issues, you can effectively use MyPy to maintain a type-safe and reliable codebase.
+5. **Type checking only specific files**:
+
+   - **Issue**: You want to run MyPy/Pyright on specific files or directories.
+   - **Solution**: Specify the files or directories to check as arguments to the MyPy/Pyright command.
+
+   ```bash
+   # mypy
+   mypy src/main.py src/utils.py
+
+   # pyright
+   pyright src/main.py src/utils.py
+   ```
+
+disallow_untyped_defs = true vs false
+
+- Use `true` when starting new projects or working with teams experienced in type hints who want complete type coverage.
+- Use `false` when adding types to legacy code, working with test files, or training developers new to type hints.
+
+  disallow_untyped_defs = true
+
+  ```python
+  # This will raise an error
+  def process_data(data):  # Error: Function is missing type annotations
+     return data + 1
+
+  # This is required instead
+  def process_data(data: int) -> int:
+     return data + 1
+  ```
+
+  disallow_untyped_defs = false
+
+  ```python
+  # This is allowed
+  def process_data(data):
+     return data + 1
+
+  # This is also allowed
+  def process_data(data: int) -> int:
+     return data + 1
+  ```
+
+  By following these best practices and addressing common issues, you can effectively use MyPy and Pyright to maintain a type-safe and reliable codebase.
