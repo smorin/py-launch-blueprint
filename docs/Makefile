@@ -25,3 +25,7 @@ help:
 # Special target to run sphinx-autobuild in hot-reload mode
 hotreloadhtml:
 	@$(SPHINXAUTOBUILD) -b html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
+# Sphinx build commands for building the documentation
+docs:
+	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" -E
