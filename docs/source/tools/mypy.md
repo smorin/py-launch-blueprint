@@ -1,13 +1,16 @@
+## Mypy
 
-## mypy
-Most teams today actually run both mypy and pyright/Pylance:
+This project uses both Mypy and pyright/Pylance for type checking:
 
-- mypy in CI/pre-commit hooks for strict checking
-- Pylance in VS Code for real-time development feedback
+- **Mypy** is used in CI and pre-commit hooks for strict type checking.
+- **Pylance** is used in VS Code for real-time feedback during development.
 
-This combination provides comprehensive type checking coverage while maintaining a smooth development experience.
+### About Mypy
+[Mypy](http://mypy-lang.org/) is a static type checker for Python that allows you to add type annotations to your Python code. It checks whether your code adheres to these type annotations and helps you catch errors early. Mypy is especially useful in large codebases where manually reviewing every line for type correctness can be cumbersome. It can be integrated into CI pipelines to automatically check for type issues before code is merged.
 
-Let me explain the difference between `disallow_untyped_defs = false` vs `true`:
+This combination of Mypy and Pylance ensures comprehensive type checking while maintaining a smooth development experience.
+
+### Difference Between `disallow_untyped_defs = false` vs `true`
 
 **disallow_untyped_defs = true**
 ```python
@@ -31,24 +34,28 @@ def process_data(data: int) -> int:
     return data + 1
 ```
 
-**When to use each:**
+### When to Use Each
 
-Use `true` when:
-- Starting a new project
-- Working on a codebase that's fully committed to type hints
-- Want to ensure complete type coverage
-- Have a team that's comfortable with Python type hints
+- **Use `true` when**:
+  - Starting a new project.
+  - Working on a codebase fully committed to type hints.
+  - Ensuring complete type coverage.
+  - Your team is comfortable with Python type hints.
 
-Use `false` when:
-- Gradually adding types to a legacy codebase
-- Working with test files (common to disable for tests)
-- Training team members who are new to type hints
-- Need to temporarily bypass type checking for specific modules
+- **Use `false` when**:
+  - Gradually adding types to a legacy codebase.
+  - Working with test files (commonly disabled for tests).
+  - Training team members new to type hints.
+  - Temporarily bypassing type checking for specific modules.
 
-**Best Practice Recommendation:**
-Start new projects with `true` for maximum type safety. For existing projects, use `false` initially and gradually enable it as you add type hints to the codebase. Many teams set it to `false` for test files but `true` for production code.
+### Best Practice Recommendation
 
-VS Code Settings for pyright/Pylance
+- Start new projects with `true` for maximum type safety.
+- For existing projects, use `false` initially and gradually enable it as type hints are added.
+- Many teams set it to `false` for test files but `true` for production code.
+
+### VS Code Settings for pyright/Pylance
+
 ```json
 {
     "python.analysis.typeCheckingMode": "strict",
@@ -60,7 +67,8 @@ VS Code Settings for pyright/Pylance
 }
 ```
 
-Common Type Annotation Examples
+### Common Type Annotation Examples
+
 ```python
 from typing import Dict, List, Optional, Tuple, Union, TypeVar, Generic
 

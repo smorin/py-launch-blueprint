@@ -12,6 +12,7 @@ Welcome to the Tools section of the Py Launch Blueprint documentation. This sect
 - [VS Code](vs_code.md)
 - [Makefiles](makefiles.md)
 - [Justfiles](justfiles.md)
+- [precommit_hooks](precommit_hooks.md)
 
 Each of these sections contains detailed instructions and best practices to help you effectively use the tools in your development workflow.
 
