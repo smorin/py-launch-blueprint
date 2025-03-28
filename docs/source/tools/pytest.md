@@ -1,96 +1,162 @@
 # Pytest Test Framework
 
-Pytest is a powerful testing framework for Python that makes it easy to write simple and scalable test cases. This guide will walk you through the steps to set up and use Pytest for testing in the Py Launch Blueprint project.
+Pytest is a powerful and flexible testing framework for Python. It simplifies writing and running tests, making it an essential tool for ensuring code quality.
 
-## Setting Up Pytest
+## Installation
 
-To set up Pytest for your project, follow these steps:
+To install Pytest, use `uv`:
 
-1. **Install Pytest**:
-   ```bash
-   uv pip install pytest
-   ```
-
-2. **Configure Pytest**:
-   Create a `pytest.ini` file in the root of your project with the following content:
-   ```ini
-   [pytest]
-   minversion = 6.0
-   addopts = -ra -q
-   testpaths =
-       tests
-   ```
-
-3. **Run Pytest**:
-   To run your tests with Pytest, use the following command:
-   ```bash
-   uvx --with-editable . pytest
-   ```
-
-## Writing Tests
-
-Create test files in the `tests` directory. Test files should be named `test_<module>.py` and should contain functions that start with `test_`.
-
-Example test file `tests/test_example.py`:
-
-```python
-def test_example():
-    assert 1 + 1 == 2
+```bash
+uv pip install pytest
 ```
 
-## Test Fixtures
+## Basic Usage
 
-Pytest fixtures provide a way to set up and tear down resources needed for tests. Fixtures are defined using the `@pytest.fixture` decorator.
+1.  **Create Test Files**:
 
-Example fixture:
+    - Tests are typically placed in a `tests/` directory.
+    - Test file names should start with `test_` or end with `_test.py`.
+    - Test functions should start with `test_`.
+
+2.  **Write Tests**:
+
+    - Use `assert` statements to verify expected behavior.
+
+    ```python
+    # tests/test_example.py
+    def add(a, b):
+        return a + b
+
+    def test_add():
+        assert add(2, 3) == 5
+        assert add(-1, 1) == 0
+        assert add(0, 0) == 0
+    ```
+
+3.  **Run Tests**:
+
+    - Navigate to the project root directory.
+    - Run `uvx pytest` or just `pytest` if your virtual environment is activated.
+
+    ```bash
+    uvx pytest
+    ```
+
+## Key Features
+
+- **Simple Assertions**: Use standard `assert` statements for test conditions.
+- **Test Discovery**: Automatically finds test files and functions.
+- **Fixtures**: Define reusable test components.
+- **Parametrization**: Run the same test with multiple inputs.
+- **Plugins**: Extend functionality with a wide range of plugins.
+
+## Configuration
+
+Pytest can be configured using a `pytest.ini`, `pyproject.toml`, or `tox.ini` file. Here’s an example `pyproject.toml` configuration:
+
+```toml
+# pyproject.toml
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+# addopts = "-v"
+```
+
+- **`testpaths`**: Specifies the directories to search for tests.
+- **`python_files`**: Specifies the file naming pattern for test files.
+- **`addopts`**: Specifies additional command-line options.
+
+## Fixtures
+
+Fixtures are functions that provide a fixed baseline for tests. They are used to set up and tear down resources, such as database connections or temporary files.
 
 ```python
 import pytest
 
 @pytest.fixture
-def example_fixture():
-    return {"key": "value"}
+def temp_file(tmp_path):
+    file = tmp_path / "tempfile.txt"
+    file.write_text("Hello, Pytest!")
+    return file
 
-def test_with_fixture(example_fixture):
-    assert example_fixture["key"] == "value"
+def test_file_content(temp_file):
+    assert temp_file.read_text() == "Hello, Pytest!"
 ```
 
-## Test Parametrization
+## Parametrization
 
-Pytest allows you to parametrize your tests, enabling you to run the same test with different inputs.
-
-Example parametrized test:
+Parametrization allows you to run the same test with different sets of inputs.
 
 ```python
 import pytest
 
-@pytest.mark.parametrize("input,expected", [(1, 2), (2, 3), (3, 4)])
-def test_parametrized(input, expected):
-    assert input + 1 == expected
+@pytest.mark.parametrize("input, expected", [
+    (2, 4),
+    (3, 9),
+    (4, 16)
+])
+def test_square(input, expected):
+    assert input * input == expected
 ```
 
-## Test Coverage
+## Plugins
 
-To check test coverage, use the `pytest-cov` plugin:
+Pytest has a rich ecosystem of plugins that extend its functionality. Some popular plugins include:
 
-1. **Install pytest-cov**:
-   ```bash
-   uv pip install pytest-cov
-   ```
+- **`pytest-cov`**: For measuring code coverage.
+- **`pytest-mock`**: For mocking objects and functions.
+- **`pytest-django`**: For testing Django applications.
 
-2. **Run Tests with Coverage**:
-   ```bash
-   uvx --with-editable . pytest --cov=py_launch_blueprint
-   ```
+To use a plugin, install it with `uv pip install pytest-<plugin-name>` and configure it in your `pyproject.toml` file.
 
-3. **View Coverage Report**:
-   Generate an HTML coverage report:
-   ```bash
-   uvx --with-editable . pytest --cov=py_launch_blueprint --cov-report=html
-   ```
+## Example: Code Coverage with `pytest-cov`
 
-   Open the `htmlcov/index.html` file in your browser to view the detailed coverage report.
+1.  **Install `pytest-cov`**:
 
-## Additional Resources
+    ```bash
+    uv pip install pytest-cov
+    ```
 
-For more detailed information on using Pytest, refer to the [official documentation](https://docs.pytest.org/en/stable/).
+2.  **Run Tests with Coverage**:
+
+    ```bash
+    uvx pytest --cov=py_launch_blueprint --cov-report term-missing
+    ```
+
+    or using the justfile
+
+    ```bash
+    just test --cov=py_launch_blueprint --cov-report term-missing
+    ```
+
+3.  **Configure Coverage (Optional)**:
+
+    ```toml
+    # pyproject.toml
+    [tool.pytest.ini_options]
+    testpaths = ["tests"]
+    python_files = ["test_*.py"]
+    addopts = "--cov=py_launch_blueprint --cov-report term-missing"
+    ```
+
+## Best Practices
+
+- **Keep Tests Isolated**: Each test should be independent and not rely on the state of other tests.
+- **Use Descriptive Names**: Test function names should clearly describe what is being tested.
+- **Test Edge Cases**: Include tests for boundary conditions and error handling.
+- **Use Fixtures Wisely**: Use fixtures to reduce code duplication and improve test readability.
+- **Follow the Arrange-Act-Assert Pattern**:
+  - **Arrange**: Set up the test environment and prepare the inputs.
+  - **Act**: Execute the code being tested.
+  - **Assert**: Verify the expected results.
+
+## Troubleshooting
+
+- **Tests Not Being Discovered**:
+  - Ensure test files and functions follow the naming conventions.
+  - Check the `testpaths` and `python_files` settings in `pyproject.toml`.
+- **Import Errors**:
+  - Make sure your project is installed in editable mode (`uv pip install --editable .`).
+  - Verify that your virtual environment is activated.
+
+By following these guidelines, you can effectively use Pytest to write and run tests, ensuring the reliability and quality of your Python code.
