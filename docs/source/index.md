@@ -4,7 +4,8 @@
 :align: left
 ```
 
-# py-launch-blueprint
+# Py Launch Blueprint
+**A Production-Ready Python Project Template with Integrated Best Practices**
 
 ![GitHub repo](https://img.shields.io/badge/github-repo-green)
 ![Changelog](https://img.shields.io/github/v/release/smorin/py-launch-blueprint?include_prereleases&label=changelog)
@@ -13,6 +14,11 @@
 ![GitHub stars](https://img.shields.io/github/stars/smorin/py-launch-blueprint?style=social)
 ---
 Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
+
+## Why Choose Py Launch Blueprint?
+
+Py Launch Blueprint eliminates the setup friction in Python projects by providing a production-ready template with carefully curated tools and best practices. Here's what makes it special:
+
 ## Features
 
 - 🔍 Fuzzy search for project names
