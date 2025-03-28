@@ -20,7 +20,7 @@ Output:
 ### Example: Include Commit ID and Date
 ```toml
 [tool.hatch.version.raw-options]
-local_scheme = "node-and-date"  # Includes commit ID and date
+local_scheme = "node-and-date"  # IncludeFallback Versions commit ID and date
 ```
 Output:
 ```
