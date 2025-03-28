@@ -9,6 +9,8 @@ The project is organized into the following directories:
 ```
 py-launch-blueprint/
 ├── .github/                        # GitHub configuration files
+│   ├── ISSUE_TEMPLATE/             # Issue templates
+│   ├── PULL_REQUEST_TEMPLATE       # Pull request templates
 │   └── workflows/                  # GitHub Actions workflows
 ├── docs/                           # Documentation files
 │   ├── source/                     # Sphinx source files
