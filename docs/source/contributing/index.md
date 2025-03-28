@@ -67,8 +67,6 @@ If you have questions, feel free to:
 - Open an issue on GitHub.
 - Reach out to the maintainers.
 
-## Frequently Asked Questions
-- [Contributor License Agreement (CLA) FAQ](cla_faq.md)
 
 ```{toctree}
 ---

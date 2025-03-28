@@ -82,11 +82,5 @@ mypy py_launch_blueprint/
 pytest --cov=py_launch_blueprint.projects --cov-report=term-missing  
 ```
 
-### Checking CLI Tool Version
-To check the version of the CLI tool:
-
-```sh
-py-projects --version
-```
 
 For more details, refer to the official [UV documentation](https://github.com/astral-sh/uv).
