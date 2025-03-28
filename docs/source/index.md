@@ -31,4 +31,5 @@ First, install dependencies using `make`
 maxdepth: 3
 ---
 docs
+github-templates
 ```
