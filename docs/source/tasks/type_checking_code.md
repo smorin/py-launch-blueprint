@@ -20,6 +20,10 @@ To set up MyPy for your project, follow these steps:
    ```bash
    uvx --with-editable . mypy py_launch_blueprint/
    ```
+   or
+   ```bash
+   just typecheck
+   ```
 
 ## Setting Up Pyright
 
@@ -38,10 +42,7 @@ To set up Pyright for your project, follow these steps:
    ```bash
    uvx --with-editable . pyright py_launch_blueprint/
    ```
-   or
-   ```bash
-   just
-   ```
+   
 
 ## Best Practices for Type Checking
 

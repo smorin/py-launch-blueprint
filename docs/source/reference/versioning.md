@@ -1,4 +1,13 @@
-# Workflow with Version Management
+# Versioning and Release Management
+This project uses automatic version management powered by Git tags and `setuptools_scm`. The version is dynamically generated during installation and build processes.
+
+## Key Features
+- **Automatic Versioning**: Version derived from Git tags (e.g., `v1.2.3` → `1.2.3`)
+- **Development Versions**: Unreleased commits show as `1.2.4.dev1+gabcdef12` (includes commit ID by default)
+- **CI/CD Integration**: GitHub Actions validate version-tag alignment
+- **Semantic Versioning**: Enforces proper version format in tags
+- **Customizable Local Scheme**: Control how development versions are formatted (e.g., include/exclude commit ID)
+- **Fallback Version**: `0.0.0` (if no tags exist)
 
 ## Creating Releases
 ```bash
@@ -21,11 +30,6 @@ uv run python -c "import py_launch_blueprint; print(py_launch_blueprint.__versio
 # Build package
 hatch build
 ```
-# Version Management
-The version is automatically derived from Git tags using `setuptools_scm`. Key behaviors:
-- **Tagged Releases**: `v1.2.3` → `1.2.3`
-- **Development Versions**: `1.2.4.dev1+gabcdef12` (after commits since last tag)
-- **Fallback Version**: `0.0.0` (if no tags exist)
 
 ## Customizing Development Versions
 The format of development versions can be customized using the `local_scheme` option in `pyproject.toml`. By default, the commit ID is included (e.g., `1.2.4.dev1+gabcdef12`). To change this behavior:

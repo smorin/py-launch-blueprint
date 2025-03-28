@@ -59,12 +59,10 @@ Pytest can be configured using a `pytest.ini`, `pyproject.toml`, or `tox.ini` fi
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-# addopts = "-v"
 ```
 
 - **`testpaths`**: Specifies the directories to search for tests.
 - **`python_files`**: Specifies the file naming pattern for test files.
-- **`addopts`**: Specifies additional command-line options.
 
 ## Fixtures
 
@@ -82,62 +80,6 @@ def temp_file(tmp_path):
 def test_file_content(temp_file):
     assert temp_file.read_text() == "Hello, Pytest!"
 ```
-
-## Parametrization
-
-Parametrization allows you to run the same test with different sets of inputs.
-
-```python
-import pytest
-
-@pytest.mark.parametrize("input, expected", [
-    (2, 4),
-    (3, 9),
-    (4, 16)
-])
-def test_square(input, expected):
-    assert input * input == expected
-```
-
-## Plugins
-
-Pytest has a rich ecosystem of plugins that extend its functionality. Some popular plugins include:
-
-- **`pytest-cov`**: For measuring code coverage.
-- **`pytest-mock`**: For mocking objects and functions.
-- **`pytest-django`**: For testing Django applications.
-
-To use a plugin, install it with `uv pip install pytest-<plugin-name>` and configure it in your `pyproject.toml` file.
-
-## Example: Code Coverage with `pytest-cov`
-
-1.  **Install `pytest-cov`**:
-
-    ```bash
-    uv pip install pytest-cov
-    ```
-
-2.  **Run Tests with Coverage**:
-
-    ```bash
-    uvx pytest --cov=py_launch_blueprint --cov-report term-missing
-    ```
-
-    or using the justfile
-
-    ```bash
-    just test --cov=py_launch_blueprint --cov-report term-missing
-    ```
-
-3.  **Configure Coverage (Optional)**:
-
-    ```toml
-    # pyproject.toml
-    [tool.pytest.ini_options]
-    testpaths = ["tests"]
-    python_files = ["test_*.py"]
-    addopts = "--cov=py_launch_blueprint --cov-report term-missing"
-    ```
 
 ## Best Practices
 

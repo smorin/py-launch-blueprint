@@ -89,16 +89,37 @@ To lint the code:
 just lint
 ```
 
-### 9. Deploy the Project
+## Project Commands
 
-When you are ready to deploy your project, follow the deployment instructions specific to your deployment environment. The Py Launch Blueprint template is designed to be flexible and can be deployed to various environments, including cloud platforms, containerized environments, and traditional servers.
+- **Setup**: `just setup` or `uv pip install --editable ".[dev]"`
+- **Format**: `just format` or `uvx ruff format py_launch_blueprint/`
+- **Lint**: `just lint` or `uvx ruff check py_launch_blueprint/`
+- **Type check**: `just typecheck` or `uvx --with-editable . mypy py_launch_blueprint/`
+- **Test all**: `just test` or `uvx --with-editable . pytest`
+- **Test single**: `uvx --with-editable . pytest tests/test_file.py::test_name`
+- **All checks**: `just check`
+- **Pre-commit**: `just pre-commit-run`
+
+## Code Style Guidelines
+
+- **Line length**: 88 characters (Black standard)
+- **Types**: Strict typing required for all functions
+- **Imports**: Sorted with relative imports preferred
+- **Naming**: PEP 8 conventions enforced via Ruff
+- **Errors**: Prefer explicit error handling over assertions
+- **Tests**: Type annotations optional for test files
+- **Security**: No hardcoded credentials, follow bandit rules
+
+## Developer Environment
+
+- **Python**: 3.10+ required
+- **Package manager**: `uv` recommended, pip supported
+- **IDE**: VS Code with Ruff, MyPy, and Pylance extensions
 
 ## Additional Resources
 
 For more detailed information on the available commands and tools, refer to the following sections:
 
-- [Writing Clean Code](../tasks/writing_clean_code.md)
 - [Type Checking Code](../tasks/type_checking_code.md)
 - [Managing Dependencies](../tasks/managing_dependencies.md)
-- [Testing Code](../tasks/testing_code.md)
 - [Using CI/CD](../tasks/using_ci_cd.md)
