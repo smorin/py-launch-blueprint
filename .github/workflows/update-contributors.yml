@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: main  
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -29,6 +29,11 @@ jobs:
         run: |
           python update_contributors.py
 
+      - name: Ensure on a branch and push
+        run: |
+          git checkout -B update-contributors
+          git push origin update-contributors || true 
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
@@ -36,4 +41,5 @@ jobs:
           title: 'chore: update contributors list'
           body: 'Automatically updated contributors list using Git log'
           branch: update-contributors
+          base: main  # Especificar base para evitar problemas
           delete-branch: true
