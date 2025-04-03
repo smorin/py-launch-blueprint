@@ -1,48 +1,60 @@
-#!/usr/bin/env python3
-import re
-import subprocess
+def get_contributors():
+    """
+    Obtiene la lista de contribuidores. Puedes reemplazar esto con la lógica real.
+    """
+    # Datos de ejemplo (puedes reemplazar esto con datos reales)
+    contributors = [
+        "55 | Steve Morin | steve.morin@gmail.com",
+        "27 | Adane Moges | adman19940805@gmail.com",
+        "18 | Tatiana Hernandez | tatihe3@gmail.com",
+        "14 | Adane Moges | adanemoges6@gmail.com",
+        "8 | Tatiana Hernández | tatihe3@gmail.com",
+        "5 | gdev19 | ashkhen09300@gmail.com",
+        "2 | Adane | adanemoges6@gmail.com",
+        "1 | github-actions[bot] | github-actions[bot]@users.noreply.github.com",
+        "1 | vardanaloyan | valoyan2@gmail.com"
+    ]
+    return contributors
 
-def get_contributors() -> list[str]:
-    """Get a list of contributors from git log"""
-    # Using appropriate git command based on platform
-    git_cmd = "git"  # Default command
-    result = subprocess.run(
-        [git_cmd, "log", "--format=%aN <%aE>"],
-        capture_output=True,
-        text=True,
-        check=True
-    )
-    
-    # Get unique contributors
-    contributors: set[str] = set()
-    for line in result.stdout.strip().split('\n'):
-        if line.strip():
-            contributors.add(line.strip())
-    
-    # Sort contributors alphabetically
-    return sorted(contributors)
+def update_contributors_file(contributors):
+    """
+    Actualiza el archivo CONTRIBUTORS.md con la lista de contribuidores en formato de tabla.
+    """
+    try:
+        # Abrir el archivo en modo escritura con codificación UTF-8
+        with open("CONTRIBUTORS.md", "w", encoding="utf-8") as f:
+            # Escribir el encabezado de la tabla
+            f.write("# Lista de Contribuidores\n\n")
+            f.write("| Contribuciones | Nombre                        | Email                                      |\n")
+            f.write("|----------------|-------------------------------|-------------------------------------------|\n")
 
-def update_contributors_file(contributors: list[str]) -> None:
-    """Update the CONTRIBUTORS.md file with the list of contributors"""
-    with open('CONTRIBUTORS.md') as f:
-        content = f.read()
-    
-    # Create the new contributors section
-    contributors_section = '\n'.join(contributors)
-    
-    # Update the content between the start and end markers
-    pattern = (r'(<!-- COG-CONTRIBUTORS-LIST:START -->).*'
-              r'(<!-- COG-CONTRIBUTORS-LIST:END -->)')
-    replacement = r'\1\n' + contributors_section + r'\n\2'
-    updated_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-    
-    with open('CONTRIBUTORS.md', 'w') as f:
-        f.write(updated_content)
+            # Escribir cada contribuidor en la tabla
+            for contributor in contributors:
+                # Dividir la línea en partes (contribuciones, nombre, email)
+                parts = contributor.split(" | ")
+                if len(parts) == 3:  # Asegurarse de que la línea tenga el formato correcto
+                    contribs, name, email = parts
+                    f.write(f"| {contribs:<14} | {name:<30} | {email:<43} |\n")
+                else:
+                    print(f"Advertencia: Formato incorrecto en el contribuidor: {contributor}")
 
-def main() -> None:
-    contributors = get_contributors()
-    update_contributors_file(contributors)
-    print(f"Updated CONTRIBUTORS.md with {len(contributors)} contributors")
+        print("Archivo CONTRIBUTORS.md actualizado correctamente.")
+    except Exception as e:
+        print(f"Error al actualizar el archivo: {e}")
+
+def main():
+    """
+    Función principal del script.
+    """
+    try:
+        # Obtener la lista de contribuidores
+        contributors = get_contributors()
+        print(f"Contribuidores obtenidos: {len(contributors)}")
+
+        # Actualizar el archivo CONTRIBUTORS.md
+        update_contributors_file(contributors)
+    except Exception as e:
+        print(f"Error en la ejecución del script: {e}")
 
 if __name__ == "__main__":
     main()
