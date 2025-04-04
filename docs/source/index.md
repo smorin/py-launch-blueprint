@@ -4,6 +4,8 @@
 :align: left
 ```
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 # Py Launch Blueprint
 **A Production-Ready Python Project Template with Integrated Best Practices**
 
@@ -18,6 +20,9 @@ Py Launch Blueprint is a comprehensive Python project template that eliminates s
 ## Why Choose Py Launch Blueprint?
 
 Py Launch Blueprint eliminates the setup friction in Python projects by providing a production-ready template with carefully curated tools and best practices. Here's what makes it special:
+
+## Full documentation on ReadTheDocs
+- [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
 
 ## Features
 
