@@ -1,3 +1,10 @@
+## Setup & Dependency Check
+
+Run the following command to check if the base dependencies are installed.
+```bash
+make check
+```
+
 # Setup Development Environment
 
 Project requires Python 3.10+ (which is also specified inside [.python-version](https://github.com/smorin/py-launch-blueprint/blob/main/.python-version) file)
