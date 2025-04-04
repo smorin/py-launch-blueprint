@@ -8,6 +8,19 @@ The project is organized into the following directories:
 
 ```
 py-launch-blueprint/
+├── tests/                          # Test files
+├── docs/                           # Documentation files
+├── Justfile                        # Just task runner configuration
+├── Makefile                        # Makefile for building the project
+├── py_launch_blueprint/            # Source code for the project
+└── tests/                          # Test files
+```
+
+Detailed version of the project structure:
+
+
+```
+py-launch-blueprint/
 ├── .github/                        # GitHub configuration files
 │   ├── ISSUE_TEMPLATE/             # Issue templates
 │   ├── PULL_REQUEST_TEMPLATE       # Pull request templates
