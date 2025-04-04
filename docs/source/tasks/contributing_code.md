@@ -75,3 +75,37 @@ The code review process ensures that all contributions meet the project's qualit
 Before we can accept your contributions, you will need to sign a Contributor License Agreement (CLA). This is a legal document in which you state that you are entitled to contribute the code you are submitting and that you grant us the rights to use that contribution.
 
 for more information, see the [Contributor License Agreement](../contributing/index.md#contributor-license-agreement-cla) page.
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Contributors
+
+This project uses [COG (Cocogitto)](https://github.com/cocogitto/cocogitto) to automatically track and maintain our [CONTRIBUTORS.md](CONTRIBUTORS.md) file. The list of contributors is automatically updated when:
+
+1. A push is made to the main branch
+2. A pull request is merged
+3. Manually using the `just contributors` command
+
+### Manual Update
+
+To manually update the contributors list:
+
+```bash
+just contributors
+```
+
+### How Contributors are Tracked
+
+Contributors are tracked based on git commit history. The system:
+- Counts commits per contributor
+- Shows contribution statistics
+- Excludes certain email domains (e.g., noreply.github.com)
+- Sorts contributors by number of commits
+
+For more details about COG's contributor tracking, see the [official documentation](https://docs.cocogitto.io/).
