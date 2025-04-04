@@ -103,3 +103,54 @@ Handler = Callable[[str, int], bool]
 def process(handler: Handler) -> None:
     ...
 ```
+
+## Python Types Common Issues and Solutions
+1. Third-party library types:
+```bash
+# Install type stubs for common libraries
+pip install types-requests types-PyYAML types-python-dateutil
+```
+
+2. Ignoring specific lines:
+```python
+# mypy
+reveal_type(x)  # type: ignore
+
+# pyright
+x = something()  # pyright: ignore
+```
+
+3. Type checking only specific files:
+```bash
+# mypy
+mypy src/main.py src/utils.py
+
+# pyright
+pyright src/main.py src/utils.py
+```
+
+disallow_untyped_defs = true vs false
+- Use `true` when starting new projects or working with teams experienced in type hints who want complete type coverage.
+- Use `false` when adding types to legacy code, working with test files, or training developers new to type hints.
+
+disallow_untyped_defs = true
+```python
+# This will raise an error
+def process_data(data):  # Error: Function is missing type annotations
+    return data + 1
+
+# This is required instead
+def process_data(data: int) -> int:
+    return data + 1
+```
+
+disallow_untyped_defs = false
+```python
+# This is allowed
+def process_data(data):
+    return data + 1
+
+# This is also allowed
+def process_data(data: int) -> int:
+    return data + 1
+```
