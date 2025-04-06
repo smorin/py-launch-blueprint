@@ -4,7 +4,7 @@ name: CI/CD
 on:
   push:
     branches: [ main ]
-  pull_request_target:
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -17,8 +17,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Install uv
       uses: astral-sh/setup-uv@v5
@@ -49,16 +47,8 @@ jobs:
 #    - name: Upload coverage
 #      uses: codecov/codecov-action@v4
 
-  security:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Run Safety CLI to check for vulnerabilities
-      uses: pyupio/safety-action@v1
-      with:
-        api-key: ${{ secrets.SAFETY_API_KEY }}
-        args: --detailed-output # To always see detailed output from this action
+    - name: Scan for vulnerabilities
+      uses: paulfermoreyes/py-launch-blueprint@main
 
   # publish:
   #   needs: [test, security]
