@@ -10,15 +10,6 @@ body:
         ## Documentation Request
         Thanks for helping us improve our documentation! Clear documentation is crucial for our open-source project.
 
-  - type: input
-    id: doc-title
-    attributes:
-      label: Documentation Title/Topic
-      description: What needs to be documented?
-      placeholder: e.g., Installation Guide for Windows, API Reference for XYZ Module
-    validations:
-      required: true
-
   - type: dropdown
     id: doc-type
     attributes:
