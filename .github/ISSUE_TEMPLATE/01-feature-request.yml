@@ -10,15 +10,6 @@ body:
         ## Feature Request
         Thanks for taking the time to suggest a new feature!
 
-  - type: input
-    id: feature-title
-    attributes:
-      label: Feature Title
-      description: A concise name for this feature
-      placeholder: e.g., Add Dark Mode Support
-    validations:
-      required: true
-
   - type: dropdown
     id: feature-type
     attributes:
@@ -45,6 +36,35 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: Problem Statement
+      description: What problem does this solve?
+      placeholder: Clearly describe the problem or enhancement needed
+    validations:
+      required: true
+
+- type: dropdown
+    id: requires-proposal
+    attributes:
+      label: Requires Proposal
+      description: Does this feature require a detailed proposal?
+      options:
+        - Yes, detailed proposal needed
+        - No, straightforward implementation
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: How should this feature/enhancement work?
+      placeholder: Describe your proposed implementation, if needs research enter TBD (To Be Determined) If long solution, break into sub-tasks after submitting this issue.
+    validations:
+      required: true
+
   - type: dropdown
     id: research-needed
     attributes:
@@ -64,35 +84,6 @@ body:
       placeholder: "Only fill this out if Research Needed is Yes"
     validations:
       required: false
-
-  - type: dropdown
-    id: requires-proposal
-    attributes:
-      label: Requires Proposal
-      description: Does this feature require a detailed proposal?
-      options:
-        - Yes, detailed proposal needed
-        - No, straightforward implementation
-    validations:
-      required: true
-
-  - type: textarea
-    id: problem-statement
-    attributes:
-      label: Problem Statement
-      description: What problem does this solve?
-      placeholder: Clearly describe the problem or enhancement needed
-    validations:
-      required: true
-
-  - type: textarea
-    id: proposed-solution
-    attributes:
-      label: Proposed Solution
-      description: How should this feature work?
-      placeholder: Describe your proposed implementation
-    validations:
-      required: true
 
   - type: markdown
     attributes:
