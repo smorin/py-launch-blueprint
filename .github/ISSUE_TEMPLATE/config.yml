@@ -6,3 +6,4 @@ contact_links:
   - name: GitHub Report a vulnerability
     url: https://github.com/smorin/py-launch-blueprint/security
     about: Please report security vulnerabilities here.
+
