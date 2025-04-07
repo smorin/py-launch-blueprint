@@ -47,7 +47,9 @@ jobs:
 #    - name: Upload coverage
 #      uses: codecov/codecov-action@v4
 
+  # Only run security checks on pull requests from the main repository
   security:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
