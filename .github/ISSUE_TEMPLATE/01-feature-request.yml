@@ -51,8 +51,8 @@ body:
       label: Research Needed
       description: Is research required before implementation?
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true
 
@@ -117,8 +117,8 @@ body:
       label: Acceptance Criteria Confirmation
       description: I understand and will implement all the acceptance criteria listed above
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true
 
@@ -141,7 +141,7 @@ body:
       label: Pre-submission Confirmation
       description: I confirm that I have completed all the steps in the pre-submission checklist
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true

@@ -96,7 +96,7 @@ body:
       label: Pre-submission Confirmation
       description: I confirm that I have completed all the steps in the pre-submission checklist
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true
