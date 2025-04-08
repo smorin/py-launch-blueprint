@@ -1,4 +1,3 @@
-# .github/workflows/ci.yml
 name: CI/CD
 
 on:
@@ -27,12 +26,10 @@ jobs:
 
     - name: Install the project
       run: uv sync --all-extras --dev
-
-#    - name: Run tests
-#      # For example, using `pytest`
-#      run: uv run pytest tests
-
-    # Format code
+    
+    - name: Install pre-commit
+      run: |
+        uv pip install pre-commit
 
     - name: Run type checker
       run: uvx mypy py_launch_blueprint/
@@ -40,36 +37,6 @@ jobs:
     - name: Check linters
       run: uvx ruff check py_launch_blueprint/
 
-#    - name: Run tests with coverage
-#      run: |
-#        pytest --cov=./ --cov-report=xml
-
-#    - name: Upload coverage
-#      uses: codecov/codecov-action@v4
-
-  security:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Run Safety CLI to check for vulnerabilities
-      uses: pyupio/safety-action@v1
-      with:
-        api-key: ${{ secrets.SAFETY_API_KEY }}
-        args: --detailed-output # To always see detailed output from this action
-
-  # publish:
-  #   needs: [test, security]
-  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v4
-
-  #   - name: Build and publish to PyPI
-  #     env:
-  #       TWINE_USERNAME: __token__
-  #       TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-  #     run: |
-  #       uv pip install build twine
-  #       python -m build
-  #       twine upload dist/*
+    - name: Run pre-commit checks
+      run: |
+        pre-commit run --all-files
