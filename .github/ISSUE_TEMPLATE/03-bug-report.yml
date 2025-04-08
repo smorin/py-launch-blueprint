@@ -12,15 +12,6 @@ body:
         
         Please provide as much detail as possible so volunteers can reproduce and fix the issue efficiently.
 
-  - type: input
-    id: bug-title
-    attributes:
-      label: Bug Title/Summary
-      description: A clear and concise summary of the bug
-      placeholder: e.g., Command fails when processing files with spaces in filename
-    validations:
-      required: true
-
   - type: dropdown
     id: severity
     attributes:
@@ -71,15 +62,6 @@ body:
       placeholder: e.g., v1.2.3 or commit hash
     validations:
       required: true
-
-  - type: input
-    id: template
-    attributes:
-      label: Template
-      description: Which template are you using (if applicable)?
-      placeholder: e.g., Basic Dashboard Template
-    validations:
-      required: false
 
   - type: textarea
     id: steps-to-reproduce
@@ -169,7 +151,7 @@ body:
       label: Pre-submission Confirmation
       description: I confirm that I have completed all the steps in the pre-submission checklist
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true

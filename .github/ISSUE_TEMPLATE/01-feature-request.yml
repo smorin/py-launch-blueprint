@@ -10,15 +10,6 @@ body:
         ## Feature Request
         Thanks for taking the time to suggest a new feature!
 
-  - type: input
-    id: feature-title
-    attributes:
-      label: Feature Title
-      description: A concise name for this feature
-      placeholder: e.g., Add Dark Mode Support
-    validations:
-      required: true
-
   - type: dropdown
     id: feature-type
     attributes:
@@ -45,27 +36,16 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: research-needed
+  - type: textarea
+    id: problem-statement
     attributes:
-      label: Research Needed
-      description: Is research required before implementation?
-      options:
-        - Yes
-        - No
+      label: Problem Statement
+      description: What problem does this solve?
+      placeholder: Clearly describe the problem or enhancement needed
     validations:
       required: true
 
-  - type: textarea
-    id: research-details
-    attributes:
-      label: Research Details
-      description: "If you selected 'Yes' for Research Needed above, please describe what investigation is required"
-      placeholder: "Only fill this out if Research Needed is Yes"
-    validations:
-      required: false
-
-  - type: dropdown
+- type: dropdown
     id: requires-proposal
     attributes:
       label: Requires Proposal
@@ -77,22 +57,33 @@ body:
       required: true
 
   - type: textarea
-    id: problem-statement
+    id: proposed-solution
     attributes:
-      label: Problem Statement
-      description: What problem does this solve?
-      placeholder: Clearly describe the problem or enhancement needed
+      label: Proposed Solution
+      description: How should this feature/enhancement work?
+      placeholder: Describe your proposed implementation, if needs research enter TBD (To Be Determined) If long solution, break into sub-tasks after submitting this issue.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: research-needed
+    attributes:
+      label: Research Needed
+      description: Is research required before implementation?
+      options:
+        - "Yes"
+        - "No"
     validations:
       required: true
 
   - type: textarea
-    id: proposed-solution
+    id: research-details
     attributes:
-      label: Proposed Solution
-      description: How should this feature work?
-      placeholder: Describe your proposed implementation
+      label: Research Details
+      description: "If you selected 'Yes' for Research Needed above, please describe what investigation is required"
+      placeholder: "Only fill this out if Research Needed is Yes"
     validations:
-      required: true
+      required: false
 
   - type: markdown
     attributes:
@@ -117,8 +108,8 @@ body:
       label: Acceptance Criteria Confirmation
       description: I understand and will implement all the acceptance criteria listed above
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true
 
@@ -141,7 +132,7 @@ body:
       label: Pre-submission Confirmation
       description: I confirm that I have completed all the steps in the pre-submission checklist
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true

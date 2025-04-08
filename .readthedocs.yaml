@@ -30,4 +30,6 @@ python:
         - docs
 
 formats:
-  - all
+  - pdf
+  - epub
+  - htmlzip
