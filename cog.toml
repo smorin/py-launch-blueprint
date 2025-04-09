@@ -1,39 +1,14 @@
 [changelog]
-# The remote repository to use for generating links
-repository = "https://github.com/smorin/py-launch-blueprint"
-# The style of the changelog entries (possible values: "angular", "conventional")
-template = "conventional"
-remote = "origin"
-path = "CHANGELOG.md"
+# Required for remote links in the changelog
+owner = "smorin"
+repository = "py-launch-blueprint"
 
-[changelog.sections]
-features = ["feat"]
-fixes = ["fix"]
-performance = ["perf"]
-documentation = ["docs"]
-testing = ["test"]
-maintenance = ["chore", "refactor"]
-
-[changelog.git]
-conventional_commits = true
-filter_unconventional = true
-commit_parsers = [
-    { message = "^feat", group = "Features"},
-    { message = "^fix", group = "Bug Fixes"},
-    { message = "^docs", group = "Documentation"},
-    { message = "^perf", group = "Performance"},
-    { message = "^refactor", group = "Refactor"},
-    { message = "^test", group = "Testing"},
-    { message = "^chore\\(release\\): prepare for", skip = true},
-    { message = "^chore", group = "Miscellaneous Tasks"},
-]
-
-[contributors]
-# Format for the contributor list
-format = "markdown"
-# Sort contributors by number of commits
-sort_by = "commits"
-# Show statistics like number of commits and files changed
-show_stats = true
-# Exclude certain email domains (e.g., noreply.github.com)
-excluded_domains = ["noreply.github.com"]
+[commit_types]
+feat = { changelog_title = "Features", semver = "minor" }
+fix = { changelog_title = "Bug Fixes", semver = "patch" }
+docs = { changelog_title = "Documentation", semver = "none" }
+style = { changelog_title = "Styling", semver = "none" }
+refactor = { changelog_title = "Refactors", semver = "none" }
+perf = { changelog_title = "Performance", semver = "patch" }
+test = { changelog_title = "Tests", semver = "none" }
+chore = { changelog_title = "Miscellaneous Tasks", semver = "none" }
