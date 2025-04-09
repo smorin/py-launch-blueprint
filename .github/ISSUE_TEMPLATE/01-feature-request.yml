@@ -45,14 +45,14 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: requires-proposal
-    attributes:
-      label: Requires Proposal
-      description: Does this feature require a detailed proposal?
-      options:
-        - Yes, detailed proposal needed
-        - No, straightforward implementation
+ - type: dropdown
+  id: requires-proposal
+  attributes:
+    label: Requires Proposal
+    description: Does this feature require a detailed proposal?
+    options:
+      - Yes, detailed proposal needed
+      - No, straightforward implementation
     validations:
       required: true
 
