@@ -1,65 +1,74 @@
-```{figure} _static/py_launch_blueprint_logo_100x100.png
-:alt: py-launch-blueprint
-:width: 100px
-:align: left
-```
+.. figure:: _static/py_launch_blueprint_logo_100x100.png
+   :alt: py-launch-blueprint
+   :width: 100px
+   :align: left
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+.. image:: https://img.shields.io/badge/License-MIT-yellow.svg
+   :target: https://opensource.org/licenses/MIT
 
-# Py Launch Blueprint
+Py Launch Blueprint
+===================
+
 **A Production-Ready Python Project Template with Integrated Best Practices**
 
-![GitHub repo](https://img.shields.io/badge/github-repo-green)
-![Changelog](https://img.shields.io/github/v/release/smorin/py-launch-blueprint?include_prereleases&label=changelog)
-![Tests](https://github.com/simonw/llm/workflows/Test/badge.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
-![GitHub stars](https://img.shields.io/github/stars/smorin/py-launch-blueprint?style=social)
+.. image:: https://img.shields.io/badge/github-repo-green
+.. image:: https://img.shields.io/github/v/release/smorin/py-launch-blueprint?include_prereleases&label=changelog
+.. image:: https://github.com/simonw/llm/workflows/Test/badge.svg
+.. image:: https://img.shields.io/badge/License-MIT-yellow.svg
+.. image:: https://img.shields.io/github/stars/smorin/py-launch-blueprint?style=social
+
 ---
+
 Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
 
-## Why Choose Py Launch Blueprint?
+Why Choose Py Launch Blueprint?
+--------------------------------
 
 Py Launch Blueprint eliminates the setup friction in Python projects by providing a production-ready template with carefully curated tools and best practices. Here's what makes it special:
 
-## Full documentation on ReadTheDocs
-- [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
+Full Documentation on ReadTheDocs
+---------------------------------
 
-## Features
+- `py-launch-blueprint Docs <https://py-launch-blueprint.readthedocs.io/en/latest/>`_
 
-- 🔍 Fuzzy search for project names
-- 🏢 Filter by workspace 
-- 📋 Multiple output formats (text, JSON, CSV)
-- 📎 Clipboard integration
-- 🎨 Rich terminal UI with color support
-- 🔐 Secure token handling
-- ⚡ Fast and efficient pagination
-## Quick Start
+Features
+--------
+
+- 🔍 Fuzzy search for project names  
+- 🏢 Filter by workspace  
+- 📋 Multiple output formats (text, JSON, CSV)  
+- 📎 Clipboard integration  
+- 🎨 Rich terminal UI with color support  
+- 🔐 Secure token handling  
+- ⚡ Fast and efficient pagination  
+
+Quick Start
+-----------
 
 ### Installation
 
 #### From PyPI
 
-```bash
-pip install py-launch-blueprint
-```
+.. code-block:: bash
+
+   pip install py-launch-blueprint
 
 #### From Source
 
-```bash
-git clone https://github.com/smorin/py-launch-blueprint.git
-cd py-launch-blueprint
-pip install -e ".[dev]"  # Install with development dependencies
-```
+.. code-block:: bash
+
+   git clone https://github.com/smorin/py-launch-blueprint.git
+   cd py-launch-blueprint
+   pip install -e ".[dev]"  # Install with development dependencies
 
 #### Direct Usage
 
-You can also run the script directly:
+.. code-block:: bash
 
-```bash
-python projects.py --help
-```
+   python projects.py --help
 
-### Configuration
+Configuration
+-------------
 
 The tool supports multiple ways to provide your Py Personal Access Token (PAT), in order of precedence:
 
@@ -69,83 +78,63 @@ The tool supports multiple ways to provide your Py Personal Access Token (PAT), 
 
 #### Setting Up Configuration File
 
-1. Create the config directory:
-```bash
-mkdir -p ~/.config/py-launch-blueprint
-```
+.. code-block:: bash
 
-2. Create `.env` file:
-```bash
-echo "PY_TOKEN=your_token_here" > ~/.config/py-launch-blueprint/.env
-```
+   mkdir -p ~/.config/py-launch-blueprint
 
-3. Set proper permissions:
-```bash
-chmod 600 ~/.config/py-launch-blueprint/.env
-```
+.. code-block:: bash
 
-### Usage
+   echo "PY_TOKEN=your_token_here" > ~/.config/py-launch-blueprint/.env
+
+.. code-block:: bash
+
+   chmod 600 ~/.config/py-launch-blueprint/.env
+
+Usage
+-----
 
 #### Basic Usage
 
-```bash
-# Search for projects
-py-projects
+.. code-block:: bash
 
-# Filter by workspace
-py-projects --workspace "My Workspace"
-
-# Limit results
-py-projects --limit 50
-```
+   py-projects
+   py-projects --workspace "My Workspace"
+   py-projects --limit 50
 
 #### Output Formats
 
-```bash
-# JSON output
-py-projects --format json
+.. code-block:: bash
 
-# CSV output
-py-projects --format csv
-
-# Copy to clipboard
-py-projects --copy
-
-# Save to file
-py-projects --output projects.txt
-```
+   py-projects --format json
+   py-projects --format csv
+   py-projects --copy
+   py-projects --output projects.txt
 
 #### Additional Options
 
-```bash
-# Show verbose output
-py-projects --verbose
+.. code-block:: bash
 
-# Disable colors
-py-projects --no-color
+   py-projects --verbose
+   py-projects --no-color
+   py-projects --help
+   py-projects --version
 
-# Show help
-py-projects --help
+Error Codes
+-----------
 
-# Show version
-py-projects --version
-```
+- 0: Successful execution  
+- 1: Configuration error  
+- 2: Authentication error  
+- 3: API error  
+- 4: Input/Output error  
+- 5: User interrupt  
 
-### Error Codes
-
-- 0: Successful execution
-- 1: Configuration error
-- 2: Authentication error
-- 3: API error
-- 4: Input/Output error
-- 5: User interrupt
-
-## Table of Contents
+Table of Contents
+-----------------
 
 ```{toctree}
----
-maxdepth: 3
----
+:maxdepth: 3
+
 about/index
 tasks/index
 tools/index
@@ -153,4 +142,3 @@ tutorials/index
 reference/index
 contributing/index
 github-templates
-```

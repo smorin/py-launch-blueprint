@@ -39,6 +39,9 @@ jobs:
 
     - name: Check linters
       run: uvx ruff check py_launch_blueprint/
+    
+    - name: Install pytest
+      run: uv pip install pytest
 
 #    - name: Run tests with coverage
 #      run: |
