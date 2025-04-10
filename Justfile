@@ -3,7 +3,6 @@ py_package_name := "py_launch_blueprint"
 command_name := "py-projects"
 args := " "
 
-
 # Text colors
 BLACK := '\033[30m'
 RED := '\033[31m'
@@ -38,7 +37,6 @@ NC := '\033[0m'
 CHECK := "$(GREEN)✓$(NC)"
 CROSS := "$(RED)✗$(NC)"
 DASH := "$(GRAY)-$(NC)"
-
 
 # List all available recipes
 @default:
@@ -92,12 +90,12 @@ alias tc := typecheck
 alias t := test
 
 # Run all checks
-@check: test lint typecheck
+@check: test lint typecheck license-check
     echo "All checks passed!"
 
 alias ca := check
 
-# Run package command.
+# Run package command
 @run cmd=command_name *args=args:
     uvx --with-editable . {{cmd}} {{args}}
 
@@ -137,13 +135,12 @@ alias pc := pre-commit-run
 # Not usually needed, Initialize docs only if you are starting a new project
 @init-docs:
     uv run --extra docs  --directory=docs sphinx-quickstart
-# recommend you separate "source" and "build" directories within the root path (docs/source and docs/build)
 
 # Show help for documentation sphinx
 @docs-help:
     cd docs && make
 
-# Build documentation (default html format) change the target if needed e.g. just docs latexpdf
+# Build documentation (default html format)
 @docs target="html":
     cd docs && make {{target}}
 
@@ -161,9 +158,6 @@ alias pc := pre-commit-run
     powershell -File scripts/update_contributors.ps1
     echo "{{CHECK}} Contributors list updated"
 
-# Alternative commands when virtual environment is activated:
-# These commands can be used after running 'source .venv/bin/activate'
-
 # Setup virtual environment
 @setup-venv:
     python3 -m venv .venv
@@ -171,27 +165,39 @@ alias pc := pre-commit-run
     echo "  source .venv/bin/activate  # On Unix/macOS"
     echo "  .venv\Scripts\activate  # On Windows"
 
-# Install in development mode
+# Install in development mode with pip
 @install-dev-pip:
     pip install --editable ".[dev]"
 
-# Format code (includes ruff format and import sorting)
+# Format code (pip)
 @format-pip:
     echo "Running linter..."
     echo "  ruff"
     ruff format {{py_package_name}}/
 
-# Run linter (code style and quality checks)
+# Run linter (pip)
 @lint-pip:
     ruff check {{py_package_name}}/
     ruff check --select I --fix {{py_package_name}}/
 
-# Run type checker
+# Run type checker (pip)
 @typecheck-pip:
     echo "Running type checker..."
     echo "  mypy"
     mypy {{py_package_name}}/
 
-# Run tests
+# Run tests (pip)
 @test-pip *options:
     pytest {{options}}
+
+# Check license headers
+@license-check:
+    echo "Checking license headers..."
+    uvx --with-editable . licenseheaders -t .license -d . -x venv,.git,__pycache__,build,dist
+    echo "{{CHECK}} License check completed"
+
+# Fix/add license headers
+@license-fix:
+    echo "Fixing license headers..."
+    uvx --with-editable . licenseheaders -t .license -d . -x venv,.git,__pycache__,build,dist --apply
+    echo "{{CHECK}} License headers fixed"
