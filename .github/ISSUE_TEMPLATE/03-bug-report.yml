@@ -1,0 +1,157 @@
+name: Bug Report
+description: Report a bug in the open source project
+title: "[BUG]: "
+labels: ["bug", "needs-triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Report
+        Thanks for taking the time to report a bug! Our volunteer maintainers appreciate your help in improving this project.
+        
+        Please provide as much detail as possible so volunteers can reproduce and fix the issue efficiently.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this bug?
+      options:
+        - Breaking Bug (functionality doesn't work at all)
+        - Quality Issue (works but with problems/inconvenience)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How urgent do you think this bug is?
+      options:
+        - Critical (prevents core functionality)
+        - High (significantly impacts usability)
+        - Medium (causes inconvenience)
+        - Low (minor issue)
+    validations:
+      required: true
+
+  - type: input
+    id: python-version
+    attributes:
+      label: Python Version
+      description: What version of Python are you using?
+      placeholder: e.g., Python 3.9.7
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you using?
+      placeholder: e.g., Windows 10, macOS 12.1, Ubuntu 20.04
+    validations:
+      required: true
+
+  - type: input
+    id: software-version
+    attributes:
+      label: Project Version
+      description: What version of our project are you using?
+      placeholder: e.g., v1.2.3 or commit hash
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Clear steps to reproduce the bug
+      placeholder: |
+        1. Install the package with `pip install ...`
+        2. Run the command `...`
+        3. Try to access `...`
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: Describe what should have happened if there was no bug
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Describe the bug behavior you observed
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem
+      placeholder: Drag and drop screenshots here
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Please copy and paste any relevant log output
+      render: shell
+      placeholder: Paste any relevant logs here (error messages, stack traces, etc.)
+    validations:
+      required: false
+
+  - type: textarea
+    id: possible-solution
+    attributes:
+      label: Possible Solution
+      description: If you have suggestions on how to fix this issue
+      placeholder: Optional ideas for how to resolve the bug (very helpful for volunteers!)
+    validations:
+      required: false
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be willing to submit a PR to fix this issue?
+      options:
+        - Yes, I'd be willing to work on a fix
+        - No, I'm just reporting the issue
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Pre-submission Checklist
+        Please confirm that you have completed all of the following steps:
+        
+        - I have checked for duplicate bug reports
+        - I have included all relevant information to reproduce the bug
+        - I have included the exact version information
+        - I have tested with the latest version to confirm the bug still exists
+        - I understand this project is maintained by volunteers who appreciate clear, complete bug reports
+
+  - type: dropdown
+    id: pre-submission-confirmation
+    attributes:
+      label: Pre-submission Confirmation
+      description: I confirm that I have completed all the steps in the pre-submission checklist
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true

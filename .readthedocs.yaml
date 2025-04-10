@@ -32,3 +32,4 @@ python:
 formats:
   - pdf
   - epub
+  - htmlzip

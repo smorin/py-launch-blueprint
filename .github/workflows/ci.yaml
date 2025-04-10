@@ -37,7 +37,9 @@ jobs:
     - name: Check license headers
       run: uvx licenseheaders -t .license -d . -x venv,.git,__pycache__,build,dist
 
+  # Only run security checks on pull requests from the main repository
   security:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4

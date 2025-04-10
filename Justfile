@@ -131,6 +131,15 @@ alias pc := pre-commit-run
     rm -rf *.egg-info
     rm -rf .venv
     rm -rf {{py_package_name}}/__pycache__/
+# Install Sphinx and any necessary extensions
+@install-docs:
+    @#!/usr/bin/env sh
+    if ! command -v uv >/dev/null 2>&1; then echo "uv is not installed"; exit 1; fi
+    echo "Installing Sphinx..."
+    uv pip install sphinx
+    echo "Installing required Sphinx extensions..."
+    uv pip install sphinx-rtd-theme sphinx-autobuild myst-parser
+    echo "{{GREEN}} Documentation dependencies installed"
 
 # Not usually needed, Initialize docs only if you are starting a new project
 @init-docs:
