@@ -24,10 +24,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    # Install the required dependencies (pytest and pytest-cov)
+    # Install the required dependencies (pytest, pytest-cov, requests, click)
     - name: Install dependencies
       run: |
-        pip install pytest pytest-cov
+        pip install pytest pytest-cov requests click
 
     # Optionally, install other project dependencies
     - name: Install the project
