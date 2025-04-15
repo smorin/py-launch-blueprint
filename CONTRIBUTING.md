@@ -8,8 +8,8 @@ Before we can accept your contributions, you will need to sign a Contributor Lic
 
 ### How to Sign the CLA
 
-1. **Individual Contributors**: If you are contributing as an individual, please sign the [Individual CLA](./docs/cla/individual_cla.md).
-2. **Corporate Contributors**: If you are contributing on behalf of a company, please sign the [Corporate CLA](./docs/cla/corporate_cla.md).
+1. **Individual Contributors**: If you are contributing as an individual, please sign the [Individual CLA](./docs/source/contributing/cla/individual_cla.md).
+2. **Corporate Contributors**: If you are contributing on behalf of a company, please sign the [Corporate CLA](./docs/source/contributing/cla/corporate_cla.md).
 
 ### CLA Assistant Bot
 
@@ -36,7 +36,7 @@ We welcome suggestions for new features or improvements to the project. To sugge
 
 To submit a pull request, follow these steps:
 1. Fork the repository
-2. Create a new branch for your feature or bugfix
+2. Create a new branch for your feature or bugfix 
 3. Make your changes
 4. Commit your changes with a clear and descriptive commit message
 5. Push your changes to your fork

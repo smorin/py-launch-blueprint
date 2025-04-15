@@ -47,6 +47,7 @@ jobs:
       run: uvx ruff check py_launch_blueprint/
 
   security:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4

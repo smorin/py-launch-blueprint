@@ -45,7 +45,7 @@ body:
     validations:
       required: true
 
-- type: dropdown
+  - type: dropdown
     id: requires-proposal
     attributes:
       label: Requires Proposal
