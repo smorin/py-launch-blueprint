@@ -43,7 +43,6 @@ jobs:
     - name: Run pre-commit checks
       run: |
         pip install pre-commit  # Install the latest version
-        pre-commit install       # Ensure hooks are installed
         pre-commit run --all-files
 
     - name: Check TOML formatting
