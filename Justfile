@@ -44,6 +44,20 @@ DASH := "$(GRAY)-$(NC)"
 @default:
     just --list --unsorted
 
+# Format TOML files (comments preserved via pyproject.toml config)
+@format-toml:
+    taplo format \
+        --config pyproject.toml \
+        *.toml
+
+# Check TOML formatting without modifying files
+@check-toml:
+    taplo format --check \
+        --config pyproject.toml \
+        *.toml
+alias ft := format-toml
+alias ct := check-toml
+
 # Check if required tools are installed
 @check-deps:
     @#!/usr/bin/env sh
