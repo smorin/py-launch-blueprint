@@ -29,6 +29,11 @@ jobs:
       run: |
         pip install pytest pytest-cov requests click
 
+    # Install the package itself
+    - name: Install the package
+      run: |
+        pip install .
+
     # Optionally, install other project dependencies
     - name: Install the project
       run: uv sync --all-extras --dev
