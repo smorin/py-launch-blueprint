@@ -30,7 +30,6 @@ dev = [
     "types-Pygments",
     "cogapp",
     "click>=8.1.0",  # Added click for tests
-    "requests>=2.31.0",  # Added requests for tests
 ]
 
 docs = [
