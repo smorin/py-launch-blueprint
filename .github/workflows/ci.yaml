@@ -47,7 +47,7 @@ jobs:
 
     - name: Check TOML formatting
       run: |
-        taplo check pyproject.toml
+        taplo check *.toml
 #    - name: Run tests with coverage
 #      run: |
 #        pytest --cov=./ --cov-report=xml
