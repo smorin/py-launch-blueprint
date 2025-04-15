@@ -42,12 +42,13 @@ jobs:
 
     - name: Run pre-commit checks
       run: |
-        uv pip install pre-commit==3.7.0
+        pip install pre-commit  # Install the latest version
+        pre-commit install       # Ensure hooks are installed
         pre-commit run --all-files
 
     - name: Check TOML formatting
       run: |
-        taplo check *.toml
+       taplo check *.toml
 #    - name: Run tests with coverage
 #      run: |
 #        pytest --cov=./ --cov-report=xml
