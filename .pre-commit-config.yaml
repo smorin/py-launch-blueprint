@@ -43,9 +43,9 @@ repos:
 
   - repo: local
     hooks:
-      - id: taplo-format
+      - id: taplo
         name: Format TOML files
         entry: taplo format
+        args: [--config, pyproject.toml]
         language: system
-        files: \.toml$
-        args: ["--config", "pyproject.toml"]
+        types: [toml]
