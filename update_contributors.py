@@ -1,19 +1,26 @@
 def get_contributors():
     """
-    Obtiene la lista de contribuidores. Puedes reemplazar esto con la lógica real.
+    Obtiene la lista de contribuidores desde el historial de git.
     """
-    # Datos de ejemplo (puedes reemplazar esto con datos reales)
-    contributors = [
-        "55 | Steve Morin | steve.morin@gmail.com",
-        "27 | Adane Moges | adman19940805@gmail.com",
-        "18 | Tatiana Hernandez | tatihe3@gmail.com",
-        "14 | Adane Moges | adanemoges6@gmail.com",
-        "8 | Tatiana Hernández | tatihe3@gmail.com",
-        "5 | gdev19 | ashkhen09300@gmail.com",
-        "2 | Adane | adanemoges6@gmail.com",
-        "1 | github-actions[bot] | github-actions[bot]@users.noreply.github.com",
-        "1 | vardanaloyan | valoyan2@gmail.com"
-    ]
+    # Use git log to extract real contributor information
+    import subprocess
+    import re
+    
+    # Run git log command to get commit counts by author
+    result = subprocess.run(
+        ["git", "shortlog", "-sne", "HEAD"],
+        capture_output=True, text=True, check=True
+    )
+    
+    # Parse the output into our required format
+    contributors = []
+    for line in result.stdout.strip().split("\n"):
+        if line:
+            match = re.match(r'^\s*(\d+)\s+(.*?)\s+<(.+?)>$', line)
+            if match:
+                commits, name, email = match.groups()
+                contributors.append(f"{commits} | {name} | {email}")
+    
     return contributors
 
 def update_contributors_file(contributors):
