@@ -40,6 +40,14 @@ jobs:
     - name: Check linters
       run: uvx ruff check py_launch_blueprint/
 
+    - name: Run pre-commit checks
+      run: |
+        pip install pre-commit
+        pre-commit run --all-files
+
+    - name: Check TOML formatting
+      run: |
+       taplo check *.toml
 #    - name: Run tests with coverage
 #      run: |
 #        pytest --cov=./ --cov-report=xml

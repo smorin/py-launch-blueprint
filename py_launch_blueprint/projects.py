@@ -38,6 +38,7 @@ class PyError(Exception):
 
 class ConfigError(Exception):
     """Configuration-related errors."""
+
     pass
 
 

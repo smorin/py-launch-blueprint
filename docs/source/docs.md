@@ -92,7 +92,7 @@ Check out our {ref}`installation guide <my-custom-label>`.
    :alt: Alt text
    :width: 200px
    :align: center
-   
+
    Optional caption goes here
    ```
    ```
@@ -103,7 +103,7 @@ Check out our {ref}`installation guide <my-custom-label>`.
 2. Update `conf.py` with the logo path:
    ```python
    html_logo = "_static/your-logo.png"
-   
+
    # For Furo theme, you can set different logos for light/dark mode:
    html_theme_options = {
        "light_logo": "_static/light-logo.png",

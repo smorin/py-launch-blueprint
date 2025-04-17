@@ -40,7 +40,7 @@ all: help
 
 ## `make check` Example Output
 
-### Success case 
+### Success case
 # Checking dependencies...
 # === System Requirements Status ===
 # [✓] Just
@@ -53,7 +53,7 @@ all: help
 # [✓] just
 # [✗] uv (make install-uv)
 
-# Found 1 missing deps: uv 
+# Found 1 missing deps: uv
 # make: *** [check] Error 1
 
 check: ## Check system requirements
@@ -130,6 +130,5 @@ help: ## The help command - this command
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Targets:"
-	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-30s$(NC) %s\n", $$1, $$2}' 
+	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-30s$(NC) %s\n", $$1, $$2}'
 	@echo ""
-

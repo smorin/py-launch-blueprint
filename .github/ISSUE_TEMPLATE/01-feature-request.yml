@@ -90,14 +90,14 @@ body:
       value: |
         ## Acceptance Criteria
         Please review all of the following criteria that must be met for this feature to be considered complete:
-        
+
         **Technical Requirements:**
         - Testing is added to the pre-commit hook
         - Testing is added to the CI/CD pipeline in the GitHub Actions
         - Documentation is added and updated into the documentation in Sphinx
         - There is appropriate unit test coverage
         - Command has been added (if necessary)
-        
+
         **User Experience Requirements:**
         - Feature is accessible on all supported platforms/devices
         - System handles error cases gracefully with clear user feedback
@@ -118,7 +118,7 @@ body:
       value: |
         ## Pre-submission Checklist
         Please confirm that you have completed all of the following steps:
-        
+
         - I have performed a self-review of this request
         - I have signed the CLA
         - I have included or planned for documentation
