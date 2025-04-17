@@ -27,7 +27,7 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 ## Features
 
 - 🔍 Fuzzy search for project names
-- 🏢 Filter by workspace 
+- 🏢 Filter by workspace
 - 📋 Multiple output formats (text, JSON, CSV)
 - 📎 Clipboard integration
 - 🎨 Rich terminal UI with color support
