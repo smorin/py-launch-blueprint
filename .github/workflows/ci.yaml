@@ -42,7 +42,7 @@ jobs:
 
     - name: Run pre-commit checks
       run: |
-        pip install pre-commit==3.7.0  # Pin to a known working version
+        pip install pre-commit
         pre-commit run --all-files
 
     - name: Check TOML formatting
