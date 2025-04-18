@@ -20,8 +20,9 @@ def test_config_from_env_file(tmp_path):
     env_file = tmp_path / ".env"
     env_file.write_text("PY_TOKEN=file_token")
 
-    config = Config.from_env(str(env_file))
-    assert config.token == "file_token"
+    with patch.dict(os.environ, {}, clear=True):
+        config = Config.from_env(str(env_file))
+        assert config.token == "file_token"
 
 
 def test_config_precedence(tmp_path):
@@ -35,7 +36,8 @@ def test_config_precedence(tmp_path):
         assert config.token == "env_token"
 
 
-def test_invalid_config_file():
-    """Test handling of invalid config file."""
-    with pytest.raises(ConfigError):
+def test_invalid_config_file(monkeypatch):
+    """Test behavior when .env file is missing and no PY_TOKEN is set."""
+    monkeypatch.delenv("PY_TOKEN", raising=False)
+    with pytest.raises(ConfigError, match="No PY_TOKEN found"):
         Config.from_env("/nonexistent/path")

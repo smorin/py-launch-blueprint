@@ -38,6 +38,7 @@ class PyError(Exception):
 
 class ConfigError(Exception):
     """Configuration-related errors."""
+
     pass
 
 
@@ -165,7 +166,7 @@ class PyClient:
         try:
             response = self.session.request(method, url, **kwargs)
             response.raise_for_status()
-            return dict(response.json()["data"])
+            return response.json()
         except requests.exceptions.RequestException as e:
             if hasattr(e.response, "json"):
                 try:
@@ -189,7 +190,7 @@ class PyClient:
         Returns:
             List of workspace dictionaries
         """
-        return list(self._request("GET", "/workspaces").values())
+        return self._request("GET", "/workspaces")["data"]
 
     def get_projects(
         self, workspace_name: str | None = None, limit: int = 200
@@ -221,7 +222,8 @@ class PyClient:
 
             params["workspace"] = workspace["gid"]
 
-        return list(self._request("GET", "/projects", params=params).values())
+        response_data = self._request("GET", "/projects", params=params)
+        return response_data.get("data", [])
 
 
 # CLI Functions

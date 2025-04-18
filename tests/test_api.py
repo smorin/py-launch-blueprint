@@ -28,7 +28,7 @@ def test_successful_request(mock_request, client):
     mock_request.return_value = mock_response
 
     result = client._request("GET", "/test")
-    assert result == {"id": "123", "name": "Test"}
+    assert result == {"data": {"id": "123", "name": "Test"}}
 
 
 @patch("requests.Session.request")
@@ -39,6 +39,9 @@ def test_failed_request(mock_request, client):
     mock_response.json.return_value = {"errors": [{"message": "Test error"}]}
     mock_request.return_value = mock_response
 
+    mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError(
+        "Test error"
+    )
     with pytest.raises(PyError, match="Test error"):
         client._request("GET", "/test")
 
