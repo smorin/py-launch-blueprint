@@ -194,6 +194,7 @@ setup-cog-hooks:
     rm -rf .venv
     rm -rf {{py_package_name}}/__pycache__/
 
+
 # Not usually needed, Initialize docs only if you are starting a new project
 @init-docs:
     uv run --extra docs  --directory=docs sphinx-quickstart

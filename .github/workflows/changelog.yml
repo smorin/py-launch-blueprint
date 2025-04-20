@@ -7,27 +7,14 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write  # Explicit permission for better security
+
 jobs:
   generate-changelog:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup Cocogitto
-        uses: cocogitto/cocogitto-action@v3
-
-      - name: Generate Changelog
-        run: cog changelog --at "$(git describe --tags --abbrev=0 || echo \"v0.0.0\")" -o CHANGELOG.md
-
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "docs: update changelog [skip ci]"
-          file_pattern: CHANGELOG.md
-          commit_user_name: "GitHub Actions"
-          commit_user_email: "actions@github.com"
-          commit_author: "GitHub Actions <actions@github.com>"
-          branch: ${{ github.head_ref || github.ref_name }}
