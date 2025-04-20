@@ -2,9 +2,7 @@
 
 import os
 from unittest.mock import patch
-
 import pytest
-
 from py_launch_blueprint.projects import Config, ConfigError, get_config
 
 
