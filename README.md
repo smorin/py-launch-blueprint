@@ -54,7 +54,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 * **Dependency groups separation**: Organize dependencies into main, dev, and doc categories, preventing bloated installations and clarifying requirements as part of `pyproject.toml` configuration.
 
-* **Dependency management with (`uv`)[https://docs.astral.sh/uv/]**: Install and manage packages at blazing speed (100x faster than pip/poetry), dramatically reducing environment setup time.
+* **Dependency management with [`uv`](https://docs.astral.sh/uv/)**: Install and manage packages at blazing speed (100x faster than pip/poetry), dramatically reducing environment setup time.
 
 * **Build system with `hatchling`**: Streamline package building with modern Python packaging standards, ensuring compatibility and distribution consistency.
 
