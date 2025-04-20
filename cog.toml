@@ -1,4 +1,3 @@
-[changelog]
 # Required for remote links in the changelog
 owner = "smorin"
 repository = "py-launch-blueprint"
