@@ -132,7 +132,7 @@ def test_cli_copy_to_clipboard(mock_copy, runner, mock_client):
         "py_launch_blueprint.projects.get_config", return_value=Config(token="test")
     ):
         with patch("questionary.checkbox") as mock_checkbox:
-            mock_checkbox.ask.return_value = [project_data]
+            mock_checkbox.return_value.ask.return_value = [project_data]
             result = runner.invoke(main, ["--copy"])
             assert result.exit_code == 0
-            mock_copy.assert_called_with("")
+            mock_copy.assert_called_with("1")
