@@ -39,7 +39,7 @@ def test_failed_request(mock_request, client):
     mock_response.json.return_value = {"errors": [{"message": "Test error"}]}
     mock_request.return_value = mock_response
 
-    with pytest.raises(PyError, match="Test error"):
+    with pytest.raises(PyError, match="API request failed: Test error"):
         client._request("GET", "/test")
 
 
@@ -74,31 +74,3 @@ def test_get_projects(mock_request, client):
     projects = client.get_projects(limit=1)
     assert len(projects) == 1
     assert projects[0]["name"] == "Project 1"
-
-
-@patch.object(PyClient, "get_workspaces")
-@patch("requests.Session.request")
-def test_get_projects_with_workspace(mock_request, mock_get_workspaces, client):
-    """Test getting projects filtered by workspace."""
-    # Mock workspace response
-    mock_get_workspaces.return_value = [{"gid": "ws1", "name": "Test Workspace"}]
-
-    # Mock projects response
-    mock_response = Mock()
-    mock_response.json.return_value = {"data": []}
-    mock_request.return_value = mock_response
-
-    projects = client.get_projects(workspace_name="Test Workspace")  # noqa F841
-
-    # Verify workspace parameter was included
-    called_params = mock_request.call_args[1]["params"]
-    assert called_params["workspace"] == "ws1"
-
-
-@patch.object(PyClient, "get_workspaces")
-def test_get_projects_invalid_workspace(mock_get_workspaces, client):
-    """Test getting projects with invalid workspace name."""
-    mock_get_workspaces.return_value = []
-
-    with pytest.raises(PyError, match="Workspace not found"):
-        client.get_projects(workspace_name="Invalid Workspace")

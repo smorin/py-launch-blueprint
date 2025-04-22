@@ -37,5 +37,5 @@ def test_config_precedence(tmp_path):
 
 def test_invalid_config_file():
     """Test handling of invalid config file."""
-    with pytest.raises(ConfigError):
+    with pytest.raises(ConfigError, match="Invalid configuration file path."):
         Config.from_env("/nonexistent/path")

@@ -1,60 +1,84 @@
-def get_contributors():
-    """
-    Obtiene la lista de contribuidores. Puedes reemplazar esto con la lógica real.
-    """
-    # Datos de ejemplo (puedes reemplazar esto con datos reales)
-    contributors = [
-        "55 | Steve Morin | steve.morin@gmail.com",
-        "27 | Adane Moges | adman19940805@gmail.com",
-        "18 | Tatiana Hernandez | tatihe3@gmail.com",
-        "14 | Adane Moges | adanemoges6@gmail.com",
-        "8 | Tatiana Hernández | tatihe3@gmail.com",
-        "5 | gdev19 | ashkhen09300@gmail.com",
-        "2 | Adane | adanemoges6@gmail.com",
-        "1 | github-actions[bot] | github-actions[bot]@users.noreply.github.com",
-        "1 | vardanaloyan | valoyan2@gmail.com"
-    ]
-    return contributors
+import subprocess
 
-def update_contributors_file(contributors):
+
+def get_contributors() -> list[str]:
     """
-    Actualiza el archivo CONTRIBUTORS.md con la lista de contribuidores en formato de tabla.
+    Fetches the list of contributors using `git log`.
+    Returns a list of contributors in the format: "Name <Email>".
     """
     try:
-        # Abrir el archivo en modo escritura con codificación UTF-8
+        # Run `git log` to get the commit author names and emails
+        with subprocess.Popen(
+            ["git", "log", "--format=%aN <%aE>"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        ) as proc:
+            stdout, stderr = proc.communicate()
+            if proc.returncode != 0:
+                raise RuntimeError(f"Error executing git log: {stderr}")
+
+        # Split the output by lines and remove duplicates
+        contributors = sorted(set(stdout.splitlines()))
+        return contributors
+
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing git log: {e}")
+        return []
+    except Exception as e:
+        print(f"Error fetching contributors: {e}")
+        return []
+
+
+def update_contributors_file(contributors: list[str]) -> None:
+    """
+    Updates the CONTRIBUTORS.md file with the list of contributors in table format.
+    """
+    try:
+        # Open the file in write mode with UTF-8 encoding
         with open("CONTRIBUTORS.md", "w", encoding="utf-8") as f:
-            # Escribir el encabezado de la tabla
-            f.write("# Lista de Contribuidores\n\n")
-            f.write("| Contribuciones | Nombre                        | Email                                      |\n")
-            f.write("|----------------|-------------------------------|-------------------------------------------|\n")
+            # Write the table header
+            f.write("# List of Contributors\n\n")
+            f.write(
+                "| Contributions | Name                         | Email                                      |\n"
+            )
+            f.write(
+                "|---------------|------------------------------|-------------------------------------------|\n"
+            )
 
-            # Escribir cada contribuidor en la tabla
+            # Write each contributor to the table
             for contributor in contributors:
-                # Dividir la línea en partes (contribuciones, nombre, email)
-                parts = contributor.split(" | ")
-                if len(parts) == 3:  # Asegurarse de que la línea tenga el formato correcto
-                    contribs, name, email = parts
-                    f.write(f"| {contribs:<14} | {name:<30} | {email:<43} |\n")
+                # Split the contributor string into name and email
+                parts = contributor.split(" <")
+                if len(parts) == 2:
+                    name = parts[0].strip()
+                    email = parts[1].replace(">", "").strip()
+                    # Write the row in the table
+                    f.write(f"| 1             | {name:<30} | {email:<43} |\n")
                 else:
-                    print(f"Advertencia: Formato incorrecto en el contribuidor: {contributor}")
+                    print(f"Warning: Incorrect format for contributor: {contributor}")
 
-        print("Archivo CONTRIBUTORS.md actualizado correctamente.")
+        print("CONTRIBUTORS.md file updated successfully.")
     except Exception as e:
-        print(f"Error al actualizar el archivo: {e}")
+        print(f"Error updating the file: {e}")
 
-def main():
+
+def main() -> None:
     """
-    Función principal del script.
+    Main function of the script.
     """
     try:
-        # Obtener la lista de contribuidores
+        # Fetch the list of contributors
         contributors = get_contributors()
-        print(f"Contribuidores obtenidos: {len(contributors)}")
-
-        # Actualizar el archivo CONTRIBUTORS.md
-        update_contributors_file(contributors)
+        if contributors:
+            print(f"Contributors fetched: {len(contributors)}")
+            # Update the CONTRIBUTORS.md file
+            update_contributors_file(contributors)
+        else:
+            print("No contributors found.")
     except Exception as e:
-        print(f"Error en la ejecución del script: {e}")
+        print(f"Error running the script: {e}")
+
 
 if __name__ == "__main__":
     main()

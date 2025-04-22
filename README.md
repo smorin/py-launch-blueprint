@@ -45,8 +45,6 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 - Anyone looking to adopt Python best practices from day one
 
 Start your next Python project with confidence, knowing you're building on a foundation of best practices and modern development tools.
-<<<<<<< HEAD
-=======
 
 ## Philosophy
 - **Heavily Documented**: Every detail is explained, making it easy to understand, even for folks new to the project, tools, or new to Python.
