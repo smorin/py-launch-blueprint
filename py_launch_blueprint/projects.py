@@ -294,6 +294,7 @@ def display_projects(projects: list[dict[str, Any]], verbose: bool = False) -> N
 
 
 @click.command()
+@click.version_option(version="1.0.0")
 @click.option("--token", help="Py Personal Access Token")
 @click.option("--config", help="Path to config file", type=click.Path(exists=True))
 @click.option("--workspace", help="Filter projects by workspace name")
@@ -344,7 +345,8 @@ def main(
             return
 
         # Display projects and get selection
-        display_projects(projects, verbose)
+        if format == "text":
+            display_projects(projects, verbose)
 
         # Allow project selection
         choices = [
