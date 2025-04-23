@@ -19,7 +19,14 @@ def get_contributors() -> list[str]:
                 raise RuntimeError(f"Error executing git log: {stderr}")
 
         # Split the output by lines and remove duplicates
-        contributors = sorted(set(stdout.splitlines()))
+        # Count contributions by each author
+        contributor_counts = {}
+        for line in stdout.splitlines():
+            contributor_counts[line] = contributor_counts.get(line, 0) + 1
+
+        # Convert to list of tuples (contributor, count) and sort by count descending
+        contributors = [(contributor, count) for contributor, count in contributor_counts.items()]
+        contributors.sort(key=lambda x: x[1], reverse=True)
         return contributors
 
     except subprocess.CalledProcessError as e:
