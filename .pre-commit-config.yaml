@@ -56,5 +56,6 @@ repos:
         language: python
         args: ["-t", ".license", "-d", ".", "-x", "venv,.git,__pycache__,build,dist"]
         types: [python]
+        pass_filenames: false
         verbose: true
-        additional_dependencies: [licenseheaders]
+        additional_dependencies: ["licenseheaders"]

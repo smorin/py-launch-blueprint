@@ -1,51 +1,55 @@
-# .github/workflows/ci.yml
 name: CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
-    name: continuous-integration
+    name: Continuous Integration (Tests & Checks)
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         python-version: ["3.10", "3.11"]
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install the project
-      run: uv sync --all-extras --dev
+      - name: Install project dependencies (with dev + all extras)
+        run: uv sync --all-extras --dev
 
-    - name: Run type checker
-      run: uvx mypy py_launch_blueprint/
+      - name: Run type checker (mypy)
+        run: uvx mypy py_launch_blueprint/
 
-    - name: Check linters
-      run: uvx ruff check py_launch_blueprint/
+      - name: Run linter (ruff)
+        run: uvx ruff check py_launch_blueprint/
 
-    - name: Check license headers
-      run: uvx licenseheaders -t .license -d . -x venv,.git,__pycache__,build,dist
+      - name: Check license headers
+        run: uvx licenseheaders -t .license -d . -x venv,.git,__pycache__,build,dist
 
-  # Only run security checks on pull requests from the main repository
   security:
+    name: Security Check (Safety)
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
 
-    - name: Run Safety CLI to check for vulnerabilities
-      uses: pyupio/safety-action@v1
-      with:
-        api-key: ${{ secrets.SAFETY_API_KEY }}
-        args: --detailed-output
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Safety CLI to check for vulnerabilities
+        uses: pyupio/safety-action@v1
+        with:
+          api-key: ${{ secrets.SAFETY_API_KEY }}
+          args: --detailed-output
