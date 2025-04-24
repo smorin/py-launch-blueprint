@@ -1,3 +1,12 @@
+<!--
+Copyright (c) 2025, Steve Morin
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
 ```{figure} _static/py_launch_blueprint_logo_100x100.png
 :alt: py-launch-blueprint
 :width: 100px
@@ -27,7 +36,7 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 ## Features
 
 - 🔍 Fuzzy search for project names
-- 🏢 Filter by workspace 
+- 🏢 Filter by workspace
 - 📋 Multiple output formats (text, JSON, CSV)
 - 📎 Clipboard integration
 - 🎨 Rich terminal UI with color support
