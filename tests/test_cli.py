@@ -7,6 +7,7 @@ from unittest.mock import Mock, patch
 import pytest
 from click.testing import CliRunner
 
+from py_launch_blueprint._version import __version__
 from py_launch_blueprint.projects import Config, PyClient, main
 
 
@@ -36,7 +37,7 @@ def test_cli_version(runner):
     """Test CLI version output."""
     result = runner.invoke(main, ["--version"])
     assert result.exit_code == 0
-    assert "version" in result.output.lower()
+    assert __version__ in result.output.lower()
 
 
 def test_cli_no_token(runner):

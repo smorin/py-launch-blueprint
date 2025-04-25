@@ -24,6 +24,8 @@ from rich.console import Console
 from rich.progress import Progress
 from rich.table import Table
 
+from py_launch_blueprint._version import __version__
+
 # Initialize Rich console for pretty output
 console = Console()
 error_console = Console(stderr=True)
@@ -294,7 +296,7 @@ def display_projects(projects: list[dict[str, Any]], verbose: bool = False) -> N
 
 
 @click.command()
-@click.version_option(version="1.0.0")
+@click.version_option(version=__version__)
 @click.option("--token", help="Py Personal Access Token")
 @click.option("--config", help="Path to config file", type=click.Path(exists=True))
 @click.option("--workspace", help="Filter projects by workspace name")
