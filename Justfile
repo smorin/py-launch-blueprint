@@ -69,6 +69,20 @@ alias c := check-deps
 
 alias f := format
 
+# Format TOML files (comments preserved via pyproject.toml config)
+@format-toml:
+    taplo format \
+        --config pyproject.toml \
+        *.toml
+
+# Check TOML formatting without modifying files
+@check-toml:
+    taplo format --check \
+        --config pyproject.toml \
+        *.toml
+alias ft := format-toml
+alias ct := check-toml
+
 # Run linter (code style and quality checks)
 @lint:
     echo "Running linter..."
