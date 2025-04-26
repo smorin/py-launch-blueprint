@@ -40,3 +40,11 @@ repos:
         types: [python]
         pass_filenames: false # Run full test suite
         stages: [pre-commit] # Only run on commit
+  - repo: local
+    hooks:
+      - id: taplo-format
+        name: Format TOML files
+        entry: taplo format
+        language: system
+        files: \.toml$
+        args: ["--config", "pyproject.toml"]
