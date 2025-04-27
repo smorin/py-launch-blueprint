@@ -33,6 +33,8 @@ jobs:
 #      run: uv run pytest tests
 
     # Format code
+    - name: Install Taplo
+      run: cargo install taplo-cli
 
     - name: Run type checker
       run: uvx mypy py_launch_blueprint/
