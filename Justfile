@@ -1,8 +1,8 @@
 # Set project-wide variables
 py_package_name := "py_launch_blueprint"
+repo_name := "py-launch-blueprint"
 command_name := "py-projects"
 args := " "
-
 
 # Text colors
 BLACK := '\033[30m'
@@ -35,15 +35,26 @@ UNDERLINE := '\033[4m'
 NC := '\033[0m'
 
 # Display a symbol
-CHECK := "$(GREEN)✓$(NC)"
-CROSS := "$(RED)✗$(NC)"
-DASH := "$(GRAY)-$(NC)"
+# This should not use interpolation because it is a string literal
+# The variables are not expanded when the string is created but when it is used
+# VARIABLE_NAME + "TEXT" + VARIABLE_NAME should be written as CHECK := GREEN + "✓" + NC
+CHECK := GREEN + "✓" + NC
+CROSS := RED + "✗" + NC
+DASH := GRAY + "-" + NC
 
+
+CLIPBOARD_CMD := if os_family() == "windows" { "clip" } else if os() == "linux" { "xclip -selection clipboard" } else { "pbcopy" }
+DATE_TIME := datetime("%Y-%m-%d-%H-%M")
+BRANCH_NAME := "test-actions-" + DATE_TIME
 
 # List all available recipes
 @default:
     just --list --unsorted
 
+# Select a just recipe
+@select-shell:
+    @just --choose
+    
 # Check if required tools are installed
 @check-deps:
     @#!/usr/bin/env sh
@@ -141,7 +152,7 @@ alias pc := pre-commit-run
     uv pip install sphinx
     echo "Installing required Sphinx extensions..."
     uv pip install sphinx-rtd-theme sphinx-autobuild myst-parser
-    echo "{{GREEN}} Documentation dependencies installed"
+    echo -e "{{GREEN}} Documentation dependencies installed{{NC}}"
 
 # Not usually needed, Initialize docs only if you are starting a new project
 @init-docs:
@@ -204,3 +215,188 @@ alias pc := pre-commit-run
 # Run tests
 @test-pip *options:
     pytest {{options}}
+
+# Create a test repository from a PR
+[group('repo-pr-testing')]
+[confirm("Are you sure you want to create a new repository from a PR?")]
+pr-to-testrepo pr_number new_repo_name="test-actions-repo":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    # Check if gh CLI is installed
+    if ! command -v gh >/dev/null 2>&1; then
+        echo -e "{{RED}}Error: GitHub CLI (gh) is not installed. Please install it to use this command.{{NC}}"
+        exit 1
+    fi
+
+    # Check if gh is authenticated
+    if ! gh auth status >/dev/null 2>&1; then
+        echo -e "{{RED}}Error: Not logged in to GitHub CLI. Please run 'gh auth login'.{{NC}}"
+        exit 1
+    fi
+
+    # Get current repo URL
+    repo_url=$(gh repo view --json url -q .url)
+
+    # Move down one directory and clone
+    cd ..
+    echo -e "{{BLUE}}Cloning repository into {{new_repo_name}}...{{NC}}"
+    if ! git clone "$repo_url" "{{new_repo_name}}"; then
+        echo -e "{{RED}}Error: Failed to clone repository{{NC}}"
+        exit 1
+    fi
+    
+    cd "{{new_repo_name}}"
+    echo -e "{{BLUE}}Downloading PR #{{pr_number}}...{{NC}}"
+    if ! gh pr checkout {{pr_number}}; then
+        echo -e "{{RED}}Error: Failed to checkout PR #{{pr_number}}. Does it exist?{{NC}}"
+        exit 1
+    fi
+
+    echo -e "{{BLUE}}Removing existing git references...{{NC}}"
+    rm -rf .git
+
+    echo -e "{{BLUE}}Initializing new git repository...{{NC}}"
+    git init -b main # Initialize with main branch
+    git add .
+
+    # Check if there are any changes to commit
+    if git diff --staged --quiet; then
+        echo -e "{{YELLOW}}Warning: No changes detected after checkout. Initial commit will be empty.{{NC}}"
+    fi
+
+    git commit -m "Initial commit from PR #{{pr_number}}" --allow-empty
+
+    echo -e "{{BLUE}}Creating and pushing to GitHub repository '{{new_repo_name}}'...{{NC}}"
+    if ! gh repo create {{new_repo_name}} --private --source=. --push; then
+        echo -e "{{RED}}Error: Failed to create or push to the repository '{{new_repo_name}}'.{{NC}}"
+        echo -e "{{YELLOW}}Please check if a repository with this name already exists or if you have the necessary permissions.{{NC}}"
+        # Attempt to clean up the local repo if creation failed
+        echo -e "{{BLUE}}Attempting to clean up local git repository...{{NC}}"
+        rm -rf .git
+        exit 1
+    fi
+    echo ""
+    # Print shell information
+    echo -e "{{BLUE}}Shell in use: $SHELL{{NC}}"
+    echo -e "{{YELLOW}}Please cd to the repository directory and ...{{NC}}"
+    echo -e "{{RED}}MANUALLY EXECUTE THE NEXT COMMAND{{NC}}"
+    echo -e "{{BLUE}}cd ../{{new_repo_name}}{{NC}}"
+    echo "cd ../{{new_repo_name}}" | {{CLIPBOARD_CMD}}
+    # Get the URL of the newly created repository
+    #repo_url=$(gh repo view {{new_repo_name}} --json url -q .url); \
+    #echo -e "{{GREEN}}{{CHECK}} Repository created and ready for testing at: ${repo_url}{{NC}}"
+
+
+ 
+
+# Cleanup / Delete test repository from a PR from pr-to-testrepo
+[group('repo-pr-testing')]
+@clean-pr-to-testrepo new_repo_name="test-actions-repo":
+    echo "{{BLUE}}Shell in use: $SHELL{{NC}}"
+    gh repo delete {{new_repo_name}} --yes
+    # -e isn't needed here for an unknown reason.
+    echo "{{BLUE}}Shell in use: $SHELL{{NC}}"
+    echo "{{CHECK}} Repository deleted."
+    echo "{{YELLOW}}Please clean up the local git repository and ...{{NC}}"
+    echo "{{RED}}MANUALLY EXECUTE THE NEXT COMMAND{{NC}}"
+    echo "{{BLUE}}cd ..;rm -rf {{new_repo_name}};cd {{repo_name}}{{NC}}"
+    echo "cd ..;rm -rf {{new_repo_name}};cd {{repo_name}}" | {{CLIPBOARD_CMD}}
+
+# Create a test Pull Request for triggering GitHub Actions
+[group('repo-pr-testing')]
+@create-test-pr message="Test PR for GitHub Actions verification":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    # Check if gh CLI is installed
+    if ! command -v gh >/dev/null 2>&1; then
+        echo -e "{{RED}}Error: GitHub CLI (gh) is not installed. Please install it to use this command.{{NC}}"
+        exit 1
+    fi
+
+    # Check if gh is authenticated
+    if ! gh auth status >/dev/null 2>&1; then
+        echo -e "{{RED}}Error: Not logged in to GitHub CLI. Please run 'gh auth login'.{{NC}}"
+        exit 1
+    fi
+    CURRENT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+
+    echo "{{BLUE}}CURRENT_BRANCH: $CURRENT_BRANCH_NAME{{NC}}"
+    if [[ "$CURRENT_BRANCH_NAME" != "main" && "$CURRENT_BRANCH_NAME" != "master" ]]; then
+        echo "{{YELLOW}}Warning: Not on main/master branch. Checking out main...{{NC}}"
+        if ! git checkout main; then
+            echo "{{RED}}Error: Could not checkout main branch. Please switch manually and retry.{{NC}}"
+            exit 1
+        fi
+    fi
+
+    # Ensure we are on the main/master branch before starting Add common main branch names here if needed
+    if [[ "$CURRENT_BRANCH_NAME" != "main" ]]; then 
+        echo "Warning: Not on main/master branch. Checking out main..."
+        if ! git checkout main; then
+            echo "{{RED}}Error: Could not checkout main branch. Please switch manually and retry.{{NC}}"
+            exit 1
+        fi
+    fi
+
+    # Ensure local main is up-to-date
+    echo -e "{{BLUE}}Pulling latest changes for main branch...{{NC}}"
+    if ! git pull origin main; then
+        echo -e "{{RED}}Error: Failed to pull latest changes for main. Please check your connection or repository status.{{NC}}"
+        exit 1
+    fi
+    
+    echo -e "{{BLUE}}Creating test branch: {{BRANCH_NAME}}{{NC}}"
+    if ! git checkout -b {{BRANCH_NAME}}; then
+        echo -e "{{RED}}Error: Failed to create branch {{BRANCH_NAME}}.{{NC}}"
+        exit 1
+    fi
+    
+    # Add timestamp to README
+    echo -e "{{BLUE}}Modifying README.md...{{NC}}"
+    echo "" >> README.md # Add a blank line for spacing
+    echo "Test change at $(date) to trigger Actions." >> README.md
+    MESSAGE="Test PR for GitHub Actions verification"
+
+    # Commit and push
+    echo -e "{{BLUE}}git add README.md...{{NC}}"
+    git add README.md
+    echo -e "{{BLUE}}Committing and pushing changes...{{NC}}"
+    if ! git commit -m "$MESSAGE"; then
+        echo -e "{{RED}}Error: Failed to commit changes.{{NC}}"
+        # Attempt to switch back to main branch on failure
+        git checkout main
+        exit 1
+    fi
+    echo -e "{{BLUE}}git push -u origin {{BRANCH_NAME}}...{{NC}}"
+    if ! git push -u origin "{{BRANCH_NAME}}"; then 
+        echo -e "{{RED}}Error: Failed to push branch {{BRANCH_NAME}} to origin.{{NC}}"
+        # Attempt to switch back to main branch on failure
+        git checkout main 
+        exit 1
+    fi
+    
+    # Create PR
+    echo -e "{{BLUE}}Creating Pull Request...{{NC}}"
+    # Get the current repo info
+    REPO_NAME=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+    echo "REPO_NAME: $REPO_NAME"
+    PR_URL=$(gh pr create --title "$MESSAGE" --body "This is an automated PR to test GitHub Actions." --repo "$REPO_NAME")
+    echo "PR_URL: $PR_URL"
+    if [[ $? -ne 0 ]]; then
+        echo "{{RED}}Error: Failed to create Pull Request via GitHub CLI.{{NC}}"
+        # Attempt to switch back to main branch on failure
+        git checkout main
+        exit 1
+    else
+        echo "{{GREEN}}{{CHECK}} Test PR created successfully: $PR_URL{{NC}}"
+        # Switch back to main branch after successful PR creation
+        git checkout main
+    fi
+
+# Change working directory example
+[working-directory: 'bar']
+@_foo:
+    echo "example"
+
