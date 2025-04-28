@@ -35,11 +35,11 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 **Zero-config** development environment with **type safety** built in.
 
 ## ✨ Features TLDR
-* 🛠️ **Dev Tools**: Ruff (linting/formatting), MyPy (type checking), Pre-commit hooks
-* 🧠 **AI Ready**: Default configs for Cursor, Windsurfules, Claude Code
-* 💪 **Production**: Python 3.10+, uv package manager, testing setup
-* 🚀 **DX - Developer Experience**: VS Code integration, sensible defaults, quality documentation
-* 🔄 **CI/CD**: GitHub Actions workflows, automatic testing, version management
+- 🛠️ **Dev Tools**: Ruff (linting/formatting), MyPy (type checking), Pre-commit hooks
+- 🧠 **AI Ready**: Default configs for Cursor, Windsurf, Claude Code
+- 💪 **Production**: Python 3.10+, uv package manager, testing setup
+- 🚀 **DX - Developer Experience**: VS Code integration, sensible defaults, quality documentation
+- 🔄 **CI/CD**: GitHub Actions workflows, automatic testing, version management
 
 ## 🎯 Perfect For
 Teams and professionals needing maintainable, type-safe Python projects following best practices.
@@ -74,7 +74,7 @@ just run
 
 ## Complete Feature List
 
-## Development Tools
+### Development Tools
 
 - **Bootstrap dependency check and install with `make`**: Execute common development tasks with simple commands, standardizing workflows across team members.
 
@@ -92,7 +92,7 @@ just run
 
 - **YAML validation with `[TODO:tool under evaluation](https://github.com/smorin/py-launch-blueprint/issues/161)`**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
 
-## Project Structure & Management
+### Project Structure & Management
 
 - **Project configuration with `pyproject.toml`**: Organize all project settings in one standardized location, simplifying maintenance and configuration.
 
@@ -106,7 +106,7 @@ just run
 
 - **Copyright license automation**: Automatically add license headers to all files, ensuring legal compliance without manual effort.
 
-## Documentation
+### Documentation
 
 - **Documentation with `sphinx + MyST`**: Generate comprehensive documentation that supports both reStructuredText and Markdown, improving contributor accessibility.
 
@@ -114,7 +114,7 @@ just run
 
 - **Changelog management with `cog`**: Track and communicate changes effectively to users and team members, improving project transparency and adoption.
 
-## Testing & Quality Assurance
+### Testing & Quality Assurance
 
 - **Testing framework with `pytest`**: Write and run tests with a modern, powerful testing framework that supports fixtures and parameterization.
 
@@ -122,7 +122,7 @@ just run
 
 - **Matrix testing with `GitHub Actions`**: Run tests across multiple Python versions and operating systems, ensuring broad compatibility.
 
-## GitHub Integration
+### GitHub Integration
 
 - **Pull request template**: Guide contributors through the PR process with structured information requirements, improving submission quality.
 
@@ -142,7 +142,7 @@ just run
 
 - **CLA (Contributor License Agreement) check `[TODO:LOOKUP ISSUE](https://github.com/smorin/py-launch-blueprint/issues/162)`**: Ensure all contributors have signed appropriate licensing agreements, protecting the project legally.
 
-## IDE Integration
+### IDE Integration
 
 - **VS Code integration**: Provide optimized settings and configurations for Visual Studio Code, enhancing developer productivity.
 
@@ -150,7 +150,7 @@ just run
 
 - **Editor extensions recommendations**: Suggest optimal VS Code extensions automatically, standardizing the development environment.
 
-## AI Integration
+### AI Integration
 
 - **AI assistance with common agents `Cursor, Windsurf, Claude Code, Codex`**: Support popular AI coding assistants enabling AI-powered development.
 
@@ -158,7 +158,7 @@ just run
 
 - **Windsurf Rules configuration**: Configure Windsurf IDE to understand your project architecture, enhancing code generation quality.
 
-## Communication & Notifications
+### Communication & Notifications
 
 - **Slack integration for PRs and issues**: Send automated notifications to Slack when PRs or issues are opened/closed, keeping the team informed.
 
