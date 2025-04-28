@@ -71,12 +71,14 @@ alias f := format
 
 # Format TOML files (comments preserved via pyproject.toml config)
 @format-toml:
-    taplo format pyproject.toml
+    taplo format
+
+alias ft := format-toml
 
 # Check TOML formatting without modifying files
 @check-toml:
-    taplo check pyproject.toml
-alias ft := format-toml
+    taplo check
+
 alias ct := check-toml
 
 # Run linter (code style and quality checks)
