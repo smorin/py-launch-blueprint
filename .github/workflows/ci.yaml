@@ -34,7 +34,7 @@ jobs:
 
     # Format code
     - name: Install Taplo
-      run: cargo install taplo-cli
+      run: cargo install taplo-cli --version 0.8.0
 
     - name: Run type checker
       run: uvx mypy py_launch_blueprint/
