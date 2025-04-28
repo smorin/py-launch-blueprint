@@ -119,6 +119,33 @@ def test_cli_output_formats(runner, mock_client):
             assert "1" in result.output
 
 
+def test_cli_output_file(runner, mock_client, tmp_path):
+    """Test writing output to file."""
+    project_data = {
+        "id": "1",
+        "name": "Test Project",
+        "workspace": {"name": "Test Workspace"},
+    }
+
+    output_file = tmp_path / "output.txt"
+
+    with patch(
+        "py_launch_blueprint.projects.get_config", return_value=Config(token="test")
+    ):
+        with patch("questionary.checkbox") as mock_checkbox:
+            mock_checkbox.ask.return_value = [project_data]
+            mock_client.get_projects.return_value = [project_data]
+
+            with patch("py_launch_blueprint.projects.format_output", return_value="1"):
+                result = runner.invoke(
+                    main, ["--output", str(output_file), "--format", "text"]
+                )
+
+                assert result.exit_code == 0
+                assert output_file.exists()
+                assert output_file.read_text().strip() == "1"
+
+
 @patch("pyperclip.copy")
 def test_cli_copy_to_clipboard(mock_copy, runner, mock_client):
     """Test copying output to clipboard."""
