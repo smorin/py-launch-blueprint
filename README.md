@@ -26,11 +26,11 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 ## 🎯 Perfect For
 Teams and professionals needing maintainable, type-safe Python projects following best practices.
 
-# Complete Feature List
+## Complete Feature List
 
 ## Development Tools
 
-- **Bookstrap dependency check and install with `make`**: Execute common development tasks with simple commands, standardizing workflows across team members.
+- **Bootstrap dependency check and install with `make`**: Execute common development tasks with simple commands, standardizing workflows across team members.
 
 - **Command running with `just`**: Define and run project-specific commands with a modern Make alternative, simplifying complex operations with clear syntax.
 
@@ -44,7 +44,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **TOML formatting and validation with `taplo`**: Verify Toml files for syntax correctness, maintain consistent configuration files, ensuring readability and avoiding syntax errors in critical project settings.
 
-- **YAML validation with `(TODO:tool under evaluation)`**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
+- **YAML validation with `[TODO:tool under evaluation](https://github.com/smorin/py-launch-blueprint/issues/161)`**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
 
 ## Project Structure & Management
 
@@ -122,4 +122,6 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 Start your next Python project with confidence, knowing you're building on a foundation of best practices and modern development tools.
 
 ## Full documentation on ReadTheDocs including how to run.
-- [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/lates
+- [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
+
+
