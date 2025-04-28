@@ -1,6 +1,6 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-# Py Launch Blueprint: A Production-Ready 🐍  Python Project Template with Integrated Best Practices
+# Py Launch Blueprint: A Production-Ready 🐍 Python Project Template with Integrated Best Practices
  Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
 
 ![Py Launch Blueprint Logo](./template_images/py_launch_blueprint_logo_100x100.png)
@@ -23,12 +23,12 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 - 🚀 **DX - Developer Experience**: VS Code integration, sensible defaults, quality documentation
 - 🔄 **CI/CD**: GitHub Actions workflows, automatic testing, version management
 
-## 🎯 Perfect For
+### 🎯 Perfect For
 Teams and professionals needing maintainable, type-safe Python projects following best practices.
 
 ## Complete Feature List
 
-## Development Tools
+### Development Tools
 
 - **Bootstrap dependency check and install with `make`**: Execute common development tasks with simple commands, standardizing workflows across team members.
 
@@ -46,7 +46,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **YAML validation with `[TODO:tool under evaluation](https://github.com/smorin/py-launch-blueprint/issues/161)`**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
 
-## Project Structure & Management
+### Project Structure & Management
 
 - **Project configuration with `pyproject.toml`**: Organize all project settings in one standardized location, simplifying maintenance and configuration.
 
@@ -60,7 +60,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Copyright license automation**: Automatically add license headers to all files, ensuring legal compliance without manual effort.
 
-## Documentation
+### Documentation
 
 - **Documentation with `sphinx + MyST`**: Generate comprehensive documentation that supports both reStructuredText and Markdown, improving contributor accessibility.
 
@@ -68,7 +68,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Changelog management with `cog`**: Track and communicate changes effectively to users and team members, improving project transparency and adoption.
 
-## Testing & Quality Assurance
+### Testing & Quality Assurance
 
 - **Testing framework with `pytest`**: Write and run tests with a modern, powerful testing framework that supports fixtures and parameterization.
 
@@ -76,7 +76,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Matrix testing with `GitHub Actions`**: Run tests across multiple Python versions and operating systems, ensuring broad compatibility.
 
-## GitHub Integration
+### GitHub Integration
 
 - **Pull request template**: Guide contributors through the PR process with structured information requirements, improving submission quality.
 
@@ -96,7 +96,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **CLA (Contributor License Agreement) check `[TODO:LOOKUP ISSUE](https://github.com/smorin/py-launch-blueprint/issues/162)`**: Ensure all contributors have signed appropriate licensing agreements, protecting the project legally.
 
-## IDE Integration
+### IDE Integration
 
 - **VS Code integration**: Provide optimized settings and configurations for Visual Studio Code, enhancing developer productivity.
 
@@ -104,7 +104,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Editor extensions recommendations**: Suggest optimal VS Code extensions automatically, standardizing the development environment.
 
-## AI Integration
+### AI Integration
 
 - **AI assistance with common agents `Cursor, Windsurf, Claude Code, Codex`**: Support popular AI coding assistants enabling AI-powered development.
 
@@ -112,7 +112,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Windsurf Rules configuration**: Configure Windsurf IDE to understand your project architecture, enhancing code generation quality.
 
-## Communication & Notifications
+### Communication & Notifications
 
 - **Slack integration for PRs and issues**: Send automated notifications to Slack when PRs or issues are opened/closed, keeping the team informed.
 
@@ -121,7 +121,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 Start your next Python project with confidence, knowing you're building on a foundation of best practices and modern development tools.
 
-## Full documentation on ReadTheDocs including how to run.
+## Full documentation on ReadTheDocs including how to run
 - [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
 
 
