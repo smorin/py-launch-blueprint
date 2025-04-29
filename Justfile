@@ -142,6 +142,7 @@ debug-info:
         fi
         echo "- Kernel: $(uname -r)"
         echo "- Architecture: $(uname -m)"
+        echo "- Git Branch: $(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo 'Not a git repository or error')"
     elif [ "{{os_family()}}" = "windows" ]; then
         # Basic Windows info, might need refinement based on user env (Git Bash, Cygwin, WSL)
         echo "- Windows Version: $(systeminfo | findstr /B /C:"OS Name" | sed 's/.*: //')" # May need admin rights or fail
@@ -164,6 +165,10 @@ debug-info:
     echo ""
     echo "### Installed Project Packages"
     if command -v uv >/dev/null 2>&1; then uv pip list; else echo "uv not found, cannot list packages"; fi
+
+    echo ""
+    echo "### Declared Dependencies (pyproject.toml)"
+    grep -E '^\[project(\.optional-dependencies)?\.\[^]]*\]|^\s*\w+\s*=|^\s*"?[^"=\s]+"?\s*=' pyproject.toml 2>/dev/null || echo "Could not read dependencies from pyproject.toml"
 
 # Clean up temporary files and caches
 @clean:
