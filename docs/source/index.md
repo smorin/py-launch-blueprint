@@ -122,6 +122,8 @@ just run
 
 - **Matrix testing with `GitHub Actions`**: Run tests across multiple Python versions and operating systems, ensuring broad compatibility.
 
+- **Simplified debugging info with `just debug-info`**: Automatically collect and format essential system, tool, and dependency information for streamlined bug reporting via a simple command.
+
 ### GitHub Integration
 
 - **Pull request template**: Guide contributors through the PR process with structured information requirements, improving submission quality.
