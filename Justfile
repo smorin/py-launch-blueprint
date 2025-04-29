@@ -158,6 +158,8 @@ debug-info:
     echo "ruff: $(uvx ruff --version)"
     if command -v git >/dev/null 2>&1; then echo "git: $(git --version)"; else echo "git: Not Found"; fi
     if command -v just >/dev/null 2>&1; then echo "just: $(just --version)"; else echo "just: Not Found"; fi
+    echo "CLI Version:{{command_name}}: $(uvx --with-editable . {{command_name}} --version 2>/dev/null || echo 'Not Found or Error')"
+    echo "Project Version: $(uvx --with-editable . python -c "import {{py_package_name}}; print({{py_package_name}}.__version__)" 2>/dev/null || echo 'Version Not Found')"
 
     echo ""
     echo "### Installed Project Packages"
