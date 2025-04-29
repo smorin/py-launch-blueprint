@@ -116,6 +116,64 @@ alias b := build
 
 alias pc := pre-commit-run
 
+# Check installed package version
+@version cmd=command_name:
+    {{cmd}} --version
+
+# Clean up temporary files and caches
+@clean:
+    rm -rf .pytest_cache
+    rm -rf .mypy_cache
+    rm -rf .ruff_cache
+    rm -rf .coverage
+    rm -rf htmlcov
+    rm -rf dist
+    rm -rf build
+    rm -rf *.egg-info
+    rm -rf .venv
+    rm -rf {{py_package_name}}/__pycache__/
+# Install Sphinx and any necessary extensions
+@install-docs:
+    @#!/usr/bin/env sh
+    if ! command -v uv >/dev/null 2>&1; then echo "uv is not installed"; exit 1; fi
+    echo "Installing Sphinx..."
+    uv pip install sphinx
+    echo "Installing required Sphinx extensions..."
+    uv pip install sphinx-rtd-theme sphinx-autobuild myst-parser
+    echo "{{GREEN}} Documentation dependencies installed"
+
+# Not usually needed, Initialize docs only if you are starting a new project
+@init-docs:
+    uv run --extra docs  --directory=docs sphinx-quickstart
+# recommend you separate "source" and "build" directories within the root path (docs/source and docs/build)
+
+# Show help for documentation sphinx
+@docs-help:
+    cd docs && make
+
+# Build documentation (default html format) change the target if needed e.g. just docs latexpdf
+@docs target="html":
+    cd docs && make {{target}}
+
+# Run documentation server with hot reloading
+@docs-dev:
+    cd docs && make hotreloadhtml
+
+# Clean documentation build files
+@docs-clean:
+    cd docs && make clean
+
+# Update CONTRIBUTORS.md file
+@contributors:
+    echo "Updating CONTRIBUTORS.md..."
+    if [ "$$OS" = "Windows_NT" ]; then \
+        powershell -File scripts/update_contributors.ps1; \
+    else \
+        echo "{{YELLOW}}TODO: Add macOS/Linux command to update CONTRIBUTORS.md here{{NC}}"; \
+        # Example placeholder: ./scripts/update_contributors.sh
+    fi
+    echo "{{CHECK}} Contributors list updated"
+
 # Generate changelog from conventional commits
 changelog:
     echo "Generating changelog..."
@@ -177,55 +235,9 @@ setup-cog-hooks:
     cog install-hook commit-msg
     echo "{{GREEN}}✓{{NC}} Commit message hook installed"
 
-# Check installed package version
-@version cmd=command_name:
-    {{cmd}} --version
-
-# Clean up temporary files and caches
-@clean:
-    rm -rf .pytest_cache
-    rm -rf .mypy_cache
-    rm -rf .ruff_cache
-    rm -rf .coverage
-    rm -rf htmlcov
-    rm -rf dist
-    rm -rf build
-    rm -rf *.egg-info
-    rm -rf .venv
-    rm -rf {{py_package_name}}/__pycache__/
-
-
-# Not usually needed, Initialize docs only if you are starting a new project
-@init-docs:
-    uv run --extra docs  --directory=docs sphinx-quickstart
-# recommend you separate "source" and "build" directories within the root path (docs/source and docs/build)
-
-# Show help for documentation sphinx
-@docs-help:
-    cd docs && make
-
-# Build documentation (default html format) change the target if needed e.g. just docs latexpdf
-@docs target="html":
-    cd docs && make {{target}}
-
-# Run documentation server with hot reloading
-@docs-dev:
-    cd docs && make hotreloadhtml
-
-# Clean documentation build files
-@docs-clean:
-    cd docs && make clean
-
-# Update CONTRIBUTORS.md file
-@contributors:
-    echo "Updating CONTRIBUTORS.md..."
-    if [ "$$OS" = "Windows_NT" ]; then \
-        powershell -File scripts/update_contributors.ps1; \
-    else \
-        echo "{{YELLOW}}TODO: Add macOS/Linux command to update CONTRIBUTORS.md here{{NC}}"; \
-        # Example placeholder: ./scripts/update_contributors.sh
-    fi
-    echo "{{CHECK}} Contributors list updated"
+changelog:
+    # Command to generate the changelog locally
+    cog generate --config cog.toml
 
 # Alternative commands when virtual environment is activated:
 # These commands can be used after running 'source .venv/bin/activate'

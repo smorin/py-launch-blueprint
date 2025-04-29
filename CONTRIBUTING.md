@@ -47,6 +47,12 @@ Please ensure that your pull request adheres to the following guidelines:
 - Include tests for your changes
 - Ensure that all tests pass
 - Update the documentation as needed
+
+## Code of Conduct
+
+We are committed to fostering a welcoming and inclusive community. Please read and adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) when participating in the project.
+
+
 - **Follow the conventional commit guidelines** (see below)
 
 ## Conventional Commits
@@ -56,3 +62,10 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 ### Commit Message Format
 
 Each commit message should be structured as follows:
+
+
+## Getting Help
+
+If you need help or have any questions, feel free to open an issue on GitHub or reach out to the maintainers.
+
+Thank you for contributing to Py Launch Blueprint!
