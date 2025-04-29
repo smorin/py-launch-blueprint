@@ -2,6 +2,7 @@
 # The remote repository to use for generating links
 repository = "https://github.com/smorin/py-launch-blueprint"
 # The style of the changelog entries (possible values: "angular", "conventional")
+template = "conventional"
 remote = "origin"
 path = "CHANGELOG.md"
 
