@@ -16,7 +16,7 @@ Taplo is a fast and customizable formatter and validator for TOML files. Written
 - **Cargo Dependency**: Requires Rust toolchain for installation, which can slow down CI without caching.
 - **Less Widespread**: Fewer integrations in some ecosystems compared to JSON/YAML linters.
 
-### 🛠 Usage
+**🛠 Usage**:
 
 **Format TOML files:**
 
