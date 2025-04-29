@@ -258,10 +258,16 @@ pr-to-testrepo pr_number new_repo_name="test-actions-repo":
 
     echo -e "{{BLUE}}Initializing new git repository...{{NC}}"
     git init -b main # Initialize with main branch
-    git add .
 
-    # Check if there are any changes to commit
-    if git diff --staged --quiet; then
+    # Create the marker file
+    echo "This repository was created by the pr-to-testrepo just recipe." > pr2testrepo.txt
+    echo -e "{{BLUE}}Created marker file pr2testrepo.txt{{NC}}"
+
+    git add .
+    git add pr2testrepo.txt # Explicitly add marker file
+
+    # Check if there are any changes to commit (other than the marker file)
+    if git diff --staged --quiet -- ':!pr2testrepo.txt'; then
         echo -e "{{YELLOW}}Warning: No changes detected after checkout. Initial commit will be empty.{{NC}}"
     fi
 
@@ -292,16 +298,43 @@ pr-to-testrepo pr_number new_repo_name="test-actions-repo":
 
 # Cleanup / Delete test repository from a PR from pr-to-testrepo
 [group('repo-pr-testing')]
-@clean-pr-to-testrepo new_repo_name="test-actions-repo":
-    echo "{{BLUE}}Shell in use: $SHELL{{NC}}"
-    gh repo delete {{new_repo_name}} --yes
-    # -e isn't needed here for an unknown reason.
-    echo "{{BLUE}}Shell in use: $SHELL{{NC}}"
-    echo "{{CHECK}} Repository deleted."
-    echo "{{YELLOW}}Please clean up the local git repository and ...{{NC}}"
-    echo "{{RED}}MANUALLY EXECUTE THE NEXT COMMAND{{NC}}"
-    echo "{{BLUE}}cd ..;rm -rf {{new_repo_name}};cd {{repo_name}}{{NC}}"
-    echo "cd ..;rm -rf {{new_repo_name}};cd {{repo_name}}" | {{CLIPBOARD_CMD}}
+[confirm("Are you sure you want to delete the remote repository '{{new_repo_name}}' and clean up the local directory?")]
+clean-pr-to-testrepo new_repo_name="test-actions-repo":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    echo -e "{{BLUE}}Shell in use: $SHELL{{NC}}"
+
+    # Safety check: Ensure the marker file exists in the parent directory
+    # We expect this command to be run from the original repo, 
+    # and the test repo to be a sibling directory.
+    marker_file="../{{new_repo_name}}/pr2testrepo.txt"
+
+    if [[ ! -f "$marker_file" ]]; then
+        echo -e "{{RED}}Error: Marker file '$marker_file' not found relative to current directory.{{NC}}"
+        echo -e "{{YELLOW}}This might not be a repository created by 'pr-to-testrepo', the local directory might be missing, or you might be in the wrong directory.{{NC}}"
+        echo -e "{{YELLOW}}Aborting delete. Please ensure you are in the original repository directory.{{NC}}"
+        exit 1
+    fi
+    echo -e "{{GREEN}}{{CHECK}} Marker file found. Proceeding with deletion...{{NC}}"
+
+    # Delete the remote GitHub repository
+    echo -e "{{BLUE}}Attempting to delete remote repository '{{new_repo_name}}'...{{NC}}"
+    if ! gh repo delete {{new_repo_name}} --yes; then
+        echo -e "{{RED}}Error: Failed to delete remote repository '{{new_repo_name}}'. It might not exist or permissions are missing.{{NC}}"
+        # Do not exit immediately, still offer local cleanup instructions
+    else
+         echo -e "{{GREEN}}{{CHECK}} Remote repository deleted successfully.{{NC}}"
+    fi
+    
+    echo ""
+    echo -e "{{YELLOW}}Remote deletion step complete (check status above).{{NC}}"
+    echo -e "{{YELLOW}}Please clean up the local git repository directory:{{NC}}"
+    echo -e "{{RED}}MANUALLY EXECUTE THE NEXT COMMAND(S){{NC}}"
+    local_cleanup_cmd="cd .. && rm -rf {{new_repo_name}} && cd {{repo_name}}"
+    echo -e "{{BLUE}}${local_cleanup_cmd}{{NC}}"
+    # Attempt to copy the cleanup command to clipboard
+    echo "${local_cleanup_cmd}" | {{CLIPBOARD_CMD}} || echo "(Failed to copy command to clipboard)"
 
 # Create a test Pull Request for triggering GitHub Actions
 [group('repo-pr-testing')]
