@@ -23,7 +23,7 @@ Taplo is a fast and customizable formatter and validator for TOML files. Written
 ```bash
 taplo format
 
-```.taplo.toml
+```toml
 [formatting]
 respect-ignores = true
 line-width = 80
