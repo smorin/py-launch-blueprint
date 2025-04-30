@@ -20,7 +20,6 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
   - ⚡ Ruff for lightning-fast linting and formatting
   - 🔍 Pre-commit hooks for code quality enforcement
   - 📝 Type checking with MyPy and Pylance
-  - 📋 Taplo for TOML file formatting and validation
 - **AI Enabled**:
   - 🧠 Default .cursor/rules/projectenv.mdc
   - 🧠 Default .windsurfules
