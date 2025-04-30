@@ -71,13 +71,13 @@ alias f := format
 
 # Format TOML files (comments preserved via pyproject.toml config)
 @format-toml:
-    taplo format
+    taplo format --config .taplo.toml
 
 alias ft := format-toml
 
 # Check TOML formatting without modifying files
 @check-toml:
-    taplo check
+    taplo check --config .taplo.toml
 
 alias ct := check-toml
 
