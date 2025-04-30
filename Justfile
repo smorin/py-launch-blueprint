@@ -51,6 +51,7 @@ DASH := "$(GRAY)-$(NC)"
     if ! command -v python3 >/dev/null 2>&1; then echo "python3 is not installed"; exit 1; fi
     if ! command -v just >/dev/null 2>&1; then echo "just is not installed"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}"; fi
+    if ! command -v taplo >/dev/null 2>&1; then echo "Taplo is not installed"; exit 1; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -58,6 +59,14 @@ alias c := check-deps
 # Install package in editable mode with dev dependencies
 @install-dev: check-deps
     uv pip install --editable ".[dev]"
+
+# Install Taplo in editable mode with dev dependencies
+@install-taplo:
+	if ! command -v taplo >/dev/null 2>&1; then \
+		cargo install taplo-cli --version 0.8.0 && echo "{{GREEN}} Taplo installed successfully{{NC}}"; \
+	else \
+		echo "{{YELLOW}}Taplo is already installed{{NC}}"; \
+	fi
 
 # Format code
 @format:
