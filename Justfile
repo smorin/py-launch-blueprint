@@ -356,17 +356,9 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     CURRENT_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
     echo "{{BLUE}}CURRENT_BRANCH: $CURRENT_BRANCH_NAME{{NC}}"
+    # Ensure we are on the main/master branch before starting Add common main branch names here if needed
     if [[ "$CURRENT_BRANCH_NAME" != "main" && "$CURRENT_BRANCH_NAME" != "master" ]]; then
         echo "{{YELLOW}}Warning: Not on main/master branch. Checking out main...{{NC}}"
-        if ! git checkout main; then
-            echo "{{RED}}Error: Could not checkout main branch. Please switch manually and retry.{{NC}}"
-            exit 1
-        fi
-    fi
-
-    # Ensure we are on the main/master branch before starting Add common main branch names here if needed
-    if [[ "$CURRENT_BRANCH_NAME" != "main" ]]; then 
-        echo "Warning: Not on main/master branch. Checking out main..."
         if ! git checkout main; then
             echo "{{RED}}Error: Could not checkout main branch. Please switch manually and retry.{{NC}}"
             exit 1
