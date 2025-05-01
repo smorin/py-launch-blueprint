@@ -97,7 +97,7 @@ body:
         git: git version 2.43.0
         just: just 1.21.0
     validations:
-      required: false
+      required: true
 
   - type: textarea
     id: screenshots
