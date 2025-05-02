@@ -174,12 +174,12 @@ alias pc := pre-commit-run
     fi
     echo "{{CHECK}} Contributors list updated"
 
-# Generate changelog from conventional commits
-changelog:
-    echo "Generating changelog..."
-    command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
-    cog changelog --at=HEAD
-    echo "{{GREEN}}✓{{NC}} Changelog generated"
+# # Generate changelog from conventional commits
+# changelog:
+#     echo "Generating changelog..."
+#     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
+#     cog changelog --at=HEAD
+#     echo "{{GREEN}}✓{{NC}} Changelog generated"
 
 # Verify commit messages follow conventional commit format
 verify-commits start="HEAD~10" end="HEAD":
@@ -235,9 +235,9 @@ setup-cog-hooks:
     cog install-hook commit-msg
     echo "{{GREEN}}✓{{NC}} Commit message hook installed"
 
-changelog:
-    # Command to generate the changelog locally
-    cog generate --config cog.toml
+# changelog:
+#     # Command to generate the changelog locally
+#     cog generate --config cog.toml
 
 # Alternative commands when virtual environment is activated:
 # These commands can be used after running 'source .venv/bin/activate'
