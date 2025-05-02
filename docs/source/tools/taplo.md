@@ -94,11 +94,9 @@ newline-style = "LF"
 ### 🛑 Disabling Taplo
 
 **To temporarily skip formatting:**
-
 * Disable specific rules in `.taplo.toml`
 
 **To completely remove Taplo:**
-
 * Delete `.taplo.toml`
 * Remove Taplo commands from your `Justfile`
 
@@ -108,6 +106,4 @@ newline-style = "LF"
 
 * [📘 Taplo Docs](https://taplo.tamasfe.dev/)
 * [🛠 Taplo GitHub](https://github.com/tamasfe/taplo)
-* [🧩 VS Code Extension](https://marketplace.visualstudio.com/items?itemName=tamasfe.taplo)
-
 ---
