@@ -35,6 +35,11 @@ jobs:
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
 
+    #install just
+    - name: Install Just
+      run: |
+        curl -fsSL https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+        
     # Format code
     - name: Install Taplo
       run: just install-taplo
