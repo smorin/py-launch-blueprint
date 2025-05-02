@@ -1,11 +1,10 @@
-# .github/workflows/ci.yml
 name: CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test:
@@ -28,19 +27,17 @@ jobs:
     - name: Install the project
       run: uv sync --all-extras --dev
 
-#    - name: Run tests
-#      # For example, using `pytest`
-#      run: uv run pytest tests
+    # Run type checker
+    - name: Run type checker
+      run: uvx mypy py_launch_blueprint/
+
+    # Check linters using ruff
+    - name: Check linters (ruff)
+      run: uvx ruff check py_launch_blueprint/
 
     # Format code
     - name: Install Taplo
       run: just install-taplo
-
-    - name: Run type checker
-      run: uvx mypy py_launch_blueprint/
-
-    - name: Check linters
-      run: uvx ruff check py_launch_blueprint/
 
     - name: Run pre-commit checks
       run: |
@@ -54,8 +51,9 @@ jobs:
 #      run: |
 #        pytest --cov=./ --cov-report=xml
 
-#    - name: Upload coverage
-#      uses: codecov/codecov-action@v4
+    # Upload coverage (if tests are being run)
+    # - name: Upload coverage
+    #   uses: codecov/codecov-action@v4
 
   # Only run security checks on pull requests from the main repository
   security:
@@ -70,13 +68,13 @@ jobs:
         api-key: ${{ secrets.SAFETY_API_KEY }}
         args: --detailed-output # To always see detailed output from this action
 
+  # The publish job is commented out, but here's a reference if you want to re-enable it
   # publish:
   #   needs: [test, security]
   #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
   #   runs-on: ubuntu-latest
   #   steps:
   #   - uses: actions/checkout@v4
-
   #   - name: Build and publish to PyPI
   #     env:
   #       TWINE_USERNAME: __token__
