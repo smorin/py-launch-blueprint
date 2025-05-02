@@ -132,6 +132,55 @@ alias pc := pre-commit-run
 @version cmd=command_name:
     {{cmd}} --version
 
+# Collect system and environment information for debugging
+debug-info:
+    #!/usr/bin/env sh
+    echo "## Debug Information"
+    echo ""
+    echo "### System Information" 
+    echo "- Date: $(date)"
+    echo "- OS Family: {{os_family()}}"
+    if [ "{{os_family()}}" = "macos" ]; then
+        echo "- macOS Version: $(sw_vers -productVersion)"
+        echo "- Kernel: $(uname -r)"
+        echo "- Architecture: $(uname -m)"
+    elif [ "{{os_family()}}" = "unix" ]; then
+        if command -v lsb_release >/dev/null 2>&1; then
+            echo "- Distribution: $(lsb_release -ds)"
+        elif [ -f /etc/os-release ]; then
+            . /etc/os-release
+            echo "- Distribution: ${PRETTY_NAME}"
+        fi
+        echo "- Kernel: $(uname -r)"
+        echo "- Architecture: $(uname -m)"
+        echo "- Git Branch: $(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo 'Not a git repository or error')"
+    elif [ "{{os_family()}}" = "windows" ]; then
+        # Basic Windows info, might need refinement based on user env (Git Bash, Cygwin, WSL)
+        echo "- Windows Version: $(systeminfo | findstr /B /C:"OS Name" | sed 's/.*: //')" # May need admin rights or fail
+        echo "- Kernel: $(uname -r)"
+        echo "- Architecture: $(uname -m)"
+    else
+        echo "- Kernel: $(uname -r)"
+        echo "- Architecture: $(uname -m)"
+    fi
+    echo ""
+    echo "### Development Tools"
+    if command -v python3 >/dev/null 2>&1; then echo "python: $(python3 --version)"; else echo "python: Not Found"; fi
+    if command -v uv >/dev/null 2>&1; then echo "uv: $(uv --version)"; else echo "uv: Not Found"; fi
+    echo "ruff: $(uvx ruff --version)"
+    if command -v git >/dev/null 2>&1; then echo "git: $(git --version)"; else echo "git: Not Found"; fi
+    if command -v just >/dev/null 2>&1; then echo "just: $(just --version)"; else echo "just: Not Found"; fi
+    echo "CLI Version:{{command_name}}: $(uvx --with-editable . {{command_name}} --version 2>/dev/null || echo 'Not Found or Error')"
+    echo "Project Version: $(uvx --with-editable . python -c 'import {{py_package_name}}; print({{py_package_name}}.__version__)' 2>/dev/null || echo 'Version Not Found')"
+
+    echo ""
+    echo "### Installed Project Packages"
+    if command -v uv >/dev/null 2>&1; then uv pip list; else echo "uv not found, cannot list packages"; fi
+
+    echo ""
+    echo "### Declared Dependencies (pyproject.toml)"
+    grep -E '^\[project(\.optional-dependencies)?\.\[^]]*\]|^\s*\w+\s*=|^\s*"?[^"=\s]+"?\s*=' pyproject.toml 2>/dev/null || echo "Could not read dependencies from pyproject.toml"
+
 # Clean up temporary files and caches
 @clean:
     rm -rf .pytest_cache
@@ -144,6 +193,7 @@ alias pc := pre-commit-run
     rm -rf *.egg-info
     rm -rf .venv
     rm -rf {{py_package_name}}/__pycache__/
+
 # Install Sphinx and any necessary extensions
 @install-docs:
     @#!/usr/bin/env sh
