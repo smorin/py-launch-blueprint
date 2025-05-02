@@ -47,11 +47,13 @@ jobs:
     - name: Check TOML formatting
       run: |
         taplo check '**/*.toml'
-#    - name: Run tests with coverage
-#      run: |
-#        pytest --cov=./ --cov-report=xml
 
-    # Upload coverage (if tests are being run)
+    # You can uncomment the following if you want to run tests with coverage
+    # - name: Run tests with coverage
+    #   run: |
+    #     pytest --cov=./ --cov-report=xml
+   
+   # Upload coverage (if tests are being run)
     # - name: Upload coverage
     #   uses: codecov/codecov-action@v4
 
