@@ -48,14 +48,37 @@ DATE_TIME := datetime("%Y-%m-%d-%H-%M")
 BRANCH_NAME := "test-actions-" + DATE_TIME
 
 # List all available recipes
+[group('help')]
 @default:
     just --list --unsorted
 
+# ================================
+# COMMANDS GROUPS
+# ================================
+# SETUP: Initial project setup and environment initialization
+# INSTALL: Installing the project and its dependencies
+# UPDATE: Updating dependencies, versions, and configurations
+# DEV: Development workflow commands and utilities
+# TEST: Test execution and test environment management
+# BUILD: Building distributable packages and artifacts
+# RUN: Executing the application in various modes
+# DOCS: Documentation generation and management
+# PRE-COMMIT: Linting, formatting, and code quality checks
+# HELP: Usage instructions and command information
+# UTILITIES: General utility and maintenance commands
+# DEBUG: Debugging and troubleshooting tools
+# RELEASES: Version management and publishing
+# WORKFLOW: CI/CD pipelines and multi-step processes
+# QUICK START: Essential commands for basic usage
+# ================================
+
 # Select a just recipe
+[group('utilities'), group('help')]
 @select-shell:
     @just --choose
     
 # Check if required tools are installed
+[group('setup'), group('debug')]
 @check-deps:
     @#!/usr/bin/env sh
     if ! command -v uv >/dev/null 2>&1; then echo "uv is not installed"; exit 1; fi
@@ -67,10 +90,12 @@ BRANCH_NAME := "test-actions-" + DATE_TIME
 alias c := check-deps
 
 # Install package in editable mode with dev dependencies
+[group('install'), group('quick start')]
 @install-dev: check-deps
     uv pip install --editable ".[dev]"
 
 # Format code
+[group('dev')]
 @format:
     echo "Running formatters..."
     echo "  ruff format"
@@ -81,6 +106,7 @@ alias c := check-deps
 alias f := format
 
 # Run linter (code style and quality checks)
+[group('dev')]
 @lint:
     echo "Running linter..."
     echo "  ruff"
@@ -89,6 +115,7 @@ alias f := format
 alias l := lint
 
 # Run type checker
+[group('dev')]
 @typecheck:
     echo "Running type checker..."
     echo "  mypy"
@@ -97,42 +124,50 @@ alias l := lint
 alias tc := typecheck
 
 # Run tests
+[group('test'), group('dev')]
 @test *options:
     uvx --with-editable . pytest {{options}}
 
 alias t := test
 
 # Run all checks
+[group('test'), group('dev'), group('quick start')]
 @check: test lint typecheck
     echo "All checks passed!"
 
 alias ca := check
 
 # Run package command.
+[group('run'), group('quick start')]
 @run cmd=command_name *args=args:
     uvx --with-editable . {{cmd}} {{args}}
 
 # Build package
+[group('build'), group('dev')]
 @build: check
-    uvx --with-editable . build
+    uvx --with-editable . build #TODO: fix this does not work
 
 alias b := build
 
 # Set up pre-commit hooks
+[group('setup'), group('pre-commit')]
 @pre-commit-setup:
     uvx --with-editable . pre-commit install
 
 # Run all pre-commit Hooks
+[group('pre-commit')]
 @pre-commit-run:
     uvx --with-editable . pre-commit run --all
 
 alias pc := pre-commit-run
 
 # Check installed package version
+[group('releases'), group('utilities')]
 @version cmd=command_name:
     {{cmd}} --version
 
 # Collect system and environment information for debugging
+[group('debug')]
 debug-info:
     #!/usr/bin/env sh
     echo "## Debug Information"
@@ -182,6 +217,7 @@ debug-info:
     grep -E '^\[project(\.optional-dependencies)?\.\[^]]*\]|^\s*\w+\s*=|^\s*"?[^"=\s]+"?\s*=' pyproject.toml 2>/dev/null || echo "Could not read dependencies from pyproject.toml"
 
 # Clean up temporary files and caches
+[group('clean')]
 @clean:
     rm -rf .pytest_cache
     rm -rf .mypy_cache
@@ -195,6 +231,7 @@ debug-info:
     rm -rf {{py_package_name}}/__pycache__/
 
 # Install Sphinx and any necessary extensions
+[group('docs'), group('install')]
 @install-docs:
     @#!/usr/bin/env sh
     if ! command -v uv >/dev/null 2>&1; then echo "uv is not installed"; exit 1; fi
@@ -205,27 +242,33 @@ debug-info:
     echo -e "{{GREEN}} Documentation dependencies installed{{NC}}"
 
 # Not usually needed, Initialize docs only if you are starting a new project
+[group('docs'), group('setup')]
 @init-docs:
     uv run --extra docs  --directory=docs sphinx-quickstart
 # recommend you separate "source" and "build" directories within the root path (docs/source and docs/build)
 
 # Show help for documentation sphinx
+[group('docs'), group('help')]
 @docs-help:
     cd docs && make
 
 # Build documentation (default html format) change the target if needed e.g. just docs latexpdf
+[group('docs'), group('build')]
 @docs target="html":
     cd docs && make {{target}}
 
 # Run documentation server with hot reloading
+[group('docs'), group('run'), group('dev')]
 @docs-dev:
     cd docs && make hotreloadhtml
 
 # Clean documentation build files
+[group('docs'), group('clean')]
 @docs-clean:
     cd docs && make clean
 
 # Update CONTRIBUTORS.md file
+[group('build')]
 @contributors:
     echo "Updating CONTRIBUTORS.md..."
     if [ "$$OS" = "Windows_NT" ]; then \
@@ -244,12 +287,14 @@ debug-info:
 #     echo "{{GREEN}}✓{{NC}} Changelog generated"
 
 # Verify commit messages follow conventional commit format
+[group('pre-commit')]
 verify-commits start="HEAD~10" end="HEAD":
     echo "Verifying commit messages..."
     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
     cog verify --from={{start}} --to={{end}} && echo "{{GREEN}}✓{{NC}} All commits follow conventional format" || { echo "{{RED}}✗{{NC}} Some commits do not follow conventional format"; exit 1; }
 
 # Bump version based on conventional commits
+[group('releases')]
 bump type="auto":
     echo "Bumping version..."
     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
@@ -257,12 +302,14 @@ bump type="auto":
     echo "{{GREEN}}✓{{NC}} Version bumped"
 
 # Create a conventional commit (interactive)
+[group('pre-commit')]
 commit:
     echo "Creating conventional commit..."
     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
     cog commit
 
 # Install COG (Cocogitto) for changelog and commit management
+[group('install'), group('releases')]
 install-cog:
     echo "Installing Cocogitto (cog)..."
     case "$(uname -s)" in \
@@ -292,6 +339,7 @@ install-cog:
     command -v cog >/dev/null 2>&1 && echo "{{GREEN}}✓{{NC}} Cocogitto installed successfully" || echo "{{RED}}✗{{NC}} Failed to install Cocogitto"
 
 # Check if COG is installed and setup pre-commit hook for commit message verification
+[group('setup'), group('pre-commit')]
 setup-cog-hooks:
     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; just install-cog; }
     cog install-hook commit-msg
@@ -305,6 +353,7 @@ setup-cog-hooks:
 # These commands can be used after running 'source .venv/bin/activate'
 
 # Setup virtual environment
+[group('legacy')]
 @setup-venv:
     python3 -m venv .venv
     echo "Note: After setup, activate the virtual environment with:"
@@ -312,32 +361,37 @@ setup-cog-hooks:
     echo "  .venv\Scripts\activate  # On Windows"
 
 # Install in development mode
+[group('legacy')]
 @install-dev-pip:
     pip install --editable ".[dev]"
 
 # Format code (includes ruff format and import sorting)
+[group('legacy')]
 @format-pip:
     echo "Running linter..."
     echo "  ruff"
     ruff format {{py_package_name}}/
 
 # Run linter (code style and quality checks)
+[group('legacy')]
 @lint-pip:
     ruff check {{py_package_name}}/
     ruff check --select I --fix {{py_package_name}}/
 
 # Run type checker
+[group('legacy')]
 @typecheck-pip:
     echo "Running type checker..."
     echo "  mypy"
     mypy {{py_package_name}}/
 
 # Run tests
+[group('legacy')]
 @test-pip *options:
     pytest {{options}}
 
 # Create a test repository from a PR
-[group('repo-pr-testing')]
+[group('workflow')]
 [confirm("Are you sure you want to create a new repository from a PR?")]
 pr-to-testrepo pr_number new_repo_name="test-actions-repo":
     #!/usr/bin/env bash
@@ -417,7 +471,7 @@ pr-to-testrepo pr_number new_repo_name="test-actions-repo":
  
 
 # Cleanup / Delete test repository from a PR from pr-to-testrepo
-[group('repo-pr-testing')]
+[group('workflow')]
 [confirm("Are you sure you want to delete the remote repository '{{new_repo_name}}' and clean up the local directory?")]
 clean-pr-to-testrepo new_repo_name="test-actions-repo":
     #!/usr/bin/env bash
@@ -457,7 +511,7 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     echo "${local_cleanup_cmd}" | {{CLIPBOARD_CMD}} || echo "(Failed to copy command to clipboard)"
 
 # Create a test Pull Request for triggering GitHub Actions
-[group('repo-pr-testing')]
+[group('workflow')]
 @create-test-pr message="Test PR for GitHub Actions verification":
     #!/usr/bin/env bash
     set -euo pipefail
@@ -544,3 +598,14 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 [working-directory: 'bar']
 @_foo:
     echo "example"
+
+[group('dev'), group('quick start')]
+@dev:
+    just format
+    just lint
+    just test
+    # just build
+    # just run
+
+# Alias for dev (full developer cycle: format → lint → test → build)
+alias cycle := dev
