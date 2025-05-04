@@ -46,7 +46,7 @@ jobs:
 
     - name: Run pre-commit checks
       run: |
-        uv pip install pre-commit==3.7.0
+        pip install pre-commit==3.7.0
         pre-commit run --all-files
 
     - name: Check TOML formatting
