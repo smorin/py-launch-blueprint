@@ -1,3 +1,4 @@
+#pyproject.toml
 [project]
 name = "py_launch_blueprint"
 dynamic = ["version"]  #make version dynamic
