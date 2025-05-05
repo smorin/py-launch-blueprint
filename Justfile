@@ -96,6 +96,7 @@ alias c := check-deps
     uv pip install --editable ".[dev]"
 
 # Install Taplo in editable mode with dev dependencies
+[group('install')]
 @install-taplo:
 	if ! command -v taplo >/dev/null 2>&1; then \
 		cargo install taplo-cli  && echo "{{GREEN}} Taplo installed successfully{{NC}}"; \
@@ -115,12 +116,14 @@ alias c := check-deps
 alias f := format
 
 # Format TOML files (comments preserved via pyproject.toml config)
+[group('dev')]
 @format-toml:
     taplo format --config .taplo.toml
 
 alias ft := format-toml
 
 # Check TOML formatting without modifying files
+[group('dev')]
 @check-toml:
     taplo check --config .taplo.toml
 
