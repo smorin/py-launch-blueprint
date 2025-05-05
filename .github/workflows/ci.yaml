@@ -27,6 +27,9 @@ jobs:
     - name: Install the project
       run: uv sync --all-extras --dev
 
+    - name: Install pytest
+      run: pip install pytest
+
     # Run type checker
     - name: Run type checker
       run: uvx mypy py_launch_blueprint/
@@ -34,6 +37,13 @@ jobs:
     # Check linters using ruff
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
+
+    # Run pre-commit checks
+    - name: Run pre-commit checks
+      run: |
+       pip install pre-commit==3.7.0
+       pre-commit install
+       pre-commit run --all-files
 
     # You can uncomment the following if you want to run tests with coverage
     # - name: Run tests with coverage
