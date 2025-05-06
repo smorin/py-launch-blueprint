@@ -2,14 +2,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Start Debugging py_launch_blueprint",
+            "name": "Python: Launch Main",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/py_launch_blueprint/projects.py",
             "console": "integratedTerminal"
         },
         {
-            "name": "Start Debugging py_launch_blueprint (With Args)",
+            "name": "Python: Launch Main (With Args)",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/py_launch_blueprint/projects.py",
