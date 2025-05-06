@@ -114,6 +114,22 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Windsurf Rules configuration**: Configure Windsurf IDE to understand your project architecture, enhancing code generation quality.
 
+- **Dev Container Setup**
+
+To ensure a consistent development environment across platforms:
+
+1. Install Docker Desktop (enable WSL 2 on Windows).
+
+2. Install Visual Studio Code and the Dev Containers extension.
+
+3. Open this project in VS Code.
+
+4. Press Ctrl+Shift+P, choose Dev Containers: Reopen in Container.
+
+5. VS Code will build and open the project inside the container with all dependencies installed.
+
+This setup helps avoid environment issues and simplifies onboarding.
+
 ### Communication & Notifications
 
 - **Slack integration for PRs and issues**: Send automated notifications to Slack when PRs or issues are opened/closed, keeping the team informed.

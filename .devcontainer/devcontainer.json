@@ -1,0 +1,19 @@
+{
+    "name": "PyLaunch Blueprint",
+    "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "ms-python.python",
+          "charliermarsh.ruff",
+          "ms-python.black-formatter"
+        ]
+      }
+    },
+    "postStartCommand": "pip install -r requirements-dev.txt",
+    "remoteUser": "vscode",
+    "mounts": [
+      "source=${localWorkspaceFolder},target=/workspace,type=bind"
+    ]
+  }
+  
