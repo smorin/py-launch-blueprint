@@ -35,7 +35,7 @@ jobs:
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
 
-      #Integrate License Check in CI
+      # Integrate License Check in CI
     - name: License header check
       run: addlicense --check -l mit -y 2025 --copyright "Copyright (c) 2025, Steve Morin" .
 
