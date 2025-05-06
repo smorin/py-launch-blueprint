@@ -88,11 +88,35 @@ newline-style = "LF"
 ### 🛑 Disabling Taplo
 
 **To temporarily skip formatting:**
-* Disable specific rules in `.taplo.toml`
+* Disable specific rules in `.taplo.toml`:
+
+```toml
+[formatting]
+respect-ignores = true
+line-width = 80
+indent-width = 4
+align-entries = true
+align-comments = true
+array-auto-expand = true
+array-auto-collapse = false
+compact-arrays = false
+compact-inline-tables = false
+newline-style = "LF"
+```
 
 **To completely remove Taplo:**
 * Delete `.taplo.toml`
 * Remove Taplo commands from your `Justfile`
+
+
+1. `just check-deps`
+
+2. `just install-taplo`  
+
+3. `just format-toml`
+
+4. `just check-toml`
+
 
 ---
 
