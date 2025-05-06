@@ -25,7 +25,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install development dependencies
-      run: uvx sync --all-extras --dev
+      run: pip install -e .[dev]
 
     - name: Install the project
       run: uv sync --all-extras --dev
