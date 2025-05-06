@@ -12,7 +12,7 @@ This guide helps you set up and run debugging sessions across common editors.
    * Windsurf: Use the debug view.
 3. Choose a configuration:
 
-   * `Python: Launch Main (No Args)`
+   * `Python: Launch Main`
    * `Python: Launch Main (With Args)`
 4. Add breakpoints by clicking to the left of line numbers.
 5. Start the debugger.
@@ -30,7 +30,7 @@ Open the **Run & Debug** panel and select one of the configurations:
 ```json
 "configurations": [
   {
-    "name": "Python: Launch Main (No Args)",
+    "name": "Python: Launch Main",
     "type": "python",
     "request": "launch",
     "program": "${workspaceFolder}/py_launch_blueprint/projects.py"
