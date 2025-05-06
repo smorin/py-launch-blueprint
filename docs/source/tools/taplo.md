@@ -1,5 +1,6 @@
 ## Taplo: A Fast TOML Formatter & Linter
 
+### Introduction
 Taplo is used to automatically format and validate project files like pyproject.toml and cog.toml, ensuring consistent structure and preventing syntax errors across the codebase.
 
 ---
@@ -107,16 +108,6 @@ newline-style = "LF"
 **To completely remove Taplo:**
 * Delete `.taplo.toml`
 * Remove Taplo commands from your `Justfile`
-
-
-1. `just check-deps`
-
-2. `just install-taplo`  
-
-3. `just format-toml`
-
-4. `just check-toml`
-
 
 ---
 
