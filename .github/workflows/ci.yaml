@@ -37,9 +37,9 @@ jobs:
 
     #install just
     - name: Install Just
-      run: |
-        curl -fsSL https://just.systems/install.sh | bash -s -- --to /usr/local/bin
-        
+      uses: extractions/setup-just@v2
+
+
     # Format code
     - name: Install Taplo
       run: just install-taplo
@@ -57,7 +57,7 @@ jobs:
     # - name: Run tests with coverage
     #   run: |
     #     pytest --cov=./ --cov-report=xml
-   
+
    # Upload coverage (if tests are being run)
     # - name: Upload coverage
     #   uses: codecov/codecov-action@v4
