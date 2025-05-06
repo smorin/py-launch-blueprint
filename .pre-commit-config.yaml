@@ -39,4 +39,20 @@ repos:
         language: system
         types: [python]
         pass_filenames: false # Run full test suite
-        stages: [pre-commit] # Only run on commit
+        stages: [commit] # Only run on commit
+  - repo: local
+    hooks:
+    - id: addlicense
+      name: Add license headers
+      entry: addlicense
+      language: system
+      types: [python, text, yaml, json, toml]
+      args:
+        - --check
+        - -l
+        - mit
+        - -y
+        - "2025"
+        - --copyright
+        - "Copyright (c) 2025, Steve Morin"
+      exclude: ^addlicense/testdata/.*
