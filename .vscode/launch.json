@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0", // The version of the launch.json schema
+    "configurations": [
+        {
+            "name": "Start Debugging",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/py_launch_blueprint/projects.py",
+            "envFile": "${workspaceFolder}/.env",
+            "console": "integratedTerminal"
+        }
+    ]
+}
