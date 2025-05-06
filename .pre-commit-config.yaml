@@ -9,7 +9,7 @@ repos:
             "types-PyYAML",
             "types-python-dateutil",
             "click>=8.1.3", # Add click
-            "types-click>=1.1.0",
+            "types-click>=1.1.0"
           ]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.3.0
@@ -38,5 +38,21 @@ repos:
         entry: pytest
         language: system
         types: [python]
-        pass_filenames: false # Run full test suite
-        stages: [pre-commit] # Only run on commit
+        pass_filenames: false  # Run full test suite
+        stages: [commit] # Only run on commit
+  - repo: local
+    hooks:
+    - id: addlicense
+      name: Add license headers
+      entry: addlicense
+      language: system
+      types: [python, text, yaml, json, toml]
+      args:
+        - --check
+        - -l
+        - mit
+        - -y
+        - "2025"
+        - --copyright
+        - "Copyright (c) 2025, Steve Morin"
+      exclude: ^addlicense/testdata/.*

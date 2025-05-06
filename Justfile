@@ -76,7 +76,7 @@ BRANCH_NAME := "test-actions-" + DATE_TIME
 [group('utilities'), group('help')]
 @select-shell:
     @just --choose
-    
+
 # Check if required tools are installed
 [group('setup'), group('debug')]
 @check-deps:
@@ -172,7 +172,7 @@ debug-info:
     #!/usr/bin/env sh
     echo "## Debug Information"
     echo ""
-    echo "### System Information" 
+    echo "### System Information"
     echo "- Date: $(date)"
     echo "- OS Family: {{os_family()}}"
     if [ "{{os_family()}}" = "macos" ]; then
@@ -419,7 +419,7 @@ pr-to-testrepo pr_number new_repo_name="test-actions-repo":
         echo -e "{{RED}}Error: Failed to clone repository{{NC}}"
         exit 1
     fi
-    
+
     cd "{{new_repo_name}}"
     echo -e "{{BLUE}}Downloading PR #{{pr_number}}...{{NC}}"
     if ! gh pr checkout {{pr_number}}; then
@@ -468,7 +468,7 @@ pr-to-testrepo pr_number new_repo_name="test-actions-repo":
     #echo -e "{{GREEN}}{{CHECK}} Repository created and ready for testing at: ${repo_url}{{NC}}"
 
 
- 
+
 
 # Cleanup / Delete test repository from a PR from pr-to-testrepo
 [group('workflow')]
@@ -480,7 +480,7 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     echo -e "{{BLUE}}Shell in use: $SHELL{{NC}}"
 
     # Safety check: Ensure the marker file exists in the parent directory
-    # We expect this command to be run from the original repo, 
+    # We expect this command to be run from the original repo,
     # and the test repo to be a sibling directory.
     marker_file="../{{new_repo_name}}/pr2testrepo.txt"
 
@@ -500,7 +500,7 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     else
          echo -e "{{GREEN}}{{CHECK}} Remote repository deleted successfully.{{NC}}"
     fi
-    
+
     echo ""
     echo -e "{{YELLOW}}Remote deletion step complete (check status above).{{NC}}"
     echo -e "{{YELLOW}}Please clean up the local git repository directory:{{NC}}"
@@ -545,13 +545,13 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
         echo -e "{{RED}}Error: Failed to pull latest changes for main. Please check your connection or repository status.{{NC}}"
         exit 1
     fi
-    
+
     echo -e "{{BLUE}}Creating test branch: {{BRANCH_NAME}}{{NC}}"
     if ! git checkout -b {{BRANCH_NAME}}; then
         echo -e "{{RED}}Error: Failed to create branch {{BRANCH_NAME}}.{{NC}}"
         exit 1
     fi
-    
+
     # Add timestamp to README
     echo -e "{{BLUE}}Modifying README.md...{{NC}}"
     echo "" >> README.md # Add a blank line for spacing
@@ -569,13 +569,13 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
         exit 1
     fi
     echo -e "{{BLUE}}git push -u origin {{BRANCH_NAME}}...{{NC}}"
-    if ! git push -u origin "{{BRANCH_NAME}}"; then 
+    if ! git push -u origin "{{BRANCH_NAME}}"; then
         echo -e "{{RED}}Error: Failed to push branch {{BRANCH_NAME}} to origin.{{NC}}"
         # Attempt to switch back to main branch on failure
-        git checkout main 
+        git checkout main
         exit 1
     fi
-    
+
     # Create PR
     echo -e "{{BLUE}}Creating Pull Request...{{NC}}"
     # Get the current repo info
@@ -609,3 +609,9 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
+
+check-license:
+    addlicense --check -l mit -y 2025 --copyright "Copyright (c) 2025, Steve Morin" .
+
+fix-license:
+    addlicense -l mit -y 2025 --copyright "Copyright (c) 2025, Steve Morin" .
