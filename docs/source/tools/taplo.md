@@ -1,14 +1,8 @@
 ## Taplo: A Fast TOML Formatter & Linter
 
-Taplo is a fast and customizable formatter and validator for TOML files. Written in Rust, it provides reliable and consistent formatting with support for configuration files, making it ideal for both small projects and large-scale codebases.
-
-[Taplo](https://taplo.tamasfe.dev/) ensures consistent formatting and correctness in configuration files like `pyproject.toml`, `cog.toml`, etc.
+Taplo is used to automatically format and validate project files like pyproject.toml and cog.toml, ensuring consistent structure and preventing syntax errors across the codebase.
 
 ---
-
-### 🔍 Introduction
-
-**Purpose**: Automatically formats and validates `.toml` configuration files to reduce errors and enforce consistency.
 
 **Key Benefits**:
 
