@@ -10,7 +10,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-
 jobs:
   update-contributors:
     runs-on: ubuntu-latest
@@ -19,35 +18,28 @@ jobs:
         with:
           fetch-depth: 0
           ref: main
-
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-
       - name: Update CONTRIBUTORS.md
         run: |
           python update_contributors.py
-
-      - name: Ensure on a branch
+      - name: Ensure on or create update-contributors branch
         run: |
-          git checkout -B update-contributors
-          git push origin update-contributors
+            git fetch origin update-contributors || echo "No remote branch yet"
+            git checkout -B update-contributors origin/update-contributors || git checkout -B update-contributors
       - name: Commit changes if CONTRIBUTORS.md is modified
         run: |
-              git config user.name "github-actions[bot]"
-              git config user.email "github-actions[bot]@users.noreply.github.com"
-              git checkout -B update-contributors
-              if [[ $(git status --porcelain) ]]; then
-                git add CONTRIBUTORS.md
-                git commit -m "chore: update CONTRIBUTORS.md"
-                git push origin update-contributors --force-with-lease
-              fi
-      - name: Ensure on update-contributors branch and sync with remote
-        run: |
-              git fetch origin update-contributors || echo "No remote branch yet"
-              git checkout -B update-contributors origin/update-contributors || git checkout -B update-contributors
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            if [[ $(git status --porcelain) ]]; then
+              git add CONTRIBUTORS.md
+              git commit -m "chore: update CONTRIBUTORS.md"
               git push origin update-contributors --force-with-lease
+            else
+              echo "No changes to commit."
+            fi
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
