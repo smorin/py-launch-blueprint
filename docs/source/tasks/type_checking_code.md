@@ -42,7 +42,7 @@ To set up Pyright for your project, follow these steps:
    ```bash
    uvx --with-editable . pyright py_launch_blueprint/
    ```
-   
+
 
 ## Best Practices for Type Checking
 

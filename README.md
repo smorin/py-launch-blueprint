@@ -125,5 +125,3 @@ Start your next Python project with confidence, knowing you're building on a fou
 
 ## Full documentation on ReadTheDocs including how to run
 - [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
-
-
