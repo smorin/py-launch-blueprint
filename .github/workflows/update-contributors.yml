@@ -27,7 +27,7 @@ jobs:
 
       - name: Update CONTRIBUTORS.md
         run: |
-          python update_contributors.py
+          python scripts/update_contributors.py
 
       - name: Ensure on a branch
         run: |
