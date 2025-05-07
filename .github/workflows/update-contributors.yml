@@ -25,6 +25,9 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Set Working Directory
+        run: cd py-launch-blueprint
+
       - name: Check if the update_contributors.py script exists
         run: |
           ls $GITHUB_WORKSPACE/scripts/
