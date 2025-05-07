@@ -66,6 +66,8 @@ just pre-commit-run
 ```bash
 # Run all tests
 just test
+# Note: The `just test` command is a project-specific command for running tests.
+# Please refer to the project documentation or the CONTRIBUTING.md file for setup instructions.
 ```
 
 -->
