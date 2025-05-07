@@ -1,7 +1,6 @@
-#pyproject.toml
 [project]
 name = "py_launch_blueprint"
-dynamic = ["version"]  # make version dynamic
+dynamic = ["version"]  #make version dynamic
 description = "CLI tools for interacting with Py, including project search functionality"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -29,8 +28,7 @@ dev = [
     "pre-commit>=4.1.0",
     "types-requests",
     "types-Pygments",
-    "cogapp",
-    "click>=8.1.0",      # Added click for tests
+    "cogapp"
 ]
 
 docs = [
@@ -45,11 +43,12 @@ docs = [
     "sphinxext-opengraph", # https://github.com/wpilibsuite/sphinxext-opengraph
 ]
 
+
 [project.scripts]
 py-projects = "py_launch_blueprint.projects:main"
 
 [build-system]
-requires = ["hatchling", "hatch-vcs", "setuptools>=64", "setuptools-scm>=8"]
+requires = ["hatchling","hatch-vcs", "setuptools>=64", "setuptools-scm>=8"]
 build-backend = "hatchling.build"
 
 [tool.setuptools_scm]
@@ -64,22 +63,22 @@ target-version = "py310"
 line-length = 88
 
 lint.select = [
-    "E",  # pycodestyle errors
-    "F",  # pyflakes
-    "I",  # isort
-    "B",  # flake8-bugbear
-    "C4", # flake8-comprehensions
-    "UP", # pyupgrade
-    "N",  # pep8-naming
-    "RUF",# Ruff-specific rules
-    "W",  # pycodestyle warnings
-    "YTT",# flake8-2020
-    "S",  # flake8-bandit
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "N",   # pep8-naming
+    "RUF", # Ruff-specific rules
+    "W",   # pycodestyle warnings
+    "YTT", # flake8-2020
+    "S",   # flake8-bandit
 ]
 
 # Ignore specific rules
 lint.ignore = [
-      # "E501",  # line length violations
+    # "E501",  # line length violations
 ]
 
 # Allow autofix behavior for specific rules
@@ -88,7 +87,12 @@ lint.unfixable = []  # Rules that should not be fixed automatically
 
 # Exclude files/folders
 exclude = [
-    ".git", ".venv", "__pycache__", "build", "dist", "docs/source/conf.py"
+    ".git",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "docs/source/conf.py"
 ]
 
 [tool.ruff.pycodestyle]
@@ -97,7 +101,7 @@ max-line-length = 88
 # Per-file-ignores
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore unused imports in __init__.py files
-"tests/*" = ["S101", "S105", "S106"]  ## Ignore assert statements in tests
+"tests/*" = ["S101", "S105", "S106"]      # Ignore assert statements in tests
 "py_launch_blueprint/_version.py" = ["ALL"]  # Ignore all rules for version.py
 # S101: This check flags the use of assert statements. The reason is that assert statements are removed when Python code is optimized (run with the -O flag), which can lead to security vulnerabilities if assert is used for security checks.
 # S105: This generally flags hardcoded password strings in code.
@@ -119,7 +123,6 @@ strict = true
 ignore_missing_imports = false
 follow_imports = "normal"
 follow_imports_for_stubs = true
-
 
 # Disallow dynamic typing
 disallow_any_generics = true
