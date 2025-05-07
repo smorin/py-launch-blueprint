@@ -114,21 +114,36 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Windsurf Rules configuration**: Configure Windsurf IDE to understand your project architecture, enhancing code generation quality.
 
-- **Dev Container Setup**
+- ### Dev Container Setup
 
 To ensure a consistent development environment across platforms:
 
-1. Install Docker Desktop (enable WSL 2 on Windows).
-
+1. Install Docker Desktop and enable WSL 2 for Windows.
 2. Install Visual Studio Code and the Dev Containers extension.
-
 3. Open this project in VS Code.
-
-4. Press Ctrl+Shift+P, choose Dev Containers: Reopen in Container.
-
+4. Press `Ctrl+Shift+P`, choose `Dev Containers: Reopen in Container`.
 5. VS Code will build and open the project inside the container with all dependencies installed.
 
-This setup helps avoid environment issues and simplifies onboarding.
+#### Testing Steps
+Follow these steps to validate the Dev Container setup:
+
+1. Open the repository in VS Code.
+2. Reopen the project in the Dev Container (see instructions above).
+3. Verify that all recommended extensions are installed:
+   - Python
+   - Ruff
+   - Black Formatter
+   - Pylance
+   - Mypy
+   - TOML Formatter
+   - YAML Validator
+   - GitLens
+   - Code Spell Checker
+4. Run the `just setup` command inside the container:
+   - This should handle project setup, including installing dependencies and initializing the environment.
+5. Run the project and confirm that it operates as expected.
+
+This setup ensures a consistent and reliable development workflow while avoiding environment conflicts.
 
 ### Communication & Notifications
 
@@ -141,5 +156,3 @@ Start your next Python project with confidence, knowing you're building on a fou
 
 ## Full documentation on ReadTheDocs including how to run
 - [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
-
-
