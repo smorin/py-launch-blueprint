@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: main
-      
+
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -28,12 +28,12 @@ jobs:
       - name: Update CONTRIBUTORS.md
         run: |
           python update_contributors.py
-          
+
       - name: Ensure on a branch
         run: |
           git checkout -B update-contributors
           git push origin update-contributors
-          
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:

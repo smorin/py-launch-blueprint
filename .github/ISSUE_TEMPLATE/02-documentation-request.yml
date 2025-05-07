@@ -75,7 +75,7 @@ body:
       value: |
         ## Pre-submission Checklist
         Please confirm that you have completed all of the following steps:
-        
+
         - I have searched for similar documentation requests
         - I have checked that this documentation doesn't already exist
         - I have provided clear details about what needs to be documented
