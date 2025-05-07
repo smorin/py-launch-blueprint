@@ -10,10 +10,9 @@
         ]
       }
     },
-    "postStartCommand": "pip install -r requirements-dev.txt",
+    "postStartCommand": "pip install just && just setup",
     "remoteUser": "vscode",
     "mounts": [
       "source=${localWorkspaceFolder},target=/workspace,type=bind"
     ]
   }
-  
