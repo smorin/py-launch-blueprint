@@ -1,4 +1,4 @@
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 # Py Launch Blueprint: A Production-Ready 🐍 Python Project Template with Integrated Best Practices
  Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
@@ -14,7 +14,7 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 
 ### 🚀 Key Features
 
-**Zero-config** development environment with **type safety** built in.
+**Zero-config** development environment with **type safety** built in, meaning minimal setup is required, and key tools (such as type checkers) are already configured to ensure type safety out of the box.
 
 ## ✨ Features TLDR
 - 🛠️ **Dev Tools**: Ruff (linting/formatting), MyPy (type checking), Pre-commit hooks
@@ -44,7 +44,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **TOML formatting and validation with `taplo`**: Verify Toml files for syntax correctness, maintain consistent configuration files, ensuring readability and avoiding syntax errors in critical project settings.
 
-- **YAML validation with `[TODO:tool under evaluation](https://github.com/smorin/py-launch-blueprint/issues/161)`**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
+- **YAML validation with [`[TODO:tool under evaluation]`](https://github.com/smorin/py-launch-blueprint/issues/161)**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures. This feature is currently under evaluation, and we aim to select a tool for comprehensive YAML validation shortly.
 
 ### Project Structure & Management
 
@@ -124,4 +124,4 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 Start your next Python project with confidence, knowing you're building on a foundation of best practices and modern development tools.
 
 ## Full documentation on ReadTheDocs including how to run
-- [py-launch-blueprint Docs](https://py-launch-blueprint.readthedocs.io/en/latest/)
+- [Py Launch Blueprint Docs (Full Documentation)](https://py-launch-blueprint.readthedocs.io/en/latest/)

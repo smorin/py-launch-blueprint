@@ -4,8 +4,6 @@
 :align: left
 ```
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-
 # Py Launch Blueprint
 **A Production-Ready Python Project Template with Integrated Best Practices**
 
@@ -32,7 +30,7 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 
 # 🐍 Python Project Template - Py Launch Blueprint
 
-**Zero-config** development environment with **type safety** built in.
+**Zero-config** development environment with **type safety** built in, meaning minimal setup is required, and key tools (such as type checkers) are already configured to ensure type safety out of the box.
 
 ## ✨ Features TLDR
 - 🛠️ **Dev Tools**: Ruff (linting/formatting), MyPy (type checking), Pre-commit hooks
@@ -90,7 +88,7 @@ just run
 
 - **TOML formatting and validation with `taplo`**: Verify Toml files for syntax correctness, maintain consistent configuration files, ensuring readability and avoiding syntax errors in critical project settings.
 
-- **YAML validation with `[TODO:tool under evaluation](https://github.com/smorin/py-launch-blueprint/issues/161)`**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
+- **YAML validation with `[tool under evaluation](https://github.com/smorin/py-launch-blueprint/issues/161)`**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
 
 ### Project Structure & Management
 
