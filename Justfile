@@ -154,6 +154,11 @@ alias b := build
 @pre-commit-setup:
     uvx --with-editable . pre-commit install
 
+# Set up pre-commit hooks
+[group('setup'), group('pre-commit')]
+@pre-commit-uninstall:
+    uvx --with-editable . pre-commit uninstall
+
 # Run all pre-commit Hooks
 [group('pre-commit')]
 @pre-commit-run:
