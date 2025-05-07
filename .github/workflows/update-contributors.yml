@@ -36,14 +36,13 @@ jobs:
 
       - name: Commit changes if CONTRIBUTORS.md is modified
         run: |
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
             git checkout -B update-contributors
-            git push origin update-contributors
-
             if [[ $(git status --porcelain) ]]; then
-              git config user.name "github-actions[bot]"
-              git config user.email "github-actions[bot]@users.noreply.github.com"
               git add CONTRIBUTORS.md
               git commit -m "chore: update CONTRIBUTORS.md"
+              git push origin update-contributors --force-with-lease
             fi
       - name: Ensure on update-contributors branch and sync with remote
         run: |
