@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: bug/update-directory-update-contributors # will be replaced with the branch name after the PR is tested
+          ref: main
 
       - name: Setup Python
         uses: actions/setup-python@v4
