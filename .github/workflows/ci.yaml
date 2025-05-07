@@ -1,4 +1,3 @@
-#ci.yaml
 name: CI/CD
 permissions:
   contents: read
