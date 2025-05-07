@@ -25,9 +25,15 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: List files in root
+        run: ls -R .
+
+      - name: List files in scripts directory
+        run: ls -R scripts/
+
       - name: Update CONTRIBUTORS.md
         run: |
-          python update_contributors.py
+          python scripts/update_contributors.py
 
       - name: Ensure on a branch
         run: |
