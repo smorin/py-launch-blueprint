@@ -9,7 +9,7 @@ body:
       value: |
         ## Bug Report
         Thanks for taking the time to report a bug! Our volunteer maintainers appreciate your help in improving this project.
-        
+
         Please provide as much detail as possible so volunteers can reproduce and fix the issue efficiently.
 
   - type: dropdown
@@ -144,7 +144,7 @@ body:
       value: |
         ## Pre-submission Checklist
         Please confirm that you have completed all of the following steps:
-        
+
         - I have checked for duplicate bug reports
         - I have included all relevant information to reproduce the bug
         - I have included the exact version information

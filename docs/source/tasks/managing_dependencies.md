@@ -21,28 +21,28 @@ uv pip install --editable ".[dev]"
 Use UV to run various development tools:
 
 ```sh
-uvx ruff format py_launch_blueprint/       # Format code  
-uvx ruff check py_launch_blueprint/        # Run linter  
-uvx --with-editable . mypy py_launch_blueprint/  # Type check  
-uvx --with-editable . pytest               # Run tests  
-uvx --with pytest-cov --with-editable . pytest --cov=py_launch_blueprint.projects --cov-report=term-missing  # Test coverage  
+uvx ruff format py_launch_blueprint/       # Format code
+uvx ruff check py_launch_blueprint/        # Run linter
+uvx --with-editable . mypy py_launch_blueprint/  # Type check
+uvx --with-editable . pytest               # Run tests
+uvx --with pytest-cov --with-editable . pytest --cov=py_launch_blueprint.projects --cov-report=term-missing  # Test coverage
 ```
 
 ### Pre-Commit Hooks (Optional)
 Set up and run pre-commit hooks with:
 
 ```sh
-uvx --with-editable . pre-commit install  
-uvx pre-commit run --all-files  
+uvx --with-editable . pre-commit install
+uvx pre-commit run --all-files
 ```
 
 ### Updating & Removing Packages
 To update all dependencies, use:
 
 ```sh
-uv pip install --upgrade                    # Update all dependencies  
-uv pip install --upgrade <package-name>     # Update a specific package  
-uv pip uninstall <package-name>             # Remove a package  
+uv pip install --upgrade                    # Update all dependencies
+uv pip install --upgrade <package-name>     # Update a specific package
+uv pip uninstall <package-name>             # Remove a package
 ```
 
 ### Freezing Dependencies
@@ -60,9 +60,9 @@ uv pip freeze > requirements.lock
 To create and activate a virtual environment:
 
 ```sh
-python3 -m venv .venv  
-source .venv/bin/activate   # Unix/macOS  
-.venv\Scripts\activate      # Windows  
+python3 -m venv .venv
+source .venv/bin/activate   # Unix/macOS
+.venv\Scripts\activate      # Windows
 ```
 
 ### Installing Dependencies
@@ -76,10 +76,10 @@ pip install --editable ".[dev]"
 You can run development tools directly with pip:
 
 ```sh
-ruff format py_launch_blueprint/  
-ruff check py_launch_blueprint/  
-mypy py_launch_blueprint/  
-pytest --cov=py_launch_blueprint.projects --cov-report=term-missing  
+ruff format py_launch_blueprint/
+ruff check py_launch_blueprint/
+mypy py_launch_blueprint/
+pytest --cov=py_launch_blueprint.projects --cov-report=term-missing
 ```
 
 

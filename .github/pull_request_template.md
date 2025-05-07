@@ -18,7 +18,7 @@ Closes #
 ## Implementation Details
 <!-- Provide a technical overview of how the feature was implemented -->
 <!-- Include architectural decisions and design patterns used -->
-<!-- Example: 
+<!-- Example:
 - Implemented using the Strategy pattern to allow for multiple auth providers in the future
 - Used JWT for session management with a 24-hour expiration
 - Created a middleware layer to handle authentication checks
@@ -33,14 +33,14 @@ Closes #
 - Added middleware for authenticated routes
 - Created login/logout endpoints
 -->
-- 
-- 
-- 
+-
+-
+-
 
 ## Testing Performed
 <!-- Describe the testing you've done to validate the feature -->
 <!-- Include both automated and manual testing -->
-<!-- Example: 
+<!-- Example:
 - Added unit tests for AuthService with 95% coverage
 - Added integration tests for authentication flow
 - Manually tested login flow on Chrome, Firefox, and Safari
@@ -75,7 +75,7 @@ just test
 ## Documentation Updates
 <!-- Describe any documentation changes made or needed -->
 <!-- Include updates to Sphinx docs, README, etc. -->
-<!-- Example: 
+<!-- Example:
 - Updated authentication section in docs/usage.md
 - Added new docs/auth.md file with detailed API documentation
 - Updated README.md with new authentication instructions
@@ -103,7 +103,7 @@ just test
 ## Reviewer Notes
 <!-- Any specific areas that need careful review or explanation -->
 <!-- Highlight complex parts or areas where you're seeking feedback -->
-<!-- Example: 
+<!-- Example:
 - The authentication flow in auth_service.py:125-150 is complex and needs careful review
 - The database migration might need performance review for large datasets
 - Security review needed for the token generation logic
