@@ -610,5 +610,6 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
  #Check license
-check-license-header:
-    pre-commit run addlicense --all-files
+[group('pre-commit')]
+check-license:
+    addlicense --check -l mit -y $(date +'%Y') --copyright "Copyright (c) $(date +'%Y'), Steve Morin"
