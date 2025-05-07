@@ -52,26 +52,20 @@ Closes #
 
 **Running Pre-commit Hooks:**
 ```bash
-# Install pre-commit if not already installed
-pip install pre-commit
+# These are basic defaults for testing.
+# Please adjust as needed for complete testing of your changes
 
-# Install the git hooks
-pre-commit install
+# Install pre-commit if not already installed
+just pre-commit-setup
 
 # Run pre-commit on all files
-pre-commit run --all-files
+just pre-commit-run
 ```
 
 **Running Tests:**
 ```bash
 # Run all tests
-pytest
-
-# Run tests with coverage report
-pytest --cov=src/ tests/
-
-# Ensure coverage meets minimum threshold (e.g., 80%)
-pytest --cov=src/ tests/ --cov-fail-under=80
+just test
 ```
 
 -->
