@@ -57,7 +57,7 @@ html_theme = 'furo'
 # Theme specific options
 html_theme_options = {
     "sidebar_hide_name": False,  # Set to True if you want to hide the project name when logo is present
-    
+
     # Footer social links
     "footer_icons": [
         {
