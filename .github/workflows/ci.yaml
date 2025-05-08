@@ -32,9 +32,6 @@ jobs:
     - name: Install development dependencies
       run: just install-dev-pip
 
-    - name: Install the project
-      run: uv sync --all-extras --dev
-
     # Run type checker
     - name: Run type checker
       run: uvx mypy py_launch_blueprint/
