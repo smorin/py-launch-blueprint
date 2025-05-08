@@ -37,7 +37,7 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add CONTRIBUTORS.md
             git commit -m "chore: update CONTRIBUTORS.md"
-
+          fi
       # Ensure we’re on a branch and push updates
       - name: Ensure on update-contributors branch and sync with remote
         run: |
