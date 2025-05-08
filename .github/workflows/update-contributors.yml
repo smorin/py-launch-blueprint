@@ -51,5 +51,5 @@ jobs:
           title: 'chore: update contributors list'
           body: 'Automatically updated contributors list using Git log'
           branch: update-contributors
-          base: main
+          base: main # Use the main branch as the base
           delete-branch: true
