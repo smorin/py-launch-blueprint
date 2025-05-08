@@ -13,7 +13,6 @@
 ![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![GitHub stars](https://img.shields.io/github/stars/smorin/py-launch-blueprint?style=social)
 ![Discord](https://img.shields.io/discord/1364098187375153192?style=flat&logo=discord)
-
 ---
 Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
 
