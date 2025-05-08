@@ -24,6 +24,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+
+    #install just
+    - name: Install Just
+      uses: extractions/setup-just@v2
+
     - name: Install development dependencies
       run: just install-dev-pip
 
