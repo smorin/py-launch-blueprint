@@ -28,9 +28,15 @@ jobs:
       - name: Update CONTRIBUTORS.md
         run: |
           python update_contributors.py
-
-      # Commit changes only if the file was updated
-      - name: Commit changes if CONTRIBUTORS.md is modified
+      # Checkout and sync the update-contributors branch first
+      - name: Checkout & sync update-contributors branch
+        run: |
+          git fetch origin update-contributors || echo "No remote branch yet"
+          git checkout -B update-contributors origin/update-contributors \
+            || git checkout -B update-contributors
+          git pull --rebase origin update-contributors || true
+      # Now commit any changes on the correct branch
+      - name: Commit CONTRIBUTORS.md updates
         run: |
           if [[ $(git status --porcelain) ]]; then
             git config user.name "github-actions[bot]"
@@ -38,12 +44,6 @@ jobs:
             git add CONTRIBUTORS.md
             git commit -m "chore: update CONTRIBUTORS.md"
           fi
-      # Ensure we’re on a branch and push updates
-      - name: Ensure on update-contributors branch and sync with remote
-        run: |
-          git fetch origin update-contributors || echo "No remote branch yet"
-          git checkout -B update-contributors origin/update-contributors || git checkout -B update-contributors
-          git push origin update-contributors
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
