@@ -90,7 +90,7 @@ just run
 
 - **TOML formatting and validation with `taplo`**: Verify Toml files for syntax correctness, maintain consistent configuration files, ensuring readability and avoiding syntax errors in critical project settings.
 
-- **YAML validation with [yamllint](https://yamllint.readthedocs.io/)**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
+- **YAML validation with [yamllint](https://github.com/adrienverge/yamllint)**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
 
 ### Project Structure & Management
 
