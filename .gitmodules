@@ -1,0 +1,3 @@
+[submodule "addlicense"]
+	path = addlicense
+	url = https://github.com/google/addlicense.git
