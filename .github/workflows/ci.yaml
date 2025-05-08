@@ -46,8 +46,8 @@ jobs:
 
     - name: Run pre-commit checks
       run: |
-        pip install pre-commit==3.7.0
-        pre-commit run --all-files
+        just pre-commit-setup
+        just pre-commit-run
 
     - name: Check TOML formatting
       run: |
