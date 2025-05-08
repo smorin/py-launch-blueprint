@@ -26,4 +26,3 @@ vardanaloyan <valoyan2@gmail.com>
 5. Open a Pull Request
 
 For more information, please see our [Contributing Guidelines](CONTRIBUTING.md).
-Test Contributor
