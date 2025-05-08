@@ -14,7 +14,7 @@ Py Launch Blueprint eliminates the setup friction in Python projects by providin
 
 ### 🚀 Key Features
 
-**Zero-config** development environment with **type safety** built in, meaning minimal setup is required, and key tools (such as type checkers) are already configured to ensure type safety out of the box.
+**Zero-config** development environment with **type safety** built in, meaning minimal setup is required, and key tools are already configured to ensure type safety out of the box.
 
 ## ✨ Features TLDR
 - 🛠️ **Dev Tools**: Ruff (linting/formatting), MyPy (type checking), Pre-commit hooks

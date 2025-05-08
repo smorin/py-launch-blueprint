@@ -10,7 +10,7 @@
 ![GitHub repo](https://img.shields.io/badge/github-repo-green)
 ![Changelog](https://img.shields.io/github/v/release/smorin/py-launch-blueprint?include_prereleases&label=changelog)
 ![Tests](https://github.com/simonw/llm/workflows/Test/badge.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![GitHub stars](https://img.shields.io/github/stars/smorin/py-launch-blueprint?style=social)
 ![Discord](https://img.shields.io/discord/1364098187375153192?style=flat&logo=discord)
 
