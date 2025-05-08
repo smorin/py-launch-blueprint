@@ -610,6 +610,8 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
 
-setup:
-    pip install .
+# Setup development environment (install package and pre-commit hooks)
+[group('setup'), group('quick start')]
+@setup:
+    pip install -e .
     pre-commit install
