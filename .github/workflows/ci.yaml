@@ -25,7 +25,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install development dependencies
-      run: pip install -e .[dev]
+      run: just install-dev-pip
 
     - name: Install the project
       run: uv sync --all-extras --dev
@@ -41,8 +41,8 @@ jobs:
     # Run pre-commit checks
     - name: Run pre-commit checks
       run: |
-       uvx pre-commit install
-       uvx pre-commit run --all-files
+       just pre-commit-setup
+       just pre-commit-run
 
     # You can uncomment the following if you want to run tests with coverage
     # - name: Run tests with coverage
