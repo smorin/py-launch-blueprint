@@ -32,7 +32,7 @@ dev = [
 ]
 
 docs = [
-    "sphinx>=7.0.0",
+     "sphinx>=7.0.0",
     "sphinx-rtd-theme",
     "furo",
     "myst-parser",
@@ -40,9 +40,9 @@ docs = [
     "cogapp",
     "sphinx-copybutton",
     "sphinx-autobuild",
-    "sphinxext-opengraph", # https://github.com/wpilibsuite/sphinxext-opengraph
+    # https://github.com/wpilibsuite/sphinxext-opengraph
+    "sphinxext-opengraph",
 ]
-
 
 [project.scripts]
 py-projects = "py_launch_blueprint.projects:main"
