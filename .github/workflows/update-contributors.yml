@@ -34,22 +34,6 @@ jobs:
           git checkout -B update-contributors
           git push origin update-contributors
 
-      - name: Commit changes if CONTRIBUTORS.md is modified
-        run: |
-            git checkout -B update-contributors
-            git push origin update-contributors
-
-            if [[ $(git status --porcelain) ]]; then
-              git config user.name "github-actions[bot]"
-              git config user.email "github-actions[bot]@users.noreply.github.com"
-              git add CONTRIBUTORS.md
-              git commit -m "chore: update CONTRIBUTORS.md"
-            fi
-      - name: Ensure on update-contributors branch and sync with remote
-        run: |
-            git fetch origin update-contributors || echo "No remote branch yet"
-            git checkout -B update-contributors origin/update-contributors || git checkout -B update-contributors
-            git push origin update-contributors --force-with-lease
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
