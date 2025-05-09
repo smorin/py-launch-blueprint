@@ -5,6 +5,7 @@ Welcome to the Tools section of the Py Launch Blueprint documentation. This sect
 <!-- ## Table of Contents -->
 
 - [Ruff](ruff.md)
+- [Taplo](taplo.md)
 - [MyPy](mypy.md)
 - [Pytest](pytest.md)
 - [UV](uv.md)
@@ -21,6 +22,7 @@ Each of these sections contains detailed instructions and best practices to help
 maxdepth: 2
 ---
 ruff
+taplo
 mypy
 pytest
 uv
