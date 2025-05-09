@@ -24,6 +24,6 @@ Python line length standards:
 [tool.ruff]
 line-length = 88
 
-[tool.ruff.pycodestyle]
+[tool.ruff.lint.pycodestyle]
 max-line-length = 88
 ```
