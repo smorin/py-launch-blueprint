@@ -93,7 +93,7 @@ exclude = [
   "docs/source/conf.py",
 ]
 
-[tool.ruff.pycodestyle]
+[tool.ruff.lint.pycodestyle]
 max-line-length = 88
 
 # Per-file-ignores
