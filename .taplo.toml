@@ -1,0 +1,14 @@
+# Taplo configuration for TOML file formatting
+# See https://taplo.tamasfe.dev/configuration/formatter-options.html for more options
+
+[formatting]
+respect-ignores = true
+line-width = 80
+indent-width = 4
+align-entries = true
+align-comments = true
+array-auto-expand = true
+array-auto-collapse = false
+compact-arrays = false
+compact-inline-tables = false
+newline-style = "LF"
