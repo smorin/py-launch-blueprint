@@ -43,7 +43,29 @@ jobs:
     # Upload coverage (if tests are being run)
     # - name: Upload coverage
     #   uses: codecov/codecov-action@v4
+  license-check:
+    name: License Compliance Check
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Cache Go bin path
+        run: echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+
+      - name: Install addlicense
+        run: go install github.com/google/addlicense@latest
+
+      - name: Run addlicense check
+        run: |
+          addlicense --check -l mit -y 2025 \
+            --copyright "Copyright (c) 2025, Steve Morin" .
   # Only run security checks on pull requests from the main repository
   security:
     if: github.event.pull_request.head.repo.full_name == github.repository
