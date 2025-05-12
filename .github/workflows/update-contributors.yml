@@ -14,26 +14,36 @@ permissions:
 jobs:
   update-contributors:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: main
-
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-
       - name: Update CONTRIBUTORS.md
         run: |
           python update_contributors.py
-
-      - name: Ensure on a branch
+      # Checkout and sync the update-contributors branch first
+      - name: Checkout & sync update-contributors branch
         run: |
-          git checkout -B update-contributors
-          git push origin update-contributors
-
+          git fetch origin update-contributors || echo "No remote branch yet"
+          git checkout -B update-contributors origin/update-contributors \
+            || git checkout -B update-contributors
+          git pull --rebase origin update-contributors || true
+      # Now commit any changes on the correct branch
+      - name: Commit CONTRIBUTORS.md updates
+        run: |
+          if [[ $(git status --porcelain) ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add CONTRIBUTORS.md
+            git commit -m "chore: update CONTRIBUTORS.md"
+          fi
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
@@ -41,5 +51,5 @@ jobs:
           title: 'chore: update contributors list'
           body: 'Automatically updated contributors list using Git log'
           branch: update-contributors
-          base: main  # Use the main branch as the base
+          base: main # Use the main branch as the base
           delete-branch: true
