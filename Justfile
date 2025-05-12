@@ -272,7 +272,7 @@ debug-info:
 @docs-clean:
     cd docs && make clean
 
-#Update Contributors
+#Update Contributors with CONTRIBUTORS.md
 update-contributors:
     echo "Updating CONTRIBUTORS.md..."
     echo "# Contributors" > CONTRIBUTORS.md
