@@ -272,24 +272,13 @@ debug-info:
 @docs-clean:
     cd docs && make clean
 
-# Update CONTRIBUTORS.md file
-[group('build')]
-@contributors:
+#Update Contributors
+update-contributors:
     echo "Updating CONTRIBUTORS.md..."
-    if [ "$$OS" = "Windows_NT" ]; then \
-        powershell -File scripts/update_contributors.ps1; \
-    else \
-        echo "{{YELLOW}}TODO: Add macOS/Linux command to update CONTRIBUTORS.md here{{NC}}"; \
-        # Example placeholder: ./scripts/update_contributors.sh
-    fi
-    echo "{{CHECK}} Contributors list updated"
-
-# # Generate changelog from conventional commits
-# changelog:
-#     echo "Generating changelog..."
-#     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
-#     cog changelog --at=HEAD
-#     echo "{{GREEN}}✓{{NC}} Changelog generated"
+    echo "# Contributors" > CONTRIBUTORS.md
+    echo "" >> CONTRIBUTORS.md
+    git shortlog -sne >> CONTRIBUTORS.md
+    echo "✓ Contributors list updated"
 
 # Verify commit messages follow conventional commit format
 [group('pre-commit')]
