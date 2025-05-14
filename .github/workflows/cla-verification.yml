@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+permissions:
+  contents: read
+  statuses: read
+
 jobs:
   check-cla-status:
     runs-on: ubuntu-latest
