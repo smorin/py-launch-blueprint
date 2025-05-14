@@ -29,8 +29,8 @@ To contribute code, follow the steps in the [Development Workflow](../tasks/cont
 ## Contributor License Agreement (CLA)
 Before your contributions can be accepted, you must sign a **Contributor License Agreement (CLA)**.
 
-### Setting Up the CLA
-- **Follow the steps in the [Setting Guide](./cla-setup-guide.md) to configure and enable CLA for your repository.**
+ ### Setting Up the CLA
+ - **Follow the steps in the [CLA Setup Guide](./cla/cla-setup-guide.md) to configure and enable the CLA for your repository.**
 
 ### Signing the CLA
 - **Individual Contributors**: Sign the [Individual CLA](./cla/individual_cla.md).
