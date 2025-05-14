@@ -1,18 +1,18 @@
 {
-    "name": "PyLaunch Blueprint",
-    "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
-    "customizations": {
-      "vscode": {
-        "extensions": [
-          "ms-python.python",
-          "charliermarsh.ruff",
-          "ms-python.black-formatter"
-        ]
-      }
-    },
-    "postStartCommand": "pip install just && just setup",
-    "remoteUser": "vscode",
-    "mounts": [
-      "source=${localWorkspaceFolder},target=/workspace,type=bind"
-    ]
-  }
+  "name": "PyLaunch Blueprint",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "ms-python.black-formatter"
+      ]
+    }
+  },
+  "postCreateCommand": ".devcontainer/setup.sh",
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ]
+}

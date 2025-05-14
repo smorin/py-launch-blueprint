@@ -37,8 +37,9 @@ docs = [
     "sphinx-autodoc-typehints",
     "cogapp",
     "sphinx-copybutton",
-    "sphinx-autobuild",
-    "sphinxext-opengraph",
+    "sphinx-autobuild", 
+    "sphinxext-opengraph", # https://github.com/wpilibsuite/sphinxext-opengraph
+]
 
 [project.scripts]
 py-projects = "py_launch_blueprint.projects:main"
