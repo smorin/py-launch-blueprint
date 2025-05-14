@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
-# Generate or update the changelog at the current HEAD using cog
-cog changelog --at HEAD
+echo "📝 Generating changelog with Cocogitto..."
+
+# Generate changelog from latest tag (do not use --at HEAD unless you have a tag there)
+cog changelog
+
+echo "✅ Changelog updated successfully."
