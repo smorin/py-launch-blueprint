@@ -51,8 +51,9 @@ By contributing to this project, you agree to the following terms...
 By contributing to this project on behalf of your employer, you agree to the following terms...
 
 [Insert corporate CLA text here]
+```
 
-💾 Save & Share
+### 💾 Save & Share
 Choose Public or Secret visibility
 Click “Create public gist” or “Create secret gist”
 After creation, copy the **raw URL** of the `CLA.md` file from your browser’s address bar
