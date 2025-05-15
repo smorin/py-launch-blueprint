@@ -7,14 +7,14 @@ requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "Steve Morin", email = "steve.morin@gmail.com" }]
 dependencies = [
-  "click>=8.1.0",
-  "questionary>=2.0.0",
-  "python-dotenv>=1.0.0",
-  "thefuzz>=0.19.0",
-  "python-Levenshtein>=0.21.0", # For better performance with thefuzz
-  "pyperclip>=1.8.0",
-  "requests>=2.31.0",
-  "rich>=13.0.0",
+  "pytest>=7.0.0",
+  "pytest-cov>=4.1.0",
+  "mypy>=1.0.0",
+  "ruff>=0.1.0",
+  "pre-commit>=4.1.0",
+  "types-requests",
+  "types-Pygments",
+  "cogapp",
 ]
 
 [project.optional-dependencies]
@@ -106,8 +106,7 @@ max-line-length = 88
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-# addopts = "-v"
-
+addopts = "--cov=py_launch_blueprint --cov-report=xml --cov-report=term-missing" #coverage options for covering report
 [tool.mypy]
 # Python version
 python_version = "3.10"

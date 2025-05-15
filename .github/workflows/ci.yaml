@@ -56,15 +56,18 @@ jobs:
        just pre-commit-setup
        just pre-commit-run
 
-    # You can uncomment the following if you want to run tests with coverage
-    # - name: Run tests with coverage
-    #   run: |
-    #     pytest --cov=./ --cov-report=xml
-
-   # Upload coverage (if tests are being run)
-    # - name: Upload coverage
-    #   uses: codecov/codecov-action@v4
-
+  # Run tests with coverage
+    - name: Run tests with coverage
+      run: |
+        # Run pytest with coverage, generating XML report for Codecov
+        uv pytest --cov=py_launch_blueprint --cov-report=xml
+    # Upload coverage report to Codecov
+    - name: Upload coverage
+      uses: codecov/codecov-action@v3
+      with:
+        files: coverage.xml
+        token: ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true
   # Only run security checks on pull requests from the main repository
   security:
     if: github.event.pull_request.head.repo.full_name == github.repository
