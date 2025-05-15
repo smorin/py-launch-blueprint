@@ -43,8 +43,16 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install the project
-      run: uv sync --all-extras --dev
+
+    #install just
+    - name: Install Just
+      uses: extractions/setup-just@v2
+
+    - name: Install development dependencies
+      run: |
+       uv venv .venv
+       uv sync --all-extras --dev
+       echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
     # Run type checker
     - name: Run type checker
@@ -53,7 +61,6 @@ jobs:
     # Check linters using ruff
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
-
     # Addlicense install step 
     - name: Install addlicense
       run: |
