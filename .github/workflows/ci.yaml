@@ -24,7 +24,6 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-
     #install just
     - name: Install Just
       uses: extractions/setup-just@v2
@@ -35,6 +34,10 @@ jobs:
        uv sync --all-extras --dev
        echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
+    # Format code
+    - name: Install Taplo
+      run: just install-taplo
+
     # Run type checker
     - name: Run type checker
       run: uvx mypy py_launch_blueprint/
@@ -42,6 +45,10 @@ jobs:
     # Check linters using ruff
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
+
+    - name: Check TOML formatting
+      run: |
+        taplo check '**/*.toml'
 
     # Run pre-commit checks
     - name: Run pre-commit checks
@@ -54,7 +61,7 @@ jobs:
     #   run: |
     #     pytest --cov=./ --cov-report=xml
 
-    # Upload coverage (if tests are being run)
+   # Upload coverage (if tests are being run)
     # - name: Upload coverage
     #   uses: codecov/codecov-action@v4
 
