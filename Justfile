@@ -272,9 +272,12 @@ debug-info:
 @docs-clean:
     cd docs && make clean
 
-#Update Contributors with CONTRIBUTORS.md
+# Update CONTRIBUTORS.md file
+[group('build')]
+@contributors:
 update-contributors:
     echo "Updating CONTRIBUTORS.md..."
+    # Cross-platform way to update CONTRIBUTORS.md using git shortlog
     echo "# Contributors" > CONTRIBUTORS.md
     echo "" >> CONTRIBUTORS.md
     git shortlog -sne >> CONTRIBUTORS.md
