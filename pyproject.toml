@@ -159,8 +159,8 @@ build.hooks.vcs.version-file = "py_launch_blueprint/_version.py"
 [tool.hatch.version.raw-options]
 local_scheme = "no-local-version" # No commit ID or dirty flag
 
-[tool.hatch.build.targets.wheel]
+[tool.hatch.build.targets.wheel] 
 packages = ["py_launch_blueprint"]
 
-[tool.hatch.build.targets.sdist] 
+[tool.hatch.build.targets.sdist]
 include = ["py_launch_blueprint", "docs", "pyproject.toml", "README.md"]
