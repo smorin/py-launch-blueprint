@@ -169,7 +169,13 @@ coverage:
     python -m pytest --cov=py_launch_blueprint --cov-report=term-missing --cov-report=xml
 coverage-report:
     codecov -f coverage.xml
+# Lint YAML
+lint-yaml:
+    yamllint .
 
+# Format YAML
+format-yaml:
+    npx prettier --write "**/*.{yaml,yml}"
 # Build package
 [group('build'), group('dev')]
 @build: check
