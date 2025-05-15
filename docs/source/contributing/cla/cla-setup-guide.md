@@ -4,7 +4,7 @@ This guide walks you through setting up [cla-assistant.io](https://cla-assistant
 
 ---
 
-## 🚀 Getting Started with CLA Assistant
+## Getting Started with CLA Assistant
 
 ### 🛠 Create an Account
 - Visit [cla-assistant.io](https://cla-assistant.io)
@@ -18,7 +18,7 @@ This guide walks you through setting up [cla-assistant.io](https://cla-assistant
 
 ---
 
-## 📄 Creating the CLA Gist
+## Creating the CLA Gist
 
 ### 🔐 Sign in to GitHub
 - Go to [github.com](https://github.com) and log in
@@ -29,9 +29,8 @@ This guide walks you through setting up [cla-assistant.io](https://cla-assistant
 - Click **“New Gist”**
 
 ### 📝 Add Gist Files
-Include two files in your Gist:
+Include this file in your Gist:
 - `CLA.md`: The full text of your Contributor License Agreement
-- `metadata`: Metadata required by CLA Assistant
 
 ### 📃 Format the CLA Text
 
@@ -64,9 +63,9 @@ In the configuration panel for your repository:
 Paste the raw Gist URL into the CLA document field
 Save your configuration
 
-## ✅ Testing the CLA Setup
+## Testing the CLA Setup
 
-### 🔄 Submit a Test Pull Request
+### Submit a Test Pull Request
 Ask a team member (or yourself) to open a pull request
 
 If the contributor hasn't signed the CLA:
@@ -79,7 +78,7 @@ Once signed, CLA Assistant will:
 - Post a confirmation message
 - Mark the CLA check as completed
 
-### 📊 Monitor CLA Status
+### Monitor CLA Status
  - Use the CLA Assistant dashboard to see contributors who have signed
  - View, track, and manage CLA signatories easily
 Use the CLA Assistant dashboard to see contributors who have signed
