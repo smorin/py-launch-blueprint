@@ -1,5 +1,6 @@
 name: CI/CD
-
+permissions:
+  contents: write
 on:
   push:
     branches: [main]
@@ -16,7 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
+      with:
+          fetch-depth: 0
     - name: Install uv
       uses: astral-sh/setup-uv@v5
 
@@ -62,11 +64,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout code with submodules
         uses: actions/checkout@v4
         with:
           submodules: recursive
-
+          fetch-depth: 0
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -78,9 +80,11 @@ jobs:
 
       - name: Install addlicense
         run: go install github.com/google/addlicense@latest
+
       - name: Run addlicense check
         run: |
           ~/go/bin/addlicense --check -l mit -y 2025 -c "Steve Morin" .
+
   # Only run security checks on pull requests from the main repository
   security:
     if: github.event.pull_request.head.repo.full_name == github.repository
