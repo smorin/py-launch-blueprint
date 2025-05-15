@@ -5,7 +5,13 @@
     "vscode": {
       "extensions": [
         "ms-python.python",
+        "ms-python.vscode-pylance",
         "charliermarsh.ruff",
+        "matangover.mypy",
+        "tamasfe.even-better-toml",
+        "redhat.vscode-yaml",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker",
         "ms-python.black-formatter"
       ]
     }

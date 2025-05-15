@@ -33,10 +33,18 @@ repos:
         types_or: [cython, pyi, python]
   - repo: local
     hooks:
+      - id: taplo-format
+        name: Format TOML files
+        entry: taplo format
+        language: system
+        files: "\\.toml$"
+        args: ["--config", ".taplo.toml"]
+  - repo: local
+    hooks:
       - id: pytest
         name: Run pytest
         entry: pytest
         language: system
         types: [python]
         pass_filenames: false # Run full test suite
-        stages: [commit] # Only run on commit
+        stages: [pre-commit] # Only run on commit
