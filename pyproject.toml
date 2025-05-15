@@ -1,19 +1,17 @@
 [project]
 name = "py_launch_blueprint"
-dynamic = ["version"]  #make version dynamic
+dynamic = ["version"] #make version dynamic
 description = "CLI tools for interacting with Py, including project search functionality"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [
-    { name = "Steve Morin", email = "steve.morin@gmail.com" }
-]
+authors = [{ name = "Steve Morin", email = "steve.morin@gmail.com" }]
 dependencies = [
     "click>=8.1.0",
     "questionary>=2.0.0",
     "python-dotenv>=1.0.0",
     "thefuzz>=0.19.0",
-    "python-Levenshtein>=0.21.0",  # For better performance with thefuzz
+    "python-Levenshtein>=0.21.0", # For better performance with thefuzz
     "pyperclip>=1.8.0",
     "requests>=2.31.0",
     "rich>=13.0.0",
@@ -28,7 +26,7 @@ dev = [
     "pre-commit>=4.1.0",
     "types-requests",
     "types-Pygments",
-    "cogapp"
+    "cogapp",
 ]
 
 docs = [
@@ -40,7 +38,7 @@ docs = [
     "cogapp",
     "sphinx-copybutton",
     "sphinx-autobuild",
-    "sphinxext-opengraph", # https://github.com/wpilibsuite/sphinxext-opengraph
+    "sphinxext-opengraph",      # https://github.com/wpilibsuite/sphinxext-opengraph
 ]
 
 
@@ -48,7 +46,7 @@ docs = [
 py-projects = "py_launch_blueprint.projects:main"
 
 [build-system]
-requires = ["hatchling","hatch-vcs", "setuptools>=64", "setuptools-scm>=8"]
+requires = ["hatchling", "hatch-vcs", "setuptools>=64", "setuptools-scm>=8"]
 build-backend = "hatchling.build"
 
 [tool.setuptools_scm]
@@ -83,7 +81,7 @@ lint.ignore = [
 
 # Allow autofix behavior for specific rules
 fix = true
-lint.unfixable = []  # Rules that should not be fixed automatically
+lint.unfixable = [] # Rules that should not be fixed automatically
 
 # Exclude files/folders
 exclude = [
@@ -92,10 +90,10 @@ exclude = [
     "__pycache__",
     "build",
     "dist",
-    "docs/source/conf.py"
+    "docs/source/conf.py",
 ]
 
-[tool.ruff.pycodestyle]
+[tool.ruff.lint.pycodestyle]
 max-line-length = 88
 
 # Per-file-ignores
@@ -164,9 +162,4 @@ local_scheme = "no-local-version" # No commit ID or dirty flag
 packages = ["py_launch_blueprint"]
 
 [tool.hatch.build.targets.sdist]
-include = [
-    "py_launch_blueprint",
-    "docs",
-    "pyproject.toml",
-    "README.md",
-]
+include = ["py_launch_blueprint", "docs", "pyproject.toml", "README.md"]
