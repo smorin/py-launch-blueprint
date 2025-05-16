@@ -17,7 +17,7 @@
       ]
     }
   },
-  "postCreateCommand": "chmod +x .devcontainer/setup.sh && .devcontainer/setup.sh",
+  "postCreateCommand": ".devcontainer/setup.sh",
   "remoteUser": "vscode",
   "mounts": [
     "source=${localWorkspaceFolder},target=/workspace,type=bind"
