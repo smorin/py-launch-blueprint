@@ -47,4 +47,4 @@ repos:
         language: system
         types: [python]
         pass_filenames: false # Run full test suite
-        stages: [pre-commit] # Only run on commit
+        stages: [pre-commit] # Only run on pre-commit

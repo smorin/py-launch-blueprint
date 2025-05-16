@@ -10,10 +10,12 @@ Adane <adanemoges6@gmail.com>
 Adane Moges <adanemoges6@gmail.com>
 Adane Moges <adman19940805@gmail.com>
 Steve Morin <steve.morin@gmail.com>
+Tatiana H. <tatihe3@gmail.com>
 Tatiana Hernandez <tatihe3@gmail.com>
 Tatiana Hernández <tatihe3@gmail.com>
 gdev19 <ashkhen09300@gmail.com>
 github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+husnain <52630357+husnain067@users.noreply.github.com>
 vardanaloyan <valoyan2@gmail.com>
 <!-- COG-CONTRIBUTORS-LIST:END -->
 
