@@ -91,10 +91,9 @@ BRANCH_NAME := "test-actions-" + DATE_TIME
 alias c := check-deps
 
 # Install package in editable mode with dev dependencies
-[group('install'), group('quick start')]
-@install-dev: check-deps
-    uv pip install --editable ".[dev]"
-
+#[group('install'), group('quick start')]
+#@install-dev: check-deps
+#    uv pip install --editable ".[dev]"
 # Install Taplo in editable mode with dev dependencies
 [group('install')]
 @install-taplo:
@@ -165,6 +164,11 @@ alias ca := check
 [group('run'), group('quick start')]
 @run cmd=command_name *args=args:
     uvx --with-editable . {{cmd}} {{args}}
+
+coverage:
+    python -m pytest --cov=py_launch_blueprint --cov-report=term-missing --cov-report=xml
+coverage-report:
+    codecov -f coverage.xml
 
 # Build package
 [group('build'), group('dev')]
@@ -295,25 +299,17 @@ debug-info:
 [group('docs'), group('clean')]
 @docs-clean:
     cd docs && make clean
-
+    
 # Update CONTRIBUTORS.md file
 [group('build')]
 @contributors:
+update-contributors:
     echo "Updating CONTRIBUTORS.md..."
-    if [ "$$OS" = "Windows_NT" ]; then \
-        powershell -File scripts/update_contributors.ps1; \
-    else \
-        echo "{{YELLOW}}TODO: Add macOS/Linux command to update CONTRIBUTORS.md here{{NC}}"; \
-        # Example placeholder: ./scripts/update_contributors.sh
-    fi
-    echo "{{CHECK}} Contributors list updated"
-
-# # Generate changelog from conventional commits
-# changelog:
-#     echo "Generating changelog..."
-#     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
-#     cog changelog --at=HEAD
-#     echo "{{GREEN}}✓{{NC}} Changelog generated"
+    # Cross-platform way to update CONTRIBUTORS.md using git shortlog
+    echo "# Contributors" > CONTRIBUTORS.md
+    echo "" >> CONTRIBUTORS.md
+    git shortlog -sne >> CONTRIBUTORS.md
+    echo "✓ Contributors list updated"
 
 # Verify commit messages follow conventional commit format
 [group('pre-commit')]
@@ -337,7 +333,7 @@ commit:
     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
     cog commit
 
-# Install COG (Cocogitto) for changelog and commit management
+# Install COG (Cocogitto) for changelog and commit management 
 [group('install'), group('releases')]
 install-cog:
     echo "Installing Cocogitto (cog)..."
@@ -394,6 +390,8 @@ setup-cog-hooks:
 @install-dev-pip:
     pip install --editable ".[dev]"
 
+@install-other-pip:
+    pip install some-other-package
 # Format code (includes ruff format and import sorting)
 [group('legacy')]
 @format-pip:
