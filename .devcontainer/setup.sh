@@ -2,7 +2,7 @@
 set -e
 
 # Change to project root inside the container
-cd /workspaces/py-launch-blueprint-main
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 echo "Installing latest just..."
 JUST_URL=$(curl -s https://api.github.com/repos/casey/just/releases/latest \
