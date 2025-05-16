@@ -9,7 +9,7 @@ curl -s https://api.github.com/repos/casey/just/releases/latest \
   | cut -d '"' -f 4 \
   | wget -qi -
 tar -xzf just-*-x86_64-unknown-linux-musl.tar.gz
-sudo mv just /usr/local/bin/
+mv just /usr/local/bin/
 rm just-*-x86_64-unknown-linux-musl.tar.gz
 
 # Install uv
