@@ -6,12 +6,12 @@ This guide walks you through setting up [cla-assistant.io](https://cla-assistant
 
 ## Getting Started with CLA Assistant
 
-### 🛠 Create an Account
+### Create an Account
 - Visit [cla-assistant.io](https://cla-assistant.io)
 - Sign in using your GitHub account
 - Authorize CLA Assistant to access your repositories
 
-### ⚙️ Configure a Repository
+### Configure a Repository
 - Once signed in, click **"Configure CLA"**
 - Select the GitHub repository you want to enable CLA management for
 - For the CLA document, you’ll link to a Gist in the next step
@@ -20,7 +20,7 @@ This guide walks you through setting up [cla-assistant.io](https://cla-assistant
 
 ## Creating the CLA Gist
 
-### 🔐 Sign in to GitHub
+### Sign in to GitHub
 - Go to [github.com](https://github.com) and log in
 
 ### 📂 Open the Gist Page
@@ -28,11 +28,11 @@ This guide walks you through setting up [cla-assistant.io](https://cla-assistant
 - Select **“Gists”** from the dropdown
 - Click **“New Gist”**
 
-### 📝 Add Gist Files
+### Add Gist Files
 Include this file in your Gist:
 - `CLA.md`: The full text of your Contributor License Agreement
 
-### 📃 Format the CLA Text
+### Format the CLA Text
 
 Example structure for `CLA.md`:
 
@@ -52,7 +52,7 @@ By contributing to this project on behalf of your employer, you agree to the fol
 [Insert corporate CLA text here]
 ```
 
-### 💾 Save & Share
+### Save & Share
 Choose Public or Secret visibility
 Click “Create public gist” or “Create secret gist”
 After creation, copy the **raw URL** of the `CLA.md` file from your browser’s address bar
@@ -71,7 +71,6 @@ Ask a team member (or yourself) to open a pull request
 If the contributor hasn't signed the CLA:
 
 - CLA Assistant will comment on the PR with a signature request
-- The contributor will fill in metadata as prompted
 
 Once signed, CLA Assistant will:
 
