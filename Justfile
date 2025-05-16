@@ -635,6 +635,14 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
+    
+# SETUP: Initial project setup and environment initialization
+[group('setup'), group('quick start')]
+setup: check-deps install-dev install-taplo pre-commit-setup
+    echo "{{GREEN}}✓ Project setup complete!{{NC}}"
+
+#Python interpreter for dev container
+python_interpreter := `./detect-python.sh`
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev

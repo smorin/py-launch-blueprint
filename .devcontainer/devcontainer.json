@@ -1,6 +1,8 @@
 {
   "name": "PyLaunch Blueprint",
-  "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -12,14 +14,10 @@
         "tamasfe.even-better-toml",
         "redhat.vscode-yaml",
         "eamodio.gitlens",
-        "streetsidesoftware.code-spell-checker",
-        "ms-python.black-formatter"
+        "streetsidesoftware.code-spell-checker"
       ]
     }
   },
-  "postCreateCommand": "chmod +x .devcontainer/setup.sh && .devcontainer/setup.sh",
-  "remoteUser": "vscode",
-  "mounts": [
-    "source=${localWorkspaceFolder},target=/workspace,type=bind"
-  ]
+  "postCreateCommand": ".devcontainer/setup.sh",
+  "remoteUser": "vscode"
 }
