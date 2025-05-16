@@ -628,6 +628,11 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 @_foo:
     echo "example"
 
+# Developer setup: ensure environment is ready
+setup:
+    ./detect-python.sh
+    ./.devcontainer/setup.sh
+
 [group('dev'), group('quick start')]
 @dev:
     just format
