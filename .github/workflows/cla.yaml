@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: CLA Assistant
-      uses: cla-assistant/github-action@v2
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        cla-url: https://cla-assistant.io/py-launch-blueprint
+      - name: CLA Assistant
+        uses: cla-assistant/github-action@v1.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          cla-url: https://cla-assistant.io/py-launch-blueprint
