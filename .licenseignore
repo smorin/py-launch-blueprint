@@ -1,0 +1,1 @@
+-ignore "**/some_dir/*" -ignore "**/generated/*"

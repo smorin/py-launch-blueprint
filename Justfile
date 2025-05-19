@@ -644,24 +644,17 @@ license-copyright := "Steve Morin"
 license-year := "2025"
 license-type := "mit"
 
-# Runs addlicense in check mode
-license-check:
-  @echo "Checking license headers..."
-  for path in {{license-targets}}; do \
-    if [ -e "$$path" ]; then \
-      find "$$path" -type f \( -name '*.py' -o -name '*.sh' -o -name '*.html' \) \
-        -exec ~/go/bin/addlicense --check -l {{license-type}} -y {{license-year}} -c "{{license-copyright}}" {} +; \
-    fi \
-  done
+check-license:
+    find . -type f \( -name '*.go' -o -name '*.py' -o -name '*.sh' \) \
+      -not -path './vendor/*' \
+      -not -path './.git/*' > filelist.txt
+    xargs -a filelist.txt addlicense -check -c "Your Org" -l apache -y 2025 -s -v
 
-# Runs addlicense to insert missing headers
-license-fix:
-  @echo "Fixing license headers..."
-  for path in {{license-targets}}; do \
-    if [ -e "$$path" ]; then \
-      find "$$path" -type f \( -name '*.py' -o -name '*.sh' -o -name '*.html' \) \
-        -exec ~/go/bin/addlicense -l {{license-type}} -y {{license-year}} -c "{{license-copyright}}" {} +; \
-    fi \
-  done
+fix-license:
+    find . -type f \( -name '*.go' -o -name '*.py' -o -name '*.sh' \) \
+      -not -path './vendor/*' \
+      -not -path './.git/*' > filelist.txt
+    xargs -a filelist.txt addlicense -c "Your Org" -l apache -y 2025 -s -v
+    
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
