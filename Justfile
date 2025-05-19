@@ -643,7 +643,7 @@ check-licenses:
       -type f -print \
       | xargs ~/go/bin/addlicense --check -l mit -y 2025 -c "Steve Morin"
 
-# Automatically add/fix license headers
+# Automatically add/fix license headers 
 fix-licenses:
     find . \
       -path './.venv' -prune -o \
