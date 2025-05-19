@@ -24,7 +24,7 @@ fi
 # Your setup tasks go here 
 echo "Running setup tasks..."
 
-# Example: install pre-commit hooks
+# Example: install pre-commit hooks 
 if command -v pre-commit &>/dev/null; then
   echo "Installing pre-commit hooks..."
   pre-commit install
