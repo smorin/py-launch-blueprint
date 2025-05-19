@@ -611,6 +611,22 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
+# Check that all files have license headers
+check-licenses:
+    find . \
+      -path './.venv' -prune -o \
+      -path './addlicense/testdata/initial' -prune -o \
+      -type f -print \
+      | xargs ~/go/bin/addlicense --check -l mit -y 2025 -c "Steve Morin"
+
+# Automatically add/fix license headers
+fix-licenses:
+    find . \
+      -path './.venv' -prune -o \
+      -path './addlicense/testdata/initial' -prune -o \
+      -type f -print \
+      | xargs ~/go/bin/addlicense -l mit -y 2025 -c "Steve Morin"
+
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
