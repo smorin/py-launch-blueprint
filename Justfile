@@ -635,22 +635,33 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
-# Check that all files have license headers
-check-licenses:
-    find . \
-      -path './.venv' -prune -o \
-      -path './addlicense/testdata/initial' -prune -o \
-      -type f -print \
-      | xargs ~/go/bin/addlicense --check -l mit -y 2025 -c "Steve Morin"
+    
+# Directories and file types we want to check/fix
+license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
 
-# Automatically add/fix license headers 
-fix-licenses:
-    find . \
-      -path './.venv' -prune -o \
-      -path './addlicense/testdata/initial' -prune -o \
-      -type f -print \
-      | xargs ~/go/bin/addlicense -l mit -y 2025 -c "Steve Morin"
+# License holder and year
+license-copyright := "Steve Morin"
+license-year := "2025"
+license-type := "mit"
 
+# Runs addlicense in check mode
+license-check:
+  @echo "Checking license headers..."
+  for path in {{license-targets}}; do \
+    if [ -e "$$path" ]; then \
+      find "$$path" -type f \( -name '*.py' -o -name '*.sh' -o -name '*.html' \) \
+        -exec ~/go/bin/addlicense --check -l {{license-type}} -y {{license-year}} -c "{{license-copyright}}" {} +; \
+    fi \
+  done
 
+# Runs addlicense to insert missing headers
+license-fix:
+  @echo "Fixing license headers..."
+  for path in {{license-targets}}; do \
+    if [ -e "$$path" ]; then \
+      find "$$path" -type f \( -name '*.py' -o -name '*.sh' -o -name '*.html' \) \
+        -exec ~/go/bin/addlicense -l {{license-type}} -y {{license-year}} -c "{{license-copyright}}" {} +; \
+    fi \
+  done
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
