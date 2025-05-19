@@ -115,7 +115,7 @@ jobs:
         args: --detailed-output # To always see detailed output from this action
 
   # The publish job is commented out, but here's a reference if you want to re-enable it
-  # publish:
+  # publish: 
   #   needs: [test, security]
   #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
   #   runs-on: ubuntu-latest
