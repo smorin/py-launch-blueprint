@@ -44,7 +44,7 @@ jobs:
 
     # Check linters using ruff
     - name: Check linters (ruff)
-      run: uvx ruff check --force-exclude --no-cache py_launch_blueprint/
+      run: uvx ruff check py_launch_blueprint/
 
     - name: Check TOML formatting
       run: |
