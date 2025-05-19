@@ -101,7 +101,7 @@ max-line-length = 88
 "__init__.py" = ["F401"] # Ignore unused imports in __init__.py files
 "tests/*" = ["S101", "S105", "S106"] # Ignore assert statements in tests
 "py_launch_blueprint/_version.py" = [
-    "ALL",
+  "ALL",
 ] # Ignore all Ruff checks for version.py file
 # S101: This check flags the use of assert statements. The reason is that assert statements are removed when Python code is optimized (run with the -O flag), which can lead to security vulnerabilities if assert is used for security checks.
 # S105: This generally flags hardcoded password strings in code.
