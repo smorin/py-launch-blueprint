@@ -639,7 +639,7 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 # Directories and file types we want to check/fix
 license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
 
-# License holder and year
+# License holder and year 
 license-copyright := "Steve Morin"
 license-year := "2025"
 license-type := "mit"
@@ -655,6 +655,6 @@ fix-license:
       -not -path './vendor/*' \
       -not -path './.git/*' > filelist.txt
     xargs -a filelist.txt addlicense -c "Your Org" -l apache -y 2025 -s -v
-    
+
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
