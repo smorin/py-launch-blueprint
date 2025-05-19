@@ -643,18 +643,21 @@ license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
 license-copyright := "Steve Morin"
 license-year := "2025"
 license-type := "mit"
-
 check-license:
-    find . -type f \( -name '*.go' -o -name '*.py' -o -name '*.sh' \) \
-      -not -path './vendor/*' \
-      -not -path './.git/*' > filelist.txt
-    xargs -a filelist.txt addlicense -check -c "Your Org" -l apache -y 2025 -s -v
+  find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
+    -not -path './.git/*' \
+    -not -path './.venv/*' \
+    -not -path './vendor/*' \
+    > filelist.txt
+  xargs -a filelist.txt addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v
 
 fix-license:
-    find . -type f \( -name '*.go' -o -name '*.py' -o -name '*.sh' \) \
-      -not -path './vendor/*' \
-      -not -path './.git/*' > filelist.txt
-    xargs -a filelist.txt addlicense -c "Your Org" -l apache -y 2025 -s -v
-
+  find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
+    -not -path './.git/*' \
+    -not -path './.venv/*' \
+    -not -path './vendor/*' \
+    > filelist.txt
+  xargs -a filelist.txt addlicense -c "Steve Morin" -l mit -y 2025 -s -v
+  
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
