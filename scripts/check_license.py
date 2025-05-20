@@ -28,10 +28,9 @@ from pathlib import Path
 extensions = [".py", ".sh", ".go"]
 excluded_dirs = {".git", ".venv", "vendor"}
 
- def should_include(path: Path) -> bool:
--    return path.suffix in extensions and not any(part in excluded_dirs for part in path.parts)
-+    return (path.suffix in extensions and 
-+            not any(part in excluded_dirs for part in path.parts))
+def should_include(path: Path) -> bool:
+    return (path.suffix in extensions and 
+            not any(part in excluded_dirs for part in path.parts))
 
 files = [str(p) for p in Path(".").rglob("*") if p.is_file() and should_include(p)]
 if not files:
