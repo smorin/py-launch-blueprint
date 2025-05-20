@@ -1,5 +1,5 @@
-## Ruff: A Fast Python Linter & Formatter  
- 
+## Ruff: A Fast Python Linter & Formatter
+
 Ruff is a high-performance linter and code formatter for Python. It combines multiple tools into one, offering faster performance and comprehensive functionality compared to traditional Python tools.
 **Pros**:
 
@@ -24,6 +24,6 @@ Python line length standards:
 [tool.ruff]
 line-length = 88
 
-[tool.ruff.pycodestyle]
+[tool.ruff.lint.pycodestyle]
 max-line-length = 88
 ```

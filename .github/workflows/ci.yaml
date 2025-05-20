@@ -24,7 +24,6 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-
     #install just
     - name: Install Just
       uses: extractions/setup-just@v2
@@ -34,6 +33,10 @@ jobs:
        uv venv .venv
        uv sync --all-extras --dev
        echo "$PWD/.venv/bin" >> $GITHUB_PATH
+       
+    # Format code
+    - name: Install Taplo
+      run: just install-taplo
 
     # Run type checker
     - name: Run type checker
@@ -42,20 +45,33 @@ jobs:
     # Check linters using ruff
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
+
     # Addlicense install step 
     - name: Install addlicense
       run: |
         go install github.com/google/addlicense@latest
         echo "$HOME/go/bin" >> $GITHUB_PATH
+        
     # Use just recipe for license check 
     - name: License header check
       run: just check-license-direct
+      
+    - name: Check TOML formatting
+      run: |
+        taplo check '**/*.toml'
+
+    # Run pre-commit checks
+    - name: Run pre-commit checks
+      run: |
+       just pre-commit-setup
+       just pre-commit-run
+
     # You can uncomment the following if you want to run tests with coverage
     # - name: Run tests with coverage
     #   run: |
     #     pytest --cov=./ --cov-report=xml
 
-    # Upload coverage (if tests are being run)
+   # Upload coverage (if tests are being run)
     # - name: Upload coverage
     #   uses: codecov/codecov-action@v4
 
