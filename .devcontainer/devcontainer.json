@@ -1,7 +1,8 @@
 {
-  "name": "PyLaunch Blueprint", 
+  "name": "PyLaunch Blueprint",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "context": ".."
   },
   "customizations": {
     "vscode": {
@@ -18,6 +19,6 @@
       ]
     }
   },
-  "postCreateCommand": ".devcontainer/setup.sh",
+  "postCreateCommand": "bash .devcontainer/setup.sh",
   "remoteUser": "vscode"
 }

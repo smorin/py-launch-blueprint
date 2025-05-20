@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
-# Only run this part if inside a dev container
+# Go to the workspace directory
 if [ -d "/workspaces/py-launch-blueprint-main" ]; then
   echo "In container: switching to workspace dir"
   cd /workspaces/py-launch-blueprint-main
@@ -10,7 +9,13 @@ else
   echo "Not in container: skipping cd to /workspaces"
 fi
 
-# Activate virtualenv (if needed, adjust this path)
+# Create virtual environment if not exists
+if [ ! -d ".venv" ]; then
+  echo "Creating virtual environment..."
+  python3 -m venv .venv
+fi
+
+# Activate virtual environment
 if [ -f ".venv/bin/activate" ]; then
   echo "Activating .venv (Linux/macOS)..."
   source .venv/bin/activate
@@ -21,10 +26,22 @@ else
   echo "No virtual environment found. Skipping activation."
 fi
 
-# Your setup tasks go here 
+# Install dependencies
+if [ -f "pyproject.toml" ]; then
+  echo "Installing from pyproject.toml..."
+  pip install --upgrade pip
+  pip install .
+elif [ -f "requirements.txt" ]; then
+  echo "Installing from requirements.txt..."
+  pip install --upgrade pip
+  pip install -r requirements.txt
+else
+  echo "No requirements file found. Skipping dependency install."
+fi
+
+# Setup tasks
 echo "Running setup tasks..."
 
-# Example: install pre-commit hooks 
 if command -v pre-commit &>/dev/null; then
   echo "Installing pre-commit hooks..."
   pre-commit install
