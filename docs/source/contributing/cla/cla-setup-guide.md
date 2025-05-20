@@ -80,5 +80,3 @@ Once signed, CLA Assistant will:
 ### Monitor CLA Status
  - Use the CLA Assistant dashboard to see contributors who have signed
  - View, track, and manage CLA signatories easily
-Use the CLA Assistant dashboard to see contributors who have signed
-View, track, and manage CLA signatories easily
