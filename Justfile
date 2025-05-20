@@ -630,6 +630,7 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 
 # Developer setup: ensure environment is ready
 setup:
+     chmod +x ./detect-python.sh
     ./detect-python.sh
     ./.devcontainer/setup.sh
 
