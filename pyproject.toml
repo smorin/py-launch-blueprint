@@ -94,11 +94,9 @@ exclude = [
   "docs/source/conf.py",
   "py_launch_blueprint/_version.py",
 ]
-
+# Per-file-ignores
 [tool.ruff.lint.pycodestyle]
 max-line-length = 88
-
-# Per-file-ignores
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]             # Ignore unused imports in __init__.py files
 "tests/*" = ["S101", "S105", "S106"] # Ignore assert statements in tests
