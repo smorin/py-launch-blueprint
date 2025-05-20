@@ -633,7 +633,11 @@ setup:
 	cp ./detect-python.sh /tmp/detect-python.sh
 	chmod +x /tmp/detect-python.sh
 	/tmp/detect-python.sh
-	./.devcontainer/setup.sh
+	cp ./.devcontainer/setup.sh /tmp/setup.sh
+	chmod +x /tmp/setup.sh
+	/tmp/setup.sh
+	rm /tmp/detect-python.sh /tmp/setup.sh
+
     
 [group('dev'), group('quick start')]
 @dev:
