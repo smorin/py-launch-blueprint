@@ -643,6 +643,6 @@ alias cycle := dev
 check-license-direct:
     addlicense --check -l mit -y $(date +'%Y') -c "Copyright (c) $(date +'%Y'), Steve Morin" .
 
-# Fix license
+# Fix license 
 fix-license-direct:
     addlicense -l mit -y $(date +'%Y') -c "Copyright (c) $(date +'%Y'), Steve Morin" .
