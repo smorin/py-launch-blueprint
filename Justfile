@@ -303,7 +303,7 @@ debug-info:
     if [ "$$OS" = "Windows_NT" ]; then \
         powershell -File scripts/update_contributors.ps1; \
     else \
-        echo "{{YELLOW}}TODO: Add macOS/Linux command to update CONTRIBUTORS.md here{{NC}}"; \
+        echo "{{RED}}Error: Updating CONTRIBUTORS.md is not supported on this OS yet.{{NC}}"; \
         # Example placeholder: ./scripts/update_contributors.sh
     fi
     echo "{{CHECK}} Contributors list updated"
