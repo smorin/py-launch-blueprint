@@ -14,3 +14,6 @@ WORKDIR /workspaces/py-launch-blueprint-main
 
 # Make sure the setup script is executable
 RUN chmod +x /workspaces/py-launch-blueprint-main/.devcontainer/setup.sh
+
+# Install 'just' command runner
+RUN curl -sSL https://just.systems/install.sh | bash -s -- --to /usr/local/bin

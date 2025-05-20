@@ -48,7 +48,5 @@ if command -v pre-commit &>/dev/null; then
 else
   echo "pre-commit not installed, skipping."
 fi
- if ! command -v just &> /dev/null; then
-    curl -sSL https://just.systems/install.sh | bash -s -- --to /usr/local/bin
-fi
+ 
 echo "✅ Setup complete."
