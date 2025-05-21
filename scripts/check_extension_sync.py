@@ -2,13 +2,14 @@
 
 import json
 import sys
-import os
 from pathlib import Path
+from typing import Dict, Set, Any
 
 EXTENSIONS_FILE = Path(".vscode/extensions.json")
 DEVCONTAINER_FILE = Path(".devcontainer/devcontainer.json")
 
-def load_json(file_path):
+
+def load_json(file_path: Path) -> Dict[str, Any]:
     try:
         with open(file_path) as f:
             return json.load(f)
@@ -19,16 +20,22 @@ def load_json(file_path):
         print(f"❌ Error parsing {file_path}: {e}")
         sys.exit(2)
 
-def extract_recommended_extensions(data):
+
+def extract_recommended_extensions(data: Dict[str, Any]) -> Set[str]:
     return set(data.get("recommendations", []))
 
-def extract_devcontainer_extensions(data):
+
+def extract_devcontainer_extensions(data: Dict[str, Any]) -> Set[str]:
     try:
-        return set(data["customizations"]["vscode"]["extensions"])
+        return set(
+            ext if isinstance(ext, str) else ext["id"]
+            for ext in data["customizations"]["vscode"]["extensions"]
+        )
     except KeyError:
         return set()
 
-def main():
+
+def main() -> None:
     vscode_data = load_json(EXTENSIONS_FILE)
     devcontainer_data = load_json(DEVCONTAINER_FILE)
 
@@ -48,5 +55,5 @@ def main():
     print("✅ VSCode extensions are in sync.")
     sys.exit(0)
 
+
 if __name__ == "__main__":
-    main()
