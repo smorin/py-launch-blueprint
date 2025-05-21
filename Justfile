@@ -85,6 +85,7 @@ BRANCH_NAME := "test-actions-" + DATE_TIME
     if ! command -v python3 >/dev/null 2>&1; then echo "python3 is not installed"; exit 1; fi
     if ! command -v just >/dev/null 2>&1; then echo "just is not installed"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}"; fi
+    if ! command -v taplo >/dev/null 2>&1; then echo "Taplo is not installed"; exit 1; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -93,6 +94,15 @@ alias c := check-deps
 [group('install'), group('quick start')]
 @install-dev: check-deps
     uv pip install --editable ".[dev]"
+
+# Install Taplo in editable mode with dev dependencies
+[group('install')]
+@install-taplo:
+	if ! command -v taplo >/dev/null 2>&1; then \
+		cargo install taplo-cli  && echo "{{GREEN}} Taplo installed successfully{{NC}}"; \
+	else \
+		echo "{{YELLOW}}Taplo is already installed{{NC}}"; \
+	fi
 
 # Format code
 [group('dev')]
@@ -104,6 +114,20 @@ alias c := check-deps
     uvx --with-editable . ruff check --select I --fix {{py_package_name}}/
 
 alias f := format
+
+# Format TOML files (comments preserved via pyproject.toml config)
+[group('dev')]
+@format-toml:
+    taplo format *.toml --config .taplo.toml
+
+alias ft := format-toml
+
+# Check TOML formatting without modifying files
+[group('dev')]
+@check-toml:
+    taplo check *.toml --config .taplo.toml
+
+alias ct := check-toml
 
 # Run linter (code style and quality checks)
 [group('dev')]
@@ -275,21 +299,13 @@ debug-info:
 # Update CONTRIBUTORS.md file
 [group('build')]
 @contributors:
+update-contributors:
     echo "Updating CONTRIBUTORS.md..."
-    if [ "$$OS" = "Windows_NT" ]; then \
-        powershell -File scripts/update_contributors.ps1; \
-    else \
-        echo "{{YELLOW}}TODO: Add macOS/Linux command to update CONTRIBUTORS.md here{{NC}}"; \
-        # Example placeholder: ./scripts/update_contributors.sh
-    fi
-    echo "{{CHECK}} Contributors list updated"
-
-# # Generate changelog from conventional commits
-# changelog:
-#     echo "Generating changelog..."
-#     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
-#     cog changelog --at=HEAD
-#     echo "{{GREEN}}✓{{NC}} Changelog generated"
+    # Cross-platform way to update CONTRIBUTORS.md using git shortlog
+    echo "# Contributors" > CONTRIBUTORS.md
+    echo "" >> CONTRIBUTORS.md
+    git shortlog -sne >> CONTRIBUTORS.md
+    echo "✓ Contributors list updated"
 
 # Verify commit messages follow conventional commit format
 [group('pre-commit')]
