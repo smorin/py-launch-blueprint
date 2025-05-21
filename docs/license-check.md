@@ -6,7 +6,7 @@ This feature ensures that all source code files in the repository include a stan
 
 ---
 
-## Tool Configuration
+## Tool Configuration 
 
 The license check is configured in `.pre-commit-config.yaml` and supports both local pre-commit checks and CI enforcement.
 
