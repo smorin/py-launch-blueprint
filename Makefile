@@ -93,6 +93,49 @@ install-just: ## Print install just command and where to find install options
 	@echo "Find other install options here: https://github.com/casey/just"
 	@echo -e "To setup just PATH, run: ${YELLOW}SET_PATH=$(HOME)/bin make set-path${NC}"
 
+install-just-force: ## Install just and add it to PATH
+	@echo "Installing just to ~/bin..."
+	@curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to $(HOME)/bin
+	@echo "Adding $(HOME)/bin to PATH in $(HOME)/.zshenv..."
+	@if ! awk -v path="$(HOME)/bin" ' \
+		BEGIN {found=0} \
+		/^export PATH=/ { \
+			if (index($$0, path) > 0) { \
+				found=1; \
+				exit; \
+			} \
+		} \
+		END {exit !found}' "$(HOME)/.zshenv"; then \
+		echo "export PATH=\"$$PATH:$(HOME)/bin\"" >> "$(HOME)/.zshenv"; \
+		echo -e "$(GREEN)Added PATH entry:$(NC) $$PATH:$(HOME)/bin"; \
+		echo -e "Run $(BLUE)source $(HOME)/.zshenv$(NC) to apply changes"; \
+	else \
+		echo -e "$(CHECK) PATH already contains $(HOME)/bin"; \
+	fi
+	@echo "Please run 'source ~/.zshenv' or open a new terminal to update your PATH."
+
+install-uv-force: ## Install uv and add it to PATH
+	@echo "Installing uv..."
+	@curl -LsSf https://astral.sh/uv/install.sh | sh
+	@echo "Adding uv's typical installation directory (~/.local/bin) to PATH in ~/.zshenv..."
+	@UV_INSTALL_PATH="$(HOME)/.local/bin"; \
+	if ! awk -v path="$${UV_INSTALL_PATH}" ' \
+		BEGIN {found=0} \
+		/^export PATH=/ { \
+			if (index($$0, path) > 0) { \
+				found=1; \
+				exit; \
+			} \
+		} \
+		END {exit !found}' "$(HOME)/.zshenv"; then \
+		echo "export PATH=\"$$PATH:$${UV_INSTALL_PATH}\"" >> "$(HOME)/.zshenv"; \
+		echo -e "$(GREEN)Added PATH entry:$(NC) $$PATH:$${UV_INSTALL_PATH}"; \
+		echo -e "Run $(BLUE)source $(HOME)/.zshenv$(NC) to apply changes"; \
+	else \
+		echo -e "$(CHECK) PATH already contains $${UV_INSTALL_PATH}"; \
+	fi
+	@echo "Please run 'source ~/.zshenv' or open a new terminal to update your PATH if changes were made."
+
 install-uv: ## Print install uv command and where to find install options
 	@echo "uv installation command:"
 	@echo -e "${CYAN}curl -LsSf https://astral.sh/uv/install.sh | sh${NC}"
