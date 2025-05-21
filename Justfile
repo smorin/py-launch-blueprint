@@ -636,7 +636,7 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     # just build
     # just run
 
-# Check if VSCode recommended extensions are synced with devcontainer
+# Check if VSCode recommended extensions are synced with devcontainerm
 check-extension-sync:
     uv run scripts/check_extension_sync.py
 
