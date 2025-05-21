@@ -653,7 +653,7 @@ check-license:
     > filelist.txt
   xargs -a filelist.txt addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v
 
-# Fix license 
+# License Fix
 fix-license:
   find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
     -not -path './.git/*' \

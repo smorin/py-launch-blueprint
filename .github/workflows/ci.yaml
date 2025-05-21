@@ -89,18 +89,13 @@ jobs:
 
     - name: Run addlicense check (only on relevant files)
       run: |
+        year=$(date +'%Y')
         find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
           -not -path './.git/*' \
           -not -path './.venv/*' \
           -not -path './vendor/*' \
-         | xargs $(go env GOPATH)/bin/addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v
+        | xargs $(go env GOPATH)/bin/addlicense -check -c "Steve Morin" -l mit -y "$year" -s -v
 
-    - name: Debug files to check
-      run: |
-        find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
-          -not -path './.git/*' \
-          -not -path './.venv/*' \
-          -not -path './vendor/*'
   # Only run security checks on pull requests from the main repository
   security:
     if: github.event.pull_request.head.repo.full_name == github.repository
