@@ -299,13 +299,21 @@ debug-info:
 # Update CONTRIBUTORS.md file
 [group('build')]
 @contributors:
-update-contributors:
     echo "Updating CONTRIBUTORS.md..."
-    # Cross-platform way to update CONTRIBUTORS.md using git shortlog
-    echo "# Contributors" > CONTRIBUTORS.md
-    echo "" >> CONTRIBUTORS.md
-    git shortlog -sne >> CONTRIBUTORS.md
-    echo "✓ Contributors list updated"
+    if [ "$$OS" = "Windows_NT" ]; then \
+        powershell -File scripts/update_contributors.ps1; \
+    else \
+        echo "{{YELLOW}}TODO: Add macOS/Linux command to update CONTRIBUTORS.md here{{NC}}"; \
+        # Example placeholder: ./scripts/update_contributors.sh
+    fi
+    echo "{{CHECK}} Contributors list updated"
+
+# # Generate changelog from conventional commits
+# changelog:
+#     echo "Generating changelog..."
+#     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
+#     cog changelog --at=HEAD
+#     echo "{{GREEN}}✓{{NC}} Changelog generated"
 
 # Verify commit messages follow conventional commit format
 [group('pre-commit')]
@@ -627,6 +635,32 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
+    
+# Directories and file types we want to check/fix
+license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
 
+# License holder and year 
+license-copyright := "Steve Morin"
+license-year := "2025"
+license-type := "mit"
+
+# License check
+check-license:
+  find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
+    -not -path './.git/*' \
+    -not -path './.venv/*' \
+    -not -path './vendor/*' \
+    > filelist.txt
+  xargs -a filelist.txt addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v
+
+# License Fix
+fix-license:
+  find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
+    -not -path './.git/*' \
+    -not -path './.venv/*' \
+    -not -path './vendor/*' \
+    > filelist.txt
+  xargs -a filelist.txt addlicense -c "Steve Morin" -l mit -y 2025 -s -v
+  
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev

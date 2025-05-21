@@ -1,5 +1,6 @@
 name: CI/CD
-
+permissions:
+  contents: write
 on:
   push:
     branches: [main]
@@ -16,7 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
+      with:
+          fetch-depth: 0
     - name: Install uv
       uses: astral-sh/setup-uv@v5
 
@@ -64,6 +66,35 @@ jobs:
    # Upload coverage (if tests are being run)
     # - name: Upload coverage
     #   uses: codecov/codecov-action@v4
+  license-check:
+    name: License Compliance Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.21'
+
+    - name: Cache Go bin path
+      run: echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+
+    - name: Install addlicense
+      run: go install github.com/google/addlicense@latest
+
+    - name: Run addlicense check (only on relevant files)
+      run: |
+        year=$(date +'%Y')
+        find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
+          -not -path './.git/*' \
+          -not -path './.venv/*' \
+          -not -path './vendor/*' \
+        | xargs $(go env GOPATH)/bin/addlicense -check -c "Steve Morin" -l mit -y "$year" -s -v
 
   # Only run security checks on pull requests from the main repository
   security:
@@ -79,7 +110,7 @@ jobs:
         args: --detailed-output # To always see detailed output from this action
 
   # The publish job is commented out, but here's a reference if you want to re-enable it
-  # publish:
+  # publish: 
   #   needs: [test, security]
   #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
   #   runs-on: ubuntu-latest
