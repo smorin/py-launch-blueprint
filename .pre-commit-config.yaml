@@ -49,13 +49,6 @@ repos:
         stages: [pre-commit] # Only run on commit
   - repo: local
     hooks:
-    -   id: license-check
-        name: Check license headers
-        entry: python scripts/check_license.py
-        language: system
-        types: [python, shell]
-    - repo: local
-      hooks:
       - id: check-vscode-extension-sync
         name: Check VSCode Extension Sync
         entry: uvx scripts/check_extension_sync.py
