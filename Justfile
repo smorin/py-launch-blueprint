@@ -655,12 +655,28 @@ check-license:
 
 # License Fix
 fix-license:
-  find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
-    -not -path './.git/*' \
-    -not -path './.venv/*' \
-    -not -path './vendor/*' \
-    > filelist.txt
-  xargs -a filelist.txt addlicense -c "Steve Morin" -l mit -y 2025 -s -v
+  mkdir -p scripts
+  echo '#!/bin/bash
+set -e
+year=$(date +'%Y')
+copyright="Steve Morin"
+files=(
+  ./py_launch_blueprint/__init__.py
+  ./py_launch_blueprint/_version.py
+  ./update_contributors.py
+  ./tests/test_config.py
+  ./tests/__init__.py
+  ./tests/test_cli.py
+  ./tests/test_api.py
+  ./py_launch_blueprint/projects.py
+)
+for file in "${files[@]}"; do
+  echo "Adding license to $$file"
+  addlicense -c "$$copyright" -l mit -y "$$year" "$$file"
+done' > scripts/fix-license.sh
+
+  chmod +x scripts/fix-license.sh
+  scripts/fix-license.sh
   
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
