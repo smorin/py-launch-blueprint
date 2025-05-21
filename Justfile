@@ -176,6 +176,14 @@ alias b := build
 # Publish package to PyPI
 [group('build'), group('dev')]
 @publish:
+    echo "Building package..."
+    uvx --from build pyproject-build --wheel --sdist --outdir dist
+    echo "Publishing package to PyPI..."
+    if ! command -v twine >/dev/null 2>&1; then \
+        echo "{{YELLOW}}Twine is not installed{{NC}}"; \
+        echo "Installing Twine..."; \
+        uv pip install twine; \
+    fi
 	twine upload dist/*
 
 alias p := publish
