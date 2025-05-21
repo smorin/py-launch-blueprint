@@ -656,10 +656,10 @@ check-license:
 # License Fix
 fix-license:
   mkdir -p scripts
-  echo '#!/bin/bash
+  echo "#!/bin/bash
 set -e
-year=$(date +'%Y')
-copyright="Steve Morin"
+year=\$(date +'%Y')
+copyright='Steve Morin'
 files=(
   ./py_launch_blueprint/__init__.py
   ./py_launch_blueprint/_version.py
@@ -670,13 +670,14 @@ files=(
   ./tests/test_api.py
   ./py_launch_blueprint/projects.py
 )
-for file in "${files[@]}"; do
-  echo "Adding license to $$file"
-  addlicense -c "$$copyright" -l mit -y "$$year" "$$file"
-done' > scripts/fix-license.sh
+for file in \"\${files[@]}\"; do
+  echo \"Adding license to \$file\"
+  addlicense -c \"\$copyright\" -l mit -y \"\$year\" \"\$file\"
+done" > scripts/fix-license.sh
 
   chmod +x scripts/fix-license.sh
-  scripts/fix-license.sh
+  ./scripts/fix-license.sh
+
   
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
