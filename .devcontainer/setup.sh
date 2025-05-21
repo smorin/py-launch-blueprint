@@ -2,9 +2,9 @@
 set -euo pipefail
 
 # Go to the workspace directory
-if [ -d "/workspaces/py-launch-blueprint-main" ]; then
+if [ -d "py-launch-blueprint" ]; then
   echo "In container: switching to workspace dir"
-  cd /workspaces/py-launch-blueprint-main
+  cd py-launch-blueprint
 else
   echo "Not in container: skipping cd to /workspaces"
 fi
@@ -48,5 +48,12 @@ if command -v pre-commit &>/dev/null; then
 else
   echo "pre-commit not installed, skipping."
 fi
- 
+
+# Ensure uvx is installed 
+if ! command -v uvx &>/dev/null; then
+  echo "Installing uv (includes uvx)..."
+  curl -Ls https://astral.sh/uv/install.sh | bash
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 echo "✅ Setup complete."
