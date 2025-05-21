@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Go to the workspace directory
+# Go to the workspace directory: 
 if [ -d "py-launch-blueprint" ]; then
   echo "In container: switching to workspace dir"
   cd py-launch-blueprint
