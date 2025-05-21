@@ -184,7 +184,7 @@ alias b := build
         echo "Installing Twine..."; \
         uv pip install twine; \
     fi
-	twine upload dist/*
+    twine upload dist/*
 
 alias p := publish
 
