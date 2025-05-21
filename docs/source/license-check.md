@@ -24,13 +24,12 @@ Defined at the top of \`Justfile\` for maintainability:
 
 \`\`\`makefile
 # Directories and file types to check/fix
-license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh *.go"
+license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
 
 # License metadata
 license-copyright := "Steve Morin"
 license-year      := "2025"
 license-type      := "mit"
-\`\`\`
 
 ---
 
