@@ -1,9 +1,41 @@
 extends: default
 
+ignore: |
+  .venv/**
+  node_modules/**
+  dist/**
+  build/**
+
 rules:
+  # Enforce lowercase booleans (true/false instead of True/False)
+  truthy:
+    level: error
+
+  # Enforce max line length
   line-length:
     max: 120
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: true
+
+  # Disable the requirement for document start marker (---)
   document-start: disable
+
+  # Use 2 spaces for indentation
   indentation:
     spaces: 2
+    indent-sequences: consistent
+
+  # Disallow trailing spaces
   trailing-spaces: enable
+
+  # Warn if there is no space after '#' in comments
+  comments:
+    level: warning
+
+  # Warn if comments are not properly indented under mappings
+  comments-indentation:
+    level: warning
+
+  # Disallow more than one empty line
+  empty-lines:
+    max: 1

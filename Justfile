@@ -187,7 +187,7 @@ alias b := build
 [group('pre-commit')]
 @pre-commit-run:
     uvx --with-editable . pre-commit run --all
-
+    PYTHONUTF8=1 pre-commit run --all-files #Added to fix UnicodeDecodeError with Yamllint
 alias pc := pre-commit-run
 
 # Check installed package version
@@ -627,6 +627,19 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
+
+# Format all YAML files using Prettier
+format-yaml:
+  npx prettier --write "**/*.{yml,yaml}"
+
+# Lint all YAML files using yamllint
+lint-yaml:
+  yamllint .
+
+# Optional: Custom YAML fixer + Prettier
+fix-yaml:
+  python scripts/fix_yaml.py
+  npx prettier --write "**/*.{yml,yaml}"
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
