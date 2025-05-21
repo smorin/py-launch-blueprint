@@ -628,6 +628,9 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     # just build
     # just run
     
+# Alias for dev (full developer cycle: format → lint → test → build)
+alias cycle := dev
+
 # Directories and file types we want to check/fix
 license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
 
@@ -643,7 +646,7 @@ check-license:
     -not -path './.venv/*' \
     -not -path './vendor/*' \
     > filelist.txt
-  xargs -a filelist.txt addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v
+    xargs -a filelist.txt addlicense -check -c "{{license-copyright}}" -l {{license-type}} -y {{license-year}} -s -v
 
 # Fix license
 fix-license:
@@ -654,5 +657,3 @@ fix-license:
     > filelist.txt
   xargs -a filelist.txt addlicense -c "Steve Morin" -l mit -y 2025 -s -v
   
-# Alias for dev (full developer cycle: format → lint → test → build)
-alias cycle := dev
