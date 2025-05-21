@@ -173,6 +173,13 @@ alias ca := check
 
 alias b := build
 
+# Publish package to PyPI
+[group('build'), group('dev')]
+@publish:
+	twine upload dist/*
+
+alias p := publish
+
 # Set up pre-commit hooks
 [group('setup'), group('pre-commit')]
 @pre-commit-setup:
