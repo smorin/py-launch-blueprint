@@ -36,6 +36,6 @@ rules:
   comments-indentation:
     level: warning
 
-  # Disallow more than one empty line
+  # Disallow more than one empty line 
   empty-lines:
     max: 1

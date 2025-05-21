@@ -52,4 +52,4 @@ repos:
     rev: v1.30.0 # or latest
     hooks:
       - id: yamllint
-        args: ["-c", ".yamllint.yaml"] # if you have a config
+        args: ["-c", ".yamllint.yaml"] # if you have a config 

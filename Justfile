@@ -626,17 +626,17 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just lint
     just test
     # just build
-    # just run
+    # just run 
 
 # Format all YAML files using Prettier
 format-yaml:
   npx prettier --write "**/*.{yml,yaml}"
 
-# Lint all YAML files using yamllint
+# Lint all YAML files using yamllint 
 lint-yaml:
   yamllint .
 
-# Optional: Custom YAML fixer + Prettier
+# Optional: Custom YAML fixer + Prettier 
 fix-yaml:
   python scripts/fix_yaml.py
   npx prettier --write "**/*.{yml,yaml}"
