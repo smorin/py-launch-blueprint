@@ -635,14 +635,32 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
+    
+# Directories and file types we want to check/fix
+license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
 
-# Alias for dev (full developer cycle: format → lint → test → build)
-alias cycle := dev
+# License holder and year 
+license-copyright := "Steve Morin"
+license-year := "2025"
+license-type := "mit"
+
 # Check license
-[group('pre-commit')]
-check-license-direct:
-    addlicense --check -l mit -y $(date +'%Y') -c "Copyright (c) $(date +'%Y'), Steve Morin" .
+check-license:
+  find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
+    -not -path './.git/*' \
+    -not -path './.venv/*' \
+    -not -path './vendor/*' \
+    > filelist.txt
+  xargs -a filelist.txt addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v
 
 # Fix license 
-fix-license-direct:
-    addlicense -l mit -y $(date +'%Y') -c "Copyright (c) $(date +'%Y'), Steve Morin" .
+fix-license:
+  find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
+    -not -path './.git/*' \
+    -not -path './.venv/*' \
+    -not -path './vendor/*' \
+    > filelist.txt
+  xargs -a filelist.txt addlicense -c "Steve Morin" -l mit -y 2025 -s -v
+  
+# Alias for dev (full developer cycle: format → lint → test → build)
+alias cycle := dev
