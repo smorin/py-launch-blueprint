@@ -627,33 +627,32 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
-    
+
+# Directories and file types to check/fix
+license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh *.go"
+
+# License metadata
+license-copyright := "Steve Morin"
+license-year      := "2025"
+license-type      := "mit"
+
+# Check license (cross-platform)
+check-license:
+	addlicense -check \
+	  -c "{{license-copyright}}" \
+	  -l {{license-type}} \
+	  -y {{license-year}} \
+	  -s -v \
+	  {{license-targets}}
+
+# Fix license (cross-platform)
+fix-license:
+	addlicense \
+	  -c "{{license-copyright}}" \
+	  -l {{license-type}} \
+	  -y {{license-year}} \
+	  -s -v \
+	  {{license-targets}}
+
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
-
-# Directories and file types we want to check/fix
-license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
-
-# License holder and year 
-license-copyright := "Steve Morin"
-license-year := "2025"
-license-type := "mit"
-
-# Check license
-check-license:
-  find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
-    -not -path './.git/*' \
-    -not -path './.venv/*' \
-    -not -path './vendor/*' \
-    > filelist.txt
-    xargs -a filelist.txt addlicense -check -c "{{license-copyright}}" -l {{license-type}} -y {{license-year}} -s -v
-
-# Fix license
-fix-license:
-  find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
-    -not -path './.git/*' \
-    -not -path './.venv/*' \
-    -not -path './vendor/*' \
-    > filelist.txt
-  xargs -a filelist.txt addlicense -c "Steve Morin" -l mit -y 2025 -s -v
-  
