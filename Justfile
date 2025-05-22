@@ -169,6 +169,15 @@ alias ca := check
 # Build package
 [group('build'), group('dev')]
 @build: check
+    echo "Checking for Hatch..."
+    if ! command -v hatch >/dev/null 2>&1; then \
+        echo ""; \
+        echo "⚠️  Hatch is not installed. Please install it using:"; \
+        echo "   uv pip install hatch"; \
+        echo ""; \
+        exit 1; \
+    fi
+    echo "Building package with Hatch..."
     hatch build
 
 alias b := build
