@@ -46,7 +46,7 @@ uv pip install hatch twine
 
 ---
 
-## 4 Securing and Managing PyPI Credentials
+## 4. Securing and Managing PyPI Credentials
 
 To publish securely to PyPI or TestPyPI, never store your API tokens directly in your project files. Follow these best practices:
 
@@ -133,7 +133,7 @@ twine check dist/*
 
 ---
 
-## 5. Add a `just` Recipe to Build and Publish
+## 6. Add a `just` Recipe to Build and Publish
 
 Update your `justfile` (Optional):
 
@@ -174,7 +174,7 @@ alias p := publish
 
 ---
 
-## 5. Publish Your Package
+## 6. Publish Your Package
 
 Run:
 
