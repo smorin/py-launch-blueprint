@@ -50,7 +50,7 @@ uv pip install hatch twine
 
 To publish securely to PyPI or TestPyPI, never store your API tokens directly in your project files. Follow these best practices:
 
-### 1. Generate a PyPI API Token
+### 4.1. Generate a PyPI API Token
 
 * Visit: [https://pypi.org/manage/account/#api-tokens](https://pypi.org/manage/account/#api-tokens)
 * Click **"Add API token"**
@@ -59,7 +59,7 @@ To publish securely to PyPI or TestPyPI, never store your API tokens directly in
 
 ---
 
-### 2. Store Token Securely (Recommended Methods)
+### 4.2. Store Token Securely (Recommended Methods)
 
 #### ✅ A. Use `~/.pypirc` (Preferred for Local)
 
@@ -102,14 +102,14 @@ twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD dist/*
 
 ---
 
-### 3. Avoid Committing Secrets
+### 4.3. Avoid Committing Secrets
 
 * Add `.pypirc` and `.env` to `.gitignore`
 * Never commit credentials to Git
 
 ---
 
-### 4. Using GitHub Actions?
+### 4.4. Using GitHub Actions?
 
 Store token in `Settings > Secrets` and use it like this:
 
@@ -121,7 +121,7 @@ env:
 
 ---
 
-### 5. Validate Distributions Before Publishing
+### 5.5. Validate Distributions Before Publishing
 
 ```bash
 twine check dist/*
@@ -133,7 +133,7 @@ twine check dist/*
 
 ---
 
-## 6. Add a `just` Recipe to Build and Publish
+## 5. Add a `just` Recipe to Build and Publish
 
 Update your `justfile` (Optional):
 
@@ -211,7 +211,7 @@ just publish-test
 
 ---
 
-## 9. CI/CD Integration (Optional)
+## 7. CI/CD Integration (Optional)
 
 To automate publishing in CI/CD systems like GitHub Actions:
 
