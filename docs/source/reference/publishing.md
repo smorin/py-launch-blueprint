@@ -2,7 +2,7 @@
 
 This guide walks you through setting up your Python project for publishing to [PyPI](https://pypi.org) using `hatch`, `twine`.
 
-## 🔑 1. Create a PyPI Account and API Token
+## 1. Create a PyPI Account and API Token
 
 1. Register at [https://pypi.org/account/register/](https://pypi.org/account/register/)
 2. Navigate to **Account Settings → API Tokens**
@@ -11,7 +11,7 @@ This guide walks you through setting up your Python project for publishing to [P
 
 ---
 
-## 🔐 2. Store Your PyPI Token Securely
+## 2. Store Your PyPI Token Securely
 
 Edit or create `~/.pypirc`:
 
@@ -36,7 +36,7 @@ password = pypi-<your-test-token>
 
 ---
 
-## ⚙️ 3. Install Required Tools
+## 3. Install Required Tools
 
 Install with `uv` (or use `pip`):
 
@@ -46,7 +46,7 @@ uv pip install hatch twine
 
 ---
 
-## 💦 4. Add a `just` Recipe to Build and Publish
+## 4. Add a `just` Recipe to Build and Publish
 
 Update your `justfile` (Optional):
 
@@ -69,7 +69,7 @@ alias p := publish
 
 ---
 
-## 🚀 5. Publish Your Package
+## 5. Publish Your Package
 
 Run:
 
@@ -87,7 +87,7 @@ Uploading your_package-0.1.0-py3-none-any.whl
 
 ---
 
-## 🧪 Optional: Use TestPyPI
+## Optional: Use TestPyPI
 
 Add to your `justfile`:
 
@@ -106,7 +106,7 @@ just publish-test
 
 ---
 
-## 📚 Useful Links
+## Useful Links
 
 * [PyPI documentation](https://packaging.python.org/)
 * [TestPyPI](https://test.pypi.org/)
