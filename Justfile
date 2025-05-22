@@ -117,14 +117,14 @@ alias f := format
 # Format TOML files (comments preserved via pyproject.toml config)
 [group('dev')]
 @format-toml:
-    taplo format --config .taplo.toml
+    taplo format *.toml --config .taplo.toml
 
 alias ft := format-toml
 
 # Check TOML formatting without modifying files
 [group('dev')]
 @check-toml:
-    taplo check --config .taplo.toml
+    taplo check *.toml --config .taplo.toml
 
 alias ct := check-toml
 
@@ -299,7 +299,7 @@ debug-info:
 [group('docs'), group('clean')]
 @docs-clean:
     cd docs && make clean
-    
+
 # Update CONTRIBUTORS.md file
 [group('build')]
 @contributors:
@@ -333,7 +333,7 @@ commit:
     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
     cog commit
 
-# Install COG (Cocogitto) for changelog and commit management 
+# Install COG (Cocogitto) for changelog and commit management
 [group('install'), group('releases')]
 install-cog:
     echo "Installing Cocogitto (cog)..."
