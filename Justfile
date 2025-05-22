@@ -635,49 +635,35 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
-    
+
 # Directories and file types we want to check/fix
 license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
 
-# License holder and year 
+# License holder and year
 license-copyright := "Steve Morin"
 license-year := "2025"
 license-type := "mit"
 
 # License check
 check-license:
-  find . -type f \( -name '*.py' -o -name '*.sh' -o -name '*.go' \) \
-    -not -path './.git/*' \
-    -not -path './.venv/*' \
-    -not -path './vendor/*' \
-    > filelist.txt
-  xargs -a filelist.txt addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v
+    addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v \
+      py_launch_blueprint \
+      tests \
+      docs/source/_templates \
+      *.py \
+      $(find . -name "*.sh") \
+      $(find . -name "*.go")
 
 # License Fix
 fix-license:
-  mkdir -p scripts
-  echo "#!/bin/bash
-set -e
-year=\$(date +'%Y')
-copyright='Steve Morin'
-files=(
-  ./py_launch_blueprint/__init__.py
-  ./py_launch_blueprint/_version.py
-  ./update_contributors.py
-  ./tests/test_config.py
-  ./tests/__init__.py
-  ./tests/test_cli.py
-  ./tests/test_api.py
-  ./py_launch_blueprint/projects.py
-)
-for file in \"\${files[@]}\"; do
-  echo \"Adding license to \$file\"
-  addlicense -c \"\$copyright\" -l mit -y \"\$year\" \"\$file\"
-done" > scripts/fix-license.sh
+    addlicense -c "Steve Morin" -l mit -y 2025 -s -v \
+      py_launch_blueprint \
+      tests \
+      docs/source/_templates \
+      *.py \
+      $(find . -name "*.sh") \
+      $(find . -name "*.go")
 
-  chmod +x scripts/fix-license.sh
-  ./scripts/fix-license.sh
 
-  
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
