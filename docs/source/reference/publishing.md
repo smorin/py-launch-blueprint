@@ -46,7 +46,7 @@ uv pip install hatch twine
 
 ---
 
-## 🔐 Securing and Managing PyPI Credentials
+## 3 Securing and Managing PyPI Credentials
 
 To publish securely to PyPI or TestPyPI, never store your API tokens directly in your project files. Follow these best practices:
 
@@ -138,11 +138,29 @@ twine check dist/*
 Update your `justfile` (Optional):
 
 ```just
+# Build package
+[group('build'), group('dev')]
+@build: check
+    echo "Checking for Hatch..."
+    if ! command -v hatch >/dev/null 2>&1; then \
+        echo ""; \
+        echo "⚠️  Hatch is not installed. Please install it using:"; \
+        echo "   uv pip install hatch"; \
+        echo ""; \
+        exit 1; \
+    fi
+    echo "Building package with Hatch..."
+    hatch build
+
+alias b := build
+```
+
+```just
 # Publish package to PyPI
 [group('build'), group('dev')]
 @publish:
     echo "Building package..."
-    uvx --from build pyproject-build --wheel --sdist --outdir dist
+    just build
     echo "Checking for Twine..."
     if ! command -v twine >/dev/null 2>&1; then \
         echo "Twine is not installed. Installing..."; \
@@ -191,6 +209,36 @@ Then run:
 just publish-test
 ```
 
+---
+
+## 9. CI/CD Integration (Optional)
+
+To automate publishing in CI/CD systems like GitHub Actions:
+
+- Store your PyPI API token in your repository’s secrets manager (e.g., `PYPI_API_TOKEN`).
+- Use environment variables in your workflow:
+
+```yaml
+env:
+  TWINE_USERNAME: __token__
+  TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+
+steps:
+  - uses: actions/checkout@v3
+  - name: Set up Python
+    uses: actions/setup-python@v4
+    with:
+      python-version: '3.x'
+  - name: Install dependencies
+    run: pip install hatch twine
+  - name: Build and publish package
+    env:
+      TWINE_USERNAME: __token__
+      TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+    run: |
+      hatch build
+      twine upload dist/*
+```
 ---
 
 ## Useful Links
