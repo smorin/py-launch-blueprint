@@ -638,21 +638,25 @@ license-type      := "mit"
 
 # Check license (cross-platform)
 check-license:
-	addlicense -check \
-	  -c "{{license-copyright}}" \
-	  -l {{license-type}} \
-	  -y {{license-year}} \
-	  -s -v \
-	  {{license-targets}}
+    addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v \
+      py_launch_blueprint \
+      tests \
+      docs/source/_templates \
+      *.py \
+      $(find . -name "*.sh") \
+      $(find . -name "*.go")
+
 
 # Fix license (cross-platform)
 fix-license:
-	addlicense \
-	  -c "{{license-copyright}}" \
-	  -l {{license-type}} \
-	  -y {{license-year}} \
-	  -s -v \
-	  {{license-targets}}
+    addlicense -c "Steve Morin" -l mit -y 2025 -s -v \
+      py_launch_blueprint \
+      tests \
+      docs/source/_templates \
+      *.py \
+      $(find . -name "*.sh") \
+      $(find . -name "*.go")
+
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
