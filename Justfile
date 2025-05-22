@@ -86,6 +86,7 @@ BRANCH_NAME := "test-actions-" + DATE_TIME
     if ! command -v just >/dev/null 2>&1; then echo "just is not installed"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "Taplo is not installed"; exit 1; fi
+    if ! command -v addlicense >/dev/null 2>&1; then echo "addlicense is not installed"; exit 1; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -627,34 +628,31 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
+    
+# Directories and file types we want to check/fix
+license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
+# License metadata
+license-copyright := "Steve Morin"
+license-year      := "2025"
+license-type      := "mit"
+
+# Install addlicense tool
+install-addlicense:
+    @echo "Installing addlicense..."
+    go install github.com/google/addlicense@latest
+    @echo "Adding $HOME/go/bin to PATH in this session..."
+    export PATH="$HOME/go/bin:$PATH"
+    @echo "You may want to add 'export PATH=\"$HOME/go/bin:\$PATH\"' to your shell profile (~/.bashrc, ~/.zshrc, etc.)"
+
+# Check license (depends on install-addlicense)
+check-license: install-addlicense
+    find py_launch_blueprint tests docs/source/_templates -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      | xargs addlicense -check -c "$(license-copyright)" -l $(license-type) -y $(license-year) -s -v
+
+# Fix license (depends on install-addlicense)
+fix-license: install-addlicense
+    find py_launch_blueprint tests docs/source/_templates -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      | xargs addlicense -c "$(license-copyright)" -l $(license-type) -y $(license-year) -s -v
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
-
-# Directories and file types we want to check/fix
-license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh"
-
-# License holder and year
-license-copyright := "Steve Morin"
-license-year := "2025"
-license-type := "mit"
-
-# License check
-check-license:
-    addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v \
-      py_launch_blueprint \
-      tests \
-      docs/source/_templates \
-      *.py \
-      $(find . -name "*.sh") \
-      $(find . -name "*.go")
-
-# License Fix
-fix-license:
-    addlicense -c "Steve Morin" -l mit -y 2025 -s -v \
-      py_launch_blueprint \
-      tests \
-      docs/source/_templates \
-      *.py \
-      $(find . -name "*.sh") \
-      $(find . -name "*.go")
