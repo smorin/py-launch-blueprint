@@ -169,7 +169,7 @@ alias ca := check
 # Build package
 [group('build'), group('dev')]
 @build: check
-    uvx --from build pyproject-build --wheel --sdist --outdir dist
+    hatch build
 
 alias b := build
 
