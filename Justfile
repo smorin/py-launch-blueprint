@@ -636,9 +636,17 @@ license-copyright := "Steve Morin"
 license-year      := "2025"
 license-type      := "mit"
 
-# Check license (cross-platform)
-check-license:
-    addlicense -check -c "Steve Morin" -l mit -y 2025 -s -v \
+# Install addlicense tool
+install-addlicense:
+    @echo "Installing addlicense..."
+    go install github.com/google/addlicense@latest
+    @echo "Adding $HOME/go/bin to PATH in this session..."
+    export PATH="$HOME/go/bin:$PATH"
+    @echo "You may want to add 'export PATH=\"$HOME/go/bin:\$PATH\"' to your shell profile (~/.bashrc, ~/.zshrc, etc.)"
+
+# Check license (depends on install-addlicense)
+check-license: install-addlicense
+    addlicense -check -c "{{license-copyright}}" -l {{license-type}} -y {{license-year}} -s -v \
       py_launch_blueprint \
       tests \
       docs/source/_templates \
@@ -646,17 +654,15 @@ check-license:
       $(find . -name "*.sh") \
       $(find . -name "*.go")
 
-
-# Fix license (cross-platform)
-fix-license:
-    addlicense -c "Steve Morin" -l mit -y 2025 -s -v \
+# Fix license (depends on install-addlicense)
+fix-license: install-addlicense
+    addlicense -c "{{license-copyright}}" -l {{license-type}} -y {{license-year}} -s -v \
       py_launch_blueprint \
       tests \
       docs/source/_templates \
       *.py \
       $(find . -name "*.sh") \
       $(find . -name "*.go")
-
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
