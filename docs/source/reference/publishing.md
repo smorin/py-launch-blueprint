@@ -46,6 +46,93 @@ uv pip install hatch twine
 
 ---
 
+## 🔐 Securing and Managing PyPI Credentials
+
+To publish securely to PyPI or TestPyPI, never store your API tokens directly in your project files. Follow these best practices:
+
+### 1. Generate a PyPI API Token
+
+* Visit: [https://pypi.org/manage/account/#api-tokens](https://pypi.org/manage/account/#api-tokens)
+* Click **"Add API token"**
+* Choose appropriate scope
+* Copy the generated token and **store it securely**
+
+---
+
+### 2. Store Token Securely (Recommended Methods)
+
+#### ✅ A. Use `~/.pypirc` (Preferred for Local)
+
+```ini
+# ~/.pypirc
+[distutils]
+index-servers =
+    pypi
+    testpypi
+
+[pypi]
+  username = __token__
+  password = pypi-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+[testpypi]
+  username = __token__
+  password = pypi-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+> 🔒 Make this file readable only by you:
+
+```bash
+chmod 600 ~/.pypirc
+```
+
+---
+
+#### ✅ B. Use Environment Variables (Great for CI/CD)
+
+```bash
+export TWINE_USERNAME=__token__
+export TWINE_PASSWORD=pypi-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+Use them in scripts:
+
+```bash
+twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD dist/*
+```
+
+---
+
+### 3. Avoid Committing Secrets
+
+* Add `.pypirc` and `.env` to `.gitignore`
+* Never commit credentials to Git
+
+---
+
+### 4. Using GitHub Actions?
+
+Store token in `Settings > Secrets` and use it like this:
+
+```yaml
+env:
+  TWINE_USERNAME: __token__
+  TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+```
+
+---
+
+### 5. Validate Distributions Before Publishing
+
+```bash
+twine check dist/*
+```
+
+---
+
+✅ You are now ready to securely publish your package to PyPI!
+
+---
+
 ## 4. Add a `just` Recipe to Build and Publish
 
 Update your `justfile` (Optional):
