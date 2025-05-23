@@ -13,7 +13,7 @@ To set up MyPy for your project, follow these steps:
    ```
 
 2. **Configure MyPy**:
-   check in the [`myproject.toml`](https://github.com/smorin/py-launch-blueprint/blob/main/pyproject.toml) file the [tool.mypy] section
+   check in the [`pyproject.toml`](https://github.com/smorin/py-launch-blueprint/blob/main/pyproject.toml) file the [tool.mypy] section
 
 3. **Run MyPy**:
    To check your code with MyPy, run the following command:
