@@ -53,9 +53,9 @@ By contributing to this project on behalf of your employer, you agree to the fol
 ```
 
 ### Save & Share
-Choose Public or Secret visibility
-Click “Create public gist” or “Create secret gist”
-After creation, copy the **raw URL** of the `CLA.md` file from your browser’s address bar
+ - Choose Public or Secret visibility
+ - Click “Create public gist” or “Create secret gist”
+ - After creation, copy the **raw URL** of the `CLA.md` file from your browser’s address bar
 
 ### 🔗 Linking the Gist in CLA Assistant
 Return to [cla-assistant.io](https://cla-assistant.io)
@@ -65,18 +65,52 @@ Save your configuration
 
 ## Testing the CLA Setup
 
+To ensure that the CLA Assistant is working as expected, follow this comprehensive testing procedure.
+
+### 1. Test Very First-Time CLA Flow
+
+- Create a **new pull request** from a test account or this setup branch.
+- Verify:
+  - The **CLA Assistant bot** posts a comment on the PR requesting signature.
+  - The **CLA status badge** (in PR checks) shows as **pending** or **failed**.
+
+### 2. Sign the CLA
+
+- In the bot’s comment, click the **“Sign CLA”** link.
+- Complete the signing flow on [cla-assistant.io](https://cla-assistant.io).
+- Refresh the PR page.
+
+### 3. Validate Signing Behavior
+
+- Confirm that:
+  - The CLA status badge updates to **“success”** (green checkmark).
+  - The bot **updates the comment** to confirm CLA has been signed.
+
+### 4. Test CLA Persistence
+
+- Create another **new pull request** from the same GitHub account that already signed the CLA.
+- Confirm that:
+  - The bot **does not ask to sign again**.
+  - The CLA status badge is **immediately green (success)** without further action.
+
+---
+
 ### Submit a Test Pull Request
-Ask a team member (or yourself) to open a pull request
+
+Ask a team member (or yourself) to open a pull request.
 
 If the contributor hasn't signed the CLA:
 
-- CLA Assistant will comment on the PR with a signature request
+- CLA Assistant will comment on the PR with a signature request.
 
 Once signed, CLA Assistant will:
 
-- Post a confirmation message
-- Mark the CLA check as completed
+- Post a confirmation message.
+- Mark the CLA check as completed.
+
+---
 
 ### Monitor CLA Status
- - Use the CLA Assistant dashboard to see contributors who have signed
- - View, track, and manage CLA signatories easily
+
+- Use the CLA Assistant dashboard to see contributors who have signed.
+- View, track, and manage CLA signatories easily.
