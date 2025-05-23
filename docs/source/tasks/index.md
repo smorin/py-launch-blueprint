@@ -11,4 +11,5 @@ type_checking_code
 using_ci_cd
 managing_dependencies
 contributing_code
+debugging_configuration
 ```
