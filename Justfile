@@ -645,25 +645,16 @@ install-addlicense:
     export PATH="$HOME/go/bin:$PATH"
     @echo "You may want to add 'export PATH=\"$HOME/go/bin:\$PATH\"' to your shell profile (~/.bashrc, ~/.zshrc, etc.)"
 
-# Check license (uses metadata variables)
+# Check license (depends on install-addlicense)
 check-license: install-addlicense
-    addlicense -check -c {{license-copyright}} -l {{license-type}} -y {{license-year}} -s -v \
-      py_launch_blueprint \
-      tests \
-      docs/source/_templates \
-      $(find . -name "*.py") \
-      $(find . -name "*.sh") \
-      $(find . -name "*.go")
+    find py_launch_blueprint tests docs/source/_templates -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      | xargs addlicense -check -c "{{license-copyright}}" -l {{license-type}} -y {{license-year}} -s -v
 
-# Fix license (uses metadata variables)
+# Fix license (depends on install-addlicense)
 fix-license: install-addlicense
-    addlicense -c {{license-copyright}} -l {{license-type}} -y {{license-year}} -s -v \
-      py_launch_blueprint \
-      tests \
-      docs/source/_templates \
-      $(find . -name "*.py") \
-      $(find . -name "*.sh") \
-      $(find . -name "*.go")
+    find py_launch_blueprint tests docs/source/_templates -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      | xargs addlicense -c "{{license-copyright}}" -l {{license-type}} -y {{license-year}} -s -v
+
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
