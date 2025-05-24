@@ -1,4 +1,7 @@
 #!/bin/bash
+# Script to detect and verify Python version used in the container.
+# Called during setup to ensure the correct interpreter is configured.
+
 set -e
 
 if [ -x ".venv/bin/python3" ]; then

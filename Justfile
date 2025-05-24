@@ -299,14 +299,13 @@ debug-info:
 # Update CONTRIBUTORS.md file
 [group('build')]
 @contributors:
+update-contributors:
     echo "Updating CONTRIBUTORS.md..."
-    if [ "$$OS" = "Windows_NT" ]; then \
-        powershell -File scripts/update_contributors.ps1; \
-    else \
-        echo "{{RED}}Error: Updating CONTRIBUTORS.md is not supported on this OS yet.{{NC}}"; \
-        # Example placeholder: ./scripts/update_contributors.sh
-    fi
-    echo "{{CHECK}} Contributors list updated"
+    # Cross-platform way to update CONTRIBUTORS.md using git shortlog
+    echo "# Contributors" > CONTRIBUTORS.md
+    echo "" >> CONTRIBUTORS.md
+    git shortlog -sne >> CONTRIBUTORS.md
+    echo "✓ Contributors list updated"
 
 # # Generate changelog from conventional commits
 # changelog:
@@ -629,16 +628,16 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     echo "example"
 
 # Developer setup: ensure environment is ready
-setup:
+# @_container_setup: Called automatically by container bootstrap, not for direct human use.
+_container_setup:
 	cp ./detect-python.sh /tmp/detect-python.sh
 	chmod +x /tmp/detect-python.sh
 	/tmp/detect-python.sh
-	cp ./.devcontainer/setup.sh /tmp/setup.sh
-	chmod +x /tmp/setup.sh
-	/tmp/setup.sh
-	rm /tmp/detect-python.sh /tmp/setup.sh
+	cp ./.devcontainer/_container_setup.sh /tmp/_container_setup.sh
+	chmod +x /tmp/_container_setup.sh
+	bash /tmp/_container_setup.sh
+	rm /tmp/detect-python.sh /tmp/_container_setup.sh
 
-    
 [group('dev'), group('quick start')]
 @dev:
     just format
@@ -646,6 +645,10 @@ setup:
     just test
     # just build
     # just run
+
+@install:
+    pip install --upgrade pip
+    pip install .
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev

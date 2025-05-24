@@ -19,6 +19,6 @@
       ]
     }
   },
-  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postCreateCommand": "bash .devcontainer/_container_setup.sh",
   "remoteUser": "vscode"
 }
