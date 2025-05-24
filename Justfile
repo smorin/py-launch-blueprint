@@ -86,6 +86,7 @@ BRANCH_NAME := "test-actions-" + DATE_TIME
     if ! command -v just >/dev/null 2>&1; then echo "just is not installed"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "Taplo is not installed"; exit 1; fi
+    if ! command -v addlicense >/dev/null 2>&1; then echo "addlicense is not installed"; exit 1; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -644,23 +645,23 @@ install-addlicense:
     export PATH="$HOME/go/bin:$PATH"
     @echo "You may want to add 'export PATH=\"$HOME/go/bin:\$PATH\"' to your shell profile (~/.bashrc, ~/.zshrc, etc.)"
 
-# Check license (depends on install-addlicense)
+# Check license (uses metadata variables)
 check-license: install-addlicense
-    addlicense -check -c "{{license-copyright}}" -l {{license-type}} -y {{license-year}} -s -v \
+    addlicense -check -c {{license-copyright}} -l {{license-type}} -y {{license-year}} -s -v \
       py_launch_blueprint \
       tests \
       docs/source/_templates \
-      *.py \
+      $(find . -name "*.py") \
       $(find . -name "*.sh") \
       $(find . -name "*.go")
 
-# Fix license (depends on install-addlicense)
+# Fix license (uses metadata variables)
 fix-license: install-addlicense
-    addlicense -c "{{license-copyright}}" -l {{license-type}} -y {{license-year}} -s -v \
+    addlicense -c {{license-copyright}} -l {{license-type}} -y {{license-year}} -s -v \
       py_launch_blueprint \
       tests \
       docs/source/_templates \
-      *.py \
+      $(find . -name "*.py") \
       $(find . -name "*.sh") \
       $(find . -name "*.go")
 

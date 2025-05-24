@@ -33,7 +33,7 @@ jobs:
        uv venv .venv
        uv sync --all-extras --dev
        echo "$PWD/.venv/bin" >> $GITHUB_PATH
-       
+
     # Format code
     - name: Install Taplo
       run: just install-taplo
@@ -46,16 +46,18 @@ jobs:
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
 
-    # Addlicense install step 
+    # Addlicense install step
     - name: Install addlicense
       run: |
-        go install github.com/google/addlicense@latest
-        echo "$HOME/go/bin" >> $GITHUB_PATH
-        
-    # Use just recipe for license check 
+          go install github.com/google/addlicense@latest
+          echo "$HOME/go/bin" >> $GITHUB_PATH
+          which addlicense
+          addlicense -version || echo "Addlicense installed"
+
+    # Use just recipe for license check
     - name: License header check
-      run: just check-license-direct
-      
+      run: just check-license
+
     - name: Check TOML formatting
       run: |
         taplo check '**/*.toml'

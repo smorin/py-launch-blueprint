@@ -54,7 +54,7 @@ repos:
       name: Add license headers
       entry: addlicense
       language: system
-      types: [python, text, yaml, json, toml]
+      types: [python, text, yaml, json, toml, sh, go]
       args:
         - --check
         - -l
