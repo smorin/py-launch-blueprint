@@ -197,6 +197,13 @@ alias b := build
 
 alias p := publish
 
+# set up publishing configuration
+[group('build'), group('dev')]
+@setup-hatch-twine:
+    echo "Checking for Hatch and Twine..."
+    echo "Setting up publishing configuration..."
+    uv pip install hatch twine
+
 # Set up pre-commit hooks
 [group('setup'), group('pre-commit')]
 @pre-commit-setup:
