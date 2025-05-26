@@ -634,4 +634,5 @@ alias cycle := dev
 # Lint secrets
 [group('pre-commit')]
 @lint-secrets:
+    echo "Running secretlint... Pleae wait."
     npx secretlint "**/*"
