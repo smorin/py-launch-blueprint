@@ -209,8 +209,8 @@ Add to your `justfile`:
 ```just
 @publish-test:
     echo "Building package for TestPyPI..."
-    uvx --from build pyproject-build --wheel --sdist --outdir dist
-    twine upload --repository testpypi dist/*
+    just build
+    just publish-test
 ```
 
 Then run:
