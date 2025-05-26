@@ -47,10 +47,3 @@ repos:
         types: [python]
         pass_filenames: false # Run full test suite
         stages: [pre-commit] # Only run on commit
-  - repo: local
-    hooks: []
-    # - id: license-check
-    #   name: Check license headers
-    #   entry: python scripts/check_license.py
-    #   language: system
-    #   types: [python, shell]
