@@ -630,3 +630,8 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
+
+# Lint secrets
+[group('pre-commit')]
+@lint-secrets:
+    npx secretlint "**/*"
