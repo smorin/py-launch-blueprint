@@ -107,6 +107,16 @@ twine upload --username $TWINE_USERNAME --password $TWINE_PASSWORD dist/*
 * Add `.pypirc` and `.env` to `.gitignore`
 * Never commit credentials to Git
 
+### 4.3.1 Avoid Credential Exposure
+
+* Never commit your API tokens or `.pypirc` files to your Git repository!
+
+* Add `.pypirc`, `.env`, or any files containing secrets to .gitignore.
+
+* Be cautious with logs: avoid printing tokens or secrets.
+
+* Regularly rotate your API tokens on PyPI.
+
 ---
 
 ### 4.4. Using GitHub Actions?
