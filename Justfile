@@ -636,3 +636,4 @@ alias cycle := dev
 @lint-secrets:
     echo "Running secretlint... Pleae wait."
     npx secretlint "**/*"
+    echo "✅ Secretlint completed."
