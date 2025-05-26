@@ -48,3 +48,11 @@ repos:
         types: [python]
         pass_filenames: false # Run full test suite
         stages: [pre-commit] # Only run on pre-commit
+  - repo: local
+    hooks:
+    - id: secretlint
+      name: secretlint
+      entry: npx secretlint
+      language: node
+      types: [file]
+      files: .*
