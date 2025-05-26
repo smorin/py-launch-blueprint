@@ -41,7 +41,7 @@ password = pypi-<your-test-token>
 Install with `uv` (or use `pip`):
 
 ```bash
-uv pip install hatch twine
+just setup-hatch-twine
 ```
 
 ---
@@ -246,8 +246,7 @@ steps:
       TWINE_USERNAME: __token__
       TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
     run: |
-      hatch build
-      twine upload dist/*
+      just publish
 ```
 ---
 
