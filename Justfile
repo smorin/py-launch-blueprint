@@ -184,7 +184,7 @@ alias b := build
 
 # Publish package to PyPI
 [group('build'), group('dev')]
-@publish:
+@publish: build
     echo "Building package..."
     just build
     echo "Publishing package to PyPI..."
