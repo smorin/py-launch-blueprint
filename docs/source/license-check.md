@@ -2,7 +2,7 @@
 
 ## 🧾 Introduction
 
-The **License Header Check** feature ensures that every source file in the repository includes a standard MIT license header.  
+The **License Header Check** feature ensures that every source file in the repository includes a standard MIT license header.
 We leverage the [`addlicense`](https://github.com/google/addlicense) tool to automatically validate and insert license headers, keeping the codebase compliant and consistent.
 
 ---
@@ -18,7 +18,7 @@ The license header check integrates with both **pre-commit hooks** and **CI/CD w
 Ensure you have Go installed, then run:
 
 ```bash
-just install-addlicense 
+just install-addlicense
 ```
 
 This just recipe installs addlicense into your local Go bin directory.
@@ -62,14 +62,18 @@ just check-license
 ## 💻 Usage in CI/CD
 Format (fix) headers: ```just fix-license-direct```
 
-Validate headers: ```just check-license-direct```
+- **Format (fix) headers**: \`just fix-license\`
+- **Validate headers**: \`just check-license\`
 
 In ```.github/workflows/ci.yaml```, we install addlicense and then run:
 
 ```
 - name: License header check
-  run: just check-license-direct
-```
+  run: just check-license
+\`\`\`
+
+---
+
 ## 🛠 Recommended Configuration
 Pre-commit hook in .pre-commit-config.yaml:
 ```
@@ -92,7 +96,9 @@ repos:
         exclude: ^addlicense/testdata/.*
 ```
 
-The CI setup in .github/workflows/ci.yaml already invokes just check-license-direct after installing the tool.
+**CI setup** in \`.github/workflows/ci.yaml\` already invokes \`just check-license\` after installing the tool.
+
+---
 
 ## 🛑 Disabling License Checks
 
