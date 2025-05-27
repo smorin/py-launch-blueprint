@@ -96,7 +96,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Automated dependency security scanning with `codeql`**: Detect vulnerable dependencies automatically, protecting your users from known security issues.
 
-- **CLA (Contributor License Agreement) check `[TODO:LOOKUP ISSUE](https://github.com/smorin/py-launch-blueprint/issues/162)`**: Ensure all contributors have signed appropriate licensing agreements, protecting the project legally.
+- **CLA (Contributor License Agreement) check via [`CLA Assistant`](docs/source/tools/cla-assistant.md)**: Ensure all contributors have signed appropriate licensing agreements, protecting the project legally.
 
 ### IDE Integration
 
