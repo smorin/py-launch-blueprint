@@ -60,7 +60,7 @@ Re-run the check to confirm:
 just check-license
 ```
 ## 💻 Usage in CI/CD
-Format (fix) headers: ```just fix-license-direct```
+Format (fix) headers: ```just fix-license```
 
 - **Format (fix) headers**: \`just fix-license\`
 - **Validate headers**: \`just check-license\`
@@ -68,6 +68,9 @@ Format (fix) headers: ```just fix-license-direct```
 In ```.github/workflows/ci.yaml```, we install addlicense and then run:
 
 ```
+- name: Install addlicense
+  run: just install-addlicense
+
 - name: License header check
   run: just check-license
 \`\`\`

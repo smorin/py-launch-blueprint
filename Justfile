@@ -630,21 +630,21 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     # just run
 
 # Directories and file types to check/fix
-license-targets := "py_launch_blueprint tests docs/source/_templates *.py *.sh *.go"
+license-targets := "py_launch_blueprint tests docs/source/_templates"
 
 # License metadata
 license-copyright := "Steve Morin"
 license-year      := "2025"
 license-type      := "mit"
 
+# Path to addlicense binary
+addlicense_bin := "$HOME/go/bin/addlicense"
+
 # Install addlicense tool
 install-addlicense:
     @echo "Installing addlicense..."
     go install github.com/google/addlicense@latest
-    @echo "Adding $HOME/go/bin to PATH in this session..."
-    export PATH="$HOME/go/bin:$PATH"
-    @echo "You may want to add 'export PATH=\"$HOME/go/bin:\$PATH\"' to your shell profile (~/.bashrc, ~/.zshrc, etc.)"
-
+    @echo "Make sure your Go bin directory is in your PATH."
 # Check license (depends on install-addlicense)
 check-license: install-addlicense
     find py_launch_blueprint tests docs/source/_templates -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
@@ -654,7 +654,5 @@ check-license: install-addlicense
 fix-license: install-addlicense
     find py_launch_blueprint tests docs/source/_templates -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
       | xargs addlicense -c "{{license-copyright}}" -l {{license-type}} -y {{license-year}} -s -v
-
-
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
