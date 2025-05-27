@@ -45,7 +45,21 @@ jobs:
     # Check linters using ruff
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
-
+    # Set up Go
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.21'
+    # Addlicense install step
+    - name: Install addlicense
+      run: |
+          go install github.com/google/addlicense@latest
+          echo "$HOME/go/bin" >> $GITHUB_PATH
+          which addlicense
+          addlicense -version || echo "Addlicense installed"
+    # Use just recipe for license check
+    - name: License header check
+      run: just check-license
     - name: Check TOML formatting
       run: |
         taplo check '**/*.toml'
@@ -55,17 +69,6 @@ jobs:
       run: |
        just pre-commit-setup
        just pre-commit-run
-
-     # Install addlicense tool for license header checks
-    - name: Install addlicense
-      run: |
-        curl -sSfL https://raw.githubusercontent.com/google/addlicense/master/install.sh | sh -s -- -b $HOME/bin
-        echo "$HOME/bin" >> $GITHUB_PATH
-
-    # License header check
-    - name: Check license headers
-      run: |
-        addlicense -l mit -y 2025 -c "Steve Morin" -check .
 
     # You can uncomment the following if you want to run tests with coverage
     # - name: Run tests with coverage
