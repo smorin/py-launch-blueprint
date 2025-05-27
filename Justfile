@@ -488,9 +488,6 @@ pr-to-testrepo pr_number new_repo_name="test-actions-repo":
     #repo_url=$(gh repo view {{new_repo_name}} --json url -q .url); \
     #echo -e "{{GREEN}}{{CHECK}} Repository created and ready for testing at: ${repo_url}{{NC}}"
 
-
-
-
 # Cleanup / Delete test repository from a PR from pr-to-testrepo
 [group('workflow')]
 [confirm("Are you sure you want to delete the remote repository '{{new_repo_name}}' and clean up the local directory?")]
@@ -614,6 +611,13 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
         # Switch back to main branch after successful PR creation
         git checkout main
     fi
+
+# License commands
+check-license:
+    addlicense -l {{LICENSE_TYPE}} -y {{LICENSE_YEAR}} -c "{{LICENSE_HOLDER}}" -check .
+
+add-license:
+    addlicense -l {{LICENSE_TYPE}} -y {{LICENSE_YEAR}} -c "{{LICENSE_HOLDER}}" .
 
 # Change working directory example
 [working-directory: 'bar']

@@ -56,6 +56,17 @@ jobs:
        just pre-commit-setup
        just pre-commit-run
 
+     # Install addlicense tool for license header checks
+    - name: Install addlicense
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/google/addlicense/master/install.sh | sh -s -- -b $HOME/bin
+        echo "$HOME/bin" >> $GITHUB_PATH
+
+    # License header check
+    - name: Check license headers
+      run: |
+        addlicense -l mit -y 2025 -c "Steve Morin" -check .
+
     # You can uncomment the following if you want to run tests with coverage
     # - name: Run tests with coverage
     #   run: |
