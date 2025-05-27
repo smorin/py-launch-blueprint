@@ -86,6 +86,7 @@ BRANCH_NAME := "test-actions-" + DATE_TIME
     if ! command -v just >/dev/null 2>&1; then echo "just is not installed"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "Taplo is not installed"; exit 1; fi
+    if ! npx --no-install secretlint --version >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: secretlint is not installed via npm{{NC}}"; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -146,6 +147,17 @@ alias l := lint
     uvx --with-editable . mypy {{py_package_name}}/
 
 alias tc := typecheck
+
+# Install Secretlint
+[group('install')]
+@install-secretlint:
+	if ! npx --no-install secretlint --version > /dev/null 2>&1; then \
+		echo "{{YELLOW}}Secretlint not found. Installing...{{NC}}"; \
+		npm install secretlint @secretlint/secretlint-rule-preset-recommend --save-dev && \
+		echo "{{GREEN}}Secretlint installed successfully.{{NC}}"; \
+	else \
+		echo "{{GREEN}}Secretlint is already installed.{{NC}}"; \
+	fi
 
 # Run Lint secrets
 [group('dev'), group('pre-commit')]
