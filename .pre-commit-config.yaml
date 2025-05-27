@@ -52,7 +52,9 @@ repos:
     hooks:
     - id: secretlint
       name: secretlint
-      entry: npx secretlint
+      entry: npx secretlint --maskSecrets
       language: node
-      types: [file]
-      files: .*
+      types: [text]
+      files: ^.*\.(py|js|ts|json|yml|yaml|env|txt)$
+      exclude: (^|/)(node_modules|\.git|\.venv|__pycache__)/
+      pass_filenames: true

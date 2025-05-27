@@ -147,6 +147,14 @@ alias l := lint
 
 alias tc := typecheck
 
+# Run Lint secrets
+[group('dev'), group('pre-commit')]
+@lint-secrets:
+    echo "🔍 Running secretlint... Please wait."
+    npx --yes secretlint "**/*" && echo "✅ Secretlint completed successfully." || (echo "❌ Secretlint found issues!" && exit 1)
+
+alias ls := lint-secrets
+
 # Run tests
 [group('test'), group('dev')]
 @test *options:
@@ -630,10 +638,3 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
-
-# Lint secrets
-[group('pre-commit')]
-@lint-secrets:
-    echo "Running secretlint... Pleae wait."
-    npx secretlint "**/*"
-    echo "✅ Secretlint completed."
