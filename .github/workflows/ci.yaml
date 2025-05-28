@@ -37,6 +37,10 @@ jobs:
           uv sync --all-extras --dev
           echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
+      # Format code
+      - name: Install Taplo
+        run: just install-taplo
+
       # Run type checker
       - name: Run type checker
         run: uvx mypy py_launch_blueprint/
@@ -45,6 +49,10 @@ jobs:
       - name: Check linters (ruff)
         run: uvx ruff check py_launch_blueprint/
 
+      # Check TOML formatting
+      - name: Check TOML formatting
+        run: taplo check '**/*.toml'
+
       # Run pre-commit checks
       - name: Run pre-commit checks
         run: |
@@ -52,13 +60,13 @@ jobs:
           just pre-commit-run
 
       # You can uncomment the following if you want to run tests with coverage
-      - name: Run tests with coverage
-        run: |
-          pytest --cov=./ --cov-report=xml
+      # - name: Run tests with coverage
+      #   run: |
+      #     pytest --cov=./ --cov-report=xml
 
       # Upload coverage (if tests are being run)
-      - name: Upload coverage
-        uses: codecov/codecov-action@v4
+      # - name: Upload coverage
+      #   uses: codecov/codecov-action@v4
 
   # Only run security checks on pull requests from the main repository
   security:
@@ -95,8 +103,7 @@ jobs:
           pip install cocogitto
 
       - name: Update changelog
-        run: |
-          cocogitto changelog --yes
+        run: cocogitto changelog --yes
 
       - name: Update CONTRIBUTORS.md
         run: |
@@ -122,10 +129,4 @@ jobs:
   #   steps:
   #     - uses: actions/checkout@v4
   #     - name: Build and publish to PyPI
-  #       env:
-  #         TWINE_USERNAME: __token__
-  #         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-  #       run: |
-  #         uv pip install build twine
-  #         python -m build
-  #         twine upload dist/*
+  #
