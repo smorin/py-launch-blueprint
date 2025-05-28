@@ -1,0 +1,5 @@
+# cog-minimal.toml
+repository = "https://github.com/smorin/py-launch-blueprint"
+template = "conventional"
+remote = "origin"
+path = "CHANGELOG.md"
