@@ -15,6 +15,8 @@ Before we can accept your contributions, you will need to sign a Contributor Lic
 
 We have integrated the CLA Assistant bot to streamline the CLA signing process. When you open a pull request, the bot will check if you have signed the CLA. If you have not, it will provide a link to sign it.
 
+For more details on how the CLA Assistant works, see the [CLA Assistant documentation](docs/source/tools/cla-assistant.md).
+
 ## How to Contribute
 
 ### Reporting Bugs
