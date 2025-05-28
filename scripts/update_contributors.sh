@@ -5,6 +5,7 @@ echo "🔄 Updating CONTRIBUTORS.md..."
 
 # Create a temporary file to hold contributor names
 TMP_FILE=$(mktemp)
+trap 'rm -f "$TMP_FILE"' EXIT
 
 # Extract unique contributor names (excluding bots)
 git log --format='%aN' | \
