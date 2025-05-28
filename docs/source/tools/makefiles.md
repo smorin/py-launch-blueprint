@@ -37,10 +37,10 @@ The primary Makefile in the root directory is used to set up the development env
 
 ```sh
 make check   		# To check system requirements
-make install-just	# To print the install the 'just' command
-make install-just-force	# To forcibly reinstall the 'just' command runner
-make install-uv     	# To print the install the 'uv' tool command
-make install-uv-force	# To forcibly reinstall the 'uv' tool
+make install-just	# To print the install command for tool 'just'
+make install-just-force	# To forcibly install the 'just' command runner
+make install-uv     	# To print the install command for tool 'uv'
+make install-uv-force	# To forcibly install the 'uv' tool
 ```
 
 ### Force Installing Core Dependencies
