@@ -24,7 +24,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    # Create lock file early to ensure it exists for cache key
+    # Create lock file early to ensure it exists for cache key 
     - name: Generate uv.lock if missing
       run: |
         if [ ! -f uv.lock ]; then
