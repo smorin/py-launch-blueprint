@@ -24,7 +24,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    # Create lock file early to ensure it exists for cache key 
+    # Create lock file early to ensure it exists for cache key
     - name: Generate uv.lock if missing
       run: |
         if [ ! -f uv.lock ]; then
@@ -52,7 +52,7 @@ jobs:
     - name: Install development dependencies
       run: |
         uv venv .venv
-        uv sync --all-extras --group dev
+        uv sync --all-extras
         echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
     # Format code
@@ -98,7 +98,7 @@ jobs:
       uses: pyupio/safety-action@v1
       with:
         api-key: ${{ secrets.SAFETY_API_KEY }}
-        args: --detailed-output
+        args: --detailed-output # To always see detailed output from this action
 
   # The publish job is commented out, but here's a reference if you want to re-enable it
   # publish:
