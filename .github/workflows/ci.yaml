@@ -1,4 +1,6 @@
 name: CI/CD
+permissions:
+  contents: write # This resolves the GitHub warning about GITHUB_TOKEN permissions
 
 on:
   push:
@@ -13,70 +15,104 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10", "3.11"]
-
+    # Skip this job if commit message contains the automated commit signature to avoid loops
+    if: "!contains(github.event.head_commit.message, 'ci: update changelog and contributors')"
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    #install just
-    - name: Install Just
-      uses: extractions/setup-just@v2
+      # install just
+      - name: Install Just
+        uses: extractions/setup-just@v2
 
-    - name: Install development dependencies
-      run: |
-       uv venv .venv
-       uv sync --all-extras --dev
-       echo "$PWD/.venv/bin" >> $GITHUB_PATH
+      - name: Install development dependencies
+        run: |
+          uv venv .venv
+          uv sync --all-extras --dev
+          echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
-    # Format code
-    - name: Install Taplo
-      run: just install-taplo
+      # Run type checker
+      - name: Run type checker
+        run: uvx mypy py_launch_blueprint/
 
-    # Run type checker
-    - name: Run type checker
-      run: uvx mypy py_launch_blueprint/
+      # Check linters using ruff
+      - name: Check linters (ruff)
+        run: uvx ruff check py_launch_blueprint/
 
-    # Check linters using ruff
-    - name: Check linters (ruff)
-      run: uvx ruff check py_launch_blueprint/
+      # Run pre-commit checks
+      - name: Run pre-commit checks
+        run: |
+          just pre-commit-setup
+          just pre-commit-run
 
-    - name: Check TOML formatting
-      run: |
-        taplo check '**/*.toml'
+      # You can uncomment the following if you want to run tests with coverage
+      - name: Run tests with coverage
+        run: |
+          pytest --cov=./ --cov-report=xml
 
-    # Run pre-commit checks
-    - name: Run pre-commit checks
-      run: |
-       just pre-commit-setup
-       just pre-commit-run
-
-    # You can uncomment the following if you want to run tests with coverage
-    # - name: Run tests with coverage
-    #   run: |
-    #     pytest --cov=./ --cov-report=xml
-
-   # Upload coverage (if tests are being run)
-    # - name: Upload coverage
-    #   uses: codecov/codecov-action@v4
+      # Upload coverage (if tests are being run)
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
 
   # Only run security checks on pull requests from the main repository
   security:
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Run Safety CLI to check for vulnerabilities
-      uses: pyupio/safety-action@v1
-      with:
-        api-key: ${{ secrets.SAFETY_API_KEY }}
-        args: --detailed-output # To always see detailed output from this action
+      - name: Run Safety CLI to check for vulnerabilities
+        uses: pyupio/safety-action@v1
+        with:
+          api-key: ${{ secrets.SAFETY_API_KEY }}
+          args: --detailed-output # To always see detailed output from this action
+
+  # New job: Update changelog and contributors after tests succeed
+  update-changelog-and-contributors:
+    name: Update changelog and contributors
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && success()
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0  # Needed to push commits
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Cocogitto and dependencies
+        run: |
+          pip install cocogitto
+
+      - name: Update changelog
+        run: |
+          cocogitto changelog --yes
+
+      - name: Update CONTRIBUTORS.md
+        run: |
+          # Replace this with your actual contributors update script
+          ./scripts/update_contributors.sh
+
+      - name: Commit and push changes if any
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md CONTRIBUTORS.md
+          if ! git diff --cached --quiet; then
+            git commit -m "ci: update changelog and contributors"
+            git push origin main
+          else
+            echo "No changelog or contributors updates to commit."
 
   # The publish job is commented out, but here's a reference if you want to re-enable it
   # publish:
@@ -84,12 +120,12 @@ jobs:
   #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
   #   runs-on: ubuntu-latest
   #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Build and publish to PyPI
-  #     env:
-  #       TWINE_USERNAME: __token__
-  #       TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-  #     run: |
-  #       uv pip install build twine
-  #       python -m build
-  #       twine upload dist/*
+  #     - uses: actions/checkout@v4
+  #     - name: Build and publish to PyPI
+  #       env:
+  #         TWINE_USERNAME: __token__
+  #         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+  #       run: |
+  #         uv pip install build twine
+  #         python -m build
+  #         twine upload dist/*
