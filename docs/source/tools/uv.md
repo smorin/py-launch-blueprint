@@ -10,6 +10,14 @@ To install UV, run:
 pip install uv
 ```
 
+Alternatively, this project's root `Makefile` provides convenient targets for installing and force-installing `uv`:
+
+```bash
+make install-uv
+make install-uv-force
+```
+Refer to the [Makefiles documentation](./makefiles.md) for more details on these `make` commands, especially if you prefer a project-standardized installation method or encounter issues with other methods.
+
 ## Using UV for Dependency Management
 
 ### Installing Dependencies
