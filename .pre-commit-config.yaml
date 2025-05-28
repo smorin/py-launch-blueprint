@@ -1,7 +1,7 @@
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.8.0
+    rev: v1.15.0
     hooks:
       - id: mypy
         additional_dependencies: [
@@ -12,7 +12,7 @@ repos:
             "types-click>=1.1.0",
           ]
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v5.0.0
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer
@@ -21,7 +21,7 @@ repos:
       - id: check-toml
       - id: check-added-large-files
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.9
+    rev: v0.11.11
     hooks:
       - id: ruff
         entry: ruff check --force-exclude --no-cache
@@ -61,25 +61,24 @@ repos:
 # - repo: https://github.com/pre-commit/pre-commit-hooks
 #   rev: v4.4.0
 #   hooks:
-#   - id: end-of-file-fixer 
+#   - id: end-of-file-fixer
 
 # Hook-Level Exclusion (Recommended Approach)
-# For your specific case where the end-of-file-fixer hook is modifying 
-# py_launch_blue/print_version.py, the most targeted solution is to add an exclusion 
-# at the hook level. This approach allows you to exclude the file from only the 
+# For your specific case where the end-of-file-fixer hook is modifying
+# py_launch_blue/print_version.py, the most targeted solution is to add an exclusion
+# at the hook level. This approach allows you to exclude the file from only the
 # problematic hook while maintaining checks for other hooks that might be beneficial.
 # repos:
 # - repo: https://github.com/pre-commit/pre-commit-hooks
 #   rev: v4.4.0
 #   hooks:
-#   - id: end-of-file-fixer 
+#   - id: end-of-file-fixer
 #     exclude: '^py_launch_blueprint/_version\.py$'
 #
 # Example of multiple files excluded from a single hook
 # - id: end-of-file-fixer
 #   exclude: '^(py_launch_blueprint/_version\.py|other/file\.py)$'
-# 
+#
 # Example of Excluding Entire Directories
 # - id: end-of-file-fixer
 #   exclude: '^py_launch_blueprint/'
-
