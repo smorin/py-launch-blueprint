@@ -3,7 +3,7 @@
 # Py Launch Blueprint: A Production-Ready 🐍 Python Project Template with Integrated Best Practices
  Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
 
-![Py Launch Blueprint Logo](./template_images/py_launch_blueprint_logo_100x100.png)
+![Py Launch Blueprint Logo](./assets/images/logos/py_launch_blueprint_logo_100x100.png)
 
 ## Why Choose Py Launch Blueprint?
 
@@ -96,7 +96,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Automated dependency security scanning with `codeql`**: Detect vulnerable dependencies automatically, protecting your users from known security issues.
 
-- **CLA (Contributor License Agreement) check `[TODO:LOOKUP ISSUE](https://github.com/smorin/py-launch-blueprint/issues/162)`**: Ensure all contributors have signed appropriate licensing agreements, protecting the project legally.
+- **CLA (Contributor License Agreement) check via [`CLA Assistant`](docs/source/tools/cla-assistant.md)**: Ensure all contributors have signed appropriate licensing agreements, protecting the project legally.
 
 ### IDE Integration
 
