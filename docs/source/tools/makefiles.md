@@ -37,8 +37,21 @@ The primary Makefile in the root directory is used to set up the development env
 
 ```sh
 make check   		# To check system requirements
-make install-uv     # To install the `uv` tool
+make install-just	# To print the install the 'just' command
+make install-just-force	# To forcibly reinstall the 'just' command runner
+make install-uv     	# To print the install the 'uv' tool command
+make install-uv-force	# To forcibly reinstall the 'uv' tool
 ```
+
+### Force Installing Core Dependencies
+
+If you encounter issues with `just` or `uv`, or if you want to ensure you have the very latest version, you can use the `force` variants of the installation commands:
+
+-   `make install-just-force`: This command runs the official `just` installation script. It will install `just` to `~/bin` and automatically add this directory to your PATH in `~/.zshenv` if it's not already there.
+
+-   `make install-uv-force`: Similarly, this command runs the official `uv` installation script. It will install `uv` and ensure it's properly configured in your environment.
+
+These commands are part of the main `Makefile` in the project root, designed to help bootstrap your development environment. After running any installation command, especially a force install, ensure the tool's installation directory (e.g., `~/bin` for `just`, `~/.local/bin` for `uv`) is correctly configured in your system's `PATH`.
 
 ## Additional Resources
 

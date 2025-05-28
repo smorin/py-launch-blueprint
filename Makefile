@@ -34,7 +34,7 @@ CHECK := $(GREEN)✓$(NC)
 CROSS := $(RED)✗$(NC)
 DASH := $(GRAY)-$(NC)
 
-.PHONY: all check install-uv install-just set-path help
+.PHONY: all check install-uv install-just set-path help install-just-force install-uv-force
 
 all: help
 
@@ -89,6 +89,8 @@ check: ## Check system requirements
 install-just: ## Print install just command and where to find install options
 	@echo "just installation command:"
 	@echo -e "${CYAN}curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin${NC}"
+	@echo "or"
+	@echo -e "${CYAN}make install-just-force${NC}"
 	@echo "NOTE:change ~/bin to the desired installation directory"
 	@echo "Find other install options here: https://github.com/casey/just"
 	@echo -e "To setup just PATH, run: ${YELLOW}SET_PATH=$(HOME)/bin make set-path${NC}"
@@ -114,6 +116,15 @@ install-just-force: ## Install just and add it to PATH
 	fi
 	@echo "Please run 'source ~/.zshenv' or open a new terminal to update your PATH."
 
+
+install-uv: ## Print install uv command and where to find install options
+	@echo "uv installation command:"
+	@echo -e "${CYAN}curl -LsSf https://astral.sh/uv/install.sh | sh${NC}"
+	@echo "or"
+	@echo -e "${CYAN}make install-uv-force${NC}"
+	@echo "Find other install options here: https://docs.astral.sh/uv/getting-started/installation/"
+	@echo -e "To setup uv PATH, run: ${YELLOW}SET_PATH=$(HOME)/.local/bin make set-path${NC}"
+
 install-uv-force: ## Install uv and add it to PATH
 	@echo "Installing uv..."
 	@curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -135,12 +146,6 @@ install-uv-force: ## Install uv and add it to PATH
 		echo -e "$(CHECK) PATH already contains $${UV_INSTALL_PATH}"; \
 	fi
 	@echo "Please run 'source ~/.zshenv' or open a new terminal to update your PATH if changes were made."
-
-install-uv: ## Print install uv command and where to find install options
-	@echo "uv installation command:"
-	@echo -e "${CYAN}curl -LsSf https://astral.sh/uv/install.sh | sh${NC}"
-	@echo "Find other install options here: https://docs.astral.sh/uv/getting-started/installation/"
-	@echo -e "To setup uv PATH, run: ${YELLOW}SET_PATH=$(HOME)/.local/bin make set-path${NC}"
 
 set-path: ## Add SET_PATH to PATH in .zshenv if not already present
 	@if [ -z "$(SET_PATH)" ]; then \
