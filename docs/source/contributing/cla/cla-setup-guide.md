@@ -80,7 +80,7 @@ Save your configuration
 - This field allows you to exempt specific GitHub usernames or patterns from needing to sign the CLA.
 
 ### 5. Add Bot Usernames or Patterns
-- *[bot] — it will exclude all bot accounts ending in [bot].
+- `*[bot]` — it will exclude all bot accounts ending in [bot].
 
 - **Save your changes**
 Scroll to the bottom and click Save to apply the updated configuration.
