@@ -23,7 +23,13 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-
+    - name: Cache Python packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/uv
+        key: ${{ runner.os }}-uv-${{ hashFiles('**/uv.lock', '**/requirements*.txt') || 'no-deps' }}
+        restore-keys: |
+          ${{ runner.os }}-uv-
     #install just
     - name: Install Just
       uses: extractions/setup-just@v2
