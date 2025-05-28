@@ -30,6 +30,8 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 ### Development Tools
 
+- **License header automation with `addlicense`**: Ensure all source files have consistent license headers using [addlicense](https://github.com/google/addlicense), a fast Go-based tool. Installed automatically in CI, requires Go (installed via `actions/setup-go` in GitHub Actions).
+
 - **Bootstrap dependency check and install with `make`**: Execute common development tasks with simple commands, standardizing workflows across team members.
 
 - **Command running with `just`**: Define and run project-specific commands with a modern Make alternative, simplifying complex operations with clear syntax.
@@ -41,6 +43,15 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 - **Formatting with `ruff`**: Ensure consistent code style across your project automatically, eliminating style debates and pull request revision cycles.
 
 - **Pre-commit hooks with `pre-commit`**: Enforce quality standards before code enters your repository, preventing bad code from ever being committed and reducing technical debt.
+
+### ⏭️ Skipping Pre-commit Hooks
+
+To bypass the pre-commit hooks (e.g., during an emergency or one-off situation), use:
+
+```bash
+git commit -m "your message" --no-verify
+```
+⚠️ Note: --no-verify must be placed at the end of the command for it to work.
 
 - **TOML formatting and validation with `taplo`**: Verify Toml files for syntax correctness, maintain consistent configuration files, ensuring readability and avoiding syntax errors in critical project settings.
 

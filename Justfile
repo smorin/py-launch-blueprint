@@ -86,6 +86,7 @@ BRANCH_NAME := "test-actions-" + DATE_TIME
     if ! command -v just >/dev/null 2>&1; then echo "just is not installed"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "Taplo is not installed"; exit 1; fi
+    if ! command -v addlicense >/dev/null 2>&1; then echo "addlicense is not installed"; exit 1; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -488,9 +489,6 @@ pr-to-testrepo pr_number new_repo_name="test-actions-repo":
     #repo_url=$(gh repo view {{new_repo_name}} --json url -q .url); \
     #echo -e "{{GREEN}}{{CHECK}} Repository created and ready for testing at: ${repo_url}{{NC}}"
 
-
-
-
 # Cleanup / Delete test repository from a PR from pr-to-testrepo
 [group('workflow')]
 [confirm("Are you sure you want to delete the remote repository '{{new_repo_name}}' and clean up the local directory?")]
@@ -614,7 +612,7 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
         # Switch back to main branch after successful PR creation
         git checkout main
     fi
-
+    
 # Change working directory example
 [working-directory: 'bar']
 @_foo:
@@ -627,6 +625,33 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
+
+# License metadata
+license-copyright := "Steve Morin"
+license-year := "2025"
+license-type := "mit"
+
+# Path to addlicense binary
+addlicense_bin := "$HOME/go/bin/addlicense"
+
+# Install addlicense tool
+install-addlicense:
+    @echo "🔧 Installing addlicense..."
+    go install github.com/google/addlicense@latest
+    @echo "✅ Done. Ensure '$HOME/go/bin' is in your PATH."
+
+# Check license headers (requires addlicense)
+check-license: install-addlicense
+    find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      | xargs {{addlicense_bin}} -check -c {{license-copyright}} -l {{license-type}} -y {{license-year}} -s -v
+
+# Fix/add license headers (requires addlicense)
+fix-license: install-addlicense
+    find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      | xargs {{addlicense_bin}} -c {{license-copyright}} -l {{license-type}} -y {{license-year}} -s -v
+
+# Directories and file types to check/fix
+license-targets := "py_launch_blueprint tests docs/source/_templates"
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
