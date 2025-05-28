@@ -24,10 +24,19 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    # Create lock file early to ensure it exists for cache key
+    - name: Generate uv.lock if missing
+      run: |
+        if [ ! -f uv.lock ]; then
+          echo "Generating uv.lock..."
+          uv pip compile pyproject.toml --all-extras --dev
+        fi
+
     # Debug: List files in workspace to help with cache key validation
     - name: List files in workspace
       run: ls -lR
 
+    # Cache Python packages (only works correctly if lock file exists)
     - name: Cache Python packages
       uses: actions/cache@v3
       with:
@@ -35,15 +44,16 @@ jobs:
         key: ${{ runner.os }}-uv-${{ hashFiles('**/uv.lock', '**/requirements*.txt') || 'no-deps' }}
         restore-keys: |
           ${{ runner.os }}-uv-
-    #install just
+
+    # Install Just
     - name: Install Just
       uses: extractions/setup-just@v2
 
     - name: Install development dependencies
       run: |
-       uv venv .venv
-       uv sync --all-extras --dev
-       echo "$PWD/.venv/bin" >> $GITHUB_PATH
+        uv venv .venv
+        uv sync --all-extras --dev
+        echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
     # Format code
     - name: Install Taplo
@@ -57,6 +67,7 @@ jobs:
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
 
+    # Check TOML formatting
     - name: Check TOML formatting
       run: |
         taplo check '**/*.toml'
@@ -64,15 +75,15 @@ jobs:
     # Run pre-commit checks
     - name: Run pre-commit checks
       run: |
-       just pre-commit-setup
-       just pre-commit-run
+        just pre-commit-setup
+        just pre-commit-run
 
     # You can uncomment the following if you want to run tests with coverage
     # - name: Run tests with coverage
     #   run: |
     #     pytest --cov=./ --cov-report=xml
 
-   # Upload coverage (if tests are being run)
+    # Upload coverage (if tests are being run)
     # - name: Upload coverage
     #   uses: codecov/codecov-action@v4
 
