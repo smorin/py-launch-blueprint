@@ -63,6 +63,27 @@ In the configuration panel for your repository:
 Paste the raw Gist URL into the CLA document field
 Save your configuration
 
+## Ignoring Bot Users for CLA Signing
+
+To prevent bot accounts (such as `github-actions[bot]`) from being required to sign the CLA, you can exclude them in the CLA Assistant settings:
+
+- Visit [cla-assistant.io](https://cla-assistant.io).
+- In the **linked repositories** list, find your repository.
+- Click the **Edit**  (✏️) button.
+- In the field labeled **"Specify usernames and source organizations to be exempt from signing the CLA"**, add bot usernames using wildcards, for example:
+  - `github-actions[bot]`
+  - `dependabot[bot]`
+  - `*[bot]` — This wildcard excludes all users with names ending in `[bot]`.
+
+- You can also exempt entire organizations by listing their names separated by commas in the **organizations exemption** field.
+
+- **Save your changes** to apply the exclusions.
+
+### Why Exclude Bots?
+
+- Bots perform automated tasks and do not contribute code themselves.
+- Excluding bots avoids unnecessary CLA signature requests and check failures on pull requests they create.
+
 ## Testing the CLA Setup
 
 To ensure that the CLA Assistant is working as expected, follow this comprehensive testing procedure.
