@@ -98,7 +98,7 @@ jobs:
       uses: pyupio/safety-action@v1
       with:
         api-key: ${{ secrets.SAFETY_API_KEY }}
-        args: --detailed-output # To always see detailed output from this action
+        args: --detailed-output
 
   # The publish job is commented out, but here's a reference if you want to re-enable it
   # publish:
