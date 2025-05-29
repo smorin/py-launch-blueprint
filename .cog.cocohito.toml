@@ -1,0 +1,28 @@
+[commit_types]
+feat     = { type = "feat", description = "Features" }
+fix      = { type = "fix", description = "Bug Fixes" }
+docs     = { type = "docs", description = "Documentation" }
+perf     = { type = "perf", description = "Performance Improvements" }
+refactor = { type = "refactor", description = "Code Refactoring" }
+test     = { type = "test", description = "Testing" }
+chore    = { type = "chore", description = "Miscellaneous Tasks" }
+
+[changelog]
+repository = "https://github.com/smorin/py-launch-blueprint"
+template = "conventional"
+remote = "origin"
+path = "CHANGELOG.md"
+
+[changelog.sections]
+features      = ["feat"]
+fixes         = ["fix"]
+performance   = ["perf"]
+documentation = ["docs"]
+testing       = ["test"]
+maintenance   = ["chore", "refactor"]
+
+[contributors]
+format = "markdown"
+sort_by = "commits"
+show_stats = true
+excluded_domains = ["noreply.github.com"]
