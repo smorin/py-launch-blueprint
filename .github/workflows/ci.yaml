@@ -24,7 +24,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    # Create lock file early to ensure it exists for cache key
+    # Generate lock file early to ensure it exists for cache key
     - name: Generate uv.lock if missing
       run: |
         if [ ! -f uv.lock ]; then
@@ -45,14 +45,14 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-uv-
 
-    # Install Just
+    #install just
     - name: Install Just
       uses: extractions/setup-just@v2
 
     - name: Install development dependencies
       run: |
         uv venv .venv
-        uv sync --all-extras
+        uv sync --all-extras --dev
         echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
     # Format code
@@ -67,7 +67,6 @@ jobs:
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
 
-    # Check TOML formatting
     - name: Check TOML formatting
       run: |
         taplo check '**/*.toml'
@@ -83,7 +82,7 @@ jobs:
     #   run: |
     #     pytest --cov=./ --cov-report=xml
 
-    # Upload coverage (if tests are being run)
+   # Upload coverage (if tests are being run)
     # - name: Upload coverage
     #   uses: codecov/codecov-action@v4
 
