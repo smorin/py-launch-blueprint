@@ -34,7 +34,9 @@ jobs:
 
     # Debug: List files after lock generation to ensure uv.lock exists
     - name: Debug: List files after lock generation
-      run: ls -lh uv.lock || echo "uv.lock not found"; ls -lh .
+      run: |
+        ls -lh uv.lock || echo "uv.lock not found"
+        ls -lh .
 
     # Cache Python packages (only works correctly if lock file exists)
     - name: Cache Python packages
