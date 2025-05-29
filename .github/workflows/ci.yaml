@@ -24,15 +24,36 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    # Generate lock file early to ensure it exists for cache key
+    - name: Generate uv.lock if missing
+      run: |
+        if [ ! -f uv.lock ]; then
+          echo "Generating uv.lock..."
+          uv pip compile pyproject.toml --all-extras
+        fi
+
+    # Debug: List files after lock generation to ensure uv.lock exists
+    - name: Debug: List files after lock generation
+      run: ls -lh uv.lock || echo "uv.lock not found"; ls -lh .
+
+    # Cache Python packages (only works correctly if lock file exists)
+    - name: Cache Python packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/uv
+        key: ${{ runner.os }}-uv-${{ hashFiles('**/uv.lock', '**/requirements*.txt') || 'no-deps' }}
+        restore-keys: |
+          ${{ runner.os }}-uv-
+
     #install just
     - name: Install Just
       uses: extractions/setup-just@v2
 
     - name: Install development dependencies
       run: |
-       uv venv .venv
-       uv sync --all-extras --dev
-       echo "$PWD/.venv/bin" >> $GITHUB_PATH
+        uv venv .venv
+        uv sync --all-extras --dev
+        echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
     # Format code
     - name: Install Taplo
@@ -53,8 +74,8 @@ jobs:
     # Run pre-commit checks
     - name: Run pre-commit checks
       run: |
-       just pre-commit-setup
-       just pre-commit-run
+        just pre-commit-setup
+        just pre-commit-run
 
     # You can uncomment the following if you want to run tests with coverage
     # - name: Run tests with coverage
