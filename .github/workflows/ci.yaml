@@ -32,9 +32,9 @@ jobs:
           uv pip compile pyproject.toml --all-extras
         fi
 
-    # Debug: List files in workspace to help with cache key validation
-    - name: List files in workspace
-      run: ls -lR
+    # Debug: List files after lock generation to ensure uv.lock exists
+    - name: Debug: List files after lock generation
+      run: ls -lh uv.lock || echo "uv.lock not found"; ls -lh .
 
     # Cache Python packages (only works correctly if lock file exists)
     - name: Cache Python packages
@@ -115,4 +115,3 @@ jobs:
   #       uv pip install build twine
   #       python -m build
   #       twine upload dist/*
-  
