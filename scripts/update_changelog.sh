@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash 
 set -euo pipefail
 
 echo "📝 Generating changelog with Cocogitto 6.3.0..."

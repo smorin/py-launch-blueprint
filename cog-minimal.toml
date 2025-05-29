@@ -1,3 +1,4 @@
+#cog-toml-minimal
 cat > cog.toml <<EOF
 [changelog]
 path = "CHANGELOG.md"
