@@ -27,14 +27,25 @@ jobs:
           python-version: '3.10'
       - name: Update CONTRIBUTORS.md
         run: |
-          python update_contributors.py
+          python scripts/update_contributors.py
       # Checkout and sync the update-contributors branch first
       - name: Checkout & sync update-contributors branch
         run: |
-          git fetch origin update-contributors || echo "No remote branch yet"
-          git checkout -B update-contributors origin/update-contributors \
-            || git checkout -B update-contributors
-          git pull --rebase origin update-contributors || true
+          git fetch origin || true
+
+          # Check if the 'update-contributors' branch exists on the remote.
+          # This avoids errors when trying to check out a branch that doesn't exist.
+          if git show-ref --verify --quiet refs/remotes/origin/update-contributors; then
+            # If it exists, create a local branch from the remote-tracking branch.
+            git checkout -B update-contributors origin/update-contributors
+          else
+            # If it doesn't exist remotely, create the local branch from scratch.
+            git checkout -B update-contributors
+
+            # Push the new branch to the remote so future runs can reference it.
+            git push origin update-contributors
+          fi
+
       # Now commit any changes on the correct branch
       - name: Commit CONTRIBUTORS.md updates
         run: |
