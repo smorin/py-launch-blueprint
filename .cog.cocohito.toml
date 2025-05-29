@@ -1,11 +1,12 @@
+# Static configuration
 [commit_types]
-feat     = { type = "feat", description = "Features" }
-fix      = { type = "fix", description = "Bug Fixes" }
-docs     = { type = "docs", description = "Documentation" }
-perf     = { type = "perf", description = "Performance Improvements" }
+feat = { type = "feat", description = "Features" }
+fix = { type = "fix", description = "Bug Fixes" }
+docs = { type = "docs", description = "Documentation" }
+perf = { type = "perf", description = "Performance Improvements" }
 refactor = { type = "refactor", description = "Code Refactoring" }
-test     = { type = "test", description = "Testing" }
-chore    = { type = "chore", description = "Miscellaneous Tasks" }
+test = { type = "test", description = "Testing" }
+chore = { type = "chore", description = "Miscellaneous Tasks" }
 
 [changelog]
 repository = "https://github.com/smorin/py-launch-blueprint"
@@ -14,12 +15,12 @@ remote = "origin"
 path = "CHANGELOG.md"
 
 [changelog.sections]
-features      = ["feat"]
-fixes         = ["fix"]
-performance   = ["perf"]
+features = ["feat"]
+fixes = ["fix"]
+performance = ["perf"]
 documentation = ["docs"]
-testing       = ["test"]
-maintenance   = ["chore", "refactor"]
+testing = ["test"]
+maintenance = ["chore", "refactor"]
 
 [contributors]
 format = "markdown"

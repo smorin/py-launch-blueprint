@@ -1,11 +1,12 @@
 name: Generate Changelog
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+# The triggers are commented out to temporarily disable this workflow
+# on:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+#   workflow_dispatch:
 
 permissions:
   contents: write  # Explicit permission for better security
@@ -18,3 +19,4 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
