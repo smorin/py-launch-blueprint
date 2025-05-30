@@ -1,0 +1,9 @@
+#Static configuration
+[commit_types]
+feat = { type = "feat", description = "Features" }
+fix = { type = "fix", description = "Bug Fixes" }
+docs = { type = "docs", description = "Documentation" }
+perf = { type = "perf", description = "Performance Improvements" }
+refactor = { type = "refactor", description = "Code Refactoring" }
+test = { type = "test", description = "Testing" }
+chore = { type = "chore", description = "Miscellaneous Tasks" }
