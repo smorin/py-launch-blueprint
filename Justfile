@@ -307,6 +307,13 @@ update-contributors:
     git shortlog -sne >> CONTRIBUTORS.md
     echo "✓ Contributors list updated"
 
+# # Generate changelog from conventional commits
+# changelog:
+#     echo "Generating changelog..."
+#     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
+#     cog changelog --at=HEAD
+#     echo "{{GREEN}}✓{{NC}} Changelog generated"
+
 # Verify commit messages follow conventional commit format
 [group('pre-commit')]
 verify-commits start="HEAD~10" end="HEAD":
@@ -620,6 +627,17 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 @_foo:
     echo "example"
 
+# Developer setup: ensure environment is ready
+# @_container_setup: Called automatically by container bootstrap, not for direct human use.
+_container_setup:
+	cp ./detect-python.sh /tmp/detect-python.sh
+	chmod +x /tmp/detect-python.sh
+	/tmp/detect-python.sh
+	cp ./.devcontainer/_container_setup.sh /tmp/_container_setup.sh
+	chmod +x /tmp/_container_setup.sh
+	bash /tmp/_container_setup.sh
+	rm /tmp/detect-python.sh /tmp/_container_setup.sh
+
 [group('dev'), group('quick start')]
 @dev:
     just format
@@ -627,6 +645,10 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
+
+@install:
+    pip install --upgrade pip
+    pip install .
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
