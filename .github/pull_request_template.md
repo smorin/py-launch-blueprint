@@ -2,12 +2,12 @@
 
 ## Branch Naming Convention
 <!-- Use branch names like: feature/description or feature/123-description (e.g., feature/user-authentication or feature/123-user-auth) -->
-Current branch: `<!-- Replace with your branch name -->`
+Current branch: `<Replace with your branch name>`
 
 ## Related Issue
 <!-- IMPORTANT: Please verify this issue number is correct and exists to automatically close the issue when this PR is merged -->
 <!-- Link to the issue using format: Closes #123 or Fixes #123 -->
-Closes #
+Closes #issue-number
 
 ## Feature Description
 <!-- Provide a clear and concise description of the feature being implemented -->
@@ -21,9 +21,9 @@ Closes #
 - Middleware for authentication checks
 -->
 
-<!-- Note:
-Mention any CI/CD failing checks unrelated to this PR
-Any TODO items pending
+**Important Notes (please address or acknowledge):**
+- Mention any CI/CD failing checks unrelated to this PR**
+- List any TODO items that are still pending**
 -->
 
 ## Changes Made
@@ -42,38 +42,39 @@ Any TODO items pending
 - Verified newly added workflows pass in CI/CD
 - Tested any new tool/command added
 -->
+-
+-
 
 ## Testing Instructions
 <!-- Follow these steps to run and test before submitting -->
 
-**Install new dependencies or tools (if applicable):**
+**Common Testing Instructions**
+
+To ensure code quality and consistency before submitting:
+
+**Run pre-commit checks on all files**
+
+```just pre-commit-run```
+
+**Run all tests (Note: The `just test` command is a project-specific test runner.)**
+
+```just test```
+
+**Install the package in editable mode with development dependencies**
+
+```just install-dev```
+
+**Install new dependencies or tools (if added):**
+
 If this PR adds new dependencies or tools, install them using the project’s recommended method (Justfile):
 
 ```bash
 # Example installation command (replace with the actual one)
 just install-[tool-name]
 ```
-## Verify the installation new dependencies or tools (if applicable):**
-
-
-```bash
-# Confirm the tool or dependency is installed and available:
-[tool-name] --version
-```
-
-**Running Pre-commit Hooks:**
-```bash
-# Run pre-commit on all files
-just pre-commit-run
-```
-
-**Running Tests:**
-```bash
-# Run all tests
-just test
-# Note: The `just test` command is a project-specific command for running tests.
-# Please refer to the project documentation or the CONTRIBUTING.md file for setup instructions.
-```
+**Testing just commands for new dependencies or tools (if added):**
+- ```just A``` # To test the A functionality
+- ```just B``` # To test the B functionality
 
 -->
 
@@ -84,6 +85,7 @@ just test
 - Updated README.md
 - Added docstrings to new classes/methods
 -->
+-
 
 ## Checklist
 <!-- Please verify each item by checking the box -->
