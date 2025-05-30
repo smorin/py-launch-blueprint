@@ -2,16 +2,14 @@
 
 ## Branch Naming Convention
 <!-- Use branch names like: feature/description or feature/123-description (e.g., feature/user-authentication or feature/123-user-auth) -->
-Current branch: `<Replace with your branch name>`
+Current branch: [BRANCH_NAME]
 
 ## Related Issue
 <!-- IMPORTANT: Please verify this issue number is correct and exists to automatically close the issue when this PR is merged -->
-<!-- Link to the issue using format: Closes #123 or Fixes #123 -->
-Closes #issue-number
+Closes #ISSUE_NUMBER
 
 ## Feature Description
 <!-- Provide a clear and concise description of the feature being implemented -->
-<!-- Example: Adds user authentication via OAuth2, including login flow and profile creation -->
 
 ## Implementation Details
 <!-- Provide a technical overview of how the feature was implemented -->
@@ -22,8 +20,10 @@ Closes #issue-number
 -->
 
 **Important Notes (please address or acknowledge):**
+<!--
 - Mention any CI/CD failing checks unrelated to this PR
-- List any TODO items that are still pending
+- List any TODO items that are still pending and not closed by this PR
+-->
 
 ## Changes Made
 <!-- List key changes made for this feature -->
@@ -31,8 +31,6 @@ Closes #issue-number
 - Added AuthService class to handle authentication
 - Created user table migrations
 -->
--
--
 
 ## Testing Performed
 <!-- Describe the testing you've done both automated and manual to validate the feature -->
@@ -41,8 +39,6 @@ Closes #issue-number
 - Verified newly added workflows pass in CI/CD
 - Tested any new tool/command added
 -->
--
--
 
 ## Testing Instructions
 <!-- Follow these steps to run and test before submitting -->
@@ -82,8 +78,6 @@ just install-[tool-name]
 **Testing just commands for new dependencies or tools (if added):**
 - ```just A``` # To test the A functionality
 - ```just B``` # To test the B functionality
-
--->
 
 ## Documentation Updates
 <!-- List any documentation changes made or needed -->
