@@ -150,7 +150,7 @@ alias tc := typecheck
 
 # Install nvm node version manager
 [group('install')]
-install-nvms:
+install-nvm:
     @echo "Checking ~/.zshrc..."
     @if [ ! -f "$HOME/.zshrc" ]; then \
         echo "Creating ~/.zshrc because it does not exist..."; \
