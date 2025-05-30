@@ -51,6 +51,10 @@ Closes #issue-number
 
 To ensure code quality and consistency before submitting:
 
+**Install the package in editable mode with development dependencies**
+
+```just install-dev```
+
 **Run pre-commit checks on all files**
 
 ```just pre-commit-run```
@@ -59,9 +63,13 @@ To ensure code quality and consistency before submitting:
 
 ```just test```
 
-**Install the package in editable mode with development dependencies**
+**To run linting checks**
 
-```just install-dev```
+```just lint```
+
+ **To run code formatting**
+
+```just format```
 
 **Install new dependencies or tools (if added):**
 
