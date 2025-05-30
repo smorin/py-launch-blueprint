@@ -2,7 +2,7 @@
 
 ## Branch Naming Convention
 <!-- Use branch names like: feature/description or feature/123-description (e.g., feature/user-authentication or feature/123-user-auth) -->
-Current branch: [BRANCH_NAME]
+Current branch: BRANCH_NAME
 
 ## Related Issue
 <!-- IMPORTANT: Please verify this issue number is correct and exists to automatically close the issue when this PR is merged -->
