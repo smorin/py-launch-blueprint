@@ -22,9 +22,8 @@ Closes #issue-number
 -->
 
 **Important Notes (please address or acknowledge):**
-- Mention any CI/CD failing checks unrelated to this PR**
-- List any TODO items that are still pending**
--->
+- Mention any CI/CD failing checks unrelated to this PR
+- List any TODO items that are still pending
 
 ## Changes Made
 <!-- List key changes made for this feature -->
