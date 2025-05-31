@@ -32,7 +32,7 @@ jobs:
       - name: Check if uv.lock is up to date
         run: |
           source .venv/bin/activate
-          uv --lock > uv.lock.new
+          uv lock > uv.lock.new
           if ! cmp -s uv.lock uv.lock.new; then
             echo "❌ uv.lock is outdated. Please run 'uv lock' locally and commit the updated lockfile."
             diff -u uv.lock uv.lock.new || true
