@@ -29,11 +29,11 @@ jobs:
           uv sync --all-extras --dev
           echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
-      # Now check uv.lock consistency with uvicorn command inside venv
+      # Now check uv.lock consistency with uv CLI inside venv
       - name: Check uv.lock consistency
         run: |
           source .venv/bin/activate
-          uvicorn --lock > uv.lock.new
+          uv --lock > uv.lock.new
           if ! cmp -s uv.lock uv.lock.new; then
             echo "ERROR: uv.lock is outdated. Please regenerate and commit the updated uv.lock file."
             exit 1
