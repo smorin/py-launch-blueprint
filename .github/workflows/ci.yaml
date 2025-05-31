@@ -1,106 +1,113 @@
 name: CI/CD
 
 on:
-  pull_request:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   test:
+    name: continuous-integration
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.10", "3.11"]
 
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
 
-      - name: Generate uv.lock if missing
-        run: |
-          if [ ! -f uv.lock ]; then
-            echo "Generating uv.lock..."
-            uv pip compile pyproject.toml --all-extras
-          fi
+    #install just
+    - name: Install Just
+      uses: extractions/setup-just@v2
 
-      - name: List uv.lock to confirm existence
-        run: ls -lh uv.lock || echo "uv.lock not found"
+    # Ensure uv.lock exists before cache key calculation (new step)
+    - name: Generate uv.lock if missing
+      run: |
+        if [ ! -f uv.lock ]; then
+          echo "Generating uv.lock..."
+          uv pip compile pyproject.toml --all-extras
+        fi
 
-      - name: Cache uv packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/uv
-          key: ${{ runner.os }}-uv-${{ hashFiles('**/uv.lock') || 'no-deps' }}
-          restore-keys: |
-            ${{ runner.os }}-uv-
+    - name: Install development dependencies
+      run: |
+       uv venv .venv
+       uv sync --all-extras --dev
+       echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
-      - name: Set up virtual environment and install dependencies
-        run: |
-          uv venv .venv
-          uv sync --all-extras --dev
-          echo "$PWD/.venv/bin" >> $GITHUB_PATH
+    # Format code
+    - name: Install Taplo
+      run: just install-taplo
 
-      - name: Install Just
-        uses: extractions/setup-just@v2
+    # Run type checker
+    - name: Run type checker
+      run: uvx mypy py_launch_blueprint/
 
-      - name: Install Taplo
-        run: just install-taplo
+    # Check linters using ruff
+    - name: Check linters (ruff)
+      run: uvx ruff check py_launch_blueprint/
 
-      - name: Run type checker
-        run: uvx mypy py_launch_blueprint/
+    - name: Check TOML formatting
+      run: |
+        taplo check '**/*.toml'
 
-      - name: Check linters (ruff)
-        run: uvx ruff check py_launch_blueprint/
+    # Run pre-commit checks
+    - name: Run pre-commit checks
+      run: |
+       just pre-commit-setup
+       just pre-commit-run
 
-      - name: Check TOML formatting
-        run: taplo check '**/*.toml'
+    # You can uncomment the following if you want to run tests with coverage
+    # - name: Run tests with coverage
+    #   run: |
+    #     pytest --cov=./ --cov-report=xml
 
-      - name: Run pre-commit checks
-        run: |
-          just pre-commit-setup
-          just pre-commit-run
+   # Upload coverage (if tests are being run)
+    # - name: Upload coverage
+    #   uses: codecov/codecov-action@v4
 
-      # Optional: Run tests with coverage
-      # - name: Run tests with coverage
-      #   run: |
-      #     pytest --cov=./ --cov-report=xml
+    # Cache Python packages with corrected key (new step)
+    - name: Cache Python packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/uv
+        key: ${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-
 
-      # Optional: Upload coverage
-      # - name: Upload coverage
-      #   uses: codecov/codecov-action@v4
+  # Only run security checks on pull requests from the main repository
+  # TODO: Waiting on response from support@pyup.io disabled until then
+  # security:
+  #  if: github.event.pull_request.head.repo.full_name == github.repository
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #  - uses: actions/checkout@v4
+  #
+  #  - name: Run Safety CLI to check for vulnerabilities
+  #    uses: pyupio/safety-action@v1
+  #    with:
+  #      api-key: ${{ secrets.SAFETY_API_KEY }}
+  #      args: --detailed-output # To always see detailed output from this action
 
-  security:
-    if: github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run Safety CLI to check for vulnerabilities
-        uses: pyupio/safety-action@v1
-        with:
-          api-key: ${{ secrets.SAFETY_API_KEY }}
-          args: --detailed-output
-
-# Optionally re-enable publishing if needed
-# publish:
-#   needs: [test, security]
-#   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-#   runs-on: ubuntu-latest
-#   steps:
-#     - uses: actions/checkout@v4
-#     - name: Build and publish to PyPI
-#       env:
-#         TWINE_USERNAME: __token__
-#         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-#       run: |
-#         uv pip install build twine
-#         python -m build
-#         twine upload dist/*
+  # The publish job is commented out, but here's a reference if you want to re-enable it
+  # publish:
+  #   needs: [test, security]
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - name: Build and publish to PyPI
+  #     env:
+  #       TWINE_USERNAME: __token__
+  #       TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+  #     run: |
+  #       uv pip install build twine
+  #       python -m build
+  #       twine upload dist/*
