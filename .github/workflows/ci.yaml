@@ -60,11 +60,41 @@ jobs:
           just pre-commit-setup
           just pre-commit-run
 
-      # Uncomment the below to run tests with coverage
-      # - name: Run tests with coverage
-      #   run: |
-      #     pytest --cov=./ --cov-report=xml
+    # You can uncomment the following if you want to run tests with coverage
+    # - name: Run tests with coverage
+    #   run: |
+    #     pytest --cov=./ --cov-report=xml
 
-      # Uncomment to upload coverage results
-      # - name: Upload coverage
-      #   uses: codecov/codecov-action@v4
+   # Upload coverage (if tests are being run)
+    # - name: Upload coverage
+    #   uses: codecov/codecov-action@v4
+
+  # Only run security checks on pull requests from the main repository
+  # TODO: Waiting on response from support@pyup.io disabled until then
+  # security:
+  #  if: github.event.pull_request.head.repo.full_name == github.repository
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #  - uses: actions/checkout@v4
+  #
+  #  - name: Run Safety CLI to check for vulnerabilities
+  #    uses: pyupio/safety-action@v1
+  #    with:
+  #      api-key: ${{ secrets.SAFETY_API_KEY }}
+  #      args: --detailed-output # To always see detailed output from this action
+
+  # The publish job is commented out, but here's a reference if you want to re-enable it
+  # publish:
+  #   needs: [test, security]
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - name: Build and publish to PyPI
+  #     env:
+  #       TWINE_USERNAME: __token__
+  #       TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+  #     run: |
+  #       uv pip install build twine
+  #       python -m build
+  #       twine upload dist/*
