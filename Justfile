@@ -169,9 +169,40 @@ alias ca := check
 # Build package
 [group('build'), group('dev')]
 @build: check
-    uvx --with-editable . build #TODO: fix this does not work
+    echo "Checking for Hatch..."
+    if ! command -v hatch >/dev/null 2>&1; then \
+        echo ""; \
+        echo "⚠️  Hatch is not installed. Please install it using:"; \
+        echo "   uv pip install hatch"; \
+        echo ""; \
+        exit 1; \
+    fi
+    echo "Building package with Hatch..."
+    hatch build
 
 alias b := build
+
+# Publish package to PyPI
+[group('build'), group('dev')]
+@publish: build
+    echo "Building package..."
+    just build
+    echo "Publishing package to PyPI..."
+    if ! command -v twine >/dev/null 2>&1; then \
+        echo "{{YELLOW}}Twine is not installed{{NC}}"; \
+        echo "Installing Twine..."; \
+        uv pip install twine; \
+    fi
+    twine upload dist/*
+
+alias p := publish
+
+# set up publishing configuration
+[group('build'), group('dev')]
+@setup-hatch-twine:
+    echo "Checking for Hatch and Twine..."
+    echo "Setting up publishing configuration..."
+    uv pip install hatch twine
 
 # Set up pre-commit hooks
 [group('setup'), group('pre-commit')]
