@@ -17,23 +17,23 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
-
-    # Generate uv.lock if missing (local dev fallback)
-    - name: Generate uv.lock if missing
-      if: ${{ !exists('uv.lock') }}
-      run: |
-        uvicorn --lock > uv.lock
-        git add uv.lock
-        git commit -m "Regenerate uv.lock in CI" || echo "No changes to commit"
-
     - name: Restore uvicorn cache
       id: cache-uv
       uses: actions/cache@v3
       with:
         path: ~/.cache/uvicorn
         key: ${{ runner.os }}-uvicorn-${{ hashFiles('uv.lock') }}
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+
+    # Generate uv.lock if missing (local dev fallback)
+    - name: Generate uv.lock if missing
+      if: "!exists('uv.lock')"
+      run: |
+        uvicorn --lock > uv.lock
+        git add uv.lock
+        git commit -m "Regenerate uv.lock in CI" || echo "No changes to commit"
 
     - uses: actions/setup-python@v5
       with:
