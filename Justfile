@@ -86,6 +86,7 @@ BRANCH_NAME := "test-actions-" + DATE_TIME
     if ! command -v just >/dev/null 2>&1; then echo "just is not installed"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "Taplo is not installed"; exit 1; fi
+    if ! command -v go >/dev/null 2>&1; then echo "go is not installed"; exit 1; fi
     if ! command -v addlicense >/dev/null 2>&1; then echo "addlicense is not installed"; exit 1; fi
     echo "All required tools are installed"
 
@@ -612,7 +613,7 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
         # Switch back to main branch after successful PR creation
         git checkout main
     fi
-    
+
 # Change working directory example
 [working-directory: 'bar']
 @_foo:
@@ -626,6 +627,32 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     # just build
     # just run
 
+# Install Go
+[group('setup'), group('install')]
+@install-go:
+    if ! command -v go >/dev/null 2>&1; then \
+        echo "❗ Go is not installed."; \
+        echo "🔧 Installing Go..."; \
+        OS=$(uname); \
+        if [ "$$OS" = "Darwin" ]; then \
+            brew install go >/dev/null 2>&1; \
+        elif [ "$$OS" = "Linux" ]; then \
+            sudo apt update -qq && sudo apt install -y golang-go >/dev/null 2>&1; \
+        else \
+            echo "⚠️ Please install Go manually: https://go.dev/dl/"; \
+            exit 1; \
+        fi; \
+        if command -v go >/dev/null 2>&1; then \
+            echo "✅ Go installation complete."; \
+            echo "⚠️ Please update your PATH."; \
+        else \
+            echo "❌ Go installation failed. Please install manually."; \
+            exit 1; \
+        fi; \
+    else \
+        echo "✅ Go is already installed."; \
+    fi
+
 # License metadata
 license-copyright := "Steve Morin"
 license-year := "2025"
@@ -635,18 +662,21 @@ license-type := "mit"
 addlicense_bin := "$HOME/go/bin/addlicense"
 
 # Install addlicense tool
+[group('setup'), group('install')]
 install-addlicense:
     @echo "🔧 Installing addlicense..."
     go install github.com/google/addlicense@latest
     @echo "✅ Done. Ensure '$HOME/go/bin' is in your PATH."
 
 # Check license headers (requires addlicense)
-check-license: install-addlicense
+[group('pre-commit'), group('dev')]
+@check-license: install-addlicense
     find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
       | xargs {{addlicense_bin}} -check -c {{license-copyright}} -l {{license-type}} -y {{license-year}} -s -v
 
 # Fix/add license headers (requires addlicense)
-fix-license: install-addlicense
+[group('pre-commit'), group('dev')]
+@fix-license: install-addlicense
     find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
       | xargs {{addlicense_bin}} -c {{license-copyright}} -l {{license-type}} -y {{license-year}} -s -v
 
