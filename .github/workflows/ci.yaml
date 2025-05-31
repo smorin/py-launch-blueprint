@@ -17,8 +17,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    # Ensure uv.lock exists before setup-uv runs, so cache dependency glob is valid
+    - name: Generate uv.lock if missing
+      run: |
+        if [ ! -f uv.lock ]; then
+          echo "Generating uv.lock..."
+          uv pip compile pyproject.toml --all-extras
+        fi
+
     - name: Install uv
       uses: astral-sh/setup-uv@v5
+      with:
+        cache-dependency-glob: 'uv.lock'
 
     - uses: actions/setup-python@v5
       with:
@@ -27,14 +37,6 @@ jobs:
     #install just
     - name: Install Just
       uses: extractions/setup-just@v2
-
-    # Ensure uv.lock exists before cache key calculation (new step)
-    - name: Generate uv.lock if missing
-      run: |
-        if [ ! -f uv.lock ]; then
-          echo "Generating uv.lock..."
-          uv pip compile pyproject.toml --all-extras
-        fi
 
     - name: Install development dependencies
       run: |
@@ -64,6 +66,15 @@ jobs:
        just pre-commit-setup
        just pre-commit-run
 
+    # Cache Python packages based on uv.lock
+    - name: Cache Python packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/uv
+        key: ${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-
+
     # You can uncomment the following if you want to run tests with coverage
     # - name: Run tests with coverage
     #   run: |
@@ -72,15 +83,6 @@ jobs:
    # Upload coverage (if tests are being run)
     # - name: Upload coverage
     #   uses: codecov/codecov-action@v4
-
-    # Cache Python packages with corrected key (new step)
-    - name: Cache Python packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/uv
-        key: ${{ runner.os }}-uv-${{ hashFiles('uv.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-uv-
 
   # Only run security checks on pull requests from the main repository
   # TODO: Waiting on response from support@pyup.io disabled until then
