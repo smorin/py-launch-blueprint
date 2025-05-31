@@ -17,18 +17,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Ensure uv.lock exists before setup-uv runs, so cache dependency glob is valid
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      # Remove cache-dependency-glob here because uv.lock may not exist yet
+
+    # Now uv is installed, generate uv.lock if missing
     - name: Generate uv.lock if missing
       run: |
         if [ ! -f uv.lock ]; then
           echo "Generating uv.lock..."
           uv pip compile pyproject.toml --all-extras
         fi
-
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
-      with:
-        cache-dependency-glob: 'uv.lock'
 
     - uses: actions/setup-python@v5
       with:
@@ -66,7 +65,7 @@ jobs:
        just pre-commit-setup
        just pre-commit-run
 
-    # Cache Python packages based on uv.lock
+    # Cache Python packages based on uv.lock (now guaranteed to exist)
     - name: Cache Python packages
       uses: actions/cache@v3
       with:
