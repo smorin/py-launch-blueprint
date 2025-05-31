@@ -17,33 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install uv
+      - name: Install uv CLI
         uses: astral-sh/setup-uv@v5
-
-      # Restore uvicorn cache before generating uv.lock
-      - name: Restore uvicorn cache
-        id: cache-uv
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/uvicorn
-          key: ${{ runner.os }}-uvicorn-${{ hashFiles('uv.lock') }}
-
-      # Generate uv.lock if missing or outdated (avoid git commit in CI, only for dev)
-      - name: Generate uv.lock if missing or outdated
-        run: |
-          if ! uvicorn --lock --check uv.lock; then
-            echo "Regenerating uv.lock"
-            uvicorn --lock > uv.lock
-            # Don't commit in CI, just fail if needed to avoid side effects
-            echo "Warning: uv.lock was regenerated. Please commit the updated uv.lock."
-            exit 1
-          else
-            echo "uv.lock is up to date"
-          fi
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
 
       - name: Install Just
         uses: extractions/setup-just@v2
@@ -54,14 +29,29 @@ jobs:
           uv sync --all-extras --dev
           echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
-      - name: Install Taplo
-        run: just install-taplo
+      # Now check uv.lock consistency with uvicorn command inside venv
+      - name: Check uv.lock consistency
+        run: |
+          source .venv/bin/activate
+          uvicorn --lock > uv.lock.new
+          if ! cmp -s uv.lock uv.lock.new; then
+            echo "ERROR: uv.lock is outdated. Please regenerate and commit the updated uv.lock file."
+            exit 1
+          fi
+          rm uv.lock.new
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Run type checker
         run: uvx mypy py_launch_blueprint/
 
       - name: Check linters (ruff)
         run: uvx ruff check py_launch_blueprint/
+
+      - name: Install Taplo
+        run: just install-taplo
 
       - name: Check TOML formatting
         run: taplo check '**/*.toml'
@@ -71,16 +61,16 @@ jobs:
           just pre-commit-setup
           just pre-commit-run
 
-      # Uncomment below if you want to run tests with coverage
+      # Uncomment the below to run tests with coverage
       # - name: Run tests with coverage
       #   run: |
       #     pytest --cov=./ --cov-report=xml
 
-      # Uncomment to upload coverage
+      # Uncomment to upload coverage results
       # - name: Upload coverage
       #   uses: codecov/codecov-action@v4
 
-  # Uncomment and configure when ready to enable security scans
+  # Uncomment and configure when ready
   # security:
   #   if: github.event.pull_request.head.repo.full_name == github.repository
   #   runs-on: ubuntu-latest
@@ -93,7 +83,7 @@ jobs:
   #         api-key: ${{ secrets.SAFETY_API_KEY }}
   #         args: --detailed-output
 
-  # Example update contributors job, should only run after continuous-integration & security pass
+  # Uncomment for contributor updates job
   # update-contributors:
   #   needs: [continuous-integration, security]
   #   runs-on: ubuntu-latest
@@ -103,7 +93,7 @@ jobs:
   #       run: |
   #         # Your contributor update script or action here
 
-  # Example publish job after CI and security success
+  # Uncomment for publishing to PyPI
   # publish:
   #   needs: [continuous-integration, security]
   #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
