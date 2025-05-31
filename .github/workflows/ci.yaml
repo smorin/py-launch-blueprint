@@ -15,97 +15,106 @@ jobs:
         python-version: ["3.10", "3.11"]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
 
-    # Generate uv.lock if missing (local dev fallback)
-    - name: Generate uv.lock if missing
-      if: ${{ !exists('uv.lock') }}
-      run: |
-        uvicorn --lock > uv.lock
-        git add uv.lock
-        git commit -m "Regenerate uv.lock in CI" || echo "No changes to commit"
+      # Restore uvicorn cache before generating uv.lock
+      - name: Restore uvicorn cache
+        id: cache-uv
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/uvicorn
+          key: ${{ runner.os }}-uvicorn-${{ hashFiles('uv.lock') }}
 
-    - name: Restore uvicorn cache
-      id: cache-uv
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/uvicorn
-        key: ${{ runner.os }}-uvicorn-${{ hashFiles('uv.lock') }}
+      # Generate uv.lock if missing or outdated (avoid git commit in CI, only for dev)
+      - name: Generate uv.lock if missing or outdated
+        run: |
+          if ! uvicorn --lock --check uv.lock; then
+            echo "Regenerating uv.lock"
+            uvicorn --lock > uv.lock
+            # Don't commit in CI, just fail if needed to avoid side effects
+            echo "Warning: uv.lock was regenerated. Please commit the updated uv.lock."
+            exit 1
+          else
+            echo "uv.lock is up to date"
+          fi
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    #install just
-    - name: Install Just
-      uses: extractions/setup-just@v2
+      - name: Install Just
+        uses: extractions/setup-just@v2
 
-    - name: Install development dependencies
-      run: |
-       uv venv .venv
-       uv sync --all-extras --dev
-       echo "$PWD/.venv/bin" >> $GITHUB_PATH
+      - name: Install development dependencies
+        run: |
+          uv venv .venv
+          uv sync --all-extras --dev
+          echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
-    # Format code
-    - name: Install Taplo
-      run: just install-taplo
+      - name: Install Taplo
+        run: just install-taplo
 
-    # Run type checker
-    - name: Run type checker
-      run: uvx mypy py_launch_blueprint/
+      - name: Run type checker
+        run: uvx mypy py_launch_blueprint/
 
-    # Check linters using ruff
-    - name: Check linters (ruff)
-      run: uvx ruff check py_launch_blueprint/
+      - name: Check linters (ruff)
+        run: uvx ruff check py_launch_blueprint/
 
-    - name: Check TOML formatting
-      run: |
-        taplo check '**/*.toml'
+      - name: Check TOML formatting
+        run: taplo check '**/*.toml'
 
-    # Run pre-commit checks
-    - name: Run pre-commit checks
-      run: |
-       just pre-commit-setup
-       just pre-commit-run
+      - name: Run pre-commit checks
+        run: |
+          just pre-commit-setup
+          just pre-commit-run
 
-    # You can uncomment the following if you want to run tests with coverage
-    # - name: Run tests with coverage
-    #   run: |
-    #     pytest --cov=./ --cov-report=xml
+      # Uncomment below if you want to run tests with coverage
+      # - name: Run tests with coverage
+      #   run: |
+      #     pytest --cov=./ --cov-report=xml
 
-   # Upload coverage (if tests are being run)
-    # - name: Upload coverage
-    #   uses: codecov/codecov-action@v4
+      # Uncomment to upload coverage
+      # - name: Upload coverage
+      #   uses: codecov/codecov-action@v4
 
-  # Only run security checks on pull requests from the main repository
-  # TODO: Waiting on response from support@pyup.io disabled until then
+  # Uncomment and configure when ready to enable security scans
   # security:
-  #  if: github.event.pull_request.head.repo.full_name == github.repository
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #  - uses: actions/checkout@v4
-  #
-  #  - name: Run Safety CLI to check for vulnerabilities
-  #    uses: pyupio/safety-action@v1
-  #    with:
-  #      api-key: ${{ secrets.SAFETY_API_KEY }}
-  #      args: --detailed-output # To always see detailed output from this action
+  #   if: github.event.pull_request.head.repo.full_name == github.repository
+  #   runs-on: ubuntu-latest
+  #   needs: continuous-integration
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Run Safety CLI to check for vulnerabilities
+  #       uses: pyupio/safety-action@v1
+  #       with:
+  #         api-key: ${{ secrets.SAFETY_API_KEY }}
+  #         args: --detailed-output
 
-  # The publish job is commented out, but here's a reference if you want to re-enable it
+  # Example update contributors job, should only run after continuous-integration & security pass
+  # update-contributors:
+  #   needs: [continuous-integration, security]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Update Contributors
+  #       run: |
+  #         # Your contributor update script or action here
+
+  # Example publish job after CI and security success
   # publish:
   #   needs: [continuous-integration, security]
   #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
   #   runs-on: ubuntu-latest
   #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Build and publish to PyPI
-  #     env:
-  #       TWINE_USERNAME: __token__
-  #       TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-  #     run: |
-  #       uv pip install build twine
-  #       python -m build
-  #       twine upload dist/*
+  #     - uses: actions/checkout@v4
+  #     - name: Build and publish to PyPI
+  #       env:
+  #         TWINE_USERNAME: __token__
+  #         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+  #       run: |
+  #         uv pip install build twine
+  #         python -m build
+  #         twine upload dist/*
