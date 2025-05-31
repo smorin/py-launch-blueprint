@@ -29,11 +29,10 @@ jobs:
           uv sync --all-extras --dev
           echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
-      # Now check uv.lock consistency with uv CLI inside venv
       - name: Check uv.lock consistency
         run: |
           source .venv/bin/activate
-          uv --lock > uv.lock.new
+          uv lock > uv.lock.new
           if ! cmp -s uv.lock uv.lock.new; then
             echo "ERROR: uv.lock is outdated. Please regenerate and commit the updated uv.lock file."
             exit 1
@@ -69,42 +68,3 @@ jobs:
       # Uncomment to upload coverage results
       # - name: Upload coverage
       #   uses: codecov/codecov-action@v4
-
-  # Uncomment and configure when ready
-  # security:
-  #   if: github.event.pull_request.head.repo.full_name == github.repository
-  #   runs-on: ubuntu-latest
-  #   needs: continuous-integration
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Run Safety CLI to check for vulnerabilities
-  #       uses: pyupio/safety-action@v1
-  #       with:
-  #         api-key: ${{ secrets.SAFETY_API_KEY }}
-  #         args: --detailed-output
-
-  # Uncomment for contributor updates job
-  # update-contributors:
-  #   needs: [continuous-integration, security]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Update Contributors
-  #       run: |
-  #         # Your contributor update script or action here
-
-  # Uncomment for publishing to PyPI
-  # publish:
-  #   needs: [continuous-integration, security]
-  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Build and publish to PyPI
-  #       env:
-  #         TWINE_USERNAME: __token__
-  #         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-  #       run: |
-  #         uv pip install build twine
-  #         python -m build
-  #         twine upload dist/*
