@@ -45,21 +45,25 @@ jobs:
     # Check linters using ruff
     - name: Check linters (ruff)
       run: uvx ruff check py_launch_blueprint/
+
     # Set up Go
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
         go-version: '1.21'
+
     # Addlicense install step
     - name: Install addlicense
       run: |
-          go install github.com/google/addlicense@latest
-          echo "$HOME/go/bin" >> $GITHUB_PATH
+          just install-addlicense
+          export PATH="$HOME/go/bin:$PATH"
           which addlicense
           addlicense -version || echo "Addlicense installed"
+
     # Use just recipe for license check
     - name: License header check
       run: just check-license
+
     - name: Check TOML formatting
       run: |
         taplo check '**/*.toml'
