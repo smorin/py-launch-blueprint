@@ -143,48 +143,7 @@ twine check dist/*
 
 ---
 
-## 5. Add a `just` Recipe to Build and Publish
-
-Update your `justfile` (Optional):
-
-```just
-# Build package
-[group('build'), group('dev')]
-@build: check
-    echo "Checking for Hatch..."
-    if ! command -v hatch >/dev/null 2>&1; then \
-        echo ""; \
-        echo "⚠️  Hatch is not installed. Please install it using:"; \
-        echo "   uv pip install hatch"; \
-        echo ""; \
-        exit 1; \
-    fi
-    echo "Building package with Hatch..."
-    hatch build
-
-alias b := build
-```
-
-```just
-# Publish package to PyPI
-[group('build'), group('dev')]
-@publish:
-    echo "Building package..."
-    just build
-    echo "Checking for Twine..."
-    if ! command -v twine >/dev/null 2>&1; then \
-        echo "Twine is not installed. Installing..."; \
-        uv pip install twine; \
-    fi
-    echo "Uploading to PyPI..."
-    twine upload dist/*
-
-alias p := publish
-```
-
----
-
-## 6. Publish Your Package
+## 5. Publish Your Package
 
 Run:
 
@@ -199,29 +158,9 @@ Uploading distributions to https://upload.pypi.org/legacy/
 Uploading your_package-0.1.0.tar.gz
 Uploading your_package-0.1.0-py3-none-any.whl
 ```
-
 ---
 
-## Optional: Use TestPyPI
-
-Add to your `justfile`:
-
-```just
-@publish-test:
-    echo "Building package for TestPyPI..."
-    just build
-    just publish-test
-```
-
-Then run:
-
-```bash
-just publish-test
-```
-
----
-
-## 7. CI/CD Integration (Optional)
+## 6. CI/CD Integration (Optional)
 
 To automate publishing in CI/CD systems like GitHub Actions:
 
