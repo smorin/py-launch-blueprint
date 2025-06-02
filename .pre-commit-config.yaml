@@ -9,7 +9,7 @@ repos:
             "types-PyYAML",
             "types-python-dateutil",
             "click>=8.1.3", # Add click
-            "types-click>=1.1.0",
+            "types-click>=1.1.0"
           ]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -49,7 +49,23 @@ repos:
         types: [python]
         pass_filenames: false # Run full test suite
         stages: [pre-commit] # Only run on pre-commit
-
+  - repo: local
+    hooks:
+    - id: addlicense
+      name: Add license headers
+      entry: addlicense
+      language: system
+      types: [python, text, yaml, json, toml, sh, go]
+      args:
+        - --check
+        - -l
+        - mit
+        - -y
+        - "2025"
+        - --copyright
+        - "Copyright (c) 2025, Steve Morin"
+      exclude: ^addlicense/testdata/.*
+      
 
 # Global Exclusion
 # If you want to exclude py_launch_blueprint/_version.py from all pre-commit hooks,
