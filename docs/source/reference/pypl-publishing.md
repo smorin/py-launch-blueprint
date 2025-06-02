@@ -129,7 +129,7 @@ env:
 
 ---
 
-### 5.5. Validate Distributions Before Publishing
+### 4.5. Validate Distributions Before Publishing
 
 ```bash
 twine check dist/*
