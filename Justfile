@@ -166,6 +166,12 @@ alias ca := check
 @run cmd=command_name *args=args:
     uvx --with-editable . {{cmd}} {{args}}
 
+# set up publishing configuration
+[group('install'), group('quick start')]
+@install-publish:
+    echo "Installing publishing dependencies..."
+    uv pip install ".[publish]"
+
 # Build package
 [group('build'), group('dev')]
 @build: check
@@ -178,7 +184,7 @@ alias ca := check
         exit 1; \
     fi
     echo "Building package with Hatch..."
-    hatch build
+    uvx hatch build
 
 alias b := build
 
@@ -193,16 +199,9 @@ alias b := build
         echo "Installing Twine..."; \
         uv pip install twine; \
     fi
-    twine upload dist/*
+    uvx twine upload dist/*
 
 alias p := publish
-
-# set up publishing configuration
-[group('build'), group('dev')]
-@setup-hatch-twine:
-    echo "Checking for Hatch and Twine..."
-    echo "Setting up publishing configuration..."
-    uv pip install hatch twine
 
 # Set up pre-commit hooks
 [group('setup'), group('pre-commit')]

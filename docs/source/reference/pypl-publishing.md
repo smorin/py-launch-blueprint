@@ -38,10 +38,8 @@ password = pypi-<your-test-token>
 
 ## 3. Install Required Tools
 
-Install with `uv` (or use `pip`):
-
 ```bash
-just setup-hatch-twine
+just install-publish
 ```
 
 ---
