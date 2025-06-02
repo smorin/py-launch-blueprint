@@ -56,7 +56,7 @@ jobs:
     - name: Install addlicense
       run: |
           just install-addlicense
-          export PATH="$HOME/go/bin:$PATH"
+          echo "$HOME/go/bin" >> $GITHUB_PATH
           which addlicense
           addlicense -version || echo "Addlicense installed"
 
