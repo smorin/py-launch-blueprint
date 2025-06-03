@@ -48,8 +48,3 @@ repos:
         types: [python]
         pass_filenames: false # Run full test suite
         stages: [pre-commit] # Only run on pre-commit
-  - repo: https://github.com/adrienverge/yamllint
-    rev: v1.30.0 # or latest
-    hooks:
-      - id: yamllint
-        args: ["-c", ".yamllint.yaml"] # if you have a config 

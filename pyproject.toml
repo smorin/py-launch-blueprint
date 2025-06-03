@@ -27,6 +27,7 @@ dev = [
   "types-requests",
   "types-Pygments",
   "cogapp",
+  "yamllint",
 ]
 
 docs = [

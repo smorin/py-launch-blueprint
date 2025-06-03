@@ -86,6 +86,8 @@ BRANCH_NAME := "test-actions-" + DATE_TIME
     if ! command -v just >/dev/null 2>&1; then echo "just is not installed"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "Taplo is not installed"; exit 1; fi
+    if ! command -v yamllint >/dev/null 2>&1; then echo "yamllint is not installed"; exit 1; fi
+    if ! command -v prettier >/dev/null 2>&1; then echo "prettier is not installed"; exit 1; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -626,20 +628,30 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just lint
     just test
     # just build
-    # just run 
-
-# Format all YAML files using Prettier
-format-yaml:
-  npx prettier --write "**/*.{yml,yaml}"
-
-# Lint all YAML files using yamllint 
-lint-yaml:
-  yamllint .
-
-# Optional: Custom YAML fixer + Prettier 
-fix-yaml:
-  python scripts/fix_yaml.py
-  npx prettier --write "**/*.{yml,yaml}"
+    # just run
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
+
+# Install prettier YAML
+[group('install')]
+@install-prettier-yaml:
+    echo "Installing Prettier YAML plugin..."
+    npm install --save-dev --save-exact prettier
+    echo "Installing Prettier YAML plugin completed."
+
+# Format all YAML files using Prettier
+[group('dev')]
+@format-yaml:
+  npx prettier --write "**/*.{yml,yaml}"
+
+# Lint all YAML files using yamllint
+[group('dev')]
+@lint-yaml:
+  yamllint .
+
+# Optional: Custom YAML fixer + Prettier
+[group('dev')]
+@fix-yaml:
+  python scripts/fix_yaml.py
+  npx prettier --write "**/*.{yml,yaml}"
