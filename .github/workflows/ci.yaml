@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  continuous-integration:
     name: continuous-integration
     runs-on: ubuntu-latest
     strategy:
@@ -15,48 +15,56 @@ jobs:
         python-version: ["3.10", "3.11"]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Install uv
-      uses: astral-sh/setup-uv@v5
+      - name: Install uv CLI
+        uses: astral-sh/setup-uv@v5
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Install Just
+        uses: extractions/setup-just@v2
 
-    #install just
-    - name: Install Just
-      uses: extractions/setup-just@v2
+      - name: Create virtual environment and install dependencies
+        run: |
+          uv venv .venv
+          uv sync --all-extras --dev
+          echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
-    - name: Install development dependencies
-      run: |
-       uv venv .venv
-       uv sync --all-extras --dev
-       echo "$PWD/.venv/bin" >> $GITHUB_PATH
+      - name: Check if uv.lock is up to date
+        run: |
+          source .venv/bin/activate
+          uv lock > uv.lock.new
+          if ! cmp -s uv.lock uv.lock.new; then
+            echo "❌ uv.lock is outdated. Please run 'uv lock' locally and commit the updated lockfile."
+            diff -u uv.lock uv.lock.new || true
+            exit 1
+          else
+            echo "✅ uv.lock is up to date."
+          fi
+          rm uv.lock.new
 
-    # Format code
-    - name: Install Taplo
-      run: just install-taplo
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    # Run type checker
-    - name: Run type checker
-      run: uvx mypy py_launch_blueprint/
+      - name: Run type checker (mypy)
+        run: uvx mypy py_launch_blueprint/
 
-    # Check linters using ruff
-    - name: Check linters (ruff)
-      run: uvx ruff check py_launch_blueprint/
+      - name: Run linter (ruff)
+        run: uvx ruff check py_launch_blueprint/
 
-    - name: Check TOML formatting
-      run: |
-        taplo check '**/*.toml'
+      - name: Install Taplo
+        run: just install-taplo
 
-    # Run pre-commit checks
-    - name: Run pre-commit checks
-      run: |
-       just pre-commit-setup
-       just pre-commit-run
+      - name: Check TOML formatting
+        run: taplo check '**/*.toml'
 
-    # You can uncomment the following if you want to run tests with coverage
+      - name: Run pre-commit hooks
+        run: |
+          just pre-commit-setup
+          just pre-commit-run
+
+              # You can uncomment the following if you want to run tests with coverage
+
     # - name: Run tests with coverage
     #   run: |
     #     pytest --cov=./ --cov-report=xml
@@ -78,19 +86,3 @@ jobs:
   #    with:
   #      api-key: ${{ secrets.SAFETY_API_KEY }}
   #      args: --detailed-output # To always see detailed output from this action
-
-  # The publish job is commented out, but here's a reference if you want to re-enable it
-  # publish:
-  #   needs: [test, security]
-  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Build and publish to PyPI
-  #     env:
-  #       TWINE_USERNAME: __token__
-  #       TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-  #     run: |
-  #       uv pip install build twine
-  #       python -m build
-  #       twine upload dist/*
