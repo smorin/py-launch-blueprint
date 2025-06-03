@@ -670,13 +670,13 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
 
-# Install prettier YAML
+# Install Prettier and YAML plugin
 [group('install')]
 @install-prettier-yaml:
-    @if ! command -v npm >/dev/null 2>&1; then echo "npm is not installed. Please install Node.js first."; exit 1; fi
-    echo "Installing Prettier YAML plugin..."
-    npm install --save-dev --save-exact prettier
-    echo "Installing Prettier YAML plugin completed."
+  @if ! command -v npm >/dev/null 2>&1; then echo "npm is not installed. Please install Node.js first."; exit 1; fi
+  echo "Installing Prettier and YAML plugin..."
+  npm install --save-dev --save-exact prettier prettier-plugin-yaml
+  echo "Done: Prettier YAML installed."
 
 # Format all YAML files using Prettier
 [group('dev')]
@@ -696,4 +696,3 @@ alias cycle := dev
   @if ! command -v npx >/dev/null 2>&1; then echo "npx is not installed. Please install Node.js first."; exit 1; fi
   python scripts/fix_yaml.py
   npx prettier --write "**/*.{yml,yaml}"
-
