@@ -671,28 +671,29 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 alias cycle := dev
 
 # Install prettier YAML
-# Install prettier YAML
- [group('install')]
- @install-prettier-yaml:
+[group('install')]
+@install-prettier-yaml:
     @if ! command -v npm >/dev/null 2>&1; then echo "npm is not installed. Please install Node.js first."; exit 1; fi
-     echo "Installing Prettier YAML plugin..."
-     npm install --save-dev --save-exact prettier
-     echo "Installing Prettier YAML plugin completed."
+    echo "Installing Prettier YAML plugin..."
+    npm install --save-dev --save-exact prettier
+    echo "Installing Prettier YAML plugin completed."
 
- # Format all YAML files using Prettier
- [group('dev')]
- @format-yaml:
+# Format all YAML files using Prettier
+[group('dev')]
+@format-yaml:
   @if ! command -v npx >/dev/null 2>&1; then echo "npx is not installed. Please install Node.js first."; exit 1; fi
-   npx prettier --write "**/*.{yml,yaml}"
+  npx prettier --write "**/*.{yml,yaml}"
 
- # Optional: Custom YAML fixer + Prettier
- [group('dev')]
- @fix-yaml:
-  @if [ ! -f "scripts/fix_yaml.py" ]; then echo "scripts/fix_yaml.py not found"; exit 1; fi
-  @if ! command -v npx >/dev/null 2>&1; then echo "npx is not installed. Please install Node.js first."; exit 1; fi
-   python scripts/fix_yaml.py
-   npx prettier --write "**/*.{yml,yaml}"
+# Run YAML linter
+[group('dev')]
+@lint-yaml:
+    yamllint .
+
+# Custom YAML fixer + Prettier
 [group('dev')]
 @fix-yaml:
+  @if [ ! -f "scripts/fix_yaml.py" ]; then echo "scripts/fix_yaml.py not found"; exit 1; fi
+  @if ! command -v npx >/dev/null 2>&1; then echo "npx is not installed. Please install Node.js first."; exit 1; fi
   python scripts/fix_yaml.py
   npx prettier --write "**/*.{yml,yaml}"
+
