@@ -226,7 +226,7 @@ alias b := build
 [group('pre-commit')]
 @pre-commit-run:
     uvx --with-editable . pre-commit run --all
-    PYTHONUTF8=1 pre-commit run --all-files #Added to fix UnicodeDecodeError with Yamllint
+
 alias pc := pre-commit-run
 
 # Check installed package version
