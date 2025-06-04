@@ -11,5 +11,20 @@
   "remoteUser": "root",
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash"
-  }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "matangover.mypy",
+        "tamasfe.even-better-toml",
+        "redhat.vscode-yaml",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker"
+      ]
+    }
+  },
+  "features": {}
 }
