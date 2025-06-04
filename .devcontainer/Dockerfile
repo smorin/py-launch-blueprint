@@ -1,22 +1,26 @@
-FROM mcr.microsoft.com/devcontainers/python:3.11-bullseye
+# Use official Python slim image
+FROM python:3.11-slim
 
-RUN apt-get update && \
-    apt-get install -y python3-venv git curl && \
-    rm -rf /var/lib/apt/lists/*
+# Install system dependencies, Docker CLI, and 'just' tool into /usr/local/bin
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl unzip ca-certificates gnupg docker.io \
+ && curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ARG WORKSPACE_DIR=/workspaces/py-launch-blueprint
-WORKDIR ${WORKSPACE_DIR}
+# Set working directory inside container
+WORKDIR /app
 
-COPY .devcontainer ${WORKSPACE_DIR}/.devcontainer
-COPY .. ${WORKSPACE_DIR}
+# Copy the entire project directory into the container
+COPY . .
 
-# Then copy the rest of the repo (excluding .devcontainer)
-COPY .. /workspaces/py-launch-blueprint-main
+# Set static version to avoid setuptools_scm git dependency during install
+ENV SETUPTOOLS_SCM_PRETEND_VERSION=0.0.0
 
-WORKDIR /workspaces/py-launch-blueprint-main
+# Install your Python package along with its dependencies
+RUN pip install --no-cache-dir .
 
-# Make sure the setup script is executable
-RUN chmod +x ${WORKSPACE_DIR}/.devcontainer/_container_setup.sh
+# Install uvenv CLI (replacement for uvx)
+RUN pip install --no-cache-dir uvenv
 
-# Install 'just' using the updated method from PR #256
-RUN curl -sSL https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+# Define default entrypoint command
+ENTRYPOINT ["py-launch"]

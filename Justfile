@@ -627,16 +627,10 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 @_foo:
     echo "example"
 
-# Developer setup: ensure environment is ready
-# @_container_setup: Called automatically by container bootstrap, not for direct human use.
+# Container Just Command
 _container_setup:
-	cp ./detect-python.sh /tmp/detect-python.sh
-	chmod +x /tmp/detect-python.sh
-	/tmp/detect-python.sh
-	cp ./.devcontainer/_container_setup.sh /tmp/_container_setup.sh
-	chmod +x /tmp/_container_setup.sh
-	bash /tmp/_container_setup.sh
-	rm /tmp/detect-python.sh /tmp/_container_setup.sh
+    @MSYS_NO_PATHCONV=1 docker build -t py-launch-dev -f .devcontainer/Dockerfile .
+    @MSYS_NO_PATHCONV=1 docker run --rm -e PY_TOKEN=dummy -it --entrypoint /bin/bash py-launch-dev -c "echo '✅ Container ran successfully! You are now inside the container shell.'; exec bash"
 
 [group('dev'), group('quick start')]
 @dev:
