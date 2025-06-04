@@ -1,4 +1,4 @@
-# Use official Python slim image
+# Use official Python slim image.
 FROM python:3.11-slim
 
 # Install system dependencies, Docker CLI, and 'just' tool into /usr/local/bin

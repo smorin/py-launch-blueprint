@@ -627,7 +627,7 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 @_foo:
     echo "example"
 
-# Container Just Command
+# Container Run Just Command
 _container_setup:
     @MSYS_NO_PATHCONV=1 docker build -t py-launch-dev -f .devcontainer/Dockerfile .
     @MSYS_NO_PATHCONV=1 docker run --rm -e PY_TOKEN=dummy -it --entrypoint /bin/bash py-launch-dev -c "echo '✅ Container ran successfully! You are now inside the container shell.'; exec bash"
