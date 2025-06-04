@@ -12,14 +12,13 @@ DEVCONTAINER_FILE = Path(".devcontainer/devcontainer.json")
 def load_json(file_path: Path) -> Dict[str, Any]:
     try:
         with open(file_path) as f:
-            return json.load(f)
+            return json.load(f)  # type: ignore
     except FileNotFoundError:
         print(f"❌ Error: {file_path} not found.")
         sys.exit(2)
     except json.JSONDecodeError as e:
         print(f"❌ Error parsing {file_path}: {e}")
         sys.exit(2)
-
 
 def extract_recommended_extensions(data: Dict[str, Any]) -> Set[str]:
     return set(data.get("recommendations", []))
