@@ -1,5 +1,5 @@
 ---
-description: Custom rule cursor
+description:
 globs:
 alwaysApply: true
 ---
@@ -7,3 +7,5 @@ alwaysApply: true
 # Your rule content
 
 - read rules @.windsurfrules for base project dependencies
+- read rules ./rules/doc-template.mdc for base project documentation
+- use rule doc-template             # Apply doc-template to this rule file or docs content

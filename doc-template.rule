@@ -1,0 +1,77 @@
+# Documentation Template Rule
+# This rule defines the standardized structure for documenting new tools and dependencies
+
+## Template Structure
+
+### Introduction
+[Tool/Dependency Name]
+- Brief overview of what the tool/dependency is
+- Version information
+- Core purpose and functionality
+
+### Purpose and Problem Solved
+- Clear statement of the problem this tool addresses
+- Key benefits and value proposition
+- Why this tool was chosen for the project
+
+### Getting Started
+#### Prerequisites
+- Required dependencies
+- System requirements
+- Environment setup needs
+
+#### Installation
+- Step-by-step installation guide
+- Basic setup instructions
+- Quick start example
+
+### Usage
+#### Core Functionality
+- Basic usage patterns
+- Common use cases with code examples
+- Command references and syntax
+
+#### Advanced Features
+- Advanced usage scenarios
+- Tips and best practices
+- Integration examples
+
+### Configuration
+#### Basic Configuration
+- Essential configuration parameters
+- Default settings
+- Environment variables
+
+#### Advanced Configuration
+- Custom configuration options
+- Performance tuning
+- Integration settings
+
+### Testing
+#### Standalone Testing
+- Test commands and expected results
+- Verification steps
+- Troubleshooting common issues
+
+#### Project Integration Testing
+- Project-specific test cases
+- Integration test examples
+- Validation procedures
+
+### Disabling/Removal
+- Instructions for temporary disabling
+- Steps for permanent removal
+- Context-specific disabling options
+
+### References
+- Official documentation links
+- Community resources
+- Related tools and alternatives
+- Project-specific documentation
+
+## Usage Instructions
+1. Copy this template when documenting new tools
+2. Fill in all relevant sections
+3. Remove sections that don't apply
+4. Add project-specific examples and context
+5. Include version information and dates
