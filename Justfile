@@ -299,21 +299,13 @@ debug-info:
 # Update CONTRIBUTORS.md file
 [group('build')]
 @contributors:
+update-contributors:
     echo "Updating CONTRIBUTORS.md..."
-    if [ "$$OS" = "Windows_NT" ]; then \
-        powershell -File scripts/update_contributors.ps1; \
-    else \
-        echo "{{YELLOW}}TODO: Add macOS/Linux command to update CONTRIBUTORS.md here{{NC}}"; \
-        # Example placeholder: ./scripts/update_contributors.sh
-    fi
-    echo "{{CHECK}} Contributors list updated"
-
-# # Generate changelog from conventional commits
-# changelog:
-#     echo "Generating changelog..."
-#     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
-#     cog changelog --at=HEAD
-#     echo "{{GREEN}}✓{{NC}} Changelog generated"
+    # Cross-platform way to update CONTRIBUTORS.md using git shortlog
+    echo "# Contributors" > CONTRIBUTORS.md
+    echo "" >> CONTRIBUTORS.md
+    git shortlog -sne >> CONTRIBUTORS.md
+    echo "✓ Contributors list updated"
 
 # Verify commit messages follow conventional commit format
 [group('pre-commit')]
@@ -638,7 +630,7 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 
 # Check if VSCode recommended extensions are synced with devcontainer
 check-extension-sync:
-    uvx --with-editable . scripts/check_extension_sync.py
+    uv run --with-editable . scripts/check_extension_sync.py
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev

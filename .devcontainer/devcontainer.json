@@ -1,15 +1,22 @@
 {
-  "name": "PyLaunch Blueprint",
+  "name": "py-launch-blueprint",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."
+  },
+  "postCreateCommand": "just --version",
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+  "remoteUser": "root",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
   },
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "ms-python.black-formatter",
         "charliermarsh.ruff",
         "matangover.mypy",
         "tamasfe.even-better-toml",
@@ -19,6 +26,5 @@
       ]
     }
   },
-  "postCreateCommand": "bash .devcontainer/setup.sh",
-  "remoteUser": "vscode"
+  "features": {}
 }
