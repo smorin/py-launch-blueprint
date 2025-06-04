@@ -694,5 +694,5 @@ alias cycle := dev
 @fix-yaml:
   @if [ ! -f "scripts/fix_yaml.py" ]; then echo "scripts/fix_yaml.py not found"; exit 1; fi
   @if ! command -v npx >/dev/null 2>&1; then echo "npx is not installed. Please install Node.js first."; exit 1; fi
-  python scripts/fix_yaml.py
+  python3 scripts/fix_yaml.py
   npx prettier --write "**/*.{yml,yaml}"
