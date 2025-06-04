@@ -628,5 +628,9 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     # just build
     # just run
 
+_container_setup:
+    @MSYS_NO_PATHCONV=1 docker build -t py-launch-dev -f .devcontainer/Dockerfile .
+    @MSYS_NO_PATHCONV=1 docker run --rm -e PY_TOKEN=dummy -it --entrypoint /bin/bash py-launch-dev -c "echo '✅ Container ran successfully! You are now inside the container shell.'; exec bash"
+
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
