@@ -1,7 +1,7 @@
 # Use official Python slim image
 FROM python:3.11-slim
 
-# Install system dependencies, docker CLI, and 'just' into /usr/local/bin
+# Install system dependencies, docker CLI, and 'just' into /usr/local/bin usage
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl unzip ca-certificates gnupg docker.io \
  && curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin \
