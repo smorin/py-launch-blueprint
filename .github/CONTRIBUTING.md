@@ -78,6 +78,15 @@ This project follows the [Conventional Commits](https://www.conventionalcommits.
 
 Each commit message should be structured as follows:
 
+## 🛠 Troubleshooting Guides
+
+We document tricky integration issues and non-obvious behaviors under [docs/troubleshooting](./docs/troubleshooting/):
+
+- [Cross-Platform Issues](./docs/troubleshooting/cross-platform-issues.md)
+- [Docker Feature Integration](./docs/troubleshooting/docker-feature.md)
+- [CI/CD Warning Failures](./docs/troubleshooting/warning-ci-cd.md)
+- [Changelog Automation](./docs/troubleshooting/changelog-disable.md)
+- [Codecov Configuration](./docs/troubleshooting/codecov-feature.md)
 
 ## Getting Help
 
