@@ -626,14 +626,23 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     # just run
 # Contributors update (cross-platform Bash/PowerShell)
 contributor-update:
+contributor-update:
     if [ "$OS" = "Windows_NT" ]; then \
         if [ -f scripts/update_contributors.ps1 ]; then \
             powershell -ExecutionPolicy Bypass -File scripts/update_contributors.ps1; \
         else \
             echo "⚠️ PowerShell script not found. Falling back to Bash script..."; \
+            if [ ! -f scripts/update_contributors.sh ]; then \
+                echo "❌ Error: Bash script not found at scripts/update_contributors.sh"; \
+                exit 1; \
+            fi; \
             bash scripts/update_contributors.sh; \
         fi; \
     else \
+        if [ ! -f scripts/update_contributors.sh ]; then \
+            echo "❌ Error: Bash script not found at scripts/update_contributors.sh"; \
+            exit 1; \
+        fi; \
         ./scripts/update_contributors.sh; \
     fi
 
