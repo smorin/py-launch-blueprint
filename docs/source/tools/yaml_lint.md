@@ -1,111 +1,67 @@
-
-# YAML Linting & Formatting with yamllint + Prettier
+# YAML Formatting with yamlfmt
 
 ## Introduction
-Our project uses YAML files extensively for configuration. To ensure consistent formatting and catch syntax/style issues early, we use `yamllint` for linting and `Prettier` for formatting. Additionally, a custom fixer script normalizes boolean values for compatibility.
+Our project uses YAML files extensively for configuration, GitHub Actions workflows, and issue templates. To ensure consistent formatting and catch syntax/style issues early, we use `yamlfmt` - a single, powerful tool that handles both linting and formatting.
 
 ---
 
 **Key Benefits**:
-
-* ✅ **Consistent YAML Style**: Enforced by `yamllint` with project-specific rules.
-* 🎨 **Automatic Formatting**: `Prettier` formats YAML files for readability and uniformity.
-* 🔧 **Boolean Normalization**: Custom script converts `yes/no` to `true/false` to avoid common YAML pitfalls.
-* 🤖 **Pre-commit Integration**: Runs linting automatically on every commit to catch errors before push.
-* 🚀 **Easy to Use**: Commands available via `just` for install, lint, format, and fix.
+* ✅ **Single Tool**: `yamlfmt` handles both linting AND formatting - no conflicts!
+* 🎨 **Automatic Formatting**: Consistent YAML style across all files
+* 🚀 **Fast Performance**: Go-based tool for speed and reliability
+* 🔧 **Highly Configurable**: Customizable rules via `.yamlfmt` configuration
+* 🤖 **Pre-commit Integration**: Runs automatically on every commit
+* 💻 **No Node.js Required**: Pure Go binary, simpler dependency management
+* 🛡️ **GitHub Actions Compatible**: Tested with workflow files
 
 ---
 
 ## ⚙️ Getting Started
 
-### Installation
-Install Prettier and dependencies:
-
+### Prerequisites
+Install Go and yamlfmt:
 ```bash
-just install-prettier-yaml
+# Install Go (if not already installed)
+just install-go
+
+# Install yamlfmt
+just install-yamlfmt
+
 ```
 
 ---
 
 ## Usage
 
-**Format all YAML files:**
-
+### **Format all YAML files:**
 ```bash
 just format-yaml
 ```
+*Automatically fixes formatting in all `.yml` and `.yaml` files*
 
-**Lint all YAML files:**
-
+### **Check for formatting issues:**
 ```bash
 just lint-yaml
 ```
+*Shows detailed output of any formatting problems*
 
-**Fix boolean values and format YAML:**
-
+### **Verify formatting is clean:**
 ```bash
-just fix-yaml
+just check-yaml
 ```
+*Quick pass/fail check with success message*
 
 ---
 
-## 🛠 Recommended Configuration
+## 🛠 Configuration
 
-Add a `.yamllint.yml` file with the following content:
-
-```yaml
-extends: default
-
-ignore: |
-  .venv/**
-  node_modules/**
-  dist/**
-  build/**
-
-rules:
-  truthy:
-    level: error
-
-  line-length:
-    max: 120
-    allow-non-breakable-words: true
-    allow-non-breakable-inline-mappings: true
-
-  document-start: disable
-
-  indentation:
-    spaces: 2
-    indent-sequences: consistent
-
-  trailing-spaces: enable
-
-  comments:
-    level: warning
-
-  comments-indentation:
-    level: warning
-
-  empty-lines:
-    max: 1
-```
-
-**Prettier formatting is configured in `.prettierrc.yaml` as:**
-
-```json
-{
-  "printWidth": 120,
-  "tabWidth": 2,
-  "useTabs": false,
-  "proseWrap": "always",
-  "singleQuote": false
-}
-```
+### yamlfmt Configuration (`.yamlfmt`)
 
 ---
 
 ## 🔄 Pre-commit Integration
 
-YAML linting runs on every commit via `pre-commit`:
+YAML formatting runs automatically on every commit via `pre-commit`:
 
 - The `yamllint` hook validates `.yaml` and `.yml` files automatically.
 - Prevents commits with YAML syntax/style errors.
@@ -115,10 +71,11 @@ Example `.pre-commit-config.yaml` snippet for YAML linting:
 
 ```yaml
 repos:
-  - repo: https://github.com/adrienverge/yamllint
-    rev: v1.37.1
+  - repo: https://github.com/google/yamlfmt
+    rev: v0.13.0  # Use latest version
     hooks:
-      - id: yamllint
+      - id: yamlfmt
+        name: "Format YAML files"
         files: \.ya?ml$
 ```
 
@@ -127,13 +84,14 @@ repos:
 ## 🛑 Disabling or Skipping YAML Linting
 
 - To skip linting temporarily, use the `--no-verify` flag on `git commit`.
-- To disable rules, edit `.yamllint.yml`.
+- To disable rules, edit `.yamlfmt`.
 - To remove linting completely, remove related pre-commit hooks and `just` commands.
 
 ---
 
 ## 📚 References
 
-* [📘 yamllint Documentation](https://yamllint.readthedocs.io/en/stable/)
-* [🛠 Prettier YAML Plugin](https://prettier.io/docs/en/plugins.html#yaml)
-* [🐍 Custom YAML fixer script](scripts/fix_yaml.py)
+* [📘 yamlfmt GitHub Repository](https://github.com/google/yamlfmt)
+* [🛠 yamlfmt Configuration Options](https://github.com/google/yamlfmt#configuration)
+* [🔧 Our yamlfmt Configuration](.yamlfmt)
+* [🚀 Pre-commit Integration](https://pre-commit.com/)
