@@ -2,6 +2,7 @@
 """
 YAML file fixer script that normalizes boolean values.
 """
+
 from pathlib import Path
 from typing import Any
 
