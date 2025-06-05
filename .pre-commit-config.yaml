@@ -51,12 +51,11 @@ repos:
         stages: [pre-commit] # Only run on pre-commit
   - repo: local
     hooks:
-      - id: check-vscode-extension-sync
-        name: Check VSCode Extension Sync
-        entry: uv run --with-editable . scripts/check_extension_sync.py
-        language: system
-        types: [json]
-        
+     -   id: check-vscode-extension-sync
+         name: Check VSCode Extension Sync
+         entry: uv run --with-editable . scripts/check_extension_sync.py
+         language: system
+         types: [json]
 # Global Exclusion
 # If you want to exclude py_launch_blueprint/_version.py from all pre-commit hooks,
 # you can use a global exclusion at the top level of your configuration:
