@@ -3,33 +3,34 @@
 import json
 import sys
 from pathlib import Path
-from typing import Dict, Set, Any
+from typing import Any
 
 EXTENSIONS_FILE = Path(".vscode/extensions.json")
 DEVCONTAINER_FILE = Path(".devcontainer/devcontainer.json")
 
 
-def load_json(file_path: Path) -> Dict[str, Any]:
+def load_json(file_path: Path) -> dict[str, Any]:
     try:
         with open(file_path) as f:
             return json.load(f)  # type: ignore
     except FileNotFoundError:
-        print(f"❌ Error: {file_path} not found.")
+        print(f"Error: {file_path} not found.")
         sys.exit(2)
     except json.JSONDecodeError as e:
-        print(f"❌ Error parsing {file_path}: {e}")
+        print(f"Error parsing {file_path}: {e}")
         sys.exit(2)
 
-def extract_recommended_extensions(data: Dict[str, Any]) -> Set[str]:
+
+def extract_recommended_extensions(data: dict[str, Any]) -> set[str]:
     return set(data.get("recommendations", []))
 
 
-def extract_devcontainer_extensions(data: Dict[str, Any]) -> Set[str]:
+def extract_devcontainer_extensions(data: dict[str, Any]) -> set[str]:
     try:
-        return set(
+        return {
             ext if isinstance(ext, str) else ext["id"]
             for ext in data["customizations"]["vscode"]["extensions"]
-        )
+        }
     except KeyError:
         return set()
 
@@ -44,14 +45,18 @@ def main() -> None:
     missing = vscode_exts - dev_exts
 
     if missing:
-        print("❌ VSCode extensions not synced with devcontainer configuration!\n")
+        print("VSCode extensions not synced with devcontainer configuration!\n")
         print("Missing from .devcontainer/devcontainer.json:")
         for ext in sorted(missing):
             print(f"- {ext}")
-        print("\nTo fix: Add these extensions to the `customizations.vscode.extensions` array in `.devcontainer/devcontainer.json`")
+        print(
+            "\nTo fix: Add these extensions to the "
+            "`customizations.vscode.extensions` array in "
+            "`.devcontainer/devcontainer.json`"
+        )
         sys.exit(1)
 
-    print("✅ VSCode extensions are in sync.")
+    print("VSCode extensions are in sync.")
     sys.exit(0)
 
 
