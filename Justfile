@@ -630,3 +630,20 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
+
+# YAML formatting and validation with yamlfmt
+[group('dev')]
+@format-yaml:
+    echo "🎨 Formatting YAML files with yamlfmt..."
+    yamlfmt .
+
+[group('dev')]
+@lint-yaml:
+    echo "🔍 Linting YAML files with yamlfmt..."
+    yamlfmt -lint .
+
+[group('dev')]
+@check-yaml:
+    echo "✅ Checking YAML formatting..."
+    yamlfmt -lint .
+    echo "YAML files are properly formatted!"
