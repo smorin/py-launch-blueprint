@@ -28,10 +28,10 @@ repos:
     language: python
     types_or: [cython, pyi, python]
 - repo: https://github.com/google/yamlfmt
-  rev: v0.17.0
+  rev: v0.13.0
   hooks:
   - id: yamlfmt
-    name: Format YAML files
+    name: "Format YAML files"
     files: \.ya?ml$
 - repo: local
   hooks:
