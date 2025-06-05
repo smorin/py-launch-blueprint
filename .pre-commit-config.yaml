@@ -1,4 +1,3 @@
-# .pre-commit-config.yaml
 repos:
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.15.0
@@ -8,7 +7,7 @@ repos:
           - "types-requests"
           - "types-PyYAML"
           - "types-python-dateutil"
-          - "click>=8.1.3"  # Add click
+          - "click>=8.1.3"
           - "types-click>=1.1.0"
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -56,9 +55,9 @@ repos:
         language: system
         types:
           - python
-        pass_filenames: false # Run full test suite
+        pass_filenames: false
         stages:
-          - pre-commit  # Only run on pre-commit
+          - pre-commit
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.37.1
     hooks:

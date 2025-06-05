@@ -1,15 +1,14 @@
 name: Generate Changelog
-
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
-
 permissions:
-  contents: write  # Explicit permission for better security
-
+  contents: write
 jobs:
   generate-changelog:
     runs-on: ubuntu-latest

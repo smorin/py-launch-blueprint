@@ -1,9 +1,8 @@
 name: Release
-
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -11,25 +10,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Install uv
         uses: astral-sh/setup-uv@v5
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
-
-
       - name: Create virtual environment
         run: uv venv
-
       - name: Install build tools
         run: uv pip install hatch build
-
       - name: Build package
         run: uv run hatch build
-
       - name: Verify version matches tag
         run: |
           TAG_VERSION=${GITHUB_REF#refs/tags/v}

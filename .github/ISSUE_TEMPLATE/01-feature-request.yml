@@ -1,15 +1,15 @@
 name: Feature Request
 description: Suggest a new feature or enhancement
 title: "[FEATURE]: "
-labels: ["enhancement", "feature-request"]
-
+labels:
+  - "enhancement"
+  - "feature-request"
 body:
   - type: markdown
     attributes:
       value: |
         ## Feature Request
         Thanks for taking the time to suggest a new feature!
-
   - type: dropdown
     id: feature-type
     attributes:
@@ -22,7 +22,6 @@ body:
         - UI/UX Improvement
     validations:
       required: true
-
   - type: dropdown
     id: priority
     attributes:
@@ -35,7 +34,6 @@ body:
         - Low
     validations:
       required: true
-
   - type: textarea
     id: problem-statement
     attributes:
@@ -44,7 +42,6 @@ body:
       placeholder: Clearly describe the problem or enhancement needed
     validations:
       required: true
-
   - type: dropdown
     id: requires-proposal
     attributes:
@@ -55,27 +52,26 @@ body:
         - No, straightforward implementation
     validations:
       required: true
-
   - type: textarea
     id: proposed-solution
     attributes:
       label: Proposed Solution
       description: How should this feature/enhancement work?
-      placeholder: Describe your proposed implementation, if needs research enter TBD (To Be Determined) If long solution, break into sub-tasks after submitting this issue.
+      placeholder:
+        Describe your proposed implementation, if needs research enter TBD (To Be Determined) If long solution, break
+        into sub-tasks after submitting this issue.
     validations:
       required: true
-
   - type: dropdown
     id: research-needed
     attributes:
       label: Research Needed
       description: Is research required before implementation?
       options:
-        - "Yes"
-        - "No"
+        - true
+        - false
     validations:
       required: true
-
   - type: textarea
     id: research-details
     attributes:
@@ -84,7 +80,6 @@ body:
       placeholder: "Only fill this out if Research Needed is Yes"
     validations:
       required: false
-
   - type: markdown
     attributes:
       value: |
@@ -101,18 +96,16 @@ body:
         **User Experience Requirements:**
         - Feature is accessible on all supported platforms/devices
         - System handles error cases gracefully with clear user feedback
-
   - type: dropdown
     id: acceptance-criteria-confirmation
     attributes:
       label: Acceptance Criteria Confirmation
       description: I understand and will implement all the acceptance criteria listed above
       options:
-        - "Yes"
-        - "No"
+        - true
+        - false
     validations:
       required: true
-
   - type: markdown
     attributes:
       value: |
@@ -125,14 +118,13 @@ body:
         - I have considered the technical feasibility
         - I have checked for duplicate feature requests
         - I have identified stakeholders who should be consulted
-
   - type: dropdown
     id: pre-submission-confirmation
     attributes:
       label: Pre-submission Confirmation
       description: I confirm that I have completed all the steps in the pre-submission checklist
       options:
-        - "Yes"
-        - "No"
+        - true
+        - false
     validations:
       required: true

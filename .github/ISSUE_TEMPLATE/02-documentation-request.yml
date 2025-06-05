@@ -1,15 +1,14 @@
 name: Documentation Request
 description: Request new documentation or improvements to existing docs
 title: "[DOCS]: "
-labels: ["documentation"]
-
+labels:
+  - "documentation"
 body:
   - type: markdown
     attributes:
       value: |
         ## Documentation Request
         Thanks for helping us improve our documentation! Clear documentation is crucial for our open-source project.
-
   - type: dropdown
     id: doc-type
     attributes:
@@ -22,7 +21,6 @@ body:
         - Reorganize Documentation Structure
     validations:
       required: true
-
   - type: input
     id: doc-location
     attributes:
@@ -31,7 +29,6 @@ body:
       placeholder: e.g., URL or path to the documentation file
     validations:
       required: false
-
   - type: textarea
     id: description
     attributes:
@@ -40,7 +37,6 @@ body:
       placeholder: Explain why this documentation is important and who will benefit from it
     validations:
       required: true
-
   - type: textarea
     id: suggested-content
     attributes:
@@ -49,7 +45,6 @@ body:
       placeholder: Provide an outline or key points that should be covered
     validations:
       required: true
-
   - type: dropdown
     id: contribution
     attributes:
@@ -60,7 +55,6 @@ body:
         - No, I'm just making a request
     validations:
       required: true
-
   - type: input
     id: contact
     attributes:
@@ -69,7 +63,6 @@ body:
       placeholder: e.g., email, GitHub username, or other contact method
     validations:
       required: false
-
   - type: markdown
     attributes:
       value: |
@@ -80,14 +73,13 @@ body:
         - I have checked that this documentation doesn't already exist
         - I have provided clear details about what needs to be documented
         - I understand this project is maintained by volunteers
-
   - type: dropdown
     id: pre-submission-confirmation
     attributes:
       label: Pre-submission Confirmation
       description: I confirm that I have completed all the steps in the pre-submission checklist
       options:
-        - "Yes"
-        - "No"
+        - true
+        - false
     validations:
       required: true

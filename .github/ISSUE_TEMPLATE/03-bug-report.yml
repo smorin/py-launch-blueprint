@@ -1,8 +1,9 @@
 name: Bug Report
 description: Report a bug in the open source project
 title: "[BUG]: "
-labels: ["bug", "needs-triage"]
-
+labels:
+  - "bug"
+  - "needs-triage"
 body:
   - type: markdown
     attributes:
@@ -11,7 +12,6 @@ body:
         Thanks for taking the time to report a bug! Our volunteer maintainers appreciate your help in improving this project.
 
         Please provide as much detail as possible so volunteers can reproduce and fix the issue efficiently.
-
   - type: dropdown
     id: severity
     attributes:
@@ -22,7 +22,6 @@ body:
         - Quality Issue (works but with problems/inconvenience)
     validations:
       required: true
-
   - type: dropdown
     id: priority
     attributes:
@@ -35,7 +34,6 @@ body:
         - Low (minor issue)
     validations:
       required: true
-
   - type: textarea
     id: steps-to-reproduce
     attributes:
@@ -48,7 +46,6 @@ body:
         4. See error
     validations:
       required: true
-
   - type: textarea
     id: expected-behavior
     attributes:
@@ -57,7 +54,6 @@ body:
       placeholder: Describe what should have happened if there was no bug
     validations:
       required: true
-
   - type: textarea
     id: actual-behavior
     attributes:
@@ -66,15 +62,14 @@ body:
       placeholder: Describe the bug behavior you observed
     validations:
       required: true
-
   - type: markdown
     attributes:
       value: |
         ## System Information
-        Please run `just debug-info` and paste the output below. This command automatically collects relevant system information and copies it to your clipboard.
+        Please run `just debug-info` and paste the output below. This command automatically collects relevant system information
+        and copies it to your clipboard.
 
         If the `debug-info` command doesn't work, please manually provide your OS, Python version, and tool versions.
-
   - type: textarea
     id: system-info
     attributes:
@@ -98,7 +93,6 @@ body:
         just: just 1.21.0
     validations:
       required: true
-
   - type: textarea
     id: screenshots
     attributes:
@@ -107,7 +101,6 @@ body:
       placeholder: Drag and drop screenshots here
     validations:
       required: false
-
   - type: textarea
     id: logs
     attributes:
@@ -117,8 +110,6 @@ body:
       placeholder: Paste any relevant logs here (error messages, stack traces, etc.)
     validations:
       required: false
-
-
   - type: textarea
     id: possible-solution
     attributes:
@@ -127,7 +118,6 @@ body:
       placeholder: Optional ideas for how to resolve the bug (very helpful for volunteers!)
     validations:
       required: false
-
   - type: dropdown
     id: contribution
     attributes:
@@ -138,7 +128,6 @@ body:
         - No, I'm just reporting the issue
     validations:
       required: true
-
   - type: markdown
     attributes:
       value: |
@@ -150,14 +139,13 @@ body:
         - I have included the exact version information
         - I have tested with the latest version to confirm the bug still exists
         - I understand this project is maintained by volunteers who appreciate clear, complete bug reports
-
   - type: dropdown
     id: pre-submission-confirmation
     attributes:
       label: Pre-submission Confirmation
       description: I confirm that I have completed all the steps in the pre-submission checklist
       options:
-        - "Yes"
-        - "No"
+        - true
+        - false
     validations:
       required: true
