@@ -1,8 +1,10 @@
 ---
-description:
+description: "Standard rule for documentation consistency"
 globs:
+  - "docs/**/*.md"
 alwaysApply: false
 ---
+
 name: doc-template
 description: |
   This rule defines the standardized structure to be followed for all documentation rules
