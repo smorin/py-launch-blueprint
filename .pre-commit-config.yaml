@@ -33,6 +33,7 @@ repos:
   - id: yamlfmt
     name: "Format YAML files"
     files: \.ya?ml$
+    args: ["-conf", ".yamlfmt"]
 - repo: local
   hooks:
   - id: taplo-format
