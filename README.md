@@ -1,5 +1,7 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
+[![codecov](https://codecov.io/gh/smorin/py-launch-blueprint/branch/main/graph/badge.svg?token=YOUR_TOKEN)](https://codecov.io/gh/smorin/py-launch-blueprint)
+
 # Py Launch Blueprint: A Production-Ready 🐍 Python Project Template with Integrated Best Practices
  Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
 
@@ -59,6 +61,19 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 - **Versioning with `setuptools-scm`**: Automatically derive version numbers from git tags, eliminating manual version tracking and ensuring consistency.
 
 - **Copyright license automation**: Automatically add license headers to all files, ensuring legal compliance without manual effort.
+
+- **Code Coverage**: Code coverage is tracked using [Codecov](https://codecov.io/).
+
+  - Coverage reports are uploaded automatically via GitHub Actions.
+  - The README badge displays the current main branch coverage.
+  - To run coverage locally:
+    ```sh
+    just coverage
+    ```
+  - To upload a local coverage report to Codecov:
+    ```sh
+    just coverage-report
+    ```
 
 ### Documentation
 

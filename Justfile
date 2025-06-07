@@ -91,10 +91,9 @@ check-deps:
 alias c := check-deps
 
 # Install package in editable mode with dev dependencies
-[group('install'), group('quick start')]
-@install-dev: check-deps
-    uv pip install --editable ".[dev]"
-
+#[group('install'), group('quick start')]
+#@install-dev: check-deps
+#    uv pip install --editable ".[dev]"
 # Install Taplo in editable mode with dev dependencies
 [group('install')]
 @install-taplo:
@@ -166,6 +165,11 @@ alias ca := check
 [group('run'), group('quick start')]
 @run cmd=command_name *args=args:
     uvx --with-editable . {{cmd}} {{args}}
+
+coverage:
+    python -m pytest --cov=py_launch_blueprint --cov-report=term-missing --cov-report=xml
+coverage-report:
+    codecov -f coverage.xml
 
 # Build package
 [group('build'), group('dev')]
@@ -387,6 +391,8 @@ setup-cog-hooks:
 @install-dev-pip:
     pip install --editable ".[dev]"
 
+@install-other-pip:
+    pip install some-other-package
 # Format code (includes ruff format and import sorting)
 [group('legacy')]
 @format-pip:
