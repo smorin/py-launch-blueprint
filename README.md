@@ -62,6 +62,19 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Copyright license automation**: Automatically add license headers to all files, ensuring legal compliance without manual effort.
 
+- **Code Coverage**: Code coverage is tracked using [Codecov](https://codecov.io/).
+
+  - Coverage reports are uploaded automatically via GitHub Actions.
+  - The README badge displays the current main branch coverage.
+  - To run coverage locally:
+    ```sh
+    just coverage
+    ```
+  - To upload a local coverage report to Codecov:
+    ```sh
+    just coverage-report
+    ```
+
 ### Documentation
 
 - **Documentation with `sphinx + MyST`**: Generate comprehensive documentation that supports both reStructuredText and Markdown, improving contributor accessibility.
