@@ -489,9 +489,6 @@ pr-to-testrepo pr_number new_repo_name="test-actions-repo":
     #repo_url=$(gh repo view {{new_repo_name}} --json url -q .url); \
     #echo -e "{{GREEN}}{{CHECK}} Repository created and ready for testing at: ${repo_url}{{NC}}"
 
-
-
-
 # Cleanup / Delete test repository from a PR from pr-to-testrepo
 [group('workflow')]
 [confirm("Are you sure you want to delete the remote repository '{{new_repo_name}}' and clean up the local directory?")]
@@ -628,6 +625,27 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
+# Contributors update (cross-platform Bash/PowerShell)
+contributor-update:
+contributor-update:
+    if [ "$OS" = "Windows_NT" ]; then \
+        if [ -f scripts/update_contributors.ps1 ]; then \
+            powershell -ExecutionPolicy Bypass -File scripts/update_contributors.ps1; \
+        else \
+            echo "⚠️ PowerShell script not found. Falling back to Bash script..."; \
+            if [ ! -f scripts/update_contributors.sh ]; then \
+                echo "❌ Error: Bash script not found at scripts/update_contributors.sh"; \
+                exit 1; \
+            fi; \
+            bash scripts/update_contributors.sh; \
+        fi; \
+    else \
+        if [ ! -f scripts/update_contributors.sh ]; then \
+            echo "❌ Error: Bash script not found at scripts/update_contributors.sh"; \
+            exit 1; \
+        fi; \
+        ./scripts/update_contributors.sh; \
+    fi
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
