@@ -308,6 +308,13 @@ update-contributors:
     git shortlog -sne >> CONTRIBUTORS.md
     echo "✓ Contributors list updated"
 
+# # Generate changelog from conventional commits
+# changelog:
+#     echo "Generating changelog..."
+#     command -v cog >/dev/null 2>&1 || { echo "{{RED}}Error: Cocogitto (cog) is not installed{{NC}}"; exit 1; }
+#     cog changelog --at=HEAD
+#     echo "{{GREEN}}✓{{NC}} Changelog generated"
+
 # Verify commit messages follow conventional commit format
 [group('pre-commit')]
 verify-commits start="HEAD~10" end="HEAD":
@@ -621,6 +628,11 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 @_foo:
     echo "example"
 
+# Container Run Just Command
+_container_setup:
+    @MSYS_NO_PATHCONV=1 docker build -t py-launch-dev -f .devcontainer/Dockerfile .
+    @MSYS_NO_PATHCONV=1 docker run --rm -e PY_TOKEN=dummy -it --entrypoint /bin/bash py-launch-dev -c "echo '✅ Container ran successfully! You are now inside the container shell.'; exec bash"
+
 [group('dev'), group('quick start')]
 @dev:
     just format
@@ -628,6 +640,10 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     just test
     # just build
     # just run
+
+@install:
+    pip install --upgrade pip
+    pip install .
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
