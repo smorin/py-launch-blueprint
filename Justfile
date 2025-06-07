@@ -86,6 +86,8 @@ check-deps:
     if ! command -v just >/dev/null 2>&1; then echo "{{YELLOW}}just is not installed{{NC}}\n RUN {{BLUE}}make install-just{{NC}}"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}\n RUN {{BLUE}}just install-pre-commit{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "{{YELLOW}}Taplo is not installed{{NC}}\n RUN {{BLUE}}just install-taplo{{NC}}"; exit 1; fi
+    if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}make install-go{{NC}}"; exit 1; fi
+    if ! command -v yamlfmt >/dev/null 2>&1; then echo "{{YELLOW}}yamlfmt is not installed{{NC}}\n RUN {{BLUE}}make install-yamlfmt{{NC}}"; exit 1; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -631,3 +633,61 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
+
+# Install Go
+[group('setup'), group('install')]
+@install-go:
+    if ! command -v go >/dev/null 2>&1; then \
+        echo "❗ Go is not installed."; \
+        echo "🔧 Installing Go..."; \
+        OS=$(uname); \
+        if [ "$$OS" = "Darwin" ]; then \
+            brew install go >/dev/null 2>&1; \
+        elif [ "$$OS" = "Linux" ]; then \
+            sudo apt update -qq && sudo apt install -y golang-go >/dev/null 2>&1; \
+        else \
+            echo "⚠️ Please install Go manually: https://go.dev/dl/"; \
+            exit 1; \
+        fi; \
+        if command -v go >/dev/null 2>&1; then \
+            echo "✅ Go installation complete."; \
+            echo "⚠️ Please update your PATH."; \
+        else \
+            echo "❌ Go installation failed. Please install manually."; \
+            exit 1; \
+        fi; \
+    else \
+        echo "✅ Go is already installed."; \
+    fi
+
+# Install yamlfmt
+[group('setup'), group('install')]
+@install-yamlfmt:
+    if ! command -v go >/dev/null 2>&1; then \
+        echo "❌ Go is not installed. Run: just install-go"; \
+        exit 1; \
+    fi; \
+    if command -v yamlfmt >/dev/null 2>&1; then \
+        echo "✅ yamlfmt is already installed."; \
+    else \
+        echo "📦 Installing yamlfmt..."; \
+        go install github.com/google/yamlfmt/cmd/yamlfmt@latest; \
+        echo "✅ yamlfmt installed!"; \
+    fi
+
+# YAML formatting and validation with yamlfmt
+[group('dev')]
+@format-yaml:
+    echo "🎨 Formatting YAML files with yamlfmt..."
+    yamlfmt .
+
+[group('dev')]
+@lint-yaml:
+    echo "🔍 Linting YAML files with yamlfmt..."
+    yamlfmt -lint .
+
+[group('dev')]
+@check-yaml:
+    echo "✅ Checking YAML formatting..."
+    yamlfmt -lint .
+    echo "YAML files are properly formatted!"
