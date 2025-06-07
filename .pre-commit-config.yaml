@@ -1,7 +1,7 @@
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.15.0
+    rev: v1.16.0
     hooks:
       - id: mypy
         additional_dependencies: [
@@ -21,7 +21,7 @@ repos:
       - id: check-toml
       - id: check-added-large-files
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.11.11
+    rev: v0.11.12
     hooks:
       - id: ruff
         entry: ruff check --force-exclude --no-cache
@@ -49,8 +49,13 @@ repos:
         types: [python]
         pass_filenames: false # Run full test suite
         stages: [pre-commit] # Only run on pre-commit
-
-
+  - repo: local
+    hooks:
+     -   id: check-vscode-extension-sync
+         name: Check VSCode Extension Sync
+         entry: uv run --with-editable . scripts/check_extension_sync.py
+         language: system
+         types: [json]
 # Global Exclusion
 # If you want to exclude py_launch_blueprint/_version.py from all pre-commit hooks,
 # you can use a global exclusion at the top level of your configuration:
@@ -62,7 +67,7 @@ repos:
 #   rev: v4.4.0
 #   hooks:
 #   - id: end-of-file-fixer
-
+#
 # Hook-Level Exclusion (Recommended Approach)
 # For your specific case where the end-of-file-fixer hook is modifying
 # py_launch_blue/print_version.py, the most targeted solution is to add an exclusion
