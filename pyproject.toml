@@ -41,6 +41,10 @@ docs = [
   "sphinxext-opengraph",      # https://github.com/wpilibsuite/sphinxext-opengraph
 ]
 
+publish = [
+  "hatch>=1.0.0", # For building the package
+  "twine>=4.0.0", # For uploading to PyPI
+]
 
 [project.scripts]
 py-projects = "py_launch_blueprint.projects:main"
