@@ -44,7 +44,7 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **TOML formatting and validation with `taplo`**: Verify Toml files for syntax correctness, maintain consistent configuration files, ensuring readability and avoiding syntax errors in critical project settings.
 
-- **YAML validation with `[TODO:tool under evaluation](https://github.com/smorin/py-launch-blueprint/issues/161)`**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
+- **YAML validation with [yamllint](docs/source/tools/yaml_lint.md)**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
 
 - **License header automation with `addlicense`**: Ensure all source files have consistent license headers using [addlicense](https://github.com/google/addlicense), a fast Go-based tool. Installed automatically in CI, requires Go (installed via `actions/setup-go` in GitHub Actions).
 
