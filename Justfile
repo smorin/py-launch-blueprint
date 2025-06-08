@@ -687,32 +687,6 @@ license-targets := "py_launch_blueprint tests docs/source/_templates"
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
 
-# Install Go
-[group('setup'), group('install')]
-@install-go:
-    if ! command -v go >/dev/null 2>&1; then \
-        echo "❗ Go is not installed."; \
-        echo "🔧 Installing Go..."; \
-        OS=$(uname); \
-        if [ "$$OS" = "Darwin" ]; then \
-            brew install go >/dev/null 2>&1; \
-        elif [ "$$OS" = "Linux" ]; then \
-            sudo apt update -qq && sudo apt install -y golang-go >/dev/null 2>&1; \
-        else \
-            echo "⚠️ Please install Go manually: https://go.dev/dl/"; \
-            exit 1; \
-        fi; \
-        if command -v go >/dev/null 2>&1; then \
-            echo "✅ Go installation complete."; \
-            echo "⚠️ Please update your PATH."; \
-        else \
-            echo "❌ Go installation failed. Please install manually."; \
-            exit 1; \
-        fi; \
-    else \
-        echo "✅ Go is already installed."; \
-    fi
-
 # Install yamlfmt
 [group('setup'), group('install')]
 @install-yamlfmt:
