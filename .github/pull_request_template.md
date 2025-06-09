@@ -1,110 +1,98 @@
 # Feature Pull Request
 
 ## Branch Naming Convention
-<!-- IMPORTANT: Your branch should follow our naming convention -->
-<!-- Format: feature/short-description-of-feature or feature/issue-number-description -->
-<!-- Example: feature/user-authentication or feature/123-user-auth -->
-Current branch: `<!-- Replace with your branch name -->`
+<!-- Use branch names like: feature/description or feature/123-description (e.g., feature/user-authentication or feature/123-user-auth) -->
+Current branch: BRANCH_NAME
 
 ## Related Issue
-<!-- IMPORTANT: Please verify this issue number is correct and exists -->
-<!-- Use the format: Closes #123 or Fixes #123 to automatically close the issue when this PR is merged -->
-Closes #
+<!-- IMPORTANT: Please verify this issue number is correct and exists to automatically close the issue when this PR is merged -->
+Closes #ISSUE_NUMBER
 
 ## Feature Description
 <!-- Provide a clear and concise description of the feature being implemented -->
-<!-- Example: This PR adds user authentication via OAuth2 with GitHub provider, allowing users to log in with their GitHub accounts. This includes the login flow, user profile creation, and session management. -->
 
 ## Implementation Details
 <!-- Provide a technical overview of how the feature was implemented -->
 <!-- Include architectural decisions and design patterns used -->
 <!-- Example:
-- Implemented using the Strategy pattern to allow for multiple auth providers in the future
-- Used JWT for session management with a 24-hour expiration
-- Created a middleware layer to handle authentication checks
+- Used Strategy pattern for multiple auth providers
+- Middleware for authentication checks
+-->
+
+**Important Notes (please address or acknowledge):**
+<!--
+- Mention any CI/CD failing checks unrelated to this PR
+- List any TODO items that are still pending and not closed by this PR
 -->
 
 ## Changes Made
-<!-- List the significant changes made to implement this feature -->
+<!-- List key changes made for this feature -->
 <!-- Example:
-- Added AuthService class to handle authentication flow
-- Created new database migrations for user table
-- Updated configuration to support OAuth settings
-- Added middleware for authenticated routes
-- Created login/logout endpoints
+- Added AuthService class to handle authentication
+- Created user table migrations
 -->
--
--
--
 
 ## Testing Performed
-<!-- Describe the testing you've done to validate the feature -->
-<!-- Include both automated and manual testing -->
+<!-- Describe the testing you've done both automated and manual to validate the feature -->
 <!-- Example:
-- Added unit tests for AuthService with 95% coverage
-- Added integration tests for authentication flow
-- Manually tested login flow on Chrome, Firefox, and Safari
-- Verified error handling for invalid credentials
+- Manually tested pre-commit passing on all files
+- Verified newly added workflows pass in CI/CD
+- Tested any new tool/command added
 -->
 
-## Pre-commit and Testing Instructions
-<!-- Follow these steps to run pre-commit hooks and tests before submitting -->
+## Testing Instructions
+<!-- Follow these steps to run and test before submitting -->
 
-**Running Pre-commit Hooks:**
+**Common Testing Instructions**
+
+To ensure code quality and consistency before submitting:
+
+**Install the package in editable mode with development dependencies**
+
+```just install-dev```
+
+**Run pre-commit checks on all files**
+
+```just pre-commit-run```
+
+**Run all tests (Note: The `just test` command is a project-specific test runner.)**
+
+```just test```
+
+**To run linting checks**
+
+```just lint```
+
+ **To run code formatting**
+
+```just format```
+
+**Install new dependencies or tools (if added):**
+
+If this PR adds new dependencies or tools, install them using the project’s recommended method (Justfile):
+
 ```bash
-# These are basic defaults for testing.
-# Please adjust as needed for complete testing of your changes
-
-# Install pre-commit if not already installed
-just pre-commit-setup
-
-# Run pre-commit on all files
-just pre-commit-run
+# Example installation command (replace with the actual one)
+just install-[tool-name]
 ```
-
-**Running Tests:**
-```bash
-# Run all tests
-just test
-# Note: The `just test` command is a project-specific command for running tests.
-# Please refer to the project documentation or the CONTRIBUTING.md file for setup instructions.
-```
-
--->
+**Testing just commands for new dependencies or tools (if added):**
+- ```just A``` # To test the A functionality
+- ```just B``` # To test the B functionality
 
 ## Documentation Updates
-<!-- Describe any documentation changes made or needed -->
-<!-- Include updates to Sphinx docs, README, etc. -->
+<!-- List any documentation changes made or needed -->
 <!-- Example:
-- Updated authentication section in docs/usage.md
-- Added new docs/auth.md file with detailed API documentation
-- Updated README.md with new authentication instructions
-- Added docstrings to all new classes and methods
+- Added new docs/auth.md
+- Updated README.md
+- Added docstrings to new classes/methods
 -->
-
-## Breaking Changes
-<!-- List any backwards-incompatible changes this PR introduces -->
-<!-- If none, state "None" -->
-<!-- Example: The config format has changed, existing config files need to be updated following the migration guide in docs/migrations.md -->
+-
 
 ## Checklist
 <!-- Please verify each item by checking the box -->
-- [ ] Branch name follows convention (`feature/description` or `feature/issue-number-description`)
 - [ ] Testing added to pre-commit hook (`pre-commit run --all-files` passes)
-- [ ] Testing added to CI/CD pipeline in GitHub Actions
+- [ ] All tests pass locally and in CI
 - [ ] Documentation added/updated in Sphinx
 - [ ] Appropriate unit test coverage added (run `pytest --cov` to verify)
-- [ ] New commands added to CLI (if applicable)
-- [ ] Code follows project style guidelines (`flake8` or equivalent passes)
-- [ ] All tests pass locally and in CI
 - [ ] Self-review of code performed
 - [ ] No debug print statements or commented-out code left in the codebase
-
-## Reviewer Notes
-<!-- Any specific areas that need careful review or explanation -->
-<!-- Highlight complex parts or areas where you're seeking feedback -->
-<!-- Example:
-- The authentication flow in auth_service.py:125-150 is complex and needs careful review
-- The database migration might need performance review for large datasets
-- Security review needed for the token generation logic
--->
