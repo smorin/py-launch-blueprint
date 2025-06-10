@@ -169,12 +169,42 @@ alias ca := check
 @run cmd=command_name *args=args:
     uvx --with-editable . {{cmd}} {{args}}
 
+# set up publishing configuration
+[group('install'), group('quick start')]
+@install-publish:
+    echo "Installing publishing dependencies..."
+    uv pip install ".[publish]"
+
 # Build package
 [group('build'), group('dev')]
 @build: check
-    uvx --with-editable . build #TODO: fix this does not work
+    echo "Checking for Hatch..."
+    if ! command -v hatch >/dev/null 2>&1; then \
+        echo ""; \
+        echo "⚠️  Hatch is not installed. Please install it using:"; \
+        echo "   uv pip install hatch"; \
+        echo ""; \
+        exit 1; \
+    fi
+    echo "Building package with Hatch..."
+    uvx hatch build
 
 alias b := build
+
+# Publish package to PyPI
+[group('build'), group('dev')]
+@publish: build
+    echo "Building package..."
+    just build
+    echo "Publishing package to PyPI..."
+    if ! command -v twine >/dev/null 2>&1; then \
+        echo "{{YELLOW}}Twine is not installed{{NC}}"; \
+        echo "Installing Twine..."; \
+        uv pip install twine; \
+    fi
+    uvx twine upload dist/*
+
+alias p := publish
 
 # Set up pre-commit hooks
 [group('setup'), group('pre-commit')]
