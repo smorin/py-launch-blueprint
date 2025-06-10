@@ -51,29 +51,31 @@ just check-license
 Since example.py lacks a header, addlicense will report missing license text.
 
 To auto-insert the header:
-```
+```bash
 just fix-license
 ```
 
 Re-run the check to confirm:
-```
+```bash
 just check-license
 ```
 ## 💻 Usage in CI/CD
 Format (fix) headers: ```just fix-license```
 
-- **Format (fix) headers**: \`just fix-license\`
-- **Validate headers**: \`just check-license\`
+- **Format (fix) headers**: `just fix-license`
+- **Validate headers**: `just check-license`
 
 In ```.github/workflows/ci.yaml```, we install addlicense and then run:
 
-```
+```bash
 - name: Install addlicense
   run: just install-addlicense
+```
 
+```bash
 - name: License header check
   run: just check-license
-\`\`\`
+```
 
 ---
 
@@ -94,8 +96,8 @@ repos:
           - mit
           - -y
           - "2025"
-          - --copyright
-          - "Copyright (c) 2025, Steve Morin"
+          - -c
+          - "Steve Morin"
         exclude: ^addlicense/testdata/.*
 ```
 
@@ -112,6 +114,7 @@ Remove license rules:
 2. Remove the ```just``` targets from ```Justfile```.
 
 ## 📚 References
-addlicense GitHub
-pre-commit-hooks
-Just – A Command Runner
+
+📘 addlicense (Google) – License header management tool
+
+📄 MIT License (opensource.org)
