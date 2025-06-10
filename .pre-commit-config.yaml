@@ -73,7 +73,6 @@ repos:
     # Global Exclusion
     # If you want to exclude py_launch_blueprint/_version.py from all pre-commit hooks,
     # you can use a global exclusion at the top level of your configuration:
-
     # text
     # exclude: '^py_launch_blueprint/_version\.py$' # This is the global exclusion
     # repos:

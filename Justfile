@@ -86,8 +86,10 @@ check-deps:
     if ! command -v just >/dev/null 2>&1; then echo "{{YELLOW}}just is not installed{{NC}}\n RUN {{BLUE}}make install-just{{NC}}"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}\n RUN {{BLUE}}just install-pre-commit{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "{{YELLOW}}Taplo is not installed{{NC}}\n RUN {{BLUE}}just install-taplo{{NC}}"; exit 1; fi
-    if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}make install-go{{NC}}"; exit 1; fi
-    if ! command -v yamlfmt >/dev/null 2>&1; then echo "{{YELLOW}}yamlfmt is not installed{{NC}}\n RUN {{BLUE}}make install-yamlfmt{{NC}}"; exit 1; fi
+    if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}just install-go{{NC}}"; exit 1; fi
+    if ! command -v npx >/dev/null 2>&1; then echo "{{YELLOW}}npx (Node.js) is not installed{{NC}}\n RUN {{BLUE}}just install-nvm{{NC}}"; exit 1; fi
+    if ! command -v yamlfmt >/dev/null 2>&1; then echo "{{YELLOW}}yamlfmt is not installed{{NC}}\n RUN {{BLUE}}just install-yamlfmt{{NC}}"; exit 1; fi
+    if ! npx --no-install secretlint --version >/dev/null 2>&1; then echo "{{YELLOW}}secretlint is not installed{{NC}}\n RUN {{BLUE}}just install-secretlint{{NC}}"; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -149,6 +151,62 @@ alias l := lint
     uvx --with-editable . mypy {{py_package_name}}/
 
 alias tc := typecheck
+
+# Install nvm node version manager
+[group('install')]
+install-nvm:
+    @echo "Checking ~/.zshrc..."
+    @if [ ! -f "$HOME/.zshrc" ]; then \
+        echo "Creating ~/.zshrc because it does not exist..."; \
+        touch "$HOME/.zshrc"; \
+    fi
+    @echo "Checking if NVM is installed..."
+    @if [ ! -d "$HOME/.nvm" ]; then \
+        echo "Installing NVM..."; \
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash; \
+    else \
+        echo "NVM already installed."; \
+    fi
+    @echo "Ensuring NVM is configured in ~/.zshrc..."
+    @grep -q 'export NVM_DIR="$HOME/.nvm"' ~/.zshrc || echo -e '\nexport NVM_DIR="$HOME/.nvm"\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.zshrc
+    @echo "Loading NVM and installing latest Node.js..."
+    @export NVM_DIR="$HOME/.nvm" && \
+     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && \
+     nvm install node && \
+     nvm use node && \
+     npm install -g npm@latest
+
+# Setup NVM configuration in .zshrc
+[group('configure')]
+setup-nvm-path:
+    @echo "Setting up NVM configuration in .zshrc"
+    @if ! grep -q "export NVM_DIR=\"\$HOME/.nvm\"" "$HOME/.zshrc"; then \
+        echo "export NVM_DIR=\"\$HOME/.nvm\"" >> "$HOME/.zshrc"; \
+        echo "[ -s \"\$NVM_DIR/nvm.sh\" ] && \. \"\$NVM_DIR/nvm.sh\"  # This loads nvm" >> "$HOME/.zshrc"; \
+        echo "[ -s \"\$NVM_DIR/bash_completion\" ] && \. \"\$NVM_DIR/bash_completion\"  # This loads nvm bash_completion" >> "$HOME/.zshrc"; \
+        echo "{{CHECK}} Added NVM configuration to .zshrc"; \
+    else \
+        echo "{{CHECK}} NVM configuration already exists in .zshrc"; \
+    fi
+
+# Install Secretlint
+[group('install')]
+@install-secretlint:
+	if ! npx --no-install secretlint --version > /dev/null 2>&1; then \
+		echo "{{YELLOW}}Secretlint not found. Installing...{{NC}}"; \
+		npm install secretlint @secretlint/secretlint-rule-preset-recommend --save-dev && \
+		echo "{{GREEN}}Secretlint installed successfully.{{NC}}"; \
+	else \
+		echo "{{GREEN}}Secretlint is already installed.{{NC}}"; \
+	fi
+
+# Run Lint secrets
+[group('dev'), group('pre-commit')]
+@lint-secrets:
+    echo "🔍 Running secretlint... Please wait."
+    npx --yes secretlint "**/*" && echo "✅ Secretlint completed successfully." || (echo "❌ Secretlint found issues!" && exit 1)
+
+alias ls := lint-secrets
 
 # Run tests
 [group('test'), group('dev')]
