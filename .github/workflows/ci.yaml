@@ -74,10 +74,10 @@ jobs:
     # Addlicense install step
     - name: Install addlicense
       run: |
-          just install-addlicense
-          echo "$HOME/go/bin" >> $GITHUB_PATH
-          which addlicense
-          addlicense -version || echo "Addlicense installed"
+        just install-addlicense
+        echo "$HOME/go/bin" >> $GITHUB_PATH
+        which addlicense
+        addlicense -version || echo "Addlicense installed"
 
     # Use just recipe for license check
     - name: License header check
