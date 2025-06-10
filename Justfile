@@ -87,6 +87,7 @@ check-deps:
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}\n RUN {{BLUE}}just install-pre-commit{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "{{YELLOW}}Taplo is not installed{{NC}}\n RUN {{BLUE}}just install-taplo{{NC}}"; exit 1; fi
     if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}make install-go{{NC}}"; exit 1; fi
+    if ! command -v addlicense >/dev/null 2>&1; then echo "{{YELLOW}}addlicense is not installed{{NC}}\n RUN {{BLUE}}just install-addlicense{{NC}}"; exit 1; fi
     if ! command -v yamlfmt >/dev/null 2>&1; then echo "{{YELLOW}}yamlfmt is not installed{{NC}}\n RUN {{BLUE}}make install-yamlfmt{{NC}}"; exit 1; fi
     echo "All required tools are installed"
 
@@ -685,6 +686,7 @@ install-addlicense:
     if ! command -v {{addlicense_bin}} >/dev/null 2>&1; then echo "{{YELLOW}}addlicense is not installed{{NC}}\n RUN {{BLUE}}just install-addlicense{{NC}}"; exit 1; fi
     echo "🔍 Checking license headers..."
     find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      ! -name "_version.py" \
       | xargs {{addlicense_bin}} -check -c "{{license-copyright}}" -l "{{license-type}}" -y "{{license-year}}" -s -v
     echo "✅ All license headers are correct."
 
@@ -694,6 +696,7 @@ install-addlicense:
     if ! command -v {{addlicense_bin}} >/dev/null 2>&1; then echo "{{YELLOW}}addlicense is not installed{{NC}}\n RUN {{BLUE}}just install-addlicense{{NC}}"; exit 1; fi
     echo "🛠️ Fixing license headers..."
     find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      ! -name "_version.py" \
       | xargs {{addlicense_bin}} -c "{{license-copyright}}" -l "{{license-type}}" -y "{{license-year}}" -s -v
     echo "✅ License headers fixed."
     echo "💡 You can verify with 'just check-license'"
