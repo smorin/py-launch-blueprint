@@ -115,6 +115,6 @@ Remove license rules:
 
 ## 📚 References
 
-📘 addlicense (Google) – License header management tool
+- 📘 [addlicense (Google) – License header management tool](https://github.com/google/addlicense)
 
-📄 MIT License (opensource.org)
+- 📄 [MIT License – opensource.org](https://opensource.org/licenses/MIT)
