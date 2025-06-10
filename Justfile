@@ -628,6 +628,9 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     # just build
     # just run
 
+# Alias for dev (full developer cycle: format → lint → test → build)
+alias cycle := dev
+
 # Install Go
 [group('setup'), group('install')]
 @install-go:
@@ -662,30 +665,38 @@ license-type := "mit"
 # Path to addlicense binary
 addlicense_bin := "$HOME/go/bin/addlicense"
 
-# Install addlicense tool
-[group('setup'), group('install')]
-install-addlicense:
-    @echo "🔧 Installing addlicense..."
-    go install github.com/google/addlicense@latest
-    @echo "✅ Done. Ensure '$HOME/go/bin' is in your PATH."
-
-# Check license headers (requires addlicense)
-[group('pre-commit'), group('dev')]
-@check-license: install-addlicense
-    find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
-      | xargs {{addlicense_bin}} -check -c {{license-copyright}} -l {{license-type}} -y {{license-year}} -s -v
-
-# Fix/add license headers (requires addlicense)
-[group('pre-commit'), group('dev')]
-@fix-license: install-addlicense
-    find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
-      | xargs {{addlicense_bin}} -c {{license-copyright}} -l {{license-type}} -y {{license-year}} -s -v
-
 # Directories and file types to check/fix
 license-targets := "py_launch_blueprint tests docs/source/_templates"
 
-# Alias for dev (full developer cycle: format → lint → test → build)
-alias cycle := dev
+# Install addlicense tool
+[group('setup'), group('install')]
+install-addlicense:
+    @if command -v {{addlicense_bin}} >/dev/null 2>&1; then \
+        echo "✅ addlicense is already installed"; \
+    else \
+        echo "🔧 Installing addlicense..."; \
+        go install github.com/google/addlicense@latest; \
+        echo "✅ Done. Ensure '$HOME/go/bin' is in your PATH."; \
+    fi
+
+# Check license headers (requires addlicense)
+[group('pre-commit'), group('dev')]
+@check-license:
+    if ! command -v {{addlicense_bin}} >/dev/null 2>&1; then echo "{{YELLOW}}addlicense is not installed{{NC}}\n RUN {{BLUE}}just install-addlicense{{NC}}"; exit 1; fi
+    echo "🔍 Checking license headers..."
+    find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      | xargs {{addlicense_bin}} -check -c "{{license-copyright}}" -l "{{license-type}}" -y "{{license-year}}" -s -v
+    echo "✅ All license headers are correct."
+
+# Fix/add license headers (requires addlicense)
+[group('pre-commit'), group('dev')]
+@fix-license:
+    if ! command -v {{addlicense_bin}} >/dev/null 2>&1; then echo "{{YELLOW}}addlicense is not installed{{NC}}\n RUN {{BLUE}}just install-addlicense{{NC}}"; exit 1; fi
+    echo "🛠️ Fixing license headers..."
+    find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      | xargs {{addlicense_bin}} -c "{{license-copyright}}" -l "{{license-type}}" -y "{{license-year}}" -s -v
+    echo "✅ License headers fixed."
+    echo "💡 You can verify with 'just check-license'"
 
 # Install yamlfmt
 [group('setup'), group('install')]
