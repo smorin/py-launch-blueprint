@@ -86,9 +86,10 @@ check-deps:
     if ! command -v just >/dev/null 2>&1; then echo "{{YELLOW}}just is not installed{{NC}}\n RUN {{BLUE}}make install-just{{NC}}"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}\n RUN {{BLUE}}just install-pre-commit{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "{{YELLOW}}Taplo is not installed{{NC}}\n RUN {{BLUE}}just install-taplo{{NC}}"; exit 1; fi
-    if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}make install-go{{NC}}"; exit 1; fi
-    if ! command -v yamlfmt >/dev/null 2>&1; then echo "{{YELLOW}}yamlfmt is not installed{{NC}}\n RUN {{BLUE}}make install-yamlfmt{{NC}}"; exit 1; fi
-    if ! npx --no-install secretlint --version >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: secretlint is not installed via npm{{NC}}"; fi
+    if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}just install-go{{NC}}"; exit 1; fi
+    if ! command -v npx >/dev/null 2>&1; then echo "{{YELLOW}}npx (Node.js) is not installed{{NC}}\n RUN {{BLUE}}just install-nvm{{NC}}"; exit 1; fi
+    if ! command -v yamlfmt >/dev/null 2>&1; then echo "{{YELLOW}}yamlfmt is not installed{{NC}}\n RUN {{BLUE}}just install-yamlfmt{{NC}}"; exit 1; fi
+    if ! npx --no-install secretlint --version >/dev/null 2>&1; then echo "{{YELLOW}}secretlint is not installed{{NC}}\n RUN {{BLUE}}just install-secretlint{{NC}}"; fi
     echo "All required tools are installed"
 
 alias c := check-deps
