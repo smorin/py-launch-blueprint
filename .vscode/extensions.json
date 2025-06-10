@@ -7,6 +7,10 @@
         "tamasfe.even-better-toml",
         "redhat.vscode-yaml",
         "eamodio.gitlens",
-        "streetsidesoftware.code-spell-checker"
+        "streetsidesoftware.code-spell-checker",
+        "coderabbit.coderabbit-vscode",
+        "GitHub.vscode-pull-request-github",
+        "GitHub.vscode-github-actions",
+        "Anthropic.claude-code"
     ]
 }
