@@ -70,6 +70,23 @@ repos:
     types: [python]
     pass_filenames: false  # Run full test suite
     stages: [pre-commit]  # Only run on pre-commit
+- repo: local
+  hooks:
+  - id: addlicense
+    name: Add license headers
+    entry: addlicense
+    language: system
+    files: \.(py|sh|go)$
+    args:
+    - --check
+    - -l
+    - mit
+    - -y
+    - "2025"
+    - -c
+    - "Steve Morin"
+    exclude: ^(addlicense/testdata/.*|\.git/.*)$
+
     # Global Exclusion
     # If you want to exclude py_launch_blueprint/_version.py from all pre-commit hooks,
     # you can use a global exclusion at the top level of your configuration:
