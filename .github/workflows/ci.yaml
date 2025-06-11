@@ -75,9 +75,17 @@ jobs:
         just pre-commit-setup
         just pre-commit-run
 
-      # Upload coverage (if tests are being run)
-      # - name: Upload coverage
-      #   uses: codecov/codecov-action@v4
+      # Run tests with coverage
+    - name: Run tests with coverage
+      run: |
+        just test-cov
+
+    # Upload coverage report to Codecov
+    - name: Upload coverage
+      uses: codecov/codecov-action@v4
+      with:
+        files: coverage.xml
+        fail_ci_if_error: true
 
       # Only run security checks on pull requests from the main repository
       # TODO: Waiting on response from support@pyup.io disabled until then
