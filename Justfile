@@ -166,7 +166,7 @@ alias ca := check
 
 # Run tests with coverage reporting
 [group('test'), group('dev')]
-@test-cov: test coverage
+@test-cov:
     pytest --cov --cov-report=term-missing --cov-report=html --cov-report=xml
     echo "✅ All coverage tests passed!"
 
