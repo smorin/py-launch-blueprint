@@ -301,14 +301,15 @@ debug-info:
 
 # Update CONTRIBUTORS.md file
 [group('build')]
-@contributors:
-update-contributors:
+@update-contributors:
     echo "Updating CONTRIBUTORS.md..."
     # Cross-platform way to update CONTRIBUTORS.md using git shortlog
     echo "# Contributors" > CONTRIBUTORS.md
     echo "" >> CONTRIBUTORS.md
     git shortlog -sne >> CONTRIBUTORS.md
     echo "✓ Contributors list updated"
+
+alias uc := update-contributors
 
 # Verify commit messages follow conventional commit format
 [group('pre-commit')]
@@ -628,9 +629,8 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
     # just build
     # just run
 # Contributors update (cross-platform Bash/PowerShell)
-contributor-update:
-contributor-update:
-    if [ "$OS" = "Windows_NT" ]; then \
+@contributor-update:
+    if [[ "$$OSTYPE" == "msys" || "$$OSTYPE" == "win32" || "$$OSTYPE" == "cygwin" ]]; then \
         if [ -f scripts/update_contributors.ps1 ]; then \
             powershell -ExecutionPolicy Bypass -File scripts/update_contributors.ps1; \
         else \
