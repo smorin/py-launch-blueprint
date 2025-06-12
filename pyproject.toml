@@ -47,7 +47,7 @@ py-launch = "py_launch_blueprint.projects:main"   #This creates the Docker Templ
 py-projects = "py_launch_blueprint.projects:main"
 
 [build-system]
-requires = ["hatchling", "hatch-vcs", "setuptools>=64", "setuptools-scm>=8"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [tool.setuptools_scm]
