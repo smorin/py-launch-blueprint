@@ -10,7 +10,8 @@ Docker support automates the setup of a consistent development and runtime envir
 - **Pre-installed dependencies** including Python 3.11, uv, just, and Docker CLI
 - **Isolated execution** preventing conflicts with local Python installations
 - **Fast setup** with single command container builds
-- **CI/CD ready** for automated testing and deployment
+- **VS Code Dev Containers** for seamless development experience
+- **Docker-in-Docker** support for testing Docker-based CLI features
 
 ---
 
@@ -19,13 +20,17 @@ Docker support automates the setup of a consistent development and runtime envir
 ### Prerequisites
 
 - [Docker](https://www.docker.com/) installed and running
+- [VS Code](https://code.visualstudio.com/) with [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) (for development)
 
-### Basic Setup Steps
-1. Ensure Docker is installed and running on your system
-2. Build the container using the provided justfile commands
-3. The container includes all necessary tools and your CLI application pre-installed
+### Development Setup (Recommended)
 
-### Quick Example
+#### Option 1: VS Code Dev Containers
+1. Open the project in VS Code
+2. When prompted, click "Reopen in Container" or use `Cmd+Shift+P` → "Dev Containers: Reopen in Container"
+3. VS Code will automatically build the container and set up the development environment
+4. All tools (`uv`, `just`, `ruff`, `mypy`) are pre-installed and ready to use
+
+#### Option 2: Manual Container Build
 ```bash
 # Build the Docker container
 just container-setup
@@ -34,13 +39,20 @@ just container-setup
 just container-test
 ```
 
+### Quick Example
+```bash
+# In VS Code Dev Container or manual setup
+just format          # Format code with ruff
+just test            # Run tests
+just lint            # Run linter
+```
+
 ---
 
 ## Usage
 
 ### Common Use Cases
 - **Development**: Test CLI changes in isolated environment
-- **CI/CD**: Run automated tests and builds
 - **Distribution**: Package and deploy the CLI tool
 - **Troubleshooting**: Debug issues in clean environment
 
@@ -53,6 +65,29 @@ just container-test
 - **Working Directory**: `/app`
 - **Build Backend**: Hatchling with hatch-vcs for version management
 - **Package Manager**: uv for fast dependency installation
+
+### Dev Container Configuration (`.devcontainer/devcontainer.json`)
+```json
+{
+  "name": "py-launch-blueprint",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "ms-python.mypy-type-checker"
+      ]
+    }
+  }
+}
+```
 
 ---
 
@@ -70,9 +105,22 @@ just container-test
 ## Troubleshooting
 
 ### Common Issues
-1. **Build Failures**: Clean rebuild with `docker build --no-cache`
-2. **Permission Issues**: Run as current user with `--user $(id -u):$(id -g)`
-3. **Token Authentication**: Verify `PY_TOKEN` environment variable is set
+
+#### Dev Container Issues
+1. **"Workspace does not exist"**: Rebuild container with `Dev Containers: Rebuild Container`
+2. **Permission denied**: Ensure Docker Desktop is running
+3. **Extensions not loading**: Clear VS Code cache and rebuild
+4. **Tool not found** (`uv`, `just`): Force rebuild without cache
+
+#### Build Failures
+1. **Cache issues**: Use `docker build --no-cache`
+2. **Network problems**: Check internet connection for tool downloads
+3. **Permission issues**: Run as current user with `--user $(id -u):$(id -g)`
+
+#### Runtime Issues
+1. **Token authentication**: Verify `PY_TOKEN` environment variable is set
+2. **Docker socket access**: Ensure `/var/run/docker.sock` is accessible
+3. **Memory issues**: Increase Docker Desktop memory allocation
 
 ### Debug Commands
 ```bash
@@ -88,4 +136,5 @@ docker build --no-cache -t py-launch-dev:latest -f .devcontainer/Dockerfile . --
 ## References
 
 - [Docker Documentation](https://docs.docker.com/)
+- [VS Code Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers)
 - [Python 3.11 Docker Images](https://hub.docker.com/_/python)
