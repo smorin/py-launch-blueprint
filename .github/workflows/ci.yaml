@@ -78,7 +78,7 @@ jobs:
       # Run tests with coverage
     - name: Run tests with coverage
       run: |
-        just test-cov
+        just coverage
 
     # Upload coverage report to Codecov
     - name: Upload coverage report to Codecov
