@@ -643,11 +643,11 @@ alias cycle := dev
 
 # Test Docker container functionality
 [group('test')]
-container-test: container-setup
-    @echo "🧪 Testing Docker container..."
+@container-test: container-setup
+    echo "🧪 Testing Docker container..."
     docker run --rm py-launch-dev:latest --help
     docker run --rm py-launch-dev:latest --version
-    @echo "✅ Docker integration working!"
+    echo "✅ Docker integration working!"
 
 # Install Go
 [group('setup'), group('install')]

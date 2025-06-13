@@ -1,92 +1,87 @@
 # Using Docker with `py-launch-blueprint`
 
-This project includes full support for running and testing via Docker. This ensures a reproducible, isolated development environment with all tools preinstalled — including the CLI, `just`, `ruff`, and test dependencies.
+This project includes Docker support for running and testing the CLI tool in a consistent, isolated environment. The containerized version includes all necessary dependencies and tools — including the CLI, `just`, `uv`, Docker CLI, and development tools.
+
+## Purpose and Problem Solved
+Docker support automates the setup of a consistent development and runtime environment for the py-launch CLI tool. It eliminates "works on my machine" issues and provides a reproducible environment with all dependencies pre-installed, helping maintain development consistency and simplifying deployment.
+
+## Key Benefits and Value Proposition
+- **Consistent environment** across all development machines and CI/CD
+- **Pre-installed dependencies** including Python 3.11, uv, just, and Docker CLI
+- **Isolated execution** preventing conflicts with local Python installations
+- **Fast setup** with single command container builds
+- **CI/CD ready** for automated testing and deployment
 
 ---
 
-## 🐳 Getting Started
+## Getting Started
 
-### 1. **Build the Docker Image**
+### Basic Setup Steps
+1. Ensure Docker is installed and running on your system
+2. Build the container using the provided justfile commands
+3. The container includes all necessary tools and your CLI application pre-installed
 
-From the project root:
-
+### Quick Example
 ```bash
-docker build -t py-launch-dev -f .devcontainer/Dockerfile .
+# Build the Docker container
+just container-setup
+
+# Test the CLI tool
+just container-test
 ```
 
-### 2. **Run the Container**
+---
 
+## Usage
+
+### Common Use Cases
+- **Development**: Test CLI changes in isolated environment
+- **CI/CD**: Run automated tests and builds
+- **Distribution**: Package and deploy the CLI tool
+- **Troubleshooting**: Debug issues in clean environment
+
+---
+
+## Configuration
+
+### Key Configuration Options
+- **Base Image**: `python:3.11-slim` (lightweight and secure)
+- **Working Directory**: `/app`
+- **Build Backend**: Hatchling with hatch-vcs for version management
+- **Package Manager**: uv for fast dependency installation
+
+---
+
+## Testing
+
+### Standalone Testing
 ```bash
-docker run --rm -it py-launch-dev
+# Build and test the container
+just container-setup
+just container-test
 ```
-
-This launches the container and drops you into an interactive shell where you can run CLI commands.
 
 ---
 
-## 🛠️ CLI Usage
+## Troubleshooting
 
-Once inside the container, the CLI is available directly via the `py-launch` entrypoint:
+### Common Issues
+1. **Build Failures**: Clean rebuild with `docker build --no-cache`
+2. **Permission Issues**: Run as current user with `--user $(id -u):$(id -g)`
+3. **Token Authentication**: Verify `PY_TOKEN` environment variable is set
 
+### Debug Commands
 ```bash
-py-launch
-```
+# Access container shell for debugging
+docker run --rm -it --entrypoint /bin/bash py-launch-dev:latest
 
-Or using any aliases/scripts defined:
-
-```bash
-just
-just test
-just lint
+# Check build logs
+docker build --no-cache -t py-launch-dev:latest -f .devcontainer/Dockerfile . --progress=plain
 ```
 
 ---
 
-## ⚙️ Available Commands
+## References
 
-| Command         | Description                      |
-|----------------|----------------------------------|
-| `just`          | Show all available recipes       |
-| `just test`     | Run unit tests inside container  |
-| `just lint`     | Run Ruff linter checks           |
-| `just format`   | Run formatter (`ruff format`)    |
-| `py-launch`     | Run the CLI tool                 |
-
----
-
-## 🧪 Running in CI
-
-The Dockerfile is suitable for CI environments. You can use it in GitHub Actions or other CI runners like:
-
-```yaml
-- name: Build image
-  run: docker build -t py-launch-dev -f .devcontainer/Dockerfile .
-
-- name: Run tests
-  run: docker run --rm py-launch-dev just test
-```
-
----
-
-## 🔄 Rebuilding the Container
-
-If you change dependencies or update the Dockerfile, rebuild with:
-
-```bash
-docker build --no-cache -t py-launch-dev -f .devcontainer/Dockerfile .
-```
-
----
-
-## ✅ Requirements
-
-- [Docker](https://docs.docker.com/get-docker/) installed
-- Optional: [Just](https://github.com/casey/just) installed locally if using `just` outside container
-
----
-
-## 🧰 Container Notes
-
-- **Base Image**: Python 3.11 Slim
-- **Includes**: `just`, `ruff`, `pytest`, `uv`, Docker CLI, and your project code
-- **Mounts Docker socket** (optional, see `.devcontainer/devcontainer.json`)
+- [Docker Documentation](https://docs.docker.com/)
+- [Python 3.11 Docker Images](https://hub.docker.com/_/python)
