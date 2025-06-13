@@ -63,14 +63,14 @@ Update your `ci.yml` or test workflow to pass the token:
 
 ### Command References and Syntax
 
-#### Run coverage locally:
+#### Run tests with coverage and generate HTML + XML reports:
 ```bash
-just coverage-run
+just coverage
 ```
 
-#### Run and generate only HTML + XML reports:
+#### Open the local HTML coverage report:
 ```bash
-just coverage-report-html
+just open-coverage-report
 ```
 
 ---
@@ -93,7 +93,7 @@ just coverage-report-html
 
 ### Standalone Testing
 
-- Run `just coverage-run` locally and verify:
+- Run `just coverage` locally and verify:
   - Tests pass
   - Coverage summary appears
   - `coverage.xml` is created in the project root
