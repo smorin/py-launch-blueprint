@@ -1,4 +1,5 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+[![codecov](https://codecov.io/gh/smorin/py-launch-blueprint/branch/main/graph/badge.svg)](https://codecov.io/gh/smorin/py-launch-blueprint)
 
 # Py Launch Blueprint: A Production-Ready 🐍 Python Project Template with Integrated Best Practices
  Py Launch Blueprint is a comprehensive Python project template that eliminates setup friction by providing a pre-configured development environment with carefully selected tools for linting, formatting, and type checking. It includes an annotated CLI example and detailed documentation explaining each tool choice and configuration decision, making it an ideal starting point for professional Python projects.
@@ -75,6 +76,8 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 - **CI/CD with `GitHub Actions`**: Automatically test, build, and deploy your project on multiple Python versions, catching compatibility issues early.
 
 - **Matrix testing with `GitHub Actions`**: Run tests across multiple Python versions and operating systems, ensuring broad compatibility.
+
+- **Code coverage with `Codecov`**: Coverage reports are automatically uploaded via GitHub Actions and can also be generated locally with just commands `just coverage`.
 
 - **Simplified debugging info with `just debug-info`**: Automatically collect and format essential system, tool, and dependency information for streamlined bug reporting via a simple command.
 

@@ -126,6 +126,7 @@ max-line-length = 88
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
+addopts = "--cov=py_launch_blueprint --cov-report=xml --cov-report=term-missing"
 # addopts = "-v"
 
 [tool.mypy]
