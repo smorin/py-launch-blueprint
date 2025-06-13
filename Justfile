@@ -634,6 +634,21 @@ clean-pr-to-testrepo new_repo_name="test-actions-repo":
 # Alias for dev (full developer cycle: format → lint → test → build)
 alias cycle := dev
 
+# Build Docker container
+[group('build'), group('dev')]
+@container-setup:
+    echo "🔨 Building Docker container..."
+    docker build -t py-launch-dev:latest -f .devcontainer/Dockerfile .
+    echo "✅ Built py-launch-dev:latest"
+
+# Test Docker container functionality
+[group('test')]
+@container-test: container-setup
+    echo "🧪 Testing Docker container..."
+    docker run --rm py-launch-dev:latest --help
+    docker run --rm py-launch-dev:latest --version
+    echo "✅ Docker integration working!"
+
 # Install Go
 [group('setup'), group('install')]
 @install-go:

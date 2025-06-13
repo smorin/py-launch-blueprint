@@ -62,6 +62,7 @@ docs = [
 
 
 [project.scripts]
+py-launch = "py_launch_blueprint.projects:main"   #This creates the Docker Template
 py-projects = "py_launch_blueprint.projects:main"
 
 [build-system]

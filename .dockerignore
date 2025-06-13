@@ -1,0 +1,7 @@
+__pycache__/
+.devcontainer/
+.vscode/
+*.pyc
+*.pyo
+*.pyd
+*.pytest_cache/
