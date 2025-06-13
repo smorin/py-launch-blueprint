@@ -19,14 +19,6 @@ COPY .git/ ./.git/
 COPY tests/ ./tests/
 COPY Justfile ./
 
-# Initialize git repository for version detection
-# RUN git init . && \
-#     git config user.email "build@docker.com" && \
-#     git config user.name "Docker Build" && \
-#     git add . && \
-#     git commit -m "Initial commit" && \
-#     git tag v0.0.1
-
 # Install build dependencies
 RUN pip install --no-cache-dir --upgrade pip hatchling hatch-vcs
 

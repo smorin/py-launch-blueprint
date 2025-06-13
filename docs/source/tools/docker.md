@@ -16,6 +16,10 @@ Docker support automates the setup of a consistent development and runtime envir
 
 ## Getting Started
 
+### Prerequisites
+
+- [Docker](https://www.docker.com/) installed and running
+
 ### Basic Setup Steps
 1. Ensure Docker is installed and running on your system
 2. Build the container using the provided justfile commands
