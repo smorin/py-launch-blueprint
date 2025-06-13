@@ -81,7 +81,7 @@ jobs:
         just test-cov
 
     # Upload coverage report to Codecov
-    - name: Upload coverage
+    - name: Upload coverage report to Codecov
       uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
