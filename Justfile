@@ -166,19 +166,19 @@ alias ca := check
 
 # Run tests with coverage reporting
 [group('test'), group('dev')]
-@test-cov:
+@coverage-run:
     pytest --cov --cov-report=term-missing --cov-report=html --cov-report=xml
     echo "✅ All coverage tests passed!"
 
 # Run tests with coverage and generate HTML report
 [group('test'), group('dev')]
-@test-cov-html:
+@coverage-report-html:
     pytest --cov --cov-report=html --cov-report=xml
     echo "✅ Coverage report generated at htmlcov/index.html"
 
 # Open coverage report
 [group('test'), group('dev')]
-@coverage-report:
+@open-coverage-report:
     open htmlcov/index.html
 
 # Run package command.

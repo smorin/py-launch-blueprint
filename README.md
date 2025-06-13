@@ -77,6 +77,8 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **Matrix testing with `GitHub Actions`**: Run tests across multiple Python versions and operating systems, ensuring broad compatibility.
 
+- **Code coverage with `Codecov`**: Coverage reports are automatically uploaded via GitHub Actions and can also be generated locally with just commands `just coverage-run`.
+
 - **Simplified debugging info with `just debug-info`**: Automatically collect and format essential system, tool, and dependency information for streamlined bug reporting via a simple command.
 
 ### GitHub Integration
