@@ -84,7 +84,7 @@ check-deps:
     if ! command -v uv >/dev/null 2>&1; then echo "{{YELLOW}}uv is not installed{{NC}}\n RUN {{BLUE}}make install-uv{{NC}}"; exit 1; fi
     if ! command -v python3 >/dev/null 2>&1; then echo "{{YELLOW}}python3 is not installed{{NC}}"; exit 1; fi
     if ! command -v just >/dev/null 2>&1; then echo "{{YELLOW}}just is not installed{{NC}}\n RUN {{BLUE}}make install-just{{NC}}"; exit 1; fi
-    if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}\n RUN {{BLUE}}just install-pre-commit{{NC}}"; fi
+    if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}\n RUN {{BLUE}}just pre-commit-setup{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "{{YELLOW}}Taplo is not installed{{NC}}\n RUN {{BLUE}}just install-taplo{{NC}}"; exit 1; fi
     if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}just install-go{{NC}}"; exit 1; fi
     if ! command -v addlicense >/dev/null 2>&1; then echo "{{YELLOW}}addlicense is not installed{{NC}}\n RUN {{BLUE}}just install-addlicense{{NC}}"; exit 1; fi
