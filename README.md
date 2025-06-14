@@ -46,6 +46,8 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **YAML validation with [yamllint](docs/source/tools/yaml_lint.md)**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
 
+- **License header automation with `addlicense`**: Ensure all source files have consistent license headers using [addlicense](https://github.com/google/addlicense), a fast Go-based tool. Installed automatically in CI, requires Go (installed via `actions/setup-go` in GitHub Actions).
+
 ### Project Structure & Management
 
 - **Project configuration with `pyproject.toml`**: Organize all project settings in one standardized location, simplifying maintenance and configuration.

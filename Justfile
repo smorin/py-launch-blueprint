@@ -84,10 +84,11 @@ check-deps:
     if ! command -v uv >/dev/null 2>&1; then echo "{{YELLOW}}uv is not installed{{NC}}\n RUN {{BLUE}}make install-uv{{NC}}"; exit 1; fi
     if ! command -v python3 >/dev/null 2>&1; then echo "{{YELLOW}}python3 is not installed{{NC}}"; exit 1; fi
     if ! command -v just >/dev/null 2>&1; then echo "{{YELLOW}}just is not installed{{NC}}\n RUN {{BLUE}}make install-just{{NC}}"; exit 1; fi
-    if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}\n RUN {{BLUE}}just install-pre-commit{{NC}}"; fi
+    if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}\n RUN {{BLUE}}just pre-commit-setup{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "{{YELLOW}}Taplo is not installed{{NC}}\n RUN {{BLUE}}just install-taplo{{NC}}"; exit 1; fi
-    if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}make install-go{{NC}}"; exit 1; fi
-    if ! command -v yamlfmt >/dev/null 2>&1; then echo "{{YELLOW}}yamlfmt is not installed{{NC}}\n RUN {{BLUE}}make install-yamlfmt{{NC}}"; exit 1; fi
+    if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}just install-go{{NC}}"; exit 1; fi
+    if ! command -v addlicense >/dev/null 2>&1; then echo "{{YELLOW}}addlicense is not installed{{NC}}\n RUN {{BLUE}}just install-addlicense{{NC}}"; exit 1; fi
+    if ! command -v yamlfmt >/dev/null 2>&1; then echo "{{YELLOW}}yamlfmt is not installed{{NC}}\n RUN {{BLUE}}just install-yamlfmt{{NC}}"; exit 1; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -491,9 +492,6 @@ pr-to-testrepo pr_number new_repo_name="test-actions-repo":
     #repo_url=$(gh repo view {{new_repo_name}} --json url -q .url); \
     #echo -e "{{GREEN}}{{CHECK}} Repository created and ready for testing at: ${repo_url}{{NC}}"
 
-
-
-
 # Cleanup / Delete test repository from a PR from pr-to-testrepo
 [group('workflow')]
 [confirm("Are you sure you want to delete the remote repository '{{new_repo_name}}' and clean up the local directory?")]
@@ -637,28 +635,50 @@ alias cycle := dev
 # Install Go
 [group('setup'), group('install')]
 @install-go:
-    if ! command -v go >/dev/null 2>&1; then \
-        echo "❗ Go is not installed."; \
-        echo "🔧 Installing Go..."; \
-        OS=$(uname); \
-        if [ "$$OS" = "Darwin" ]; then \
-            brew install go >/dev/null 2>&1; \
-        elif [ "$$OS" = "Linux" ]; then \
-            sudo apt update -qq && sudo apt install -y golang-go >/dev/null 2>&1; \
-        else \
-            echo "⚠️ Please install Go manually: https://go.dev/dl/"; \
-            exit 1; \
-        fi; \
-        if command -v go >/dev/null 2>&1; then \
-            echo "✅ Go installation complete."; \
-            echo "⚠️ Please update your PATH."; \
-        else \
-            echo "❌ Go installation failed. Please install manually."; \
-            exit 1; \
-        fi; \
+    @bash scripts/install_go.sh
+
+# License metadata
+license-copyright := "Steve Morin"
+license-year := "2025"
+license-type := "mit"
+
+# Path to addlicense binary
+addlicense_bin := "$HOME/go/bin/addlicense"
+
+# Directories and file types to check/fix
+license-targets := "py_launch_blueprint tests docs/source/_templates"
+
+# Install addlicense tool
+[group('setup'), group('install')]
+install-addlicense:
+    @if command -v {{addlicense_bin}} >/dev/null 2>&1; then \
+        echo "✅ addlicense is already installed"; \
     else \
-        echo "✅ Go is already installed."; \
+        echo "🔧 Installing addlicense..."; \
+        go install github.com/google/addlicense@latest; \
+        echo "✅ Done. Ensure '$HOME/go/bin' is in your PATH."; \
     fi
+
+# Check license headers (requires addlicense)
+[group('pre-commit'), group('dev')]
+@check-license:
+    if ! command -v {{addlicense_bin}} >/dev/null 2>&1; then echo "{{YELLOW}}addlicense is not installed{{NC}}\n RUN {{BLUE}}just install-addlicense{{NC}}"; exit 1; fi
+    echo "🔍 Checking license headers..."
+    find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      ! -name "_version.py" \
+      | xargs {{addlicense_bin}} -check -c "{{license-copyright}}" -l "{{license-type}}" -y "{{license-year}}" -s -v
+    echo "✅ All license headers are correct."
+
+# Fix/add license headers (requires addlicense)
+[group('pre-commit'), group('dev')]
+@fix-license:
+    if ! command -v {{addlicense_bin}} >/dev/null 2>&1; then echo "{{YELLOW}}addlicense is not installed{{NC}}\n RUN {{BLUE}}just install-addlicense{{NC}}"; exit 1; fi
+    echo "🛠️ Fixing license headers..."
+    find {{license-targets}} -type f \( -name "*.py" -o -name "*.sh" -o -name "*.go" \) \
+      ! -name "_version.py" \
+      | xargs {{addlicense_bin}} -c "{{license-copyright}}" -l "{{license-type}}" -y "{{license-year}}" -s -v
+    echo "✅ License headers fixed."
+    echo "💡 You can verify with 'just check-license'"
 
 # Install yamlfmt
 [group('setup'), group('install')]
