@@ -46,6 +46,8 @@ Teams and professionals needing maintainable, type-safe Python projects followin
 
 - **YAML validation with [yamllint](docs/source/tools/yaml_lint.md)**: Verify YAML files for syntax correctness, preventing configuration errors and deployment failures.
 
+- **Docker & Dev Container support with [VS Code](docs/source/tools/docker.md)**: Reproduce identical environments across systems using Docker and Dev Containers. Simplify onboarding, eliminate setup issues, and enable Docker-in-Docker workflows for testing CLI tools in isolated, production-like environments.
+
 ### Project Structure & Management
 
 - **Project configuration with `pyproject.toml`**: Organize all project settings in one standardized location, simplifying maintenance and configuration.
