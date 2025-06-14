@@ -85,7 +85,7 @@ repos:
     - "2025"
     - -c
     - "Steve Morin"
-    exclude: ^(addlicense/testdata/.*|\.git/.*|py_launch_blueprint/_version\.py)$
+    exclude: ^(addlicense/testdata/.*|\.git/.*|.*\.sh|py_launch_blueprint/_version\.py)$
 
     # Global Exclusion
     # If you want to exclude py_launch_blueprint/_version.py from all pre-commit hooks,
