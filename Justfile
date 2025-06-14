@@ -86,9 +86,9 @@ check-deps:
     if ! command -v just >/dev/null 2>&1; then echo "{{YELLOW}}just is not installed{{NC}}\n RUN {{BLUE}}make install-just{{NC}}"; exit 1; fi
     if ! command -v pre-commit >/dev/null 2>&1; then echo "{{YELLOW}}WARNING: pre-commit is not installed{{NC}}\n RUN {{BLUE}}just install-pre-commit{{NC}}"; fi
     if ! command -v taplo >/dev/null 2>&1; then echo "{{YELLOW}}Taplo is not installed{{NC}}\n RUN {{BLUE}}just install-taplo{{NC}}"; exit 1; fi
-    if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}make install-go{{NC}}"; exit 1; fi
+    if ! command -v go >/dev/null 2>&1; then echo "{{YELLOW}}go is not installed{{NC}}\n RUN {{BLUE}}just install-go{{NC}}"; exit 1; fi
     if ! command -v addlicense >/dev/null 2>&1; then echo "{{YELLOW}}addlicense is not installed{{NC}}\n RUN {{BLUE}}just install-addlicense{{NC}}"; exit 1; fi
-    if ! command -v yamlfmt >/dev/null 2>&1; then echo "{{YELLOW}}yamlfmt is not installed{{NC}}\n RUN {{BLUE}}make install-yamlfmt{{NC}}"; exit 1; fi
+    if ! command -v yamlfmt >/dev/null 2>&1; then echo "{{YELLOW}}yamlfmt is not installed{{NC}}\n RUN {{BLUE}}just install-yamlfmt{{NC}}"; exit 1; fi
     echo "All required tools are installed"
 
 alias c := check-deps
@@ -635,28 +635,7 @@ alias cycle := dev
 # Install Go
 [group('setup'), group('install')]
 @install-go:
-    if ! command -v go >/dev/null 2>&1; then \
-        echo "❗ Go is not installed."; \
-        echo "🔧 Installing Go..."; \
-        OS=$(uname); \
-        if [ "$$OS" = "Darwin" ]; then \
-            brew install go >/dev/null 2>&1; \
-        elif [ "$$OS" = "Linux" ]; then \
-            sudo apt update -qq && sudo apt install -y golang-go >/dev/null 2>&1; \
-        else \
-            echo "⚠️ Please install Go manually: https://go.dev/dl/"; \
-            exit 1; \
-        fi; \
-        if command -v go >/dev/null 2>&1; then \
-            echo "✅ Go installation complete."; \
-            echo "⚠️ Please update your PATH."; \
-        else \
-            echo "❌ Go installation failed. Please install manually."; \
-            exit 1; \
-        fi; \
-    else \
-        echo "✅ Go is already installed."; \
-    fi
+    @bash scripts/install_go.sh
 
 # License metadata
 license-copyright := "Steve Morin"
